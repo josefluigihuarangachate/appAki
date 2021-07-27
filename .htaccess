@@ -1,0 +1,19 @@
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php
+
+php_value upload_max_filesize 40M
+php_value post_max_size 40M
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*) index.php?gn=$1 [L]
+
+php_value upload_max_filesize 40M
+php_value post_max_size 40M
+#Para No Mostrar Error de Notice
+#php_value error_reporting 2
+#php_flag display_errors On
+</IfModule>

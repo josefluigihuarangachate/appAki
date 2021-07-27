@@ -1,0 +1,12 @@
+https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDezU9TFYMqHBD_m0jaxlupt8QBVZe2oio&address=Av. Raúl Ferrero 1561, La Molina 15024
+
+
+
+
+
+
+https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyDezU9TFYMqHBD_m0jaxlupt8QBVZe2oio
+
+
+
+https://api.opencagedata.com/geocode/v1/json?q=Santa Anita&key=60c99ad7fa9a42a79c6974d7465f5bcc

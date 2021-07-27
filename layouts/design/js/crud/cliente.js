@@ -1,0 +1,94 @@
+function listado() {
+    $.post(ruta + "Cliente", {cmd: 'listarturnoxreparto'}, function (json) {
+
+        var div = "";
+        var divm = "";
+        var divt = "";
+        var divn = "";
+        var diverr = "";
+
+        if (json['status'] == 'Ok') {
+            var data = json['data'];
+            if (data) {
+                for (var i = 0; i < data.length; i++) {
+                    div = "";
+                    div += '<li>';
+                    div += '<a href="#" onclick="getIdTurnoxRepartidor(' + data[i].idturnoxcliente + ',\'' + data[i].estadoturno + '\',\'' + (data[i].nombrecliente + ' ' + data[i].apellidopaternocliente) + '\',\'' + data[i].numerocelcliente + '\',\'' + data[i].direccion1cliente + '\');" class="item">';
+
+                    var imgAtencion = "recojo";
+                    if (data[i].estadoturno == 'Despacho') {
+                        imgAtencion = "despacho";
+                    }
+
+                    div += '<img src="design/aki/' + imgAtencion + '.png" alt="image" class="image">';
+                    div += '<div class="in">';
+                    div += '<div>';
+                    div += '<label class="label fontSize-1">' + data[i].nombrecliente + ' ' + data[i].apellidopaternocliente + ' ' + data[i].apellidomaternocliente + '</label>';
+                    div += '<header class="header fontSize-2">' + data[i].numerocelcliente + '</header>';
+                    div += '<footer class="footer fontSize-3">' + data[i].direccion1cliente + '</footer>';
+                    div += '</div>';
+                    div += '<div>';
+                    div += '<footer style="float: right;font-size: 11px;width: 100%;margin-left: 10px;color: #fff;font-weight: bold;" class="badge badge-danger">' + data[i].horaturno + '</footer>';
+                    div += '</div>';
+                    div += '</div>';
+                    div += '</a>';
+                    div += '</li>';
+
+                    if (data[i].puestoturno == 'Temprano') {
+                        divm += "" + div;
+                    } else if (data[i].puestoturno == 'Tarde') {
+                        divt += "" + div;
+                    } else if (data[i].puestoturno == 'Noche') {
+                        divn += "" + div;
+                    }
+                }
+
+                if (divm != null) {
+                    document.getElementById("turnomaniana").innerHTML = divm;
+                }
+
+                if (divt != null) {
+                    document.getElementById("turnotarde").innerHTML = divt;
+                }
+
+                if (divn != null) {
+                    document.getElementById("turnonoche").innerHTML = divn;
+                }
+
+
+            }
+        } else {
+            div += '<div class="card">';
+            div += '<div class="card-body">';
+            div += '<div>';
+            div += '<center>';
+            div += json['msg'];
+            div += '</center>';
+            div += '</div>';
+            div += '</div>';
+            div += '</div>';
+            document.getElementById("turnomaniana").innerHTML = "" + div;
+            document.getElementById("turnotarde").innerHTML = "" + div;
+            document.getElementById("turnonoche").innerHTML = "" + div;
+        }
+
+        //PARA ARMAR EL MAPA
+        clienteMapa(data);
+    });
+
+}
+listado();
+
+// CONSULTAR CLIENTES RECOJO Y REPARTOS
+function getIdTurnoxRepartidor(id, estadoturno, nombrecliente, telefono, direccion) {
+    $.post(ruta + "Cliente", {idturnoxrepartidor: id, estadoturno: estadoturno, nombrecliente: nombrecliente, telefono: telefono, direccion: direccion, cmd: 'guardaridturnoxrepartidor'}, function (json) {
+        console.log(json['msg']);
+        location.href = "detalle";
+    });
+}
+// FIN
+
+
+function clienteMapa(datos) {
+    console.log(datos);
+}
