@@ -7,20 +7,20 @@
 
 function tabla($name) {
     $table = array(
-        'receta'=> 'RECETA',
-        'repartidor' => 'REPARTIDOR',
-        'zona' => 'ZONA',
-        'zonaxrepartidor' => 'ZONAXREPARTIDOR',
-        'distrito' => 'DISTRITO',
-        'cliente' => 'CLIENTE',
-        'color' => 'COLOR',
-        'turnoxcliente' => 'TURNOXCLIENTE',
-        'articulo' => 'ARTICULO',
-        'marca' => 'MARCA',
-        'prenda' => 'PRENDA',
-        'servicio' => 'SERVICIO',
-        'estadoprenda' => 'ESTADOPRENDA',
-        'prenda' => 'PRENDA'
+        'receta' => 'receta',
+        'repartidor' => 'repartidor',
+        'zona' => 'zona',
+        'zonaxrepartidor' => 'zonaxrepartidor',
+        'distrito' => 'distrito',
+        'cliente' => 'cliente',
+        'color' => 'color',
+        'turnoxcliente' => 'turnoxcliente',
+        'articulo' => 'articulo',
+        'marca' => 'marca',
+        'prenda' => 'prenda',
+        'servicio' => 'servicio',
+        'estadoprenda' => 'estadoprenda',
+        'prenda' => 'prenda'
     );
 
     return @strval(@$table[$name]);
