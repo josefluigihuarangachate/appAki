@@ -47,7 +47,7 @@
                         <div><a href="#" class="text-muted">Olvide mi cuenta?</a></div>
                     </div>
                     <div class="form-button-group  transparent">
-                        <button type="button" class="btn btn-primary btn-block btn-lg mycolor btnsend" onclick="DialogAlert();">INICIAR SESIÓN</button>
+                        <button type="button" class="btn btn-primary btn-block btn-lg btnsend" onclick="DialogAlert();">INICIAR SESIÓN</button>
                     </div>
                 </form>
             </div>

@@ -13,13 +13,26 @@ if ($ajax) {
                         tabla('servicio') . ".Codigo_Servicio(codigoservicio)",
                         tabla('servicio') . ".Nombre_Servicio(nombreservicio)",
                         tabla('servicio') . ".Estado_Servicio(estadoservicio)",
+                        tabla('servicio') . ".Dias_Servicio(diasservicio)",
                     ],
                     [
                         tabla('servicio') . ".Estado_Servicio" => 'Activo',
+                    ],
+                    [
+                        // Multiple condition.
+                        "ORDER" => [
+                            "Nombre_Servicio" => "ASC"
+                        ]
                     ]
             );
 
             if ($data) {
+                
+                // Ejm: https://academy.leewayweb.com/como-ordenar-un-array-multidimensional-en-php/
+                usort($data, function (array $elem1, $elem2) {
+                    return $elem1['nombreservicio'] <=> $elem2['nombreservicio'];
+                });
+
                 $json['code'] = '200';
                 $json['status'] = 'Ok';
                 $json['msg'] = strings('success_read');

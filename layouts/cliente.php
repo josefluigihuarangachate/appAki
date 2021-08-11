@@ -1,5 +1,6 @@
 <?php
 include "./include/sessionstart/session.php";
+require '../servicios/include/function.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -7,8 +8,15 @@ include "./include/sessionstart/session.php";
         <?php
         include "./include/header/header_login.php";
         ?>
+        <style>
+            .iframeMap{
+                width: 100%;
+                height: calc(100vh - 100px);
+            }
+        </style>
     </head>
     <body class="<?php echo @$_SESSION['themedark']; ?>">
+        <input type="hidden" hidden="hidden" id="idrepartidor" name="idrepartidor" value="<?php echo @$_SESSION[atributo('id')]; ?>">
 
         <!-- App Header -->
         <div class="appHeader">
@@ -33,10 +41,7 @@ include "./include/sessionstart/session.php";
                 <div class="card">
                     <div class="card-body">
                         <div class="mb-05">
-                            Que desea buscar...
-                            <span class="badge badge-info" style="float: right;border-radius: 50px;width: 30px;height: 30px;font-size: 30px;" data-bs-toggle="modal" data-bs-target="#mapaclientes">
-                                <ion-icon name="map-outline"></ion-icon>
-                            </span>
+                            Que desea buscar...                            
                         </div>
                         <div class="form-group basic animated">
                             <div class="input-wrapper">
@@ -55,11 +60,11 @@ include "./include/sessionstart/session.php";
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Mapa de Ayuda</h5>
-                            <a href="javascript:;" data-bs-dismiss="modal">Cerrar</a>
+                            <h5 class="modal-title">Mapa - Turno <label id="turnoname"></label></h5>
+                            <a href="javascript:;" data-bs-dismiss="modal" onclick="cerrarmapaporturno();">Cerrar</a>
                         </div>
                         <div class="modal-body">
-                            <div id="map" style="width: 100%;height: calc(100vh - 100px);"></div> 
+                            <div id="iframeMap" name="iframeMap" class="iframeMap"></div> 
                         </div>
                     </div>
                 </div>
@@ -67,70 +72,49 @@ include "./include/sessionstart/session.php";
             <!-- * Modal Basic -->
 
 
+            <div class="section mt-2">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" style="width: 100% !important;">
+                                VER MAPA POR TURNO
+                            </button>
+                            <div class="dropdown-menu" style="width: 100% !important;">
+                                <a class="dropdown-item" href="#" onclick="mapaporturno('Mañana');" data-bs-toggle="modal" data-bs-target="#mapaclientes">
+                                    <ion-icon name="arrow-forward-outline"></ion-icon>&nbsp;&nbsp;<ion-icon name="map-outline"></ion-icon>
+                                    TURNO MAÑANA
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" onclick="mapaporturno('Tarde');" data-bs-toggle="modal" data-bs-target="#mapaclientes">
+                                    <ion-icon name="arrow-forward-outline"></ion-icon>&nbsp;&nbsp;<ion-icon name="map-outline"></ion-icon>
+                                    TURNO TARDE
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
             <div id="divturnos" class="divturnos">
 
-                <div class="listview-title mt-2">Turno Mañana</div>
+                <div class="listview-title mt-2">
+                    Turno Mañana
+                </div>
                 <ul class="listview image-listview inset turnomaniana" id="turnomaniana" name="turnomaniana">
                 </ul>
 
-                <div class="listview-title mt-2">Turno Tarde</div>
+                <div class="listview-title mt-2">
+                    Turno Tarde
+                </div>
                 <ul class="listview image-listview inset turnotarde" id="turnotarde" name="turnotarde">
-
-
-
-
-
-
-                    <!--                    <li>
-                                            <a href="#" class="item">
-                                                <img src="design/aki/recojo.png" alt="image" class="image">
-                                                <div class="in">
-                                                    <div>
-                    
-                                                        <label class="label">Ana Margarita Rodriguez Santamarina</label>
-                                                        <header class="header">+51934505203</header>                                
-                                                        <footer class="footer">AA.hh la molina</footer>
-                                                        <footer style="float: right;font-size: 13px;position: relative;">08:09:00</footer>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="item">
-                                                <img src="design/aki/despacho.png" alt="image" class="image">
-                                                <div class="in">
-                                                    <div>
-                                                        <label class="label">Henry Margarita Rodriguez Santamarina</label>
-                                                        <header class="header">+51934505203</header>                                
-                                                        <footer class="footer">AA.hh la molina</footer>
-                                                    </div>
-                                                    <div>
-                                                        <label style="float: right;font-size: 13px;position: relative;">08:09:00</label>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>-->
-
-
-
-
-
-
-
-
-
-
                 </ul>
-
-                <div class="listview-title mt-2">Turno Noche</div>
-                <ul class="listview image-listview inset turnonoche" id="turnonoche" name="turnonoche">
-                </ul>
-
             </div>
         </div>
         <br>
         <!-- * App Capsule -->   
-
 
         <?php
         include "./include/bottom_menu.php";
@@ -142,24 +126,14 @@ include "./include/sessionstart/session.php";
         <script src="design/js/crud/searchFilter.js<?php echo @$v; ?>" type="text/javascript"></script>
         <script src="design/js/crud/cliente.js<?php echo @$v; ?>" type="text/javascript"></script>
 
-
-
         <script>
+                                    function mapaporturno(tipoturno) {
+                                        document.getElementById("turnoname").innerHTML = tipoturno;
+                                        document.getElementById("iframeMap").innerHTML = "<iframe src='design/leafletRealtime/examples/?tipoturno=" + tipoturno + "' class='iframeMap'></iframe>";
+                                    }
 
-                                    // Initialize and add the map
-                                    function initMap() {
-                                        // The location of Uluru
-                                        const uluru = {lat: -25.344, lng: 131.036};
-                                        // The map, centered at Uluru
-                                        const map = new google.maps.Map(document.getElementById("map"), {
-                                            zoom: 4,
-                                            center: uluru,
-                                        });
-                                        // The marker, positioned at Uluru
-                                        const marker = new google.maps.Marker({
-                                            position: uluru,
-                                            map: map,
-                                        });
+                                    function cerrarmapaporturno() {
+                                        document.getElementById("iframeMap").innerHTML = "";
                                     }
         </script>
     </body>

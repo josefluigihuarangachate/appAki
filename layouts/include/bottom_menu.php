@@ -64,7 +64,7 @@
                 <?php
                 //echo '<pre>';
                 //var_dump($_SESSION['lgid']);
-                echo @$_SESSION['lgnombrecorto'];
+                echo @$_SESSION['nombrecorto'];
                 //echo '</pre>';
                 ?>
                 <br>
@@ -95,7 +95,13 @@
                             <div class="in">
                                 <div>MODO OSCURO</div>
                                 <div class="form-check form-switch  ms-2">
-                                    <input class="form-check-input dark-mode-switch" type="checkbox" id="cambiarthemedark">
+                                    <input class="form-check-input dark-mode-switch" type="checkbox" id="cambiarthemedark"
+                                    <?php
+                                    if (@$_SESSION['themedark'] != '') {
+                                        echo " checked";
+                                    }
+                                    ?>
+                                           >
                                     <label class="form-check-label" for="cambiarthemedark"></label> 
                                 </div>
                             </div>

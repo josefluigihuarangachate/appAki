@@ -24,17 +24,6 @@ $v = "?v=" . date("Ydmhis");
         background-color: #0d4872 !important;
         border: 2px solid #12598e !important;
     }
-    /*    .class-ion-icon {        
-            font-size: 18px;
-            position: absolute;
-            right: 16px;
-            color: #A9ABAD;
-            opacity: 0.6;
-            line-height: 1em;
-            height: 18px;
-            top: 50%;
-            margin-top: -9px;
-        }*/
     .td_header, .td_header > a{
         text-align: center;
         padding-top: 10px;
@@ -79,14 +68,42 @@ $v = "?v=" . date("Ydmhis");
         right: 0px !important;
         margin: 10px !important;
     }
+
+    /*
+    https://thecodebeast.com/post/how-to-change-select2-box-height/144
+    */    
+    .select2-selection__rendered {
+        background-color: transparent !important;
+        line-height: 45px !important;
+        width: 100% !important;
+        /*        border: 1px solid transparent !important;
+                border-bottom: 1px solid #ccc !important;*/
+    }
+    .select2-container .select2-selection--single {
+        background-color: transparent !important;
+        height: 45px !important;
+        /*        border: 1px solid transparent !important;*/
+    }
+    .select2-selection__arrow {
+        background-color: transparent !important;
+        height: 45px !important;
+
+        /*        border: 1px solid transparent !important;*/
+    }
 </style>
 <script>
     var divStr = '<div id="divdialogalert" name="divdialogalert"></div>';
     document.write(divStr);
+    var inputStr = '<input type="hidden" hidden="hidden" value="<?php echo @$_SESSION['id']; ?>" id="idrepartidor" name="idrepartidor">';
+    document.write(inputStr);
 </script>
 
-<!--<link href="design/leaflet/dist/leaflet.css" rel="stylesheet" type="text/css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-<script src="design/leaflet/dist/leaflet.js" type="text/javascript" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>-->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-    
+
+<!--PONER ULTIMOS-->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<script src="design/js/moment.js" type="text/javascript"></script>
+<script src="design/js/moment-with-locales.js" type="text/javascript"></script>
+<script>
+    moment.locale();
+</script>

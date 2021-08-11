@@ -26,9 +26,11 @@ include "./include/sessionstart/session.php";
         </div>
         <!-- * App Header -->
 
-        <!-- App Capsule -->
-
-        <div id="appCapsule" name="appCapsule">
+        <!-- Transactions -->
+        <div class="section mt-4">
+            <div class="transactions" id="appCapsule" name="appCapsule">
+            </div>
+            <!-- * Transactions -->
         </div>
         <br>
         <!-- * App Capsule -->   
@@ -40,6 +42,6 @@ include "./include/sessionstart/session.php";
         <?php
         include "./include/footer/footer_login.php";
         ?>
-        <script src="design/js/crud/zonaXrepartidor.js<?php echo @$v; ?>" type="text/javascript"></script>
+        <script src="design/js/crud/zonaXrepartidor.js<?php //echo @$v;     ?>" type="text/javascript"></script>
     </body>
 </html>

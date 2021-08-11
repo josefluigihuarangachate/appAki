@@ -51,10 +51,6 @@ function listado() {
                     document.getElementById("turnotarde").innerHTML = divt;
                 }
 
-                if (divn != null) {
-                    document.getElementById("turnonoche").innerHTML = divn;
-                }
-
 
             }
         } else {
@@ -69,11 +65,7 @@ function listado() {
             div += '</div>';
             document.getElementById("turnomaniana").innerHTML = "" + div;
             document.getElementById("turnotarde").innerHTML = "" + div;
-            document.getElementById("turnonoche").innerHTML = "" + div;
         }
-
-        //PARA ARMAR EL MAPA
-        clienteMapa(data);
     });
 
 }
@@ -87,8 +79,3 @@ function getIdTurnoxRepartidor(id, estadoturno, nombrecliente, telefono, direcci
     });
 }
 // FIN
-
-
-function clienteMapa(datos) {
-    console.log(datos);
-}

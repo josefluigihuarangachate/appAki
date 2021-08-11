@@ -59,10 +59,10 @@ function imprimir($print) {
 // EJM : lgid | lgcodigorepartidor | lgnombrerepartidor | lgapellidorepartidor | lgavatarrepartidor
 function atributo($input) {
     $r1 = @str_replace("_", "", @$input);
-    return "lg" . strtolower(@$r1);
+    return "" . strtolower(@$r1);
 }
 
 function session($namesession) {
     $ns1 = @str_replace("_", "", @$namesession);
-    return @$_SESSION["lg" . strtolower(@$ns1)];
+    return @$_SESSION["" . strtolower(@$ns1)];
 }

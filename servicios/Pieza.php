@@ -5,23 +5,31 @@ include './include/session.php';
 
 if ($ajax) {
     if (METODO($method) == 'GET') {
-        if ($cmd == 'listaprendas') {
+        if ($cmd == 'listapiezasxprenda') {
+            $idprenda = input('idprenda');
             $data = $pdo->select(
-                    tabla('prenda'),
+                    tabla('receta'),
                     [
-                        tabla('prenda') . ".id(idprenda)",
-                        tabla('prenda') . ".Codigo_Prendaxarticulo(codigoprendaxarticulo)",
-                        tabla('prenda') . ".Nombre_Prendaxarticulo(nombreprendaxarticulo)",
+                        //INNER JOIN
+                        "[><]" . tabla('articulo') =>
+                        [
+                            tabla('receta') . ".IdArticuloPieza_Receta" => "id"
+                        ],
                     ],
                     [
-                        tabla('prenda') . ".Estado_Prendaxarticulo" => 'Activo',
+                        tabla('articulo') . ".id(idpieza)",
+                        tabla('articulo') . ".Nombre_Articulo(nombrepieza)",
+                    ],
+                    [
+                        tabla('receta') . '.IdArticulo_Receta' => $idprenda,
                     ]
             );
 
-            if ($data) {
+            if ($data || empty($data)) {
                 $json['code'] = '200';
                 $json['status'] = 'Ok';
                 $json['msg'] = strings('success_read');
+                $json['cantpiezas'] = count($data);
                 $json['data'] = $data;
             } else {
                 $json['msg'] = strings('error_read');
