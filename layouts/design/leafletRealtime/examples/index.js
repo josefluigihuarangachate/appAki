@@ -1,8 +1,8 @@
 window.$_GET = new URLSearchParams(location.search);
 var tipoturno = $_GET.get('tipoturno');
 
-var latSanBorja = -77.00627;
-var lonSanBorja = -12.09337;
+var latSanBorja = -77.0061022;
+var lonSanBorja = -12.0940738;
 
 var map = L.map('mapid'),
         realtime = L.realtime(ruta + 'Repartidor?cmd=ultimaubicacionrepartidor', {
@@ -52,8 +52,8 @@ var arrClientes = function () {
                             "<h4>Nombre del Cliente:</h4> " + data[i].nombrecliente + " " + data[i].apellidopaternocliente + " " + data[i].apellidomaternocliente
                                     + '<br>' + "<h4>Dirección:</h4> " + data[i].direccion1cliente
                                     + '<br>' + "<h4>Celular:</h4> " + data[i].numerocelcliente
-                                    + '<br>' + "<h4>Estado:</h4> <center><span class='" + className + "'>" + data[i].estadoturno.toUpperCase() + "</span></center>"
-
+                                    + '<br>' + "<h4>Estado:</h4> <center><span class='" + className + "'>" + data[i].estadoturno.toUpperCase() + "</span></center>",
+                            data[i].estadoturno.toUpperCase()
                         ]);
                     }
                 }
@@ -65,9 +65,14 @@ var arrClientes = function () {
 
 var markers = arrClientes;
 
-var Paquete = L.icon({
-    iconUrl: '../../aki/paquete.png',
-    iconSize: [35, 30]
+var PaqueteEntrega = L.icon({
+    iconUrl: '../../aki/despacho-circulo.png',
+    iconSize: [30, 30]
+});
+
+var PaqueteRecojo = L.icon({
+    iconUrl: '../../aki/recojo-circulo.png',
+    iconSize: [30, 30]
 });
 
 var LavanderiaAki = L.icon({
@@ -75,18 +80,31 @@ var LavanderiaAki = L.icon({
     iconSize: [35, 30]
 });
 
-
 //Loop through the markers array
+var newMarkers = [];
 for (var i = 0; i < markers.length; i++) {
-    var lon = markers[i][1];
     var lat = markers[i][0];
+    var lon = markers[i][1];
     var popupText = markers[i][2];
-    L.marker([lat, lon], {
-        icon: Paquete // here assign the markerIcon var
-    })
-            .addTo(this.map)
-            .bindPopup(popupText)
-            .openPopup();
+    var tipo_despacho = markers[i][3];
+
+    if (tipo_despacho === 'RECOJO') {
+        L.marker([lat, lon], {
+            icon: PaqueteRecojo // here assign the markerIcon var
+        })
+                .addTo(this.map)
+                .bindPopup(popupText)
+                .openPopup();
+    } else if (tipo_despacho === 'ENTREGA') {
+        L.marker([lat, lon], {
+            icon: PaqueteEntrega // here assign the markerIcon var
+        })
+                .addTo(this.map)
+                .bindPopup(popupText)
+                .openPopup();
+    }
+
+
 
     if (i === parseInt(markers.length - 1)) {
         popupText = "LAVANDERIA AKI - SAN BORJA";
@@ -97,7 +115,14 @@ for (var i = 0; i < markers.length; i++) {
                 .bindPopup(popupText)
                 .openPopup();
     }
+    newMarkers.push([
+        lat,
+        lon,
+        popupText
+    ]);
 }
+markers = newMarkers;
+
 
 
 realtime.on('update', function () {

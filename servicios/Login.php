@@ -32,6 +32,7 @@ if ($ajax) {
             $_SESSION[atributo('apellido_repartidor')] = @$data[0]['apellido_repartidor'];
             $_SESSION[atributo('avatar_repartidor')] = @$data[0]['avatar_repartidor'];
             $_SESSION[atributo('id_zona')] = @$data[0]['id_zona'];
+            $_SESSION[atributo('mac_impresora')] = strval(@$data[0]['idimpresora']);
 
             //SHORT NAME
             $nom = explode(' ', @$data[0]['nombre_repartidor']);

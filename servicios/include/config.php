@@ -11,15 +11,45 @@ date_default_timezone_set('America/Lima');
   define('DB_PASS', 'admin');
  */
 
-define('DB_TYPE', 'mysql');
-define('DB_HOST', '151.106.96.241');
-define('DB_NAME', 'u460301108_dbaki');
-define('DB_USER', 'u460301108_aki');
-define('DB_PASS', 'u460301108_Aki');
+/*
+  SERVIDOR
+ * https://demo1.reidemotech.com/layouts/login
+  define('DB_TYPE', 'mysql');
+  define('DB_HOST', '151.106.96.241');
+  define('DB_NAME', 'u460301108_dbaki');
+  define('DB_USER', 'u460301108_aki');
+  define('DB_PASS', 'u460301108_Aki');
+ */
 
-define('FOTOS', '');
+define('DB_TYPE', 'mysql');
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'dbaki');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+
+define('RUTA_PDF', 'archivos/despacho_recojo/');
 //define('RUTA_SERVICIOS', 'http://192.168.0.103:81/appAki/servicios/');
 //define('RUTA_DESIGN', 'http://192.168.0.103:81:81/appAki/design/');
+// ACTUALIZAR FECHA ACTUAL DE TURNOXCLIENTE
+/*
+  UPDATE `turnoxcliente`
+  SET
+  `fecha_turno` = DATE(CURDATE())
+  WHERE id > 0;
+ */
+
+// BUSCAR IDS QUE SE REPITEN
+/*
+  https://www.baulphp.com/buscar-registros-repetidos/
+
+  select `codigo_articulo`,  count(`codigo_articulo`) c from articulo
+  group by `codigo_articulo` having c > 1;
+ */
+
+// SIRVE PARA QUE EL AUTOINCREMENT DE UNA TABLA, INSERTE DESDE EL 1, ejm: ALTER TABLE mi_tabla AUTO_INCREMENT = 1;
+/*
+  ALTER TABLE `articulo` AUTO_INCREMENT = 1;
+ */
 
 $json = array(
     'status' => 'Error',

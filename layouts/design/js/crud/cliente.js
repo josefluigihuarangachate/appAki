@@ -23,6 +23,7 @@ function listado() {
                     div += '<img src="design/aki/' + imgAtencion + '.png" alt="image" class="image">';
                     div += '<div class="in">';
                     div += '<div>';
+                    div += '<label class="label fontSize-1">NR°. ORDEN: ' + data[i].numeroorden + '</label>';
                     div += '<label class="label fontSize-1">' + data[i].nombrecliente + ' ' + data[i].apellidopaternocliente + ' ' + data[i].apellidomaternocliente + '</label>';
                     div += '<header class="header fontSize-2">' + data[i].numerocelcliente + '</header>';
                     div += '<footer class="footer fontSize-3">' + data[i].direccion1cliente + '</footer>';

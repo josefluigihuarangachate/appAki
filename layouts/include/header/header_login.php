@@ -90,13 +90,33 @@ $v = "?v=" . date("Ydmhis");
 
         /*        border: 1px solid transparent !important;*/
     }
+
+    body{
+        font-size: 16px !important;
+    }
+    h5{
+        font-size: 18px;
+    }
 </style>
 <script>
     var divStr = '<div id="divdialogalert" name="divdialogalert"></div>';
     document.write(divStr);
+    
     var inputStr = '<input type="hidden" hidden="hidden" value="<?php echo @$_SESSION['id']; ?>" id="idrepartidor" name="idrepartidor">';
     document.write(inputStr);
+    
+    var inputMac = '<input type="hidden" hidden="hidden" value="<?php echo @$_SESSION['macimpresora']; ?>" id="macimpresora" name="macimpresora">';
+    document.write(inputMac);
 </script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"></script>
+<script type="text/javascript">
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.worker.min.js";
+</script>
+
+
 
 
 <!--PONER ULTIMOS-->

@@ -66,3 +66,33 @@ function session($namesession) {
     $ns1 = @str_replace("_", "", @$namesession);
     return @$_SESSION["" . strtolower(@$ns1)];
 }
+
+// SIRVE PARA CONVERTIR IMAGEN A BLOB POR RUTA, SOLO SIRVE PARA HTML
+// Ejm: https://stackoverflow.com/a/66197139/16488926
+function convertirblobimageporruta($path) {
+    $image = base64_encode(file_get_contents($path));
+    return "data:image/png;base64,$image";
+}
+
+// SIRVE PARA SABER EL DIA EN ESPAÑOL DE UNA FECHA
+function nombreDia($fecha) {
+    $diaFecha = date('w', strtotime($fecha));
+    switch ($diaFecha) {
+        case 0:
+            return 'domingo';
+        case 1:
+            return 'lunes';
+        case 2:
+            return 'martes';
+        case 3:
+            return 'miércoles';
+        case 4:
+            return 'jueves';
+        case 5:
+            return 'viernes';
+        case 6:
+            return 'sábado';
+        default:
+            return '';
+    }
+}

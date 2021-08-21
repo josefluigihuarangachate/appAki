@@ -17,10 +17,13 @@ function tabla($name) {
         'turnoxcliente' => 'turnoxcliente',
         'articulo' => 'articulo',
         'marca' => 'marca',
+        'orden' => 'orden',
+        'promocion' => 'promocion',
+        'promocionxarticulo' => 'promocionxarticulo',
         'prenda' => 'prenda',
         'servicio' => 'servicio',
         'estadoprenda' => 'estadoprenda',
-        'prenda' => 'prenda'
+        'prenda' => 'prenda',        
     );
 
     return @strval(@$table[$name]);

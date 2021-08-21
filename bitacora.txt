@@ -1,2 +1,25 @@
-Instalar para soporte de .htaccess:
-Helicon Ape addon
+
+XAMPP:
+
+modificar el max_input_vars:
+    max_input_vars = 900000
+    https://help.dreamhost.com/hc/es/articles/360021621152-Ajustar-max-input-vars
+    https://www.it-swarm-es.com/es/php/advertencia-un-formulario-en-esta-pagina-tiene-mas-de-1000-campos-php-mysql/1050563344/
+
+Quitar punto y coma a:
+    extension=intl
+
+
+Poner Imagen en dompdf (Descomentar o agregar en el xampp):
+    extension=gd
+    https://github.com/GoogleCloudPlatform/php-docs-samples/issues/446#issuecomment-856161968
+
+
+
+
+
+EXCEL:
+
+concatenar celdas:
+    https://es.extendoffice.com/documents/excel/1252-excel-combine-cells-with-space-commas-semicolon.html
+

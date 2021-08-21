@@ -34,7 +34,7 @@ if ($ajax) {
     } else if (METODO($method) == 'POST') {
         if ($cmd == 'registrartagscolor') {
             $nombrecolor = input('color');
-            if (!empty($nombrecolor)) {
+            if (!empty($nombrecolor) && !is_numeric($nombrecolor)) {
                 try {
                     $data = $pdo->insert(tabla('color'), [
                         "Nombre_Color" => strtoupper(strtolower($nombrecolor)),

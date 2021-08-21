@@ -34,7 +34,7 @@ if ($ajax) {
     } else if (METODO($method) == 'POST') {
         if ($cmd == 'registrartagsmarca') {
             $nombremarca = input('marca');
-            if (!empty($nombremarca)) {
+            if (!empty($nombremarca) && !is_numeric($nombremarca)) {
                 try {
                     $data = $pdo->insert(tabla('marca'), [
                         "Nombre_Marca" => strtoupper(strtolower($nombremarca)),

@@ -4,12 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/appAki/servicios/Pieza.php</file>
+            <file>file:/C:/xampp/htdocs/appAki/servicios/Recojo.php</file>
             <file>file:/C:/xampp/htdocs/appAki/servicios/Articulo.php</file>
-            <file>file:/C:/xampp/htdocs/appAki/layouts/design/js/config.js</file>
             <file>file:/C:/xampp/htdocs/appAki/layouts/recojo.php</file>
             <file>file:/C:/xampp/htdocs/appAki/servicios/EstadoPrenda.php</file>
             <file>file:/C:/xampp/htdocs/appAki/servicios/searchPrendas.php</file>
             <file>file:/C:/xampp/htdocs/appAki/servicios/Servicio.php</file>
+            <file>file:/C:/xampp/htdocs/appAki/servicios/Login.php</file>
             <file>file:/C:/xampp/htdocs/appAki/layouts/detalle.php</file>
         </group>
     </open-files>

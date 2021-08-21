@@ -28,7 +28,7 @@
 
     <a href="#" class="item">
         <div class="col">
-            <div class="action-button large mycolor">
+            <div class="action-button large mycolor hideButton">
                 <ion-icon name="cube-outline"></ion-icon>
             </div>
         </div>
