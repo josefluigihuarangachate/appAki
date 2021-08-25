@@ -116,8 +116,6 @@ if ($ajax) {
                         die();
                     }
 
-
-
                     $insert = [];
                     $piezas = [];
                     $promociones = [];
@@ -165,7 +163,9 @@ if ($ajax) {
 
                             try {
                                 $inidestado = implode(" @ ", $_REQUEST['estado' . $keyname[$k]]);
-                            } catch (Throwable $e) {}
+                            } catch (Throwable $e) {
+                                
+                            }
 
                             // SUBIMOS LAS IMAGENES POR PRENDA
                             $carpeta_archivo = RUTA_ARCHIVOS . $numero_orden . "/";
