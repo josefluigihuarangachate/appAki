@@ -47,6 +47,19 @@
         padding: 0px;
         margin: 0px;
     }
+    .div-contenedor {
+        position: absolute;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        margin: auto;
+        height: 200px;
+        width: 100%;
+    }
+    .div-contenedor .centrar{
+        text-align: center;
+    }
 </style>
 
 <div class="card" style="margin-bottom: 18px;text-align: center;">
@@ -1233,6 +1246,10 @@
                 cache: false,
                 contentType: false, //must, tell jQuery not to process the data
                 processData: false,
+                beforeSend: function () {
+                    document.getElementById("htmlprint").innerHTML = '';
+                    document.getElementById("htmlprint").innerHTML = '<div class="div-contenedor"><div class="centrar"><img src="design/aki/lavadora.gif" alt="" style="width: 110px;"/><br><strong>Procesando...</strong></div></div>';
+                },
                 success: function (data)
                 {
                     document.getElementById("htmlprint").innerHTML = '';

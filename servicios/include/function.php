@@ -111,5 +111,20 @@ function zero_fill($valor, $long = 0) {
 
 // GENERAR CODIGO ID PARA GUARDAR IMAGENES O AUDIOS EN UNA CARPETA
 function generateRandomString($length = 6) {
-    return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+    return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
+}
+
+// SIRVE PARA MOSTRAR UN MENSAJE DE ERRROR CENTRADO
+function html_error($mensaje) {
+    return '<div class="div-contenedor"><div class="centrar"><img src="design/aki/error.gif" alt="" style="width: 110px;"/><br><br><strong>' . $mensaje . '</strong></div></div>';
+}
+
+// CAMPOS VACIOS
+function isEmpty($value){
+    $dato = trim($value);
+    if(empty($dato)){
+        return null;
+    }else{
+        return trim($dato);
+    }
 }

@@ -91,8 +91,19 @@ if ($ajax) {
                                     "id" => $lastinsert_id
                                 ]
                         );
+
+                        // ACTUALIZO EL ESTADO PARA QUE NO ME APAREZCA EN LA LISTA
+                        // id del turnoxcliente
+                        $pdo->update(tabla('turnoxcliente'),
+                                [
+                                    "atencion" => 'Atendido'
+                                ],
+                                [
+                                    "id" => @$_SESSION['idturnoxrepartidortemp']
+                                ]
+                        );
                     } catch (Exception $e) {
-                        echo strings('error_create');
+                        echo html_error(strings('error_create'));
                         $pdo->delete(tabla('orden'), [
                             "AND" => [
                                 "id" => $lastinsert_id
@@ -119,7 +130,17 @@ if ($ajax) {
                             strtolower($nombreservicio) != 'promociones' &&
                             $idservicio != 1
                     ) {
-                        
+
+                        // RECORRO PARA OBTENER LOS IDS
+                        $keyname = array();
+                        foreach ($_REQUEST as $key => $value) {
+                            if (str_contains(strval($key), 'pieza')) {
+                                array_push($keyname, str_replace("pieza", "", $key));
+                            }
+                        }
+
+                        imprimir($keyname);
+                        die();
                     }
                     // SI SON PROMOCIONES
                     else if (
@@ -131,26 +152,32 @@ if ($ajax) {
 
                         // RECORRO PARA OBTENER LOS IDS
                         $keyname = array();
+                        $insert = [];
+                        $promociones = [];
                         foreach ($_REQUEST as $key => $value) {
                             if (str_contains(strval($key), 'pieza')) {
                                 array_push($keyname, str_replace("pieza", "", $key));
                             }
                         }
 
-                        for ($k = 0; $k < count($keyname); $k++) {
-                            $inidestado = implode(" @ ", @$_REQUEST['estado' . $keyname[$k]]);
+                        $k = 0;
 
+                        while ($k < count($keyname)) {
+                            $inidestado = implode(" @ ", @$_REQUEST['estado' . $keyname[$k]]);
                             // SUBIMOS LAS IMAGENES POR PRENDA
                             $carpeta_archivo = RUTA_ARCHIVOS . $numero_orden . "/";
                             $inidarchivo = '';
                             $file = @$_FILES['archivo' . $keyname[$k]];
                             if (count($file['name'])) {
-                                if (!file_exists($carpeta_archivo)) {
-                                    mkdir($carpeta_archivo, 0777, true);
-                                }
-                                for ($fi = 0; $fi < count($file['name']); $fi++) {
+                                $fi = 0;
+                                while ($fi < count($file['name'])) {
                                     $tmpFilePath = $file['tmp_name'][$fi];
                                     if ($tmpFilePath) {
+                                        if ($fi == 0) {
+                                            if (!file_exists($carpeta_archivo)) {
+                                                mkdir($carpeta_archivo, 0777, true);
+                                            }
+                                        }
                                         $temp = explode(".", $file["name"][$fi]);
                                         $newfilename = 'I' . generateRandomString() . '.jpg';
                                         if ($fi > 0) {
@@ -159,21 +186,26 @@ if ($ajax) {
                                         $inidarchivo .= $newfilename;
                                         move_uploaded_file($file["tmp_name"][$fi], $carpeta_archivo . $newfilename);
                                     }
+
+                                    $fi = $fi + 1;
                                 }
                             }
+
                             // FIN SUBIMOS LAS IMAGENES POR PRENDA
                             // SUBIMOS LOS AUDIOS POR PRENDA
                             $carpeta_audio = RUTA_AUDIOS . $numero_orden . "/";
                             $inidaudio = '';
                             $file = @$_FILES['audio' . $keyname[$k]];
                             if (count($file['name'])) {
-                                if (!file_exists($carpeta_audio)) {
-                                    mkdir($carpeta_audio, 0777, true);
-                                }
                                 $fi = 0;
-                                for ($fi = 0; $fi < count($file['name']); $fi++) {
+                                while ($fi < count($file['name'])) {
                                     $tmpFilePath = $file['tmp_name'][$fi];
                                     if ($tmpFilePath) {
+                                        if ($fi == 0) {
+                                            if (!file_exists($carpeta_audio)) {
+                                                mkdir($carpeta_audio, 0777, true);
+                                            }
+                                        }
                                         $temp = explode(".", $file["name"][$fi]);
                                         $newfilename = 'M' . generateRandomString() . '.' . end($temp);
                                         if ($fi > 0) {
@@ -182,8 +214,10 @@ if ($ajax) {
                                         $inidaudio .= $newfilename;
                                         move_uploaded_file($file["tmp_name"][$fi], $carpeta_audio . $newfilename);
                                     }
+                                    $fi = $fi + 1;
                                 }
                             }
+
                             // FIN SUBIMOS LOS AUDIOS POR PRENDA
 
                             $nombrepromocion = $pdo->select(
@@ -225,28 +259,31 @@ if ($ajax) {
                                     ]
                             );
 
-                            $insert[] = array(
+                            $arr = array(
                                 'idorden' => $lastinsert_id,
                                 'idpromocion' => @$_REQUEST['subidprenda' . $keyname[$k]],
-                                'nombrepromocion' => $nombrepromocion[0]['nombre_articulo'],
+                                'nombrepromocion' => strval($nombrepromocion[0]['nombre_articulo']),
                                 'idprenda' => @$_REQUEST['pieza' . $keyname[$k]],
-                                'nombreprenda' => $nombreprenda[0]['nombre_articulo'],
+                                'nombreprenda' => strval($nombreprenda[0]['nombre_articulo']),
                                 'color' => @$_REQUEST['color' . $keyname[$k]],
                                 'marca' => @$_REQUEST['marca' . $keyname[$k]],
                                 'precioprenda' => $precioprenda[0]['precio_articulo'],
-                                'nombreestados' => @$inidestado,
-                                'observaciones' => @$_REQUEST['observacion' . $keyname[$k]],
-                                'audios' => $inidaudio,
-                                'imagenes' => $inidarchivo,
+                                'nombreestados' => isEmpty(@$inidestado),
+                                'observaciones' => isEmpty(@$_REQUEST['observacion' . $keyname[$k]]),
+                                'audios' => isEmpty(strval($inidaudio)),
+                                'imagenes' => isEmpty(strval($inidarchivo)),
                             );
+                            array_push($insert, $arr);
+                            unset($arr);
 
                             $promociones[$nombrepromocion[0]['nombre_articulo']][] = array(
                                 'nombreprenda' => $nombreprenda[0]['nombre_articulo'],
                                 'color' => @$_REQUEST['color' . $keyname[$k]],
                                 'marca' => @$_REQUEST['marca' . $keyname[$k]],
                                 'precioprenda' => $precioprenda[0]['precio_articulo'],
-                                'nombreestados' => @$inidestado
+                                'nombreestados' => isEmpty(@$inidestado),
                             );
+                            $k = $k + 1;
                         }
 
                         try {
@@ -255,7 +292,7 @@ if ($ajax) {
                                     $insert
                             );
                         } catch (Exception $e) {
-                            echo strings('error_create');
+                            echo html_error(strings('error_create'));
                             $pdo->delete(tabla('orden'), [
                                 "AND" => [
                                     "id" => $lastinsert_id
@@ -330,21 +367,21 @@ if ($ajax) {
                     </table>';
 
                     if ($promociones) {
-                        $sumaprecios = 0;
+                        //$sumaprecios = 0;
                         $html .= '<div style="text-align: left;font-family: sans-serif;">';
                         foreach ($promociones as $promo => $prendas) {
                             $html .= "1 &nbsp;" . $promo . "<br>";
                             for ($pre = 0; $pre < count(@$prendas); $pre++) {
-                                $html .= "&nbsp;&nbsp;&nbsp; (1)&nbsp;" . @$prendas[$pre]['nombreprenda'] . " <label style='float: right;'>" . $prendas[$pre]['precioprenda'] . "</label><br>";                                
-                                $html .= "&nbsp;&nbsp;&nbsp; " . @$prendas[$pre]['color'] . "<br>";                                
-                                $html .= "&nbsp;&nbsp;&nbsp; " . @$prendas[$pre]['marca'] . "<br>";                                
+                                $html .= "&nbsp;&nbsp;&nbsp; (1)&nbsp;" . @$prendas[$pre]['nombreprenda'] . " <label style='float: right;'>" . $prendas[$pre]['precioprenda'] . "</label><br>";
+                                $html .= "&nbsp;&nbsp;&nbsp; " . @$prendas[$pre]['color'] . "<br>";
+                                $html .= "&nbsp;&nbsp;&nbsp; " . @$prendas[$pre]['marca'] . "<br>";
                                 if (@$prendas[$pre]['nombreestados']) {
-                                    $html .= "&nbsp;&nbsp;&nbsp; " . str_replace(' @ ', ',', $prendas[$pre]['nombreestados']) . "<br>";                                    
+                                    $html .= "&nbsp;&nbsp;&nbsp; " . str_replace(' @ ', ',', $prendas[$pre]['nombreestados']) . "<br>";
                                 }
-                                $sumaprecios = $sumaprecios + @$prendas[$pre]['precioprenda'];
+                                //$sumaprecios = $sumaprecios + @$prendas[$pre]['precioprenda'];
                             }
                         }
-                        $html .= "<br><strong>TOTAL A PAGAR : S/.</strong>" . " <strong style='float: right;'>" . number_format($sumaprecios, 2, '.', '') . "</strong><br>";
+                        $html .= "<br><strong>TOTAL A PAGAR : S/.</strong>" . " <strong style='float: right;'>" . number_format($pagototal, 2, '.', '') . "</strong><br>";
                         $html .= '</div><br>';
                     }
 
@@ -378,18 +415,22 @@ if ($ajax) {
                     file_put_contents(RUTA_PDF . $codpdf, $output);
                     echo $html;
                     die();
-
-                    // FALTA REGISTRAR LAS CANTIDADES
                 }
             } else {
-                echo strings('error_empty');
+                echo html_error(strings('error_empty'));
+                die();
             }
         } else {
-            echo strings('error_cmd');
+            echo html_error(strings('error_cmd'));
+            die();
         }
     } else {
-        echo strings('error_method');
+        echo html_error(strings('error_method'));
+        die();
     }
+} else {
+    echo html_error(strings('error_ajax'));
+    die();
 }
 
 //'X-Requested-With', 'XMLHttpRequest'

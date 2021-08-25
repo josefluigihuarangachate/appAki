@@ -13,7 +13,7 @@ include "./include/sessionstart/session.php";
         <!-- App Header -->
         <div class="appHeader">
             <div class="left">
-                <a href="#" class="headerButton goBack" onclick="goBack();">
+                <a href="#" class="headerButton goBack" onclick="goBack();return false;">
                     <ion-icon name="chevron-back-outline"></ion-icon>
                 </a>
             </div>
@@ -112,7 +112,7 @@ include "./include/sessionstart/session.php";
         <?php
         include "./include/footer/footer_login.php";
         ?>
-<!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                       ?>" type="text/javascript"></script>
-        <script src="design/js/crud/cliente.js<?php //echo @$v;                       ?>" type="text/javascript"></script>-->
+<!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                        ?>" type="text/javascript"></script>
+        <script src="design/js/crud/cliente.js<?php //echo @$v;                        ?>" type="text/javascript"></script>-->
     </body>
 </html>

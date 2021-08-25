@@ -27,7 +27,7 @@ function listado() {
                     div += '<div class="in">';
                     div += '<div>';
                     if (data[i].estadoturno == 'Despacho') {
-                        div += '<label class="label fontSize-1">NR°. ORDEN: ' + data[i].numeroorden + '</label>';
+                        div += '<label class="label fontSize-1">NR°. ORDEN: ' + data[i].numeroorden + '</label><br>';
                     }
 
                     div += '<label class="label fontSize-1">' + data[i].nombrecliente + ' ' + data[i].apellidopaternocliente + ' ' + data[i].apellidomaternocliente + '</label>';
