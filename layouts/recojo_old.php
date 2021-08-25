@@ -1,8 +1,45 @@
+<style>
+    .form-group.basic .form-control, .form-group.basic .custom-select {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #DCDCE9;
+        padding: 0 0px 0 0;
+        border-radius: 0;
+        height: 40px;
+        color: #27173E;
+        font-size: 15px;
+    }
+    .addOrden{
+        position: fixed;
+        z-index: 9;
+        bottom: 77px;
+        right: 15px;
+        font-size: 21px;
+        border-radius: 50px;
+        padding: 25px;
+        width: 60px;
+        height: 60px;
+        opacity: 0.2;
+    }
+    .addOrden:hover{
+        opacity: 1;
+    }
+    .hideButton{
+        display: none !important;
+    }
+    .modal-backdrop.show{
+        z-index: 9991 !important;
+    }
+    .modal{
+        z-index: 9992 !important;
+    }
+</style>
+
 <div class="card" style="margin-bottom: 18px;text-align: center;">
     <div class="card-body">
         <div class="row">
             <div class="col">
-                Hay <label id="totaldeitems" name="totaldeitems">1 orden</label>
+                Hay <label id="totaldeitems" name="totaldeitems">0 orden</label>
             </div>
             <div class="col">
                 Total : S/. <label id="pagototal" name="pagototal">0.00</label>
@@ -11,123 +48,128 @@
     </div>
 </div>
 
-<form action="javascript:void(0)" method="POST" enctype="multipart/form-data" id="formData" name="formData" style="display: flex;overflow-x: auto;white-space: nowrap;">
-    <div class="row" id="div1" name='div1'>
-        <!--class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3"-->
-        <div id="firstdiv" name="firstdiv">
+<form action="javascript:void(0)" method="POST" enctype="multipart/form-data" id="formData" name="formData">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
             <div class="card h-100">
-                <button type="button" class="btn-close botoneliminarorden" aria-label="Close" onclick="removeItem(1);"></button>
-                <div class="card-body">
-                    <p class="mb-0" style="width: 100% !important;">
-                        <strong>
-                            <a href="#" class="text-secondary">ARTICULO:</a>&nbsp;
-                            <div class="form-group basic">
-                                <div class="input-wrapper">                            
-                                    <select class="form-control" id="sop1" name="sop1" onchange="obtDiasFecha(1);">
-                                    </select>
-                                </div>
-                            </div>
-                        </strong>
-                    </p>
-                    <p class="mb-1" style="width: 100% !important;">
-                        <strong>
-                            <a href="#" class="text-secondary">PRENDA:</a>&nbsp;&nbsp;
-                            <div class="form-group basic">
-                                <div class="input-wrapper">
-                                    <select class="form-control" id="pre1" name="pre1">                                        
-                                    </select>
-                                </div>
-                            </div>
-                        </strong>
-                    </p>
-                    <p class="mb-1" style="width: 100% !important;">
-                        <strong>
-                            <a href="#" class="text-secondary">SERVICIO:</a>&nbsp;&nbsp;
-                            <div class="form-group basic">
-                                <div class="input-wrapper">
-                                    <select class="form-control" id="ser1" name="ser1">                                        
-                                    </select>
-                                </div>
-                            </div>
-                        </strong>
-                    </p>
+                <div class="card-body">                
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12">
                             <strong>
-                                <a href="#" class="text-secondary">DIAS:</a>&nbsp;&nbsp;
-
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <button class="form-control" disabled="disabled" id="menos1" name="menos1" onclick="sumaryrestardias(1, '-');" style="border-radius: 5px 0px 0px 5px;">-</button>
-                                    </div>
-                                    <input type="number" class="form-control InputNumberNoChange" disabled="disabled" style="text-align: center;" min="0" value="0" id="dia1" name="dia1">
-                                    <input type="hidden" hidden="hidden" class="form-control InputNumberNoChange" disabled="disabled" min="0" value="0" id="realdia1" name="realdia1">
-                                    <div class="input-group-append">
-                                        <button class="form-control" disabled="disabled" id="mas1" name="mas1" onclick="sumaryrestardias(1, '+');" style="border-radius: 0px 5px 5px 0px;">+</button>
+                                <a href="#" class="text-secondary">SERVICIO:</a>&nbsp;&nbsp;
+                                <div class="form-group basic">
+                                    <div class="input-wrapper">
+                                        <select class="form-control" id="servicio" name="servicio" onchange="obtenerPrenda(this.value);">                                            
+                                        </select>
+                                        <input type="hidden" hidden="hidden" name="diasservicios" id="diasservicios" value="0">
                                     </div>
                                 </div>
-
                             </strong>
                         </div>
-                        <div class="col-6">
-                            <strong>
-                                <a href="#" class="text-secondary">PRECIO:</a>
-                                <center>
-                                    <h3 style="margin-top: 10px;margin-bottom: 20px;">S/. 
-                                        <label id="tprc1" name="tprc1">00.00</label>
-                                        <input type="hidden" hidden="hidden" id="prc1" name="prc1" value="" placeholder="PRECIO">
-                                    </h3>
-                                </center>
-                            </strong>
-                        </div>
-                    </div>
-                    <p class="mb-1" style="width: 100% !important;">
-                        <strong>
-                            <a href="#" class="text-secondary">FECHA:</a>&nbsp;&nbsp;
-                            <div class="form-group basic">
-                                <div class="input-wrapper">
-                                    <input type="date" class="form-control" disabled="disabled" ref="" placeholder="FECHA" value="" id="fec1" name="fec1" onchange="cambiardefecha(1);">
-                                    <input type="date" hidden="hidden" class="form-control" disabled="disabled" placeholder="FECHA" value="" id="realfec1" name="realfec1">
-                                </div>
-                            </div>
-                        </strong>
-                    </p>
-                    <div class="row">
-                        <strong>                        
-                            <a href="#" class="text-secondary">ESTADO:</a>
-                        </strong>
-                        <div class="col-12" id="chk1" name="chk1">
-                        </div>
-                    </div>
-                    <p class="mb-1" style="width: 100% !important;">
-                        <strong>
-                            <br>
-                            <a href="#" class="text-secondary">OBSERVACIONES:</a>&nbsp;&nbsp;
-                            <div class="form-group basic">
-                                <div class="input-wrapper">                                
-                                    <textarea class="form-control" id="obs1" name="obs1" rows="4" style="resize: none;" placeholder="Observaciones..."></textarea>
-                                </div>
-                            </div>
-                        </strong>
-                    </p>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        <div id="itemsservicios" name="itemsservicios"></div>
+    </div>
+</form>
+<div style="margin-bottom: 10px;"></div>
 
-                    <p>
-                        <input type="file" accept="image/*;capture=camera;video/*" multiple="multiple" id="file1" name="file1[]" class="choose">
-                    </p>
+<div style="position: fixed;border-radius: 0px;z-index: 9991;bottom: 0px;left: 0px;height: 56px;width: 100%;font-size: 18px;">
+    <div class="row">                             
+        <div class="col-10" style="padding-right: 0px;margin-right: 0px;">
+            <button class="btn btn-success" style="width: 100%;border-radius: 0px;height: 56px;" data-bs-toggle="modal" data-bs-target="#DialogForm" onclick="obtenerdias();">
+                CONFIRMAR ENTREGA
+            </button>
+        </div>
+        <div class="col-2" style="padding-left: 0px;margin-left: 0px;padding-right: 0px;margin-right: 0px;right: 0px;position: absolute;">
+            <label class="btn btn-danger" style="width: 100%;border-radius: 0px;height: 56px;padding: 0px;" onclick="addItem();">
+                <center>
+                    <ion-icon name="add-outline"></ion-icon>
+                </center>
+            </label>      
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Dialog Form -->
+<div class="modal fade dialogbox hide" id="DialogForm" name="DialogForm" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">CONFIRMAR ENTREGA</h5>
+            </div>
+            <div class="modal-body text-start mb-2">
+                <div class="form-group basic">                    
+                    <div class="input-wrapper">   
+                        <div class="input-wrapper">
+                            <div class="input-group mb-12">
+                                <input type="hidden" hidden="hidden" class="form-control" readonly="readonly" style="text-align: center;" min="1" value="0" id="totaldias" name="totaldias" placeholder="TOTAL DE DIAS">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group basic">
+                    <label class="label" for="text1">FECHA DE ENTREGA</label>
+                    <div class="input-group mb-12">
+                        <div class="input-group-prepend">
+                            <button type="button" class="form-control btn btn-outline-danger" id="menosfecha" name="menosfecha" onclick="sumaryrestarFecha('-');" style="border-radius: 5px 0px 0px 5px;padding-right: 15px;padding-left: 15px;">-</button>
+                        </div>
+                        <input type="date" class="form-control" readonly="readonly" style="text-align: center;" id="fechatotalmax" name="fechatotalmax" placeholder="FECHA ENTREGA">
+                        <input type="date" class="form-control" readonly="readonly" hidden="hidden" style="text-align: center;" id="fechatotalmin" name="fechatotalmin" placeholder="FECHA ENTREGA MINIMO">
+                        <div class="input-group-append">
+                            <button type="button" class="form-control btn btn-outline-info" id="masfecha" name="masfecha" onclick="sumaryrestarFecha('+');" style="border-radius: 0px 5px 5px 0px;padding-right: 15px;padding-left: 15px;">+</button>
+                        </div>
+                    </div>
+                    <div class="input-info">El dia <label id="nombredia" name="nombredia"></label> es la fecha de entrega</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-inline">
+                    <button type="button" class="btn btn-text-danger" data-bs-dismiss="modal" id="cancelarfechaentrega" name="cancelarfechaentrega">CANCELAR</button>
+                    <button type="button" class="btn btn-text-primary" id="enviarDatos" name="enviarDatos" data-bs-toggle="modal" data-bs-target="#ModalPrintTicket">GUARDAR</button>
                 </div>
             </div>
         </div>
     </div>
-</form>
+</div>
+<!-- * Dialog Form -->
 
-<label onclick="guardarItems();" class="btn btn-success" style="position: fixed;z-index: 9;bottom: 72px;right: 15px;font-size: 12px;border-radius: 50px;padding: 20px;width: 110px;">
-    <ion-icon name="save-outline"></ion-icon>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</label>
+<!-- Modal Imprimir Ticket -->
+<div class="modal fade modalbox" id="ModalPrintTicket" tabindex="-1" role="dialog" style="z-index: 9999;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding-top: 0px !important;">
+            <div class="modal-body">
+                <a href="javascript:;" class="btn btn-close" data-bs-dismiss="modal" style="float: right;border-radius: 50px;" id="closeTicket" name="closeTicket">x</a>
+                <div id="htmlprint" name="htmlprint">                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal Imprimir Ticket -->
 
-<button type="button" onclick="addItem();" class="btn btn-success active" style="position: fixed;z-index: 9;bottom: 68px;right: 15px;font-size: 21px;border-radius: 50px;padding: 25px;width: 50px;">
-    +
-</button>
+
+
+<script>
+    function imprSelec(nombre, idimage) {
+        var imgcontenido = document.getElementById(idimage).innerHTML;
+        var contenido = document.getElementById(nombre).innerHTML;
+        var contenidoOriginal = document.body.innerHTML;
+
+        document.body.innerHTML = imgcontenido;
+        document.body.innerHTML = contenido;
+
+        window.print();
+
+        document.body.innerHTML = contenidoOriginal;
+    }
+</script>
+
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <style>
@@ -144,58 +186,17 @@
         font-size: 10pt;
     }
 </style>
+
 <script>
-    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 
-    // DETECTAR EL TIPO DE DISPOSITIVO QUE ESTOY USANDO
-    // EJM : http://blog.alejandromolero.com/detectar-si-es-un-smartphone-o-tablet-mediante-javascript-y-jquery/
-    (function (a) {
-        (jQuery.browser = jQuery.browser || {}).mobile = /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))
-    })(navigator.userAgent || navigator.vendor || window.opera);
-    // -----------------------------------------
+    var ordenes = 0;
+    var subordenes = 0;
+    var idestados = 0;
 
-    if (jQuery.browser.mobile === true) {
-        document.getElementById("firstdiv").style.width = (width - 12) + "px";
-    } else {
-        width = 490;
-        document.getElementById("firstdiv").style.width = (490 - 12) + "px";
-    }
+    var contarordenes = 0;
+    var opcPrenda = "";
 
-    // SIRVE PARA SUMAR EL TOTAL
-    // Ejm de Object : https://stackoverflow.com/questions/32551353/using-named-keys-in-a-js-array
-    var pagoTotal = {
-        //'item1': {
-        //    'precio': 0,
-        //    'comision': 0
-        //}
-    };
-
-    // OPCIONES DE ARTICULO
-    var opcArticulo = function () {
-        var tmp = "";
-        $.ajax({
-            'async': false,
-            'type': "GET",
-            'global': false,
-            'dataType': 'json',
-            'url': ruta + "Articulo",
-            'data': {'cmd': "listaarticulos"},
-            'success': function (json) {
-                if (json['status'] == 'Ok') {
-                    if (json['data']) {
-                        tmp = "<option value='' hidden='hidden'>ELEGIR UN ARTICULO</option>";
-                        var datos = json['data'];
-                        for (var i = 0; i < datos.length; i++) {
-                            tmp += "<option ref-data='" + datos[i].cantidadprenda + "' ref='" + datos[i].diasarticulo + "' data-subtext='" + datos[i].precioarticulo + "' value='" + datos[i].idarticulo + "'>" + datos[i].descripcionarticulo.toUpperCase() + "</option>";
-                        }
-                    }
-                }
-            }
-        });
-        return tmp;
-    }();
-
-    // OPCIONES DE SERVICIO
+    // OPCIONES DE SERVICIOS
     var opcServicio = function () {
         var tmp = null;
         $.ajax({
@@ -208,10 +209,10 @@
             'success': function (json) {
                 if (json['status'] == 'Ok') {
                     if (json['data']) {
-
                         var datos = json['data'];
+                        tmp = "<option value='' hidden='hidden'>SERVICIOS</option>";
                         for (var i = 0; i < datos.length; i++) {
-                            tmp += "<option value='" + datos[i].idservicio + "'>" + datos[i].nombreservicio.toUpperCase() + "</option>";
+                            tmp += "<option name-service='" + datos[i].nombreservicio.toUpperCase() + "' data-rc='" + datos[i].diasservicio + "' value='" + datos[i].idservicio + "'>" + datos[i].nombreservicio.toUpperCase() + "</option>";
                         }
                     }
                 }
@@ -219,12 +220,131 @@
         });
         return tmp;
     }();
+    document.getElementById("servicio").innerHTML = opcServicio;
+    // FIN OPCIONES DE SERVICIOS
 
-    // OPCIONES DE ARTICULOS
-    var countEstArt = 0; // CONTAR CUANTOS ESTADOS DE ARTICULOS HAY
-    function opcionesArticulo(id) {
-        return chkEstadoPrenda = function () {
+    // OBTENER DIAS POR SERVICIOS
+    // Ejm: https://stackoverflow.com/a/38519877/16488926
+    var seleccionarServicio = document.getElementById("servicio");
+    seleccionarServicio.onchange = function () {
+        document.getElementById("itemsservicios").innerHTML = "";
+        document.getElementById("pagototal").innerHTML = "0.00";
+
+        var dias = $("#servicio").find("option:selected").attr('data-rc');
+        document.getElementById("diasservicios").value = dias;
+
+        // PONGO A LAS ORDENES Y A LAS ORDENES QUE CONTE EN CERO
+        contarordenes = 0;
+        ordenes = 0;
+        validarOrdenes();
+    };
+    // FIN OBTENER DIAS POR SERVICIOS
+
+    // OBTENER LISTADO DE PRENDAS POR SERVICIO
+    function obtenerPrenda() {
+        var idServicio = document.getElementById("servicio").value;
+        var tmp = null;
+        $.ajax({
+            'async': false,
+            'type': "GET",
+            'global': false,
+            'dataType': 'json',
+            'url': ruta + "Articulo",
+            'data': {'cmd': "listaarticuloxservicio", idservicio: idServicio},
+            'success': function (json) {
+                if (json['status'] == 'Ok') {
+                    if (json['data']) {
+                        var datos = json['data'];
+                        tmp = "<option value='' hidden='hidden'>PRENDAS</option>";
+                        for (var i = 0; i < datos.length; i++) {
+                            tmp += "<option flkpak='" + datos[i].cantidadprendas + "' precio='" + datos[i].precioarticulo + "' value='" + datos[i].idarticulo + "'>" + datos[i].nombrearticulo.toUpperCase() + "</option>";
+                        }
+                    }
+                }
+            }
+        });
+        return tmp;
+    }
+    // FIN OBTENER LISTADO DE PRENDAS POR SERVICIO
+
+    // OBTENER PRECIO POR LA PRENDA
+    // Ejm: https://stackoverflow.com/a/25430562/16488926
+    function obtenerPrecio(idprenda) {
+        var precio = $('#prenda' + idprenda + ' option:selected').attr('precio');
+        //var flkpak = $('#prenda' + idprenda + ' option:selected').attr('flkpak');
+
+        if (precio === undefined || precio === null) {
+            precio = "0.00";
+        }
+
+        document.getElementById("precio" + idprenda).value = parseFloat(precio).toFixed(2);
+        //document.getElementById("realprecio" + idprenda).value = parseFloat(precio).toFixed(2);
+        sumarPrecios();
+
+        //document.getElementById("flkpak" + idprenda).value = flkpak;
+    }
+    // FIN OBTENER PRECIO POR LA PRENDA
+
+    // OBTENER COLOR
+    function Color() {
+        return opcColor = function () {
             var tmp = null;
+            $.ajax({
+                'async': false,
+                'type': "GET",
+                'global': false,
+                'dataType': 'json',
+                'url': ruta + "Color",
+                'data': {'cmd': "listacolor"},
+                'success': function (json) {
+                    if (json['status'] == 'Ok') {
+                        if (json['data']) {
+                            var datos = json['data'];
+                            tmp = "<option value='' hidden='hidden'>COLOR</option>";
+                            for (var i = 0; i < datos.length; i++) {
+                                tmp += '<option selected="selected" value="' + datos[i].nombrecolor + '">' + datos[i].nombrecolor.toUpperCase() + '</option>';
+                            }
+                        }
+                    }
+                }
+            });
+            return tmp;
+        }();
+    }
+    // FIN OBTENER COLOR
+
+    // OBTENER MARCA
+    function Marca() {
+        return opcMarca = function () {
+            var tmp = null;
+            $.ajax({
+                'async': false,
+                'type': "GET",
+                'global': false,
+                'dataType': 'json',
+                'url': ruta + "Marca",
+                'data': {'cmd': "listamarca"},
+                'success': function (json) {
+                    if (json['status'] == 'Ok') {
+                        if (json['data']) {
+                            var datos = json['data'];
+                            tmp = "<option value='' hidden='hidden'>MARCA</option>";
+                            for (var i = 0; i < datos.length; i++) {
+                                tmp += '<option selected="selected" value="' + datos[i].idmarca + '">' + datos[i].nombremarca.toUpperCase() + '</option>';
+                            }
+                        }
+                    }
+                }
+            });
+            return tmp;
+        }();
+    }
+    // FIN OBTENER MARCA
+
+    // OPCIONES DE ESTADOS
+    function opcionesEstado(id) {
+        return chkEstadoPrenda = function () {
+            var tmp = '';
             $.ajax({
                 'async': false,
                 'type': "GET",
@@ -236,17 +356,12 @@
                     if (json['status'] == 'Ok') {
                         if (json['data']) {
                             var datos = json['data'];
-                            tmp = "<br>";
+                            idestados = datos.length;
                             for (var i = 0; i < datos.length; i++) {
-
-                                if (datos[i].idestadoprenda >= countEstArt) {
-                                    countEstArt = datos[i].idestadoprenda; // SERA IGUAL AL ULTIMO ID YA QUE RECORRERE DEL MENOR AL MAYOR
-                                }
-
                                 tmp += '<div class="form-check">';
                                 // AGREGAR FUNCION : chk1 = el id del check box _1,_2 = id del estado de la prenda
-                                tmp += '<input type="checkbox" class="form-check-input" id="chk' + id + '_' + datos[i].idestadoprenda + '" name="chk' + id + '_' + datos[i].idestadoprenda + '" value="' + datos[i].idestadoprenda + '">';
-                                tmp += '<label class="form-check-label" for="chk' + id + '_' + datos[i].idestadoprenda + '">' + datos[i].nombreprenda.toUpperCase() + '</label>';
+                                tmp += '<input type="checkbox" class="form-check-input" id="chk' + id + '_' + subordenes + "" + i + '" name="chk' + id + '[]" value="' + datos[i].idestadoprenda + '">';
+                                tmp += '<label class="form-check-label" for="chk' + id + '_' + subordenes + "" + i + '">' + datos[i].nombreprenda.toUpperCase() + '</label>';
                                 tmp += '</div>';
                             }
                         }
@@ -255,534 +370,747 @@
             });
             return tmp;
         }();
-        sumarTotalItems();
     }
+    // FIN OPCIONES DE ESTADOS
 
-    // OPCIONES DE PRENDA POR ARTICULOS
-    var opcPrendas = function () {
-        var tmp = null;
-        $.ajax({
-            'async': false,
-            'type': "GET",
-            'global': false,
-            'dataType': 'json',
-            'url': ruta + "Prenda",
-            'data': {'cmd': "listaprendas"},
-            'success': function (json) {
-                if (json['status'] == 'Ok') {
-                    if (json['data']) {
-                        var datos = json['data'];
-                        for (var i = 0; i < datos.length; i++) {
-                            tmp += "<option value='" + datos[i].idprenda + "'>" + datos[i].nombreprendaxarticulo.toUpperCase() + "</option>";
-                        }
-                    }
-                }
-            }
-        });
-        return tmp;
-    }();
 
-    // OBTENER DIA Y FECHA DEL SELECT DE ARTICULOS POR SU ATRIBUTOS
-    function obtDiasFecha(idselect) {
-        // DIAS
-        var dias = $("#sop" + idselect).find(':selected').attr('ref');
-        document.getElementById("dia" + idselect).value = dias;
-        document.getElementById("realdia" + idselect).value = dias;
-        // ----------
 
-        // SUMAR DIAS
-        var fechaactual = moment().format("YYYY-MM-DD");
-        document.getElementById("fec" + idselect).value = sumarDiasaFecha(fechaactual, dias);
-        document.getElementById("realfec" + idselect).value = sumarDiasaFecha(fechaactual, dias);
-        $("#fec" + idselect).attr('ref', sumarDiasaFecha(fechaactual, dias));
-        // -----------
-
-        // PRECIO
-        var precio = $("#sop" + idselect).find(':selected').attr('data-subtext');
-        document.getElementById("prc" + idselect).value = precio;
-
-        pagoTotal['item' + idselect] = {'precio': precio, 'comision': 0};
-
-        document.getElementById("tprc" + idselect).innerHTML = '';
-        document.getElementById("tprc" + idselect).innerHTML = precio;
-        // ----------
-
-        // CANTIDAD DE PRENDAS 
-        var cantidadprenda = $("#sop" + idselect).find(':selected').attr('ref-data');
-
-        if (cantidadprenda > 1) {
-            document.getElementById("pre" + idselect).innerHTML = "";
-            document.getElementById("pre" + idselect).innerHTML = opcPrendas;
-        } else {
-            document.getElementById("pre" + idselect).innerHTML = "";
+    // PARA CONTAR CUANTAS ARCHIVOS/IMAGENES SE CARGARON
+    // EJM: https://stackoverflow.com/a/20439068/16488926
+    function contarImagenes(id, orden) {
+        var numFiles = $("#archivo" + id + '_' + orden)[0].files.length;
+        if (numFiles === 0) {
+            numFiles = "";
         }
-        //document.getElementById("pre" + idselect).innerHTML = cantidadprenda;
-        // ----------
-
-
-        // CON ESTO HABILITO LOS BOTONES PARA PODER SUMAR Y RESTAR DIAS
-        try {
-            document.getElementById("menos" + idselect).disabled = false;
-            document.getElementById("mas" + idselect).disabled = false;
-            document.getElementById("fec" + idselect).disabled = false;
-        } catch (e) {
-        }
-        sumarTotalItems();
+        document.getElementById("cantidadarchivos" + id + '_' + orden).innerHTML = "";
+        document.getElementById("cantidadarchivos" + id + '_' + orden).innerHTML = numFiles;
     }
+    // FIN PARA CONTAR CUANTAS ARCHIVOS/IMAGENES SE CARGARON
 
-    // ESTA FUNCION SIRVE PARA SUMAR DIAS A UNA FECHA
-    // EJM : sumarDiasaFecha('2021-07-13', 3)    ESTO ME RETORNA CON ESTA FECHA:   2021-07-16  
-    // EJM : https://es.stackoverflow.com/questions/99689/actualizar-valor-de-moment-js
-    function sumarDiasaFecha(fecha, dias) {
-        var nuevafecha = "";
-        if (dias != "") {
-            nuevafecha = moment(fecha).add(dias, 'days').format("YYYY-MM-DD");
+    // PARA CONTAR CUANTOS AUDIOS SE CARGARON
+    // EJM: https://stackoverflow.com/a/20439068/16488926
+    function contarAudios(id, orden) {
+        var numFiles = $("#audio" + id + '_' + orden)[0].files.length;
+        if (numFiles === 0) {
+            numFiles = "";
         }
-        return nuevafecha;
+        document.getElementById("cantidadaudio" + id + '_' + orden).innerHTML = "";
+        document.getElementById("cantidadaudio" + id + '_' + orden).innerHTML = numFiles;
     }
 
     // SIRVE PARA SUMAR Y RESTAR DIAS Y FECHA EN EL INPUT NUMBER DIAS
-    function sumaryrestardias(id, signo) {
+    function sumaryrestarcantidad(id, signo) {
         var operando = 0;
-        var numdias = document.getElementById('dia' + id).value;
-        if (numdias <= 0) {
-            document.getElementById('dia' + id).value = 1;
+        var cantidad = document.getElementById('cantidad' + id).value;
+
+        if (cantidad <= 0) {
+            cantidad = 1;
+            document.getElementById('cantidad' + id).value = 1;
         } else if (signo == '+') {
-            operando = (parseInt(numdias) + parseInt(1));
+            operando = (parseInt(cantidad) + parseInt(1));
             if (operando <= 0) {
                 operando = 1;
             } else {
-                // ACA SUMO LOS DIAS
-                var getFecha = document.getElementById('fec' + id);
-                getFecha.value = sumarDiasaFecha(getFecha.value, 1);
-                $("#fec" + id).attr('ref', getFecha.value);
+                document.getElementById('cantidad' + id).value = operando;
             }
-            document.getElementById('dia' + id).value = operando;
         } else if (signo == '-') {
-            operando = (parseInt(numdias) - parseInt(1));
+            operando = (parseInt(cantidad) - parseInt(1));
             if (operando <= 0) {
                 operando = 1;
-            } else {
-                // ACA RESTO LOS DIAS
-                var getFecha = document.getElementById('fec' + id);
-                getFecha.value = sumarDiasaFecha(getFecha.value, -1);
-                $("#fec" + id).attr('ref', getFecha.value);
             }
-            document.getElementById('dia' + id).value = operando;
+            document.getElementById('cantidad' + id).value = operando;
         }
-        sumarTotalItems();
     }
+    // FIN SIRVE PARA SUMAR Y RESTAR DIAS Y FECHA EN EL INPUT NUMBER DIAS
 
-    $("[type='number']").keypress(function (evt) {
-        evt.preventDefault();
-    });
+    // ELIMINAR ORDEN POR ID DE ORDEN
+    function validarOrdenes() {
+        var msg = "";
 
-    // SIRVE PARA CAMBIAR DE FECHA Y VER LA DIFERENCIA DE DIAS 
-    // ASI PODEMOS RESTAR Y SUMAR DIAS
-    function cambiardefecha(id) {
-        // ejem: https://www.it-swarm-es.com/es/javascript/como-comparar-solo-fecha-en-moment.js/1052622124/
-        var fechamodificado = document.getElementById("fec" + id);
-        var fechamodireal = $("#fec" + id).attr('ref');
-        var fechareal = document.getElementById("realfec" + id);
+        // VALIDO SI LAS ORDENES SON MENORES A CERO O IGUAL A CERO
+        if (contarordenes <= 0) {
+            contarordenes = 0;
+            ordenes = 0;
+        }
 
-        var diamodificado = document.getElementById("dia" + id);
-        var diareal = document.getElementById("realdia" + id);
-
-        if (
-                fechamodificado.value == fechareal.value ||
-                moment(fechareal.value).isAfter(fechamodificado.value, 'day')
-                ) {
-            diamodificado.value = diareal.value;
-            fechamodificado.value = fechareal.value;
-            $("#fec" + id).attr('ref', fechamodificado.value);
-
-            DialogAlert('Error', 'La fecha seleccionada no puede ser menor a la fecha programada', '');
+        if (1 === contarordenes) {
+            msg = "1 orden";
+        } else if (2 <= contarordenes) {
+            msg = contarordenes + " ordenes";
         } else {
-            // SI LA FECHA ES MAYOR QUE LA QUE ELEGI
-            if (
-                    // FALSE - SERA MAS
-                    moment(fechamodireal).isAfter(fechamodificado.value, 'day') == false
-                    ) {
-                var fecha1 = moment(fechamodireal);
-                var fecha2 = moment(fechamodificado.value);
-                var masdias = parseInt(fecha2.diff(fecha1, 'days'));
-                diamodificado.value = parseInt(diamodificado.value) + parseInt(masdias);
-                $("#fec" + id).attr('ref', fechamodificado.value);
-                console.log("Más Dias");
-
-
-            } else if (
-                    // TRUE - SERA MENOS
-                    moment(fechamodireal).isAfter(fechamodificado.value, 'day') == true
-                    ) {
-                var fecha1 = moment(fechamodireal);
-                var fecha2 = moment(fechamodificado.value);
-                var menosdias = parseInt(fecha2.diff(fecha1, 'days'));
-                diamodificado.value = parseInt(diamodificado.value) - parseInt(menosdias);
-                $("#fec" + id).attr('ref', fechamodificado.value);
-                console.log("Menos Dias");
-            }
+            msg = "0 orden";
         }
-        sumarTotalItems();
+
+        document.getElementById("totaldeitems").innerHTML = "";
+        document.getElementById("totaldeitems").innerHTML = msg;
+
+        //console.log("AGREGAR Y ELIMINAR ORDENES : " + ordenes);
+        //console.log("CONTAR ORDENES : " + contarordenes);
     }
+    // FIN ELIMINAR ORDEN POR ID DE ORDEN
 
-    // INICIALIZAMOS PARA EL PRIMER ITEM
-    document.getElementById("sop1").innerHTML = opcArticulo;
-    document.getElementById("chk1").innerHTML = opcionesArticulo(1);
-    document.getElementById("ser1").innerHTML = opcServicio;
-
-    // CUENTA LOS ITEMS AGREGADOS, PERO SI SE ELIMINA UN ITEM ESTE NO SE RESTARA UNO, CONTINUARA EN EL ULTIMO ITEM AGREGADOS
-    var numOrden = 1; // NUMERO DE ORDEN O NUMERO DE ITEMS POR ARTICULO
-    var contarItems = 1; // CUENTA LAS ORDENES
-
-    // SUMAMOS EL TOTAL DE LOS ITEMS
-    function sumarTotalItems() {
-        var pago = 00;
-        Object.values(pagoTotal).forEach(val => {
-            pago = parseFloat(pago) + parseFloat(val['precio']);
-        });
-        document.getElementById("pagototal").innerHTML = pago.toFixed(2);
-
+    // ELIMINAR ORDEN POR ID DE ORDEN
+    function removeItem(idorden) {
+        var elem = document.getElementById("item" + idorden);
+        elem.remove();
+        contarordenes = contarordenes - 1;
+        validarOrdenes();
     }
+    // FIN ELIMINAR ORDEN POR ID DE ORDEN
 
-    // VERIFICAR SI UN KEY ARRAY EXISTE
-    function existKeyinObject() {
-        // EJM: https://www.codegrepper.com/code-examples/javascript/javascript+check+if+key+exists+in+object
-        for (var k = 1; k <= numOrden; k++) {
-            // EVALUAMOS SI EL KEY NAME NO EXISTE EN EL OBJETO
-            if ((String("item" + k) in pagoTotal) == false) {
-                // console.log(String("item" + k));
-                return false;
-            }
-        }
-        return true;
-    }
-
-    // SIRVE PARA AGREGAR ITEMS
+    // AGREGAR MAS ORDENES
+    var html_color_marca = "";
     function addItem() {
-        // Ejm : https://stackoverflow.com/questions/17650776/add-remove-html-inside-div-using-javascript
-        if (contarItems <= 0) {
-            contarItems = 0;
-        }
+        var idservicio = document.getElementById("servicio").value;
+        var nombre_servicio = $("#servicio").find("option:selected").attr('name-service');
 
-        if (existKeyinObject() === false) {
-            DialogAlert('Error', 'Hay una orden con datos incompletos', '');
-        } else {
-            numOrden = numOrden + 1;
-            contarItems = contarItems + 1;
-            if (contarItems <= 1) {
-                document.getElementById("totaldeitems").innerHTML = contarItems + " orden";
-            } else {
-                document.getElementById("totaldeitems").innerHTML = contarItems + " ordenes";
+        if (idservicio.trim() != "") {
+
+            contarordenes = contarordenes + 1;
+            ordenes = ordenes + 1;
+
+            validarOrdenes();
+
+            html_color_marca = "";
+
+            // SI NO ES IGUAL A PROMOCION MOSTRAR COLOR Y MARCA
+            if (
+                    (nombre_servicio != 'PROMOCIONES' || nombre_servicio != 'PROMOCION') && idservicio != 1
+                    ) {
+                html_color_marca = `<div class="row">                        
+                                <div class="col-6">
+                                    <div class="form-group basic">
+                                        <div class="input-wrapper">   
+                                            <div class="input-wrapper">
+                                                <strong>                        
+                                                    <a href="#" class="text-secondary">COLOR:</a>
+                                                </strong>
+                                                <select class="search-live add-new-tags tagsColor form-control" id="color${ordenes}" name="color${ordenes}" data-select2-tags="true" onchange="addnewTagsColor(${ordenes});">${Color()}</select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                    
+                                <div class="col-6">
+                                    <div class="form-group basic">
+                                        <div class="input-wrapper">   
+                                            <div class="input-wrapper">
+                                                <strong>                        
+                                                    <a href="#" class="text-secondary">MARCA:</a>
+                                                </strong>
+                                                <select class="search-live add-new-tags tagsMarca form-control" id="marca${ordenes}" name="marca${ordenes}" data-select2-tags="true" onchange="addnewTagsMarca(${ordenes});">${Marca()}</select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
             }
 
-            // PARA QUE ESTO FUNCIONE LOS DATOS DEBEN DE ESTAR EN UN : class= 'row'
-            document.querySelector('#formData').insertAdjacentHTML('afterbegin',
-                    `                      
-                
-                <div class="row" id="div` + numOrden + `" name='div` + numOrden + `'>
-                    <div class="mb-3" style="width: ` + (width - 14) + `px;">
-                        <div class="card h-100">
-                            <div class="card-body">            
-                                <button type="button" class="btn-close botoneliminarorden" aria-label="Close" onclick="removeItem(` + numOrden + `);"></button>
-                                <p class="mb-0" style="width: 100% !important;">
-                                    <strong>
-                                        <a href="#" class="text-secondary">ARTICULO:</a>&nbsp;
-                                        <div class="form-group basic">
-                                            <div class="input-wrapper">                            
-                                                <select class="form-control" id="sop` + numOrden + `" name="sop` + numOrden + `" onchange="obtDiasFecha(` + numOrden + `);">
-                                                    ` + opcArticulo + `
-                                                </select>
-                                            </div>
+            document.querySelector('#itemsservicios').insertAdjacentHTML('afterbegin', `
+        
+            <div id="item${ordenes}" name="item${ordenes}" style="margin-bottom: 15px;">
+                <div class="card">
+                    <button type="button" class="btn-close botoneliminarorden" aria-label="Close" onclick="removeItem(${ordenes});" style="z-index: 9;"></button>
+                    <div class="card-body">              
+                        <div style="margin-bottom: 15px;"></div>
+                        <div class="row"> 
+                            <div class="col-12">
+                                <div class="form-group basic">
+                                    <div class="input-wrapper">   
+                                        <div class="input-wrapper">
+                                            <select class="search-live form-control" id="prenda${ordenes}" name="prenda${ordenes}" onchange="obtenerPrecio(${ordenes});piezasPrendas(${ordenes});">
+                                                    ${obtenerPrenda()}
+                                            </select>
                                         </div>
-                                    </strong>
-                                </p>
-                                <p class="mb-1" style="width: 100% !important;">
-                                    <strong>
-                                        <a href="#" class="text-secondary">PRENDA:</a>&nbsp;&nbsp;
-                                        <div class="form-group basic">
-                                            <div class="input-wrapper">
-                                                <select class="form-control" id="pre` + numOrden + `" name="pre` + numOrden + `">                                        
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </strong>
-                                </p>
-                                <p class="mb-1" style="width: 100% !important;">
-                                    <strong>
-                                        <a href="#" class="text-secondary">SERVICIO:</a>&nbsp;&nbsp;
-                                        <div class="form-group basic">
-                                            <div class="input-wrapper">
-                                                <select class="form-control" id="ser` + numOrden + `" name="ser` + numOrden + `"> 
-                                                    ` + opcServicio + `
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </strong>
-                                </p>
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <strong>
-                                            <a href="#" class="text-secondary">DIAS:</a>&nbsp;&nbsp;
-
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <button class="form-control" disabled="disabled" id="menos` + numOrden + `" name="menos` + numOrden + `" onclick="sumaryrestardias(` + numOrden + `, '-');" style="border-radius: 5px 0px 0px 5px;">-</button>
-                                                </div>
-                                                <input type="number" class="form-control InputNumberNoChange" disabled="disabled" style="text-align: center;" min="0" value="0" id="dia` + numOrden + `" name="dia` + numOrden + `">
-                                                <input type="hidden" hidden="hidden" class="form-control InputNumberNoChange" disabled="disabled" min="0" value="0" id="realdia` + numOrden + `" name="realdia` + numOrden + `">
-                                                <div class="input-group-append">
-                                                    <button class="form-control" disabled="disabled" id="mas` + numOrden + `" name="mas` + numOrden + `" onclick="sumaryrestardias(` + numOrden + `, '+');" style="border-radius: 0px 5px 5px 0px;">+</button>
-                                                </div>
-                                            </div>
-
-                                        </strong>
-                                    </div>
-                                    <div class="col-6">
-                                        <strong>
-                                            <a href="#" class="text-secondary">PRECIO:</a>
-                                            <center>
-                                                <h3 style="margin-top: 10px;margin-bottom: 20px;">S/. 
-                                                    <label id="tprc` + numOrden + `" name="tprc` + numOrden + `">00.00</label>
-                                                    <input type="hidden" hidden="hidden" id="prc` + numOrden + `" name="prc` + numOrden + `" value="" placeholder="PRECIO">
-                                                </h3>
-                                            </center>
-                                        </strong>
                                     </div>
                                 </div>
-                                <p class="mb-1" style="width: 100% !important;">
-                                    <strong>
-                                        <a href="#" class="text-secondary">FECHA:</a>&nbsp;&nbsp;
-                                        <div class="form-group basic">
-                                            <div class="input-wrapper">
-                                                <input type="date" class="form-control" disabled="disabled" ref="" placeholder="FECHA" value="" id="fec` + numOrden + `" name="fec` + numOrden + `" onchange="cambiardefecha(` + numOrden + `);">
-                                                <input type="date" hidden="hidden" class="form-control" disabled="disabled" placeholder="FECHA" value="" id="realfec` + numOrden + `" name="realfec` + numOrden + `">
-                                            </div>
-                                        </div>
-                                    </strong>
-                                </p>
-                                <div class="row">
-                                    <strong>                        
-                                        <a href="#" class="text-secondary">ESTADO:</a>
-                                    </strong>
-                                    <div class="col-12" id="chk1" name="chk` + numOrden + `">
-                                        ` + opcionesArticulo(numOrden) + `
-                                    </div>
-                                </div>
-                                <p class="mb-1" style="width: 100% !important;">
-                                    <strong>
-                                        <br>
-                                        <a href="#" class="text-secondary">OBSERVACIONES:</a>&nbsp;&nbsp;
-                                        <div class="form-group basic">
-                                            <div class="input-wrapper">                                
-                                                <textarea class="form-control" id="obs` + numOrden + `" name="obs` + numOrden + `" rows="4" style="resize: none;" placeholder="Observaciones..."></textarea>
-                                            </div>
-                                        </div>
-                                    </strong>
-                                </p>
-                                <p>
-                                    <input type="file" accept="image/*;capture=camera;video/*" multiple="multiple" id="file` + numOrden + `" name="file` + numOrden + `[]" class="choose">
-                                </p>
                             </div>
                         </div>
+                        <div class="row">                             
+                            <div class="col-6">
+                                <div class="form-group basic">
+                                    <div class="input-wrapper">
+                                        <strong>
+                                            <a href="#" class="text-secondary">PRECIO DEL SERVICIO:</a>
+                                        </strong>        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group basic">
+                                    <div class="input-wrapper">
+                                        <input type="text" class="form-control" style='text-align: center;' id="precio${ordenes}" name="precio${ordenes}" readonly="readonly" placeholder="PRECIO" value="0.00">
+                                    </div>
+                                </div>
+                            </div>                
+                        </div>
+                        ${html_color_marca}                    
+                        <div id="items${ordenes}" name="items${ordenes}">                            
+                        </div>
                     </div>
-                </div>  
+                </div>
+            </div>
+        `);
+            $("#prenda" + ordenes).select2().val(null).trigger("change");
+            $("#color" + ordenes).select2().val(null).trigger("change");
+            $("#marca" + ordenes).select2().val(null).trigger("change");
+        }
+    }
+    // FIN AGREGAR MAS ORDENES
+
+    // OBTENER PIEZAS POR PRENDA
+    function piezasPrendas(id) {
+        var idprenda = document.getElementById("prenda" + id).value;
+        var idservicio = document.getElementById("servicio").value;
+        var nombre_servicio = $("#servicio").find("option:selected").attr('name-service');
+        document.querySelector("#items" + id).innerHTML = "";
+
+        if (nombre_servicio === 'PROMOCIONES' || nombre_servicio === 'PROMOCION' || idservicio === 1) {
+            if (idprenda != "") {
+                $.ajax({
+                    'async': false,
+                    'type': "GET",
+                    'global': false,
+                    'dataType': 'json',
+                    'url': ruta + "Promocion",
+                    'data': {'cmd': "listapiezasxpromocion", 'idprenda': idprenda},
+                    'success': function (json) {
+                        if (json['status'] == 'Ok') {
+
+                            var datos = json['data'];
+                            for (var p = 0; p < json['cantpromocion']; p++) {
+
+                                ordenes = ordenes + 1;
+                                subordenes = subordenes + 1;
+                                validarOrdenes();
+
+                                var subdatos = datos[p].subarticulos;
+                                var subselect = "<select class='search-live form-control' id='pieza" + id + "_" + subordenes + "' name='pieza" + id + "_" + subordenes + "' onchange='promocionPrecio(" + id + "," + subordenes + ");'>";
+                                subselect += "<option value='' disabled='disabled' selected='selected'>" + datos[p].nombrepromocion.toUpperCase() + "</option>";
+                                for (var a = 0; a < subdatos.length; a++) {
+                                    subselect += '<option price=' + subdatos[a].precioarticulo + ' value="' + subdatos[a].idarticulo + '">' + subdatos[a].nombrearticulo.toUpperCase() + " (" + subdatos[a].precioarticulo + ")" + '</option>';
+                                }
+                                subselect += "</select>";
+
+                                document.querySelector("#items" + id).insertAdjacentHTML('afterbegin', `<br/>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">                        
+                                            <div class="col-6">
+                                                <div class="form-group basic">
+                                                    <div class="input-wrapper">   
+                                                        <div class="input-wrapper">
+                                                            <strong>                        
+                                                                <a href="#" class="text-secondary">COLOR:</a>
+                                                            </strong>
+                                                            <select class="search-live add-new-tags tagsColor form-control" id="color${ordenes}" name="color${ordenes}" data-select2-tags="true" onchange="addnewTagsColor(${ordenes});">${Color()}</select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                    
+                                            <div class="col-6">
+                                                <div class="form-group basic">
+                                                    <div class="input-wrapper">   
+                                                        <div class="input-wrapper">
+                                                            <strong>                        
+                                                                <a href="#" class="text-secondary">MARCA:</a>
+                                                            </strong>
+                                                            <select class="search-live add-new-tags tagsMarca form-control" id="marca${ordenes}" name="marca${ordenes}" data-select2-tags="true" onchange="addnewTagsMarca(${ordenes});">${Marca()}</select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group basic">
+                                            <div class="input-wrapper">
+                                                <strong>                        
+                                                    <a href="javascript:void(0)" class="text-secondary">PROMOCION:</a>
+                                                </strong>    
+                                                ${subselect}
+                                            </div>
+                                        </div>
                                                     
-                `
-                    );
-            sumarTotalItems();
-        }
-    }
+                                        <div class="form-group basic">
+                                        <div class="input-wrapper">
+                                        <strong>                        
+                                        <a href="javascript:void(0)" class="text-secondary">ESTADO:</a>
+                                        </strong>    
+                                        <div class="col-12" id="estado${id}_${subordenes}" name="estado${id}_${subordenes}" style="margin-top: 10px;">${opcionesEstado(id)}</div>
+                                        </div>
+                                        </div>
+                                        
+                                        <div class="form-group basic">
+                                        <div class="input-wrapper">
+                                        <strong>                        
+                                        <a href="javascript:void(0)" class="text-secondary">OBSERVACIONES:</a>
+                                        </strong>    
+                                        <textarea class="form-control" id="observacion${id}_${subordenes}" name="observacion${id}_${subordenes}" rows="4" style="resize: none;border: 1px solid #ccc;padding: 15px;margin-top: 10px;" placeholder="OBSERVACIONES"></textarea>
+                                        </div>
+                                        </div>
+                                            
+                                        <div class="form-group basic">
+                                        <div class="input-wrapper">
+                                        <div class="row">                        
+                                            <div class="col-6">
+                                                <center>
+                                                    <label for="audio${id}_${subordenes}">
+                                                        <span class="headerButton">
+                                                            <ion-icon name="mic-outline" style="font-size: 40px;"></ion-icon>
+                                                            <sup id="cantidadaudio${id}_${subordenes}" name="cantidadaudio${id}_${subordenes}" class="badge badge-success" style="float: right;"></sup>
+                                                        </span>
+                                                        <input type="file" id="audio${id}_${subordenes}" name="audio${id}_${subordenes}" accept="audio/*" capture style="display: none;" onchange="contarAudios(${id} , ${subordenes});">
+                                                    </label>
+                                                </center>
+                                            </div>
+                                            <div class="col-6">
+                                                <center>
+                                                    <label for="archivo${id}_${subordenes}">
+                                                        <span class="headerButton">
+                                                            <ion-icon name="camera-outline" style="font-size: 40px;"></ion-icon>
+                                                            <sup id="cantidadarchivos${id}_${subordenes}" name="cantidadarchivos${id}_${subordenes}" class="badge badge-success" style="float: right;"></sup>
+                                                        </span>                                
+                                                        <input type="file" accept="image/*;capture=camera;video/*" multiple="multiple" id="archivo${id}_${subordenes}" name="archivo${id}_${subordenes}[]" class="choose" style="display: none;" onchange="contarImagenes(${id} , ${subordenes});">
+                                                    </label>
+                                                </center>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        </div>   
+                                                    
+                                    </div>
+                                </div>                        
+                                                        
+                            `);
+                                $("#color" + ordenes).select2().trigger("change");
+                                $("#marca" + ordenes).select2().trigger("change");
+                                $("#pieza" + id + "_" + subordenes).select2().trigger("change");
 
-    // PARA REMOVER EL DIV , DEVEMOS PASAR EL ID DEL DIV, elementId ES VALOR ENTERO
-    function removeItem(elementId) {
-        if (contarItems <= 0) {
-            contarItems = 0;
-        }
-        if (contarItems == 1) {
-            DialogAlert('Error', 'No puede eliminar está orden', '');
-        } else {
-            var element = document.getElementById("div" + elementId);
-            element.parentNode.removeChild(element);
-            contarItems = contarItems - 1;
-
-            if (contarItems <= 1) {
-                document.getElementById("totaldeitems").innerHTML = contarItems + " orden";
-            } else {
-                document.getElementById("totaldeitems").innerHTML = contarItems + " ordenes";
+                            }
+                        }
+                        console.log(json);
+                    }
+                });
             }
-            delete pagoTotal['item' + elementId];
-            sumarTotalItems();
-        }
-    }
+        } else if ((nombre_servicio != 'PROMOCIONES' || nombre_servicio != 'PROMOCION') && idservicio != 1) {
+            if (idprenda != "") {
+                $.ajax({
+                    'async': false,
+                    'type': "GET",
+                    'global': false,
+                    'dataType': 'json',
+                    'url': ruta + "Pieza",
+                    'data': {'cmd': "listapiezasxprenda", 'idprenda': idprenda},
+                    'success': function (json) {
 
-    var formArrayGroup = {};
-    function groupbykeynamenumber() {
-        // EJM: https://stackoverflow.com/questions/15481539/jquery-check-if-input-exists-and-has-a-value
-        // EJM: https://stackoverflow.com/questions/19479924/how-to-access-jquery-serialized-data
+                        // CUANDO NO ES POR PIEZA
+                        if (json['status'] == 'Ok' && json['cantpiezas'] <= 1) {
+                            var cantPiezas = json['cantpiezas'];
+                            subordenes = subordenes + 1;
+                            document.querySelector("#items" + id).insertAdjacentHTML('afterbegin', `<br/>
+                            <div class="card">
+                            <div class="card-body">
+        
+                            <div class="form-group basic">
+                            <div class="input-wrapper">
+                            <input type="hidden" hidden="hidden" value="${cantPiezas}" id="cantidadpieza${id}_${subordenes}" name="cantidadpieza${id}_${subordenes}">    
+                            </div>
+                            </div>
+                            
+                            <div class="form-group basic">
+                            <div class="input-wrapper">
+                            <strong>                        
+                                <a href="javascript:void(0)" class="text-secondary">ESTADO:</a>
+                            </strong>    
+                            <div class="col-12" id="estado${id}_${subordenes}" name="estado${id}_${subordenes}" style="margin-top: 10px;">${opcionesEstado(idprenda)}</div>
+                            </div>
+                            </div>
+                                
+                            <div class="form-group basic">
+                            <div class="input-wrapper">
+                            <strong>                        
+                                <a href="javascript:void(0)" class="text-secondary">OBSERVACIONES:</a>
+                            </strong>    
+                            <textarea class="form-control" id="observacion${id}_${subordenes}" name="observacion${id}_${subordenes}" rows="4" style="resize: none;border: 1px solid #ccc;padding: 15px;margin-top: 10px;" placeholder="OBSERVACIONES"></textarea>
+                            </div>
+                            </div>
+                                
+                            <div class="form-group basic">
+                            <div class="input-wrapper">
+                            <div class="row">                        
+                                <div class="col-6">
+                                    <center>
+                                        <label for="audio${id}_${subordenes}">
+                                            <span class="headerButton">
+                                                <ion-icon name="mic-outline" style="font-size: 40px;"></ion-icon>
+                                                <sup id="cantidadaudio${id}_${subordenes}" name="cantidadaudio${id}_${subordenes}" class="badge badge-success" style="float: right;"></sup>
+                                            </span>
+                                            <input type="file" id="audio${id}_${subordenes}" name="audio${id}_${subordenes}" accept="audio/*" capture style="display: none;" onchange="contarAudios(${id} , ${subordenes});">
+                                        </label>
+                                    </center>
+                                </div>
+                                <div class="col-6">
+                                    <center>
+                                        <label for="archivo${id}_${subordenes}">
+                                            <span class="headerButton">
+                                                <ion-icon name="camera-outline" style="font-size: 40px;"></ion-icon>
+                                                <sup id="cantidadarchivos${id}_${subordenes}" name="cantidadarchivos${id}_${subordenes}" class="badge badge-success" style="float: right;"></sup>
+                                            </span>                                
+                                            <input type="file" accept="image/*;capture=camera;video/*" multiple="multiple" id="archivo${id}_${subordenes}" name="archivo${id}_${subordenes}[]" class="choose" style="display: none;" onchange="contarImagenes(${id} , ${subordenes});">
+                                        </label>
+                                    </center>
+                                </div>
+                            </div>
+                            </div>
+                            </div>    
+                            
+                            </div>
+                            </div>
+                            `);
 
-        formArrayGroup = {};
-        var fr = $("#formData").serialize();
-        //console.log("Form : " + fr);
-        // countEstArt
-        // numOrden
-        for (var n = 1; n <= numOrden; n++) {
-            if ((String("item" + n) in pagoTotal) == true) {
-                formArrayGroup["item" + n] = {};
-                formArrayGroup["item" + n]["idarticulo"] = "";
-                formArrayGroup["item" + n]["idprenda"] = "";
-                formArrayGroup["item" + n]["idservicio"] = "";
-                formArrayGroup["item" + n]["dia"] = "";
-                formArrayGroup["item" + n]["precio"] = "";
-                formArrayGroup["item" + n]["fecha"] = "";
-                formArrayGroup["item" + n]["estados"] = {};
-                formArrayGroup["item" + n]["observacion"] = "";
-                formArrayGroup["item" + n]["archivos"] = {};
 
-                // ARTICULO
-                if ($("#sop" + n).length) {
-                    formArrayGroup["item" + n]["idarticulo"] = $("#sop" + n).val() ? $("#sop" + n).val() : "";
-                }
+                            // CUANDO ES POR PIEZA
+                        } else if (json['status'] == 'Ok' && json['cantpiezas'] > 1) {
+                            if (json['data']) {
+                                var datos = json['data'];
+                                var cantPiezas = json['cantpiezas'];
+                                subordenes = subordenes + 1;
 
-                // PRENDA - OPCIONAL
-                if ($("#pre" + n).length) {
-                    formArrayGroup["item" + n]["idprenda"] = $("#pre" + n).val() ? $("#pre" + n).val() : "";
-                }
+                                var opciones = "";
+                                var j = -1;
+                                for (var i = 1; i <= cantPiezas; i++) {
 
-                // SERVICIO
-                if ($("#ser" + n).length) {
-                    formArrayGroup["item" + n]["idservicio"] = $("#ser" + n).val() ? $("#ser" + n).val() : "";
-                }
+                                    subordenes = subordenes + 1;
 
-                // DIAS
-                if ($("#dia" + n).length) {
-                    formArrayGroup["item" + n]["dia"] = $("#dia" + n).val() ? $("#dia" + n).val() : "";
-                }
+                                    // OPCION POR PIEZA
+                                    j = j + 1;
+                                    opciones = "<option value='" + datos[j].idpieza + "'>" + datos[j].nombrepieza.toUpperCase() + "</option>";
 
-                // PRECIO
-                if ($("#prc" + n).length) {
-                    formArrayGroup["item" + n]["precio"] = $("#prc" + n).val() ? $("#prc" + n).val() : "";
-                }
+                                    document.querySelector("#items" + id).insertAdjacentHTML('afterbegin', `<br/>
+                                        <div class="card">
+                                        <div class="card-body">
 
-                // FECHA
-                if ($("#fec" + n).length) {
-                    formArrayGroup["item" + n]["fecha"] = $("#fec" + n).val() ? $("#fec" + n).val() : "";
-                }
+                                        <div class="form-group basic">
+                                        <div class="input-wrapper">
+                                        <strong>                        
+                                            <a href="javascript:void(0)" class="text-secondary">PIEZAS:</a>
+                                        </strong> 
+                                        <input type="hidden" hidden="hidden" value="${cantPiezas}" id="cantidadpieza${id}_${subordenes}" name="cantidadpieza${id}_${subordenes}">
+                                        <select class='search-live form-control' id="pieza${id}_${subordenes}" name="pieza${id}_${subordenes}">
+                                            ${opciones}
+                                        </select>    
+                                        </div>
+                                        </div>
 
-                // ESTADOS
-                // CEUNTO SI HAY UN ID
-                if (1 <= countEstArt) {
-                    var concatestadosids = "";
-                    for (var e = 1; e <= countEstArt; e++) {
-                        if (
-                                $("#chk" + n + "_" + e).length > 0 &&
-                                $("#chk" + n + "_" + e).is(":checked")
-                                ) {
-                            concatestadosids += " ";
-                            concatestadosids += $("#chk" + n + "_" + e).val() ? $("#chk" + n + "_" + e).val() : "";
+                                        <div class="form-group basic">
+                                        <div class="input-wrapper">
+                                        <strong>                        
+                                            <a href="javascript:void(0)" class="text-secondary">ESTADO:</a>
+                                        </strong>    
+                                        <div class="col-12" id="estado${id}_${subordenes}" name="estado${id}_${subordenes}" style="margin-top: 10px;">${opcionesEstado(idprenda)}</div>
+                                        </div>
+                                        </div>
+
+                                        <div class="form-group basic">
+                                        <div class="input-wrapper">
+                                        <strong>                        
+                                            <a href="javascript:void(0)" class="text-secondary">OBSERVACIONES:</a>
+                                        </strong>    
+                                        <textarea class="form-control" id="observacion${id}_${subordenes}" name="observacion${id}_${subordenes}" rows="4" style="resize: none;border: 1px solid #ccc;padding: 15px;margin-top: 10px;" placeholder="OBSERVACIONES"></textarea>
+                                        </div>
+                                        </div>
+
+                                        <div class="form-group basic">
+                                        <div class="input-wrapper">
+                                        <div class="row">                        
+                                            <div class="col-6">
+                                                <center>
+                                                    <label for="audio${id}_${subordenes}">
+                                                        <span class="headerButton">
+                                                            <ion-icon name="mic-outline" style="font-size: 40px;"></ion-icon>
+                                                            <sup id="cantidadaudio${id}_${subordenes}" name="cantidadaudio${id}_${subordenes}" class="badge badge-success" style="float: right;"></sup>
+                                                        </span>
+                                                        <input type="file" id="audio${id}_${subordenes}" name="audio${id}_${subordenes}" accept="audio/*" capture style="display: none;" onchange="contarAudios(${id} , ${subordenes});">
+                                                    </label>
+                                                </center>
+                                            </div>
+                                            <div class="col-6">
+                                                <center>
+                                                    <label for="archivo${id}_${subordenes}">
+                                                        <span class="headerButton">
+                                                            <ion-icon name="camera-outline" style="font-size: 40px;"></ion-icon>
+                                                            <sup id="cantidadarchivos${id}_${subordenes}" name="cantidadarchivos${id}_${subordenes}" class="badge badge-success" style="float: right;"></sup>
+                                                        </span>                                
+                                                        <input type="file" accept="image/*;capture=camera;video/*" multiple="multiple" id="archivo${id}_${subordenes}" name="archivo${id}_${subordenes}[]" class="choose" style="display: none;" onchange="contarImagenes(${id} , ${subordenes});">
+                                                    </label>
+                                                </center>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        </div>    
+
+                                        </div>
+                                        </div>
+                                        `);
+                                    $("#pieza" + id + "_" + subordenes).select2().trigger("change");
+                                }
+                            }
                         }
                     }
-                    concatestadosids = concatestadosids.trim();
-                    concatestadosids = concatestadosids.replace(' ', ',');
-                    formArrayGroup["item" + n]["estados"] = concatestadosids ? concatestadosids : "";
-                }
-
-                // OBSERVACION
-                if ($("#obs" + n).length) {
-                    formArrayGroup["item" + n]["observacion"] = $("#obs" + n).val() ? $("#obs" + n).val() : "";
-                }
-
-                // ARCHIVOS: IMAGENES, VIDEOS, AUDIO 
-                if ($('#file' + n).val()) {
-
-                    // EJM : https://stackoverflow.com/a/7023537
-                    //var files = $("#file" + n)[0].files; 
-
-                    //var formData = new FormData();
-                    // Read selected files
-                    //for (var index = 0; index < totalfiles; index++) {
-                    //    formData.append("files" + n + "[]", document.getElementById('files').files[index]);
-                    //}
-
-
-                    /*var imageContainer = [];
-                     var files = document.getElementsByName("file" + n + '[]');
-                     for (var i = 0; i < files.length; i++) {
-                     var fileUpload = files[i];
-                     if (fileUpload.files.length) {
-                     formArrayGroup["item" + n]["archivos"][i] = fileUpload.files[0];                            
-                     }
-                     }*/
-
-                    //for (var f = 0; f < files.length; f++)
-                    //{
-                    //formArrayGroup["item" + n]["archivos"] = $('#file' + n).prop("files")[0];
-                    // Populate the array
-                    //var filelist = new Array();
-                    var file = document.getElementById('file' + n);
-                    for (var y = 0; y < file.files.length; ++y) {
-                        formArrayGroup["item" + n]["archivos"][y] = file.files.item(y);
-                    }
-                    //formArrayGroup["item" + n]["archivos"] = filelist;
-                    //console.log(formArrayGroup);
-                    //}
-                }
-
-                //console.log(formArrayGroup);
+                });
             }
+        } // ELSE
+    }
+    // FIN OBTENER PIEZAS POR PRENDA
+
+    // SUMAR PRECIO PARA PROMOCIONES
+    // Para verificar si el key existe en un array - Ejm: https://stackoverflow.com/a/17126504/16488926
+    // if NaN value javascript - Ejm: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/isNaN
+    var promociones = [];
+    function promocionPrecio(id, idselect) {
+        var precioOption = $("#pieza" + id + "_" + idselect).find("option:selected").attr('price');
+
+        if (precioOption === "0.00" || precioOption === "" || isNaN(precioOption) || typeof precioOption === 'undefined') {
+            precioOption = 0;
+        }
+        var testArray = "precio" + id in promociones; // false o true
+        if (!testArray) {
+            promociones["precio" + id] = {};
+        }
+        if (testArray) {
+            promociones["precio" + id]['pieza' + id + '_' + idselect] = parseFloat(precioOption).toFixed(2);
         }
 
-        return formArrayGroup;
+        // Ejm: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+        // Ejm: https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_sort2
+        var precios = [];
+        var preciototal = 0;
+        var pr = 0;
+        Object.entries(promociones["precio" + id]).forEach(([key, value]) => {
+            precios[pr] = parseFloat(value).toFixed(2);
+            pr = pr + 1;
+        });
+
+        if (precios.length === 2) {
+            preciototal = Math.max.apply(null, precios);
+        } else if (precios.length > 2) {
+            precios.sort(function (a, b) {
+                return b - a
+            });
+            preciototal = parseFloat(precios[0]) + parseFloat(precios[1]);
+        }
+
+        document.getElementById("precio" + id).value = preciototal.toFixed(2);
+        sumarPrecios();
     }
-
-    function guardarItems() {
-        var contObject = Object.keys(pagoTotal).length;
-        //console.log(contObject);
-        if (
-                contarItems => 1
-        ) {
+    //
 
 
+    // SUMAMOS LOS PRECIOS
+    var preciototalapagar = 0;
+    function sumarPrecios() {
+        preciototalapagar = 0;
+        var pagoTotal = 00;
+        for (var sp = 1; sp <= ordenes; sp++) {
+            var findId = document.getElementById("precio" + sp);
+            if (findId) {
+                var precio = findId.value;
+                pagoTotal = parseFloat(pagoTotal) + parseFloat(precio);
+            }
+        }
+        if (pagoTotal === "" || pagoTotal === 0) {
+            pagoTotal = "0.00";
+        }
+
+        //console.log("PAGO TOTAL : " + pagoTotal);
+        document.getElementById("pagototal").innerHTML = "";
+        document.getElementById("pagototal").innerHTML = parseFloat(pagoTotal).toFixed(2);
+        preciototalapagar = parseFloat(pagoTotal).toFixed(2);
+    }
+    // FIN SUMAMOS LOS PRECIOS
+
+    // CALCULAR FECHA DE ENTREGA, SIN LOS DOMINGOS
+    // MOMENTJS - EJM (CONTAR CUANTOS DOMINGOS HAY EN DOS FECHAS): https://stackoverflow.com/a/44469127/16488926
+    // AL PARECER LA FUNCION SUMA UN DIA MAS SI LA FECHA ES FERIADO, NO ESTOY SEGURO. PERO EL CALCULO ESTA BIEN
+    function calcularFecha(fechainicio, fechafin) {
+        if (fechainicio.toLowerCase() === 'hoy') {
+            fechainicio = moment().format("YYYY-MM-DD");
+        }
+        let start = moment(fechainicio, 'YYYY-MM-DD');
+        let end = moment(fechafin, 'YYYY-MM-DD');
+
+        let datesum = moment(fechainicio, 'YYYY-MM-DD');
+
+        let weekdayCounter = 0;
+        while (start <= end) {
+            // SUNDAY = DOMINGO
+            if (start.format('ddd') == 'Sun') {
+                weekdayCounter++; // CUENTO LOS DOMINGOS
+            }
+            start = moment(start, 'YYYY-MM-DD').add(1, 'days');
+
+            // SUMO DIAS PARA TENER LA FECHA FINAL
+            datesum = moment(datesum).add(1, 'days').format("YYYY-MM-DD");
+        }
+        // RESTO UN DIA, YA QUE ME ESTA SUMANDO UN DIA MAS
+        datesum = moment(datesum).subtract(1, "days").format("YYYY-MM-DD");
+        //datesum = moment(datesum).add(-1, 'days').format("YYYY-MM-DD");
+
+        if (weekdayCounter >= 1) {
+            return calcularFecha(datesum, moment(datesum).add(weekdayCounter, 'days').format("YYYY-MM-DD"));
+        }
+
+        // EJM : https://stackoverflow.com/a/12059550/16488926
+        return {
+            "FechaInicio": moment().format("YYYY-MM-DD"),
+            "FechaEntrega": datesum
+        };
+
+        // return weekdayCounter;
+    }
+    // FIN CALCULAR FECHA DE ENTREGA, SIN LOS DOMINGOS
+
+    // SIRVE PARA OBTENER LOS DIAS DEL SERVICIO, NADA MAS
+    function obtenerdias() {
+        //var dias = $("#servicio").find("option:selected").attr('data-rc');
+        var dias = document.getElementById("diasservicios").value;
+        document.getElementById("totaldias").value = parseInt(dias);
+        obtenerFechas('hoy', dias);
+    }
+    // FIN SIRVE PARA OBTENER LOS DIAS DEL SERVICIO, NADA MAS
+
+    // CALCULAR FECHA QUE SE ENTREGARA - FECHA DEFAULT
+    function obtenerFechas(fecha, dias) {
+        // POR DEFECTO SE SUMA UN DIA, MOMENT JS NO TOMA HOY COMO UN DIA SI NO 
+        // DESDE MAÑANA EMPIEZA A CONTAR LOS DIAS
+        if (fecha.toLowerCase() === 'hoy') {
+            fecha = moment().format("YYYY-MM-DD");
+        }
+
+        // FECHA SUMADA LOS DIAS
+        fechaestimada = moment(fecha).add(dias, 'd').format("YYYY-MM-DD");
+
+        var Array = calcularFecha(fecha, fechaestimada);
+        document.getElementById("fechatotalmax").value = Array['FechaEntrega'];
+        document.getElementById("fechatotalmin").value = Array['FechaEntrega'];
+        nombrediaEspaniol(Array['FechaEntrega']);
+    }
+    //obtenerFechas('hoy', 32);
+    // FIN CALCULAR FECHA QUE SE ENTREGARA - FECHA DEFAULT
+
+    // SIRVE PARA SUMAR Y RESTAR FECHAS
+    function sumaryrestarFecha(signo) {
+        var obtfechaMax = document.getElementById("fechatotalmax");
+        var obtfechaMin = document.getElementById("fechatotalmin").value;
+        let fechaMaxMenosyMas = moment(obtfechaMax.value).add(signo + 1, 'days').format("YYYY-MM-DD");
+        let fechaMaxMenosyMascalular = moment(fechaMaxMenosyMas, 'YYYY-MM-DD');
+        if (fechaMaxMenosyMascalular.format('ddd') === 'Sun') {
+            fechaMaxMenosyMas = moment(fechaMaxMenosyMas).add(signo + 1, 'days').format("YYYY-MM-DD");
+        }
+        obtfechaMax.value = fechaMaxMenosyMas;
+        nombrediaEspaniol(fechaMaxMenosyMas);
+        evaluarfechaMenor();
+    }
+    // FIN SIRVE PARA SUMAR Y RESTAR FECHAS
+
+    // SIRVE PARA SABER EL NOMBRE DEL DIA QUE TIENE UNA FECHA, EN ESPAÑOL
+    function nombrediaEspaniol(fecha) {
+        let saberdia = moment(fecha, 'YYYY-MM-DD');
+        saberdia = saberdia.format('ddd');
+        // Mon,Tue,wed,Thu,Fri,Sat,Sun
+        var dias = {
+            "Mon": "Lunes",
+            "Tue": "Martes",
+            "Wed": "Miercoles",
+            "Thu": "Jueves",
+            "Fri": "Viernes",
+            "Sat": "Sabado",
+            "Sun": "Domingo"
+        };
+        document.getElementById("nombredia").innerHTML = dias[saberdia];
+    }
+    // FIN SIRVE PARA SABER EL NOMBRE DEL DIA QUE TIENE UNA FECHA, EN ESPAÑOL
+
+    // SIRVE PARA CUANDO LA FECHA QUE ESTAMOS RESTANDO UN DIA, NO SEA MENOR A LA FECHA QUE 
+    // NOS DA POR DEFECTO CON LOS DIAS DEL SERVICIO.
+    function evaluarfechaMenor() {
+        var obtfechaMax = document.getElementById("fechatotalmax");
+        var obtfechaMin = document.getElementById("fechatotalmin").value;
+        if (moment(obtfechaMax.value).isBefore(moment(obtfechaMin))) {
+            obtfechaMax.value = obtfechaMin;
+            nombrediaEspaniol(obtfechaMin);
+        }
+    }
+    // FIN SIRVE PARA CUANDO LA FECHA QUE ESTAMOS RESTANDO UN DIA, NO SEA MENOR A LA FECHA QUE NOS DA POR DEFECTO CON LOS DIAS DEL SERVICIO.
+
+    // SIRVE PARA REGISTRAR LOS COLORES Y LAS MARCAS QUE NO EXISTE 
+    // EJEM: https://stackoverflow.com/a/35544242/16488926
+    function addnewTagsColor(idselect) {
+        var color = document.getElementById("color" + idselect).value;
+        if (color.trim() != "") {
+            $.post(ruta + "Color", {cmd: "registrartagscolor", color: color}, function (json) {
+                console.log(json['msg']);
+
+                if (json['status'] === 'Ok') {
+                    $('.tagsColor')
+                            .append($("<option/>") //add option tag in select
+                                    .val(color.toUpperCase()) //set value for option to post it
+                                    .text(color.toUpperCase())
+                                    ) //set a text for show in select
+                            .trigger("change"); //apply to select2
+                }
+            });
+        }
+    }
+    function addnewTagsMarca(idselect) {
+        var marca = document.getElementById("marca" + idselect).value;
+        if (marca.trim() != "") {
+            $.post(ruta + "Marca", {cmd: "registrartagsmarca", marca: marca}, function (json) {
+                console.log(json['msg']);
+                if (json['status'] === 'Ok') {
+                    $('.tagsMarca')
+                            .append($("<option/>") //add option tag in select
+                                    .val(marca.toUpperCase()) //set value for option to post it
+                                    .text(marca.toUpperCase())
+                                    ) //set a text for show in select
+                            .trigger("change"); //apply to select2
+                }
+            });
+        }
+    }
+    // FIN SIRVE PARA REGISTRAR LOS COLORES Y LAS MARCAS QUE NO EXISTE 
+
+    // ENVIO DE DATOS Y REGISTRAR LA BOLETA O FACTURA E IMPRIMIR TICKETS SI TODO ESTA OKEY 
+    $(document).ready(function () {
+        $("#enviarDatos").click(function () {
+            $("#cancelarfechaentrega").click();
             var form = new FormData(document.getElementById('formData'));
+            var fechaentrega = document.getElementById("fechatotalmax").value;
+            var fechaentregaminimo = document.getElementById("fechatotalmin").value; // ESTA FECHA ES LA SUMA DE: DIAS + LA FECHA ACTUAL                    
+            var nombre_servicio = $("#servicio").find("option:selected").attr('name-service');
+            form.append('fechadeentrega', fechaentrega);
+            form.append('fechaminimodeentrega', fechaentregaminimo);
+            form.append('nombreservicio', nombre_servicio);
+            form.append('pagototal', preciototalapagar);
+            form.append('numOrdenes', ordenes);
+            form.append('numSubordenes', subordenes);
+            form.append('cantEstados', idestados);
             form.append('cmd', 'registrarrecojo');
-            form.append('numOrden', numOrden);
             $.ajax({
                 type: "POST",
+                dataType: "html",
                 url: ruta + 'Recojo',
                 data: form,
                 cache: false,
                 contentType: false, //must, tell jQuery not to process the data
                 processData: false,
-                //data: $("#upload_img").serialize(),
                 success: function (data)
                 {
-                    console.log(data);
+                    document.getElementById("htmlprint").innerHTML = '';
+                    document.getElementById("htmlprint").innerHTML = data;
                 }
             });
 
-            // EJM: https://thisinterestsme.com/send-javascript-object-to-php-script/
-//            $.ajax({
-//                contentType: 'application/json',
-//                url: ruta + 'Recojo', // url where to submit the request
-//                type: "POST", // type of action POST || GET
-//                dataType: "json",
-//                data: {
-//                    cmd: 'registrarrecojo',
-//                    formulario: groupbykeynamenumber()
-//                },
-//                cache: false,
-//                processData: false,
-//                success: function (json) {
-//                    console.log(json);
-//                },
-//                error: function (xhr, resp, text) {
-//                    console.log(xhr, resp, text);
-//                }
-//            });
-        } else {
-            DialogAlert('Error', 'No puede guardar los datos', '');
-        }
+        });
+    });
+    // FIN ENVIO DE DATOS Y REGISTRAR LA BOLETA O FACTURA E IMPRIMIR TICKETS SI TODO ESTA OKEY
 
-    }
 </script>

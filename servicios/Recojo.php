@@ -8,13 +8,11 @@ include './Barcode.php';
 $html = ob_get_clean();
 
 use Dompdf\Dompdf;
+use Medoo\Medoo;
 
 if ($ajax) {
-    if (METODO($method) == 'GET') {
-        
-    } else if (METODO($method) == 'POST') {
+    if (METODO($method) == 'POST') {
         $cmd = input('cmd');
-
         if ($cmd == 'registrarrecojo') {
             $idservicio = input('servicio');
             $nombreservicio = input('nombreservicio');
@@ -22,6 +20,7 @@ if ($ajax) {
             $fechadeentrega = input('fechadeentrega');
             $pagototal = input('pagototal');
             $tipo_cobro = 'Por Cobrar';
+            $numOrdenes = input('numOrdenes');
 
             if (
                     !empty($idservicio) &&
@@ -54,6 +53,7 @@ if ($ajax) {
                 $pdo->insert(
                         tabla('orden'),
                         [
+                            "idservicio" => @trim($idservicio),
                             "nombre_servicio" => @strtoupper(strtolower($nombreservicio)),
                             "nombre_repartidor" => @ucwords(strtolower(@$_SESSION['nombrecorto'])), // NOMBRE CORTO DEL REPARTIDOR
                             "fecha" => $fechahoy,
@@ -64,7 +64,7 @@ if ($ajax) {
                             "fecha_entrega" => $fechadeentrega,
                             "hora_entrega" => '',
                             "tipo_cobro" => $tipo_cobro,
-                            "numero_orden" => @$zona[0]['puesto_zona'],
+                            "idzona" => @$zona[0]['puesto_zona'],
                             "total_s_dscto" => '',
                             "descuento" => '',
                             "total_pagar" => $pagototal,
@@ -80,6 +80,196 @@ if ($ajax) {
 
                 if ($lastinsert_id) {
 
+                    $numero_orden = strtoupper(@$zona[0]['puesto_zona']) . '-' . zero_fill($lastinsert_id, 7);
+
+                    try {
+                        $pdo->update(tabla('orden'),
+                                [
+                                    "numeroorden" => $numero_orden
+                                ],
+                                [
+                                    "id" => $lastinsert_id
+                                ]
+                        );
+                    } catch (Exception $e) {
+                        echo strings('error_create');
+                        $pdo->delete(tabla('orden'), [
+                            "AND" => [
+                                "id" => $lastinsert_id
+                            ]
+                        ]);
+                        $pdo->delete(tabla('detalleorden'), [
+                            "AND" => [
+                                "idorden" => $lastinsert_id
+                            ]
+                        ]);
+                        die();
+                    }
+
+
+
+                    $insert = [];
+                    $piezas = [];
+                    $promociones = [];
+
+                    // SI ES POR PIEZA
+                    if (
+                            strtolower($nombreservicio) != 'promocion' &&
+                            strtolower($nombreservicio) != 'promoción' &&
+                            strtolower($nombreservicio) != 'promociones' &&
+                            $idservicio != 1
+                    ) {
+                        
+                    }
+                    // SI SON PROMOCIONES
+                    else if (
+                            strtolower($nombreservicio) == 'promocion' ||
+                            strtolower($nombreservicio) == 'promoción' ||
+                            strtolower($nombreservicio) == 'promociones' ||
+                            $idservicio == 1
+                    ) {
+
+                        // RECORRO PARA OBTENER LOS IDS
+                        $keyname = array();
+                        foreach ($_REQUEST as $key => $value) {
+                            if (str_contains(strval($key), 'pieza')) {
+                                array_push($keyname, str_replace("pieza", "", $key));
+                            }
+                        }
+
+                        for ($k = 0; $k < count($keyname); $k++) {
+                            $inidestado = implode(" @ ", @$_REQUEST['estado' . $keyname[$k]]);
+
+                            // SUBIMOS LAS IMAGENES POR PRENDA
+                            $carpeta_archivo = RUTA_ARCHIVOS . $numero_orden . "/";
+                            $inidarchivo = '';
+                            $file = @$_FILES['archivo' . $keyname[$k]];
+                            if (count($file['name'])) {
+                                if (!file_exists($carpeta_archivo)) {
+                                    mkdir($carpeta_archivo, 0777, true);
+                                }
+                                for ($fi = 0; $fi < count($file['name']); $fi++) {
+                                    $tmpFilePath = $file['tmp_name'][$fi];
+                                    if ($tmpFilePath) {
+                                        $temp = explode(".", $file["name"][$fi]);
+                                        $newfilename = 'I' . generateRandomString() . '.jpg';
+                                        if ($fi > 0) {
+                                            $inidarchivo .= ' @ ';
+                                        }
+                                        $inidarchivo .= $newfilename;
+                                        move_uploaded_file($file["tmp_name"][$fi], $carpeta_archivo . $newfilename);
+                                    }
+                                }
+                            }
+                            // FIN SUBIMOS LAS IMAGENES POR PRENDA
+                            // SUBIMOS LOS AUDIOS POR PRENDA
+                            $carpeta_audio = RUTA_AUDIOS . $numero_orden . "/";
+                            $inidaudio = '';
+                            $file = @$_FILES['audio' . $keyname[$k]];
+                            if (count($file['name'])) {
+                                if (!file_exists($carpeta_audio)) {
+                                    mkdir($carpeta_audio, 0777, true);
+                                }
+                                $fi = 0;
+                                for ($fi = 0; $fi < count($file['name']); $fi++) {
+                                    $tmpFilePath = $file['tmp_name'][$fi];
+                                    if ($tmpFilePath) {
+                                        $temp = explode(".", $file["name"][$fi]);
+                                        $newfilename = 'M' . generateRandomString() . '.' . end($temp);
+                                        if ($fi > 0) {
+                                            $inidaudio .= ' @ ';
+                                        }
+                                        $inidaudio .= $newfilename;
+                                        move_uploaded_file($file["tmp_name"][$fi], $carpeta_audio . $newfilename);
+                                    }
+                                }
+                            }
+                            // FIN SUBIMOS LOS AUDIOS POR PRENDA
+
+                            $nombrepromocion = $pdo->select(
+                                    tabla('articulo'),
+                                    [
+                                        "nombre_articulo",
+                                    ],
+                                    [
+                                        "id" => @$_REQUEST['subidprenda' . $keyname[$k]]
+                                    ],
+                                    [
+                                        "LIMIT" => [0, 1]
+                                    ]
+                            );
+
+                            $nombreprenda = $pdo->select(
+                                    tabla('articulo'),
+                                    [
+                                        "nombre_articulo",
+                                    ],
+                                    [
+                                        "id" => @$_REQUEST['pieza' . $keyname[$k]]
+                                    ],
+                                    [
+                                        "LIMIT" => [0, 1]
+                                    ]
+                            );
+
+                            $precioprenda = $pdo->select(
+                                    tabla('articulo'),
+                                    [
+                                        "precio_articulo",
+                                    ],
+                                    [
+                                        "id" => @$_REQUEST['pieza' . $keyname[$k]]
+                                    ],
+                                    [
+                                        "LIMIT" => [0, 1]
+                                    ]
+                            );
+
+                            $insert[] = array(
+                                'idorden' => $lastinsert_id,
+                                'idpromocion' => @$_REQUEST['subidprenda' . $keyname[$k]],
+                                'nombrepromocion' => $nombrepromocion[0]['nombre_articulo'],
+                                'idprenda' => @$_REQUEST['pieza' . $keyname[$k]],
+                                'nombreprenda' => $nombreprenda[0]['nombre_articulo'],
+                                'color' => @$_REQUEST['color' . $keyname[$k]],
+                                'marca' => @$_REQUEST['marca' . $keyname[$k]],
+                                'precioprenda' => $precioprenda[0]['precio_articulo'],
+                                'nombreestados' => @$inidestado,
+                                'observaciones' => @$_REQUEST['observacion' . $keyname[$k]],
+                                'audios' => $inidaudio,
+                                'imagenes' => $inidarchivo,
+                            );
+
+                            $promociones[$nombrepromocion[0]['nombre_articulo']][] = array(
+                                'nombreprenda' => $nombreprenda[0]['nombre_articulo'],
+                                'color' => @$_REQUEST['color' . $keyname[$k]],
+                                'marca' => @$_REQUEST['marca' . $keyname[$k]],
+                                'precioprenda' => $precioprenda[0]['precio_articulo'],
+                                'nombreestados' => @$inidestado
+                            );
+                        }
+
+                        try {
+                            $pdo->insert(
+                                    tabla('detalleorden'),
+                                    $insert
+                            );
+                        } catch (Exception $e) {
+                            echo strings('error_create');
+                            $pdo->delete(tabla('orden'), [
+                                "AND" => [
+                                    "id" => $lastinsert_id
+                                ]
+                            ]);
+                            $pdo->delete(tabla('detalleorden'), [
+                                "AND" => [
+                                    "idorden" => $lastinsert_id
+                                ]
+                            ]);
+                            die();
+                        }
+                    }
+
                     // EJM PDF: https://github.com/dompdf/dompdf
                     // DOY PERMISO A LA CARPETA PARA GUARDAR EL PDF
                     chmod(RUTA_PDF, 0755);
@@ -91,7 +281,7 @@ if ($ajax) {
 
                     $logo = convertirblobimageporruta("../layouts/design/aki/bn-logo.png");
 
-                    barcode(RUTA_PDF . $codbar, strtoupper(@$zona[0]['puesto_zona']) . '-', 20, 'horizontal', 'code128', true);
+                    barcode(RUTA_PDF . $codbar, $numero_orden, 20, 'horizontal', 'code128', true);
 
                     // instantiate and use the dompdf class
                     // Quitar padding y margin pdf: https://stackoverflow.com/q/19779285/16488926
@@ -137,7 +327,28 @@ if ($ajax) {
                             <td><b>DESCRIPCION</b></td>
                             <td><b>IMPORTE</b></td>
                         </tr>                        
-                    </table>
+                    </table>';
+
+                    if ($promociones) {
+                        $sumaprecios = 0;
+                        $html .= '<div style="text-align: left;font-family: sans-serif;">';
+                        foreach ($promociones as $promo => $prendas) {
+                            $html .= "1 &nbsp;" . $promo . "<br>";
+                            for ($pre = 0; $pre < count(@$prendas); $pre++) {
+                                $html .= "&nbsp;&nbsp;&nbsp; (1)&nbsp;" . @$prendas[$pre]['nombreprenda'] . " <label style='float: right;'>" . $prendas[$pre]['precioprenda'] . "</label><br>";                                
+                                $html .= "&nbsp;&nbsp;&nbsp; " . @$prendas[$pre]['color'] . "<br>";                                
+                                $html .= "&nbsp;&nbsp;&nbsp; " . @$prendas[$pre]['marca'] . "<br>";                                
+                                if (@$prendas[$pre]['nombreestados']) {
+                                    $html .= "&nbsp;&nbsp;&nbsp; " . str_replace(' @ ', ',', $prendas[$pre]['nombreestados']) . "<br>";                                    
+                                }
+                                $sumaprecios = $sumaprecios + @$prendas[$pre]['precioprenda'];
+                            }
+                        }
+                        $html .= "<br><strong>TOTAL A PAGAR : S/.</strong>" . " <strong style='float: right;'>" . number_format($sumaprecios, 2, '.', '') . "</strong><br>";
+                        $html .= '</div><br>';
+                    }
+
+                    $html .= '
                     <!--<table cellspacing="0" style="width: 100%;border: 0px solid transparent;border-bottom: 1px solid black;">
                         <tr style="text-align: left;font-family: sans-serif;">
                             <td>1</td>
@@ -145,8 +356,6 @@ if ($ajax) {
                             <td>23.00</td>
                         </tr>                        
                     </table>-->
-
-
                     <!-- VA ABAJO DE LAS PRENDAS -->
                     <label style="font-family: sans-serif;font-size: 17px;font-weight: bold">FECHA DE ENTREGA:</label><br>
                     <strong style="font-family: sans-serif;">' . @ucwords(nombreDia($fechadeentrega)) . ', ' . date('d/m/Y', strtotime($fechadeentrega)) . ' ' . date('h:i A', strtotime($horahoypm)) . '</strong><br>
@@ -163,7 +372,7 @@ if ($ajax) {
                     unlink(RUTA_PDF . $codbar);
                     $dompdf->loadHtml($html);
                     $dompdf->set_option('isRemoteEnabled', TRUE);
-                    $dompdf->set_paper(array(0, 0, 280, 492));
+                    $dompdf->set_paper(array(0, 0, 280, (492 + $sumarpixeles)));
                     $dompdf->render();
                     $output = $dompdf->output();
                     file_put_contents(RUTA_PDF . $codpdf, $output);
@@ -172,122 +381,17 @@ if ($ajax) {
 
                     // FALTA REGISTRAR LAS CANTIDADES
                 }
-
-                if ($lastinsert_id) {
-                    if (
-                            $idservicio === 1 ||
-                            strtolower($nombreservicio) == 'promociones' ||
-                            strtolower($nombreservicio) == 'promocion' ||
-                            strtolower($nombreservicio) == 'promoción'
-                    ) {
-                        // CUANDO ES PROMOCION
-                    } else if ($idservicio > 1) {
-                        // CUANDO ES PRENDA O POR PIEZAS
-                    }
-                } else {
-                    $json['msg'] = strings('error_create');
-                }
             } else {
-                $json['msg'] = strings('error_empty');
+                echo strings('error_empty');
             }
-
-//            $totalOrden = input('numOrden');
-//            if ($totalOrden > 0) {
-//                $inserts = [];
-//                $i = 1;
-//                while ($i <= $totalOrden) {
-//                    $idsestados = "";
-//                    $nombresimagenes = "";
-//                    // SI INPUT EXISTE
-//                    if (
-//                            !empty(@input('sop' . $i))
-//                    ) {
-//
-//                        // VERIFICO SI HAY ESTADOS SELECCIONADOS
-//                        @$check = @inputArray('chk' . $i);
-//                        if (
-//                                !empty(@$check)
-//                        ) {
-//                            for ($chk = 0; $chk < count(@$check); $chk++) {
-//                                $idsestados .= @$check[$chk];
-//                                if ($chk < (count(@$check) - 1)) {
-//                                    $idsestados .= ",";
-//                                }
-//                            }
-//                        }
-//
-//                        // VERIFICO SI HAY IMAGENES
-//                        @$images = @$_FILES['file' . $i]['name'];
-//
-//                        if (
-//                                !empty(@$images)
-//                        ) {
-//                            for ($img = 0; $img < count(@$images); $img++) {
-//
-//
-//                                $newfilename = 'RD' . date('dmYHis') . str_replace(" ", "", basename(inputfile('file' . $i, 'name', $img)));
-//                                echo "Hay imagenes: ";
-//                                imprimir($_FILES);
-//                                //move_uploaded_file($_FILES["file"]["tmp_name"], "../img/imageDirectory/" . $newfilename);
-//
-//                                $nombresimagenes .= " " . $newfilename;
-//                            }
-//                        }
-//
-//
-//                        $inserts[] = array(
-//                            'idarticulo' => @input('sop' . $i),
-//                            'idprenda' => @input('pre' . $i),
-//                            'idservicio' => @input('ser' . $i),
-//                            'dias' => @input('dia' . $i), // CORREGIR NO SE ESTA MOSTRANDO
-//                            'precio' => @input('prc' . $i),
-//                            'fecha' => @input('fec' . $i),
-//                            'estados' => $idsestados,
-//                            'observaciones' => @input('obs' . $i),
-//                            'archivos' => trim($nombresimagenes),
-//                        );
-//                    }
-//
-//                    $i = $i + 1;
-//                    continue;
-//                }
-//
-//                if (!empty($inserts)) {
-//                    
-//                }
-//
-//                echo "Array:";
-//                imprimir($inserts);
-//                die();
-//                $database->insert("account", [
-//                    [
-//                        "user_name" => "foo",
-//                        "email" => "foo@bar.com",
-//                        "age" => 25,
-//                        "city" => "New York",
-//                        "lang [JSON]" => ["en", "fr", "jp", "cn"]
-//                    ],
-//                    [
-//                        "user_name" => "bar",
-//                        "email" => "bar@foo.com",
-//                        "age" => 14,
-//                        "city" => "Hong Kong",
-//                        "lang [JSON]" => ["en", "jp", "cn"]
-//                    ]
-//                ]);
-//            }
         } else {
-            $json['msg'] = strings('error_cmd');
+            echo strings('error_cmd');
         }
-    } else if (METODO($method) == 'PUT') {
-        
-    } else if (METODO($method) == 'DELETE') {
-        
     } else {
-        $json['msg'] = strings('error_method');
+        echo strings('error_method');
     }
 }
 
 //'X-Requested-With', 'XMLHttpRequest'
-header('Content-Type: application/json');
-echo json_encode($json, JSON_UNESCAPED_UNICODE);
+//header('Content-Type: application/json');
+//echo json_encode($json, JSON_UNESCAPED_UNICODE);

@@ -14,6 +14,7 @@ function tabla($name) {
         'distrito' => 'distrito',
         'cliente' => 'cliente',
         'color' => 'color',
+        'detalleorden' => 'detalleorden',
         'turnoxcliente' => 'turnoxcliente',
         'articulo' => 'articulo',
         'marca' => 'marca',

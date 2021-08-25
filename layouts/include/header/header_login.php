@@ -98,32 +98,30 @@ $v = "?v=" . date("Ydmhis");
         font-size: 18px;
     }
 </style>
-<script>
+<script async>
     var divStr = '<div id="divdialogalert" name="divdialogalert"></div>';
     document.write(divStr);
-    
+
     var inputStr = '<input type="hidden" hidden="hidden" value="<?php echo @$_SESSION['id']; ?>" id="idrepartidor" name="idrepartidor">';
     document.write(inputStr);
-    
+
     var inputMac = '<input type="hidden" hidden="hidden" value="<?php echo @$_SESSION['macimpresora']; ?>" id="macimpresora" name="macimpresora">';
     document.write(inputMac);
 </script>
 
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"></script>
+<!--<script async src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"></script>
 <script type="text/javascript">
   pdfjsLib.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.worker.min.js";
-</script>
+</script>-->
 
-
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/node-uuid/1.4.7/uuid.min.js"></script>
 
 
 <!--PONER ULTIMOS-->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 <script src="design/js/moment.js" type="text/javascript"></script>
-<script src="design/js/moment-with-locales.js" type="text/javascript"></script>
+<script async src="design/js/moment-with-locales.js" type="text/javascript"></script>
 <script>
     moment.locale();
 </script>

@@ -33,6 +33,20 @@
     .modal{
         z-index: 9992 !important;
     }
+    .observacion{
+        resize: none !important;
+        border: 1px solid #ccc !important;
+        padding: 15px !important;
+        margin-top: 10px !important;
+    }
+    .ocultarid{
+        color: #fff;
+        border: 1px solid transparent;
+        height: 0px;
+        width: 0px;
+        padding: 0px;
+        margin: 0px;
+    }
 </style>
 
 <div class="card" style="margin-bottom: 18px;text-align: center;">
@@ -75,18 +89,11 @@
 </form>
 <div style="margin-bottom: 10px;"></div>
 
-<!--onclick="guardarItems();"-->
-<!--<button type="button" onclick="addItem();" class="btn btn-danger active addOrden">+</button>-->
-<!--<label class="btn btn-success" data-bs-toggle="modal" data-bs-target="#DialogForm" onclick="obtenerdias();">
-    <ion-icon name="save-outline"></ion-icon>
-    &nbsp;GUARDAR DATOS
-</label>-->
-
 <div style="position: fixed;border-radius: 0px;z-index: 9991;bottom: 0px;left: 0px;height: 56px;width: 100%;font-size: 18px;">
     <div class="row">                             
         <div class="col-10" style="padding-right: 0px;margin-right: 0px;">
             <button class="btn btn-success" style="width: 100%;border-radius: 0px;height: 56px;" data-bs-toggle="modal" data-bs-target="#DialogForm" onclick="obtenerdias();">
-                CONFIRMAR ENTREGA
+                CONFIRMAR RECEPCIÓN
             </button>
         </div>
         <div class="col-2" style="padding-left: 0px;margin-left: 0px;padding-right: 0px;margin-right: 0px;right: 0px;position: absolute;">
@@ -98,8 +105,6 @@
         </div>
     </div>
 </div>
-
-
 
 <!-- Dialog Form -->
 <div class="modal fade dialogbox hide" id="DialogForm" name="DialogForm" data-bs-backdrop="static" tabindex="-1" role="dialog">
@@ -150,123 +155,8 @@
         <div class="modal-content" style="padding-top: 0px !important;">
             <div class="modal-body">
                 <a href="javascript:;" class="btn btn-close" data-bs-dismiss="modal" style="float: right;border-radius: 50px;" id="closeTicket" name="closeTicket">x</a>
-                <div id="htmlprint" name="htmlprint">
-                    <br/>
-                    <center>
-                        <img src="design/aki/logo.png" id="imgsrc" name="imgsrc" alt="Lavanderia Aki" width="100"/>
-                    </center>
-                    <br>
-                    <center>
-                        <strong>AV.SAN BORJA NORTE 399 LIMA - LIMA - SAN BORJA</strong>
-                    </center>
-                    <center>
-                        <strong>Teléf.: 717-8866</strong>
-                    </center>
-                    <center>
-                        <h3>ORDEN DE SERVICIO</h3>
-                    </center>
-                    <center>
-                        <h3>PROMOCIONES</h3>
-                    </center>
-
-                    <br>
-                    <small>ATENDIDO POR: MIGUEL GIBU</small><br>
-                    <small>FECHA : 05/08/2021 11:51:00 PM</small><br>
-                    <small>CLIENTE : LUIGI HUARANGA</small><br>
-                    <small>TELEFONO : 934505203</small><br>
-                    <small>DIRECCIÓN : RAFAEL SANZIO 150</small>
-                    <br>
-                    <br>
-
-                    <table class="table">
-                        <tr>
-                            <td>CANT</td>
-                            <td>DESCRIPCIÓN</td>
-                            <td>IMPORTE</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>3x2 Prenda De Cama</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>(1) CUBRECAMA 2 PLAZA</td>
-                            <td>30.00</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>#AZUL,BLANCO ALCOHLIJ</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Con Mancha</td>
-                            <td></td>
-                        </tr>
-
-
-                        <tr>
-                            <td></td>
-                            <td>(1) EDREDON 2 PLAZA</td>
-                            <td>35.00</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>#AZUL,BLANCO ALCOHLIJ</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Con Mancha</td>
-                            <td></td>
-                        </tr>
-
-
-                        <tr>
-                            <td></td>
-                            <td>TOTAL S/DSCTO : S/.</td>
-                            <td>91.00</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>DSCTO : S/.</td>
-                            <td>26.00</td>
-                        </tr>
-
-                        <tr>
-                            <td colspan="2">TOTAL A PAGAR : S/.</td>                            
-                            <td>65.00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">A CUENTA : S/.</td>                           
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">SALDO : S/.</td>                            
-                            <td>65.00</td>
-                        </tr>
-                    </table>
-
-
-                    <h3>FECHA DE ENTREGA</h3>
-                    <strong>Jueves, 05/08/2021 05:00 PM</strong><br>
-                    <strong><u>Por Cobrar</u></strong>
-
-                    <center>
-                        <img src="design/aki/codigodebarra.jpg" alt="" style="width: 70%;height: 50px;"/>
-                    </center>
-
-                    <center>
-                        <h2>C1-10404</h2>
-                    </center>
+                <div id="htmlprint" name="htmlprint">                    
                 </div>
-
-                <!-- 
-                LO QUE HARA EL SISTEMA ES REGISTRAR EL TICKET Y PONER EN EL idpdfexist EL NOMBRE COMPLETO COMO LA RUTA
-                O UN ID (YA SE VERA). LUEGO EN EL FLUTTER ES PONER EL VALUE VACIO PARA NO IMPRIMIR Y CERRAR EL TICKET QUE SE MUESTRA EN PANTALLA
-                -->
-
             </div>
         </div>
     </div>
@@ -317,6 +207,7 @@
 
     var contarordenes = 0;
     var opcPrenda = "";
+    var idsunique = [];
 
     // OPCIONES DE SERVICIOS
     var opcServicio = function () {
@@ -358,6 +249,7 @@
         // PONGO A LAS ORDENES Y A LAS ORDENES QUE CONTE EN CERO
         contarordenes = 0;
         ordenes = 0;
+        idsunique = [];
         validarOrdenes();
     };
     // FIN OBTENER DIAS POR SERVICIOS
@@ -424,7 +316,7 @@
                             var datos = json['data'];
                             tmp = "<option value='' hidden='hidden'>COLOR</option>";
                             for (var i = 0; i < datos.length; i++) {
-                                tmp += '<option selected="selected" value="' + datos[i].nombrecolor + '">' + datos[i].nombrecolor.toUpperCase() + '</option>';
+                                tmp += '<option selected="selected" value="' + datos[i].nombrecolor.toUpperCase() + '">' + datos[i].nombrecolor.toUpperCase() + '</option>';
                             }
                         }
                     }
@@ -452,7 +344,7 @@
                             var datos = json['data'];
                             tmp = "<option value='' hidden='hidden'>MARCA</option>";
                             for (var i = 0; i < datos.length; i++) {
-                                tmp += '<option selected="selected" value="' + datos[i].idmarca + '">' + datos[i].nombremarca.toUpperCase() + '</option>';
+                                tmp += '<option selected="selected" value="' + datos[i].nombremarca.toUpperCase() + '">' + datos[i].nombremarca.toUpperCase() + '</option>';
                             }
                         }
                     }
@@ -464,7 +356,7 @@
     // FIN OBTENER MARCA
 
     // OPCIONES DE ESTADOS
-    function opcionesEstado(id) {
+    function opcionesEstado(uuid) {
         return chkEstadoPrenda = function () {
             var tmp = '';
             $.ajax({
@@ -480,10 +372,10 @@
                             var datos = json['data'];
                             idestados = datos.length;
                             for (var i = 0; i < datos.length; i++) {
-                                tmp += '<div class="form-check">';
+                                tmp += '<div class="">';
                                 // AGREGAR FUNCION : chk1 = el id del check box _1,_2 = id del estado de la prenda
-                                tmp += '<input type="checkbox" class="form-check-input" id="chk' + id + '_' + subordenes + "" + i + '" name="chk' + id + '[]" value="' + datos[i].idestadoprenda + '">';
-                                tmp += '<label class="form-check-label" for="chk' + id + '_' + subordenes + "" + i + '">' + datos[i].nombreprenda.toUpperCase() + '</label>';
+                                tmp += '<input type="checkbox" style="transform : scale(1.7);margin-right: 14px;" id="estado' + uuid + '_' + i + '" name="estado' + uuid + '[]" value="' + datos[i].nombreprenda + '">';
+                                tmp += '<label class="form-check-label">' + datos[i].nombreprenda.toUpperCase() + '</label>';
                                 tmp += '</div>';
                             }
                         }
@@ -499,25 +391,25 @@
 
     // PARA CONTAR CUANTAS ARCHIVOS/IMAGENES SE CARGARON
     // EJM: https://stackoverflow.com/a/20439068/16488926
-    function contarImagenes(id, orden) {
-        var numFiles = $("#archivo" + id + '_' + orden)[0].files.length;
+    function contarImagenes(id) {
+        var numFiles = $("#archivo" + id)[0].files.length;
         if (numFiles === 0) {
             numFiles = "";
         }
-        document.getElementById("cantidadarchivos" + id + '_' + orden).innerHTML = "";
-        document.getElementById("cantidadarchivos" + id + '_' + orden).innerHTML = numFiles;
+        document.getElementById("cantidadarchivos" + id).innerHTML = "";
+        document.getElementById("cantidadarchivos" + id).innerHTML = numFiles;
     }
     // FIN PARA CONTAR CUANTAS ARCHIVOS/IMAGENES SE CARGARON
 
     // PARA CONTAR CUANTOS AUDIOS SE CARGARON
     // EJM: https://stackoverflow.com/a/20439068/16488926
-    function contarAudios(id, orden) {
-        var numFiles = $("#audio" + id + '_' + orden)[0].files.length;
+    function contarAudios(id) {
+        var numFiles = $("#audio" + id)[0].files.length;
         if (numFiles === 0) {
             numFiles = "";
         }
-        document.getElementById("cantidadaudio" + id + '_' + orden).innerHTML = "";
-        document.getElementById("cantidadaudio" + id + '_' + orden).innerHTML = numFiles;
+        document.getElementById("cantidadaudio" + id).innerHTML = "";
+        document.getElementById("cantidadaudio" + id).innerHTML = numFiles;
     }
 
     // SIRVE PARA SUMAR Y RESTAR DIAS Y FECHA EN EL INPUT NUMBER DIAS
@@ -587,50 +479,65 @@
         var nombre_servicio = $("#servicio").find("option:selected").attr('name-service');
 
         if (idservicio.trim() != "") {
+            $('body, html').animate({
+                scrollTop: '250px'
+            }, 200);
+
             contarordenes = contarordenes + 1;
             ordenes = ordenes + 1;
-
             validarOrdenes();
 
-            html_color_marca = "";
-
-            // SI NO ES IGUAL A PROMOCION MOSTRAR COLOR Y MARCA
-            if (
-                    (nombre_servicio != 'PROMOCIONES' || nombre_servicio != 'PROMOCION') && idservicio != 1
-                    ) {
-                html_color_marca = `<div class="row">                        
-                                <div class="col-6">
-                                    <div class="form-group basic">
-                                        <div class="input-wrapper">   
-                                            <div class="input-wrapper">
-                                                <strong>                        
-                                                    <a href="#" class="text-secondary">COLOR:</a>
-                                                </strong>
-                                                <select class="search-live add-new-tags tagsColor form-control" id="color${ordenes}" name="color${ordenes}" data-select2-tags="true" onchange="addnewTagsColor(${ordenes});">${Color()}</select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>                    
-                                <div class="col-6">
-                                    <div class="form-group basic">
-                                        <div class="input-wrapper">   
-                                            <div class="input-wrapper">
-                                                <strong>                        
-                                                    <a href="#" class="text-secondary">MARCA:</a>
-                                                </strong>
-                                                <select class="search-live add-new-tags tagsMarca form-control" id="marca${ordenes}" name="marca${ordenes}" data-select2-tags="true" onchange="addnewTagsMarca(${ordenes});">${Marca()}</select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>`;
+            try {
+                if (ordenes >= 1) {
+                    for (var cd = 1; cd < ordenes; cd++) {
+                        var myElement = document.getElementById("card" + cd);
+                        if (myElement) {
+                            document.getElementById("card" + cd).style.backgroundColor = "#fce3e3";
+                        }
+                    }
+                }
+            } catch (e) {
             }
+
+//            html_color_marca = "";
+//
+//            // SI NO ES IGUAL A PROMOCION MOSTRAR COLOR Y MARCA
+//            if (
+//                    (nombre_servicio != 'PROMOCIONES' || nombre_servicio != 'PROMOCION') && idservicio != 1
+//                    ) {
+//                html_color_marca = `<div class="row">                        
+//                                <div class="col-6">
+//                                    <div class="form-group basic">
+//                                        <div class="input-wrapper">   
+//                                            <div class="input-wrapper">
+//                                                <strong>                        
+//                                                    <a href="#" class="text-secondary">COLOR:</a>
+//                                                </strong>
+//                                                <select class="search-live add-new-tags tagsColor form-control" id="color${contarordenes}" name="color${contarordenes}" data-select2-tags="true" onchange="addnewTagsColor(${contarordenes});">${Color()}</select>
+//                                            </div>
+//                                        </div>
+//                                    </div>
+//                                </div>                    
+//                                <div class="col-6">
+//                                    <div class="form-group basic">
+//                                        <div class="input-wrapper">   
+//                                            <div class="input-wrapper">
+//                                                <strong>                        
+//                                                    <a href="#" class="text-secondary">MARCA:</a>
+//                                                </strong>
+//                                                <select class="search-live add-new-tags tagsMarca form-control" id="marca${contarordenes}" name="marca${contarordenes}" data-select2-tags="true" onchange="addnewTagsMarca(${contarordenes});">${Marca()}</select>
+//                                            </div>
+//                                        </div>
+//                                    </div>
+//                                </div>
+//                            </div>`;
+//            }
 
             document.querySelector('#itemsservicios').insertAdjacentHTML('afterbegin', `
         
-            <div id="item${ordenes}" name="item${ordenes}" style="margin-bottom: 15px;">
-                <div class="card">
-                    <button type="button" class="btn-close botoneliminarorden" aria-label="Close" onclick="removeItem(${ordenes});" style="z-index: 9;"></button>
+            <div id="item${contarordenes}" name="item${contarordenes}" style="margin-bottom: 15px;">
+                <div class="card" id='card${contarordenes}' name='card${contarordenes}'>
+                    <button type="button" class="btn-close botoneliminarorden" aria-label="Close" onclick="removeItem(${contarordenes});" style="z-index: 9;"></button>
                     <div class="card-body">              
                         <div style="margin-bottom: 15px;"></div>
                         <div class="row"> 
@@ -638,7 +545,7 @@
                                 <div class="form-group basic">
                                     <div class="input-wrapper">   
                                         <div class="input-wrapper">
-                                            <select class="search-live form-control" id="prenda${ordenes}" name="prenda${ordenes}" onchange="obtenerPrecio(${ordenes});piezasPrendas(${ordenes});">
+                                            <select class="search-live form-control" id="prenda${contarordenes}" name="prenda${contarordenes}" onchange="obtenerPrecio(${contarordenes});piezasPrendas(${contarordenes});">
                                                     ${obtenerPrenda()}
                                             </select>
                                         </div>
@@ -659,21 +566,20 @@
                             <div class="col-6">
                                 <div class="form-group basic">
                                     <div class="input-wrapper">
-                                        <input type="text" class="form-control" style='text-align: center;' id="precio${ordenes}" name="precio${ordenes}" readonly="readonly" placeholder="PRECIO" value="0.00">
+                                        <input type="text" class="form-control" style='text-align: center;' id="precio${contarordenes}" name="precio${contarordenes}" readonly="readonly" placeholder="PRECIO" value="0.00">
                                     </div>
                                 </div>
                             </div>                
                         </div>
-                        ${html_color_marca}                    
-                        <div id="items${ordenes}" name="items${ordenes}">                            
+                        <div id="items${contarordenes}" name="items${contarordenes}">                            
                         </div>
                     </div>
                 </div>
             </div>
         `);
-            $("#prenda" + ordenes).select2().val(null).trigger("change");
-            $("#color" + ordenes).select2().val(null).trigger("change");
-            $("#marca" + ordenes).select2().val(null).trigger("change");
+            $("#prenda" + contarordenes).select2().val(null).trigger("change");
+            //$("#color" + contarordenes).select2().val(null).trigger("change");
+            //$("#marca" + contarordenes).select2().val(null).trigger("change");
         }
     }
     // FIN AGREGAR MAS ORDENES
@@ -696,118 +602,133 @@
                     'data': {'cmd': "listapiezasxpromocion", 'idprenda': idprenda},
                     'success': function (json) {
                         if (json['status'] == 'Ok') {
-
+                            var valueidprenda = document.getElementById("prenda" + id).value;
                             var datos = json['data'];
-                            for (var p = 0; p < json['cantpromocion']; p++) {
+                            var cantPromociones = json['cantpromocion'];
+                            var uuid = "";
+                            var html = "";
+                            var idetiquetas = [];
+                            for (var p = 0; p < cantPromociones; p++) {
+                                uuid = generate();
+                                var prendaxpromocion = datos[p].subarticulos;
 
-                                ordenes = ordenes + 1;
-                                subordenes = subordenes + 1;
-                                validarOrdenes();
+                                // IDPRENDA - EN ESTE CASO LA PROMOCION
+                                html += "<input type='text' id='subidprenda" + uuid + "' name='subidprenda" + uuid + "' value='" + valueidprenda + "' class='ocultarid'>";
 
-                                var subdatos = datos[p].subarticulos;
-                                var subselect = "<select class='search-live form-control' id='pieza" + id + "_" + subordenes + "' name='pieza" + id + "_" + subordenes + "' onchange='promocionPrecio(" + id + "," + subordenes + ");'>";
-                                subselect += "<option value='' disabled='disabled' selected='selected'>" + datos[p].nombrepromocion.toUpperCase() + "</option>";
-                                for (var a = 0; a < subdatos.length; a++) {
-                                    subselect += '<option price=' + subdatos[a].precioarticulo + ' value="' + subdatos[a].idarticulo + '">' + subdatos[a].nombrearticulo.toUpperCase() + " (" + subdatos[a].precioarticulo + ")" + '</option>';
+                                // PROMOCION
+                                html += '<div class="form-group basic">';
+                                html += '<div class="input-wrapper">';
+                                html += '<strong>';
+                                html += '<a href="javascript:void(0)" class="text-secondary">PRENDAS:</a>';
+                                html += '</strong>';
+                                html += "<select class='search-live form-control' id='pieza" + uuid + "' name='pieza" + uuid + "' onchange='promocionPrecio(\"" + uuid + "\",\"" + contarordenes + "\");'>";
+                                // PRENDAS PARA PROMOCION
+                                html += "<option value='' hidden='hidden'>PRENDAS</option>";
+                                for (var r = 0; r < prendaxpromocion.length; r++) {
+                                    html += "<option price='" + prendaxpromocion[r].precioarticulo + "' value='" + prendaxpromocion[r].idarticulo + "'>";
+                                    html += prendaxpromocion[r].nombrearticulo.toUpperCase();
+                                    html += " (" + prendaxpromocion[r].precioarticulo + ")";
+                                    html += "</option>";
                                 }
-                                subselect += "</select>";
+                                html += "</select>";
+                                html += "</div>";
+                                html += "</div>";
 
-                                document.querySelector("#items" + id).insertAdjacentHTML('afterbegin', `<br/>
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">                        
-                                            <div class="col-6">
-                                                <div class="form-group basic">
-                                                    <div class="input-wrapper">   
-                                                        <div class="input-wrapper">
-                                                            <strong>                        
-                                                                <a href="#" class="text-secondary">COLOR:</a>
-                                                            </strong>
-                                                            <select class="search-live add-new-tags tagsColor form-control" id="color${ordenes}" name="color${ordenes}" data-select2-tags="true" onchange="addnewTagsColor(${ordenes});">${Color()}</select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>                    
-                                            <div class="col-6">
-                                                <div class="form-group basic">
-                                                    <div class="input-wrapper">   
-                                                        <div class="input-wrapper">
-                                                            <strong>                        
-                                                                <a href="#" class="text-secondary">MARCA:</a>
-                                                            </strong>
-                                                            <select class="search-live add-new-tags tagsMarca form-control" id="marca${ordenes}" name="marca${ordenes}" data-select2-tags="true" onchange="addnewTagsMarca(${ordenes});">${Marca()}</select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group basic">
-                                            <div class="input-wrapper">
-                                                <strong>                        
-                                                    <a href="javascript:void(0)" class="text-secondary">PROMOCION:</a>
-                                                </strong>    
-                                                ${subselect}
-                                            </div>
-                                        </div>
-                                                    
-                                        <div class="form-group basic">
-                                        <div class="input-wrapper">
-                                        <strong>                        
-                                        <a href="javascript:void(0)" class="text-secondary">ESTADO:</a>
-                                        </strong>    
-                                        <div class="col-12" id="estado${id}_${subordenes}" name="estado${id}_${subordenes}" style="margin-top: 10px;">${opcionesEstado(id)}</div>
-                                        </div>
-                                        </div>
-                                        
-                                        <div class="form-group basic">
-                                        <div class="input-wrapper">
-                                        <strong>                        
-                                        <a href="javascript:void(0)" class="text-secondary">OBSERVACIONES:</a>
-                                        </strong>    
-                                        <textarea class="form-control" id="observacion${id}_${subordenes}" name="observacion${id}_${subordenes}" rows="4" style="resize: none;border: 1px solid #ccc;padding: 15px;margin-top: 10px;" placeholder="OBSERVACIONES"></textarea>
-                                        </div>
-                                        </div>
-                                            
-                                        <div class="form-group basic">
-                                        <div class="input-wrapper">
-                                        <div class="row">                        
-                                            <div class="col-6">
-                                                <center>
-                                                    <label for="audio${id}_${subordenes}">
-                                                        <span class="headerButton">
-                                                            <ion-icon name="mic-outline" style="font-size: 40px;"></ion-icon>
-                                                            <sup id="cantidadaudio${id}_${subordenes}" name="cantidadaudio${id}_${subordenes}" class="badge badge-success" style="float: right;"></sup>
-                                                        </span>
-                                                        <input type="file" id="audio${id}_${subordenes}" name="audio${id}_${subordenes}" accept="audio/*" capture style="display: none;" onchange="contarAudios(${id} , ${subordenes});">
-                                                    </label>
-                                                </center>
-                                            </div>
-                                            <div class="col-6">
-                                                <center>
-                                                    <label for="archivo${id}_${subordenes}">
-                                                        <span class="headerButton">
-                                                            <ion-icon name="camera-outline" style="font-size: 40px;"></ion-icon>
-                                                            <sup id="cantidadarchivos${id}_${subordenes}" name="cantidadarchivos${id}_${subordenes}" class="badge badge-success" style="float: right;"></sup>
-                                                        </span>                                
-                                                        <input type="file" accept="image/*;capture=camera;video/*" multiple="multiple" id="archivo${id}_${subordenes}" name="archivo${id}_${subordenes}[]" class="choose" style="display: none;" onchange="contarImagenes(${id} , ${subordenes});">
-                                                    </label>
-                                                </center>
-                                            </div>
-                                        </div>
-                                        </div>
-                                        </div>   
-                                                    
-                                    </div>
-                                </div>                        
-                                                        
-                            `);
-                                $("#color" + ordenes).select2().trigger("change");
-                                $("#marca" + ordenes).select2().trigger("change");
-                                $("#pieza" + id + "_" + subordenes).select2().trigger("change");
 
+                                // COLOR
+                                html += '<div class="row">';
+                                html += '<div class="col-6">';
+                                html += '<div class="form-group basic">';
+                                html += '<div class="input-wrapper">';
+                                html += '<div class="input-wrapper">';
+                                html += '<strong>';
+                                html += '<a href="#" class="text-secondary">COLOR:</a>';
+                                html += '</strong>';
+                                html += '<select class="search-live add-new-tags tagsColor form-control" id="color' + uuid + '" name="color' + uuid + '" data-select2-tags="true" onchange="addnewTagsColor(\'' + uuid + '\');">' + Color() + '</select>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '<div class="col-6">';
+                                html += '<div class="form-group basic">';
+                                html += '<div class="input-wrapper">';
+                                html += '<div class="input-wrapper">';
+                                html += '<strong>';
+                                html += '<a href="#" class="text-secondary">MARCA:</a>';
+                                html += '</strong>';
+                                // MARCA
+                                html += '<select class="search-live add-new-tags tagsColor form-control" id="marca' + uuid + '" name="marca' + uuid + '" data-select2-tags="true" onchange="addnewTagsMarca(\'' + uuid + '\');">' + Marca() + '</select>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</div>';
+
+                                // ESTADOS
+                                html += '<div class="form-group basic">';
+                                html += '<div class="input-wrapper">';
+                                html += '<strong>';
+                                html += '<a href="javascript:void(0)" class="text-secondary">ESTADO:</a>';
+                                html += '</strong>';
+                                html += '<div class="col-12" id="campo' + uuid + '" name="campo' + uuid + '" style="margin-top: 10px;">';
+                                html += opcionesEstado(uuid);
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</div>';
+
+                                // OBSERVACIONES
+                                html += '<div class="form-group basic">';
+                                html += '<div class="input-wrapper">';
+                                html += '<strong>';
+                                html += '<a href="javascript:void(0)" class="text-secondary">OBSERVACIONES:</a>';
+                                html += '</strong>';
+                                html += '<textarea class="form-control" id="observacion' + uuid + '" name="observacion' + uuid + '" rows="4" class="observacion" placeholder="OBSERVACIONES"></textarea>';
+                                html += '</div>';
+                                html += '</div>';
+
+                                // AUDIOS E IMAGENES
+                                html += '<div class="form-group basic">';
+                                html += '<div class="input-wrapper">';
+                                html += '<div class="row">';
+                                html += '<div class="col-6">';
+                                html += '<center>';
+                                html += '<label for="audio' + uuid + '">';
+                                html += '<span class="headerButton">';
+                                html += '<ion-icon name="mic-outline" style="font-size: 40px;"></ion-icon>';
+                                html += '<sup id="cantidadaudio' + uuid + '" name="cantidadaudio' + uuid + '" class="badge badge-success" style="float: right;"></sup>';
+                                html += '</span>';
+                                html += '<input type="file" id="audio' + uuid + '" name="audio' + uuid + '[]" accept="audio/*" capture style="display: none;" onchange="contarAudios(\'' + uuid + '\');">';
+                                html += '</label>';
+                                html += '</center>';
+                                html += '</div>';
+                                html += '<div class="col-6">';
+                                html += '<center>';
+                                html += '<label for="archivo' + uuid + '">';
+                                html += '<span class="headerButton">';
+                                html += '<ion-icon name="camera-outline" style="font-size: 40px;"></ion-icon>';
+                                html += '<sup id="cantidadarchivos' + uuid + '" name="cantidadarchivos' + uuid + '" class="badge badge-success" style="float: right;"></sup>';
+                                html += '</span>';
+                                html += '<input type="file" accept="image/*;capture=camera;video/*" multiple="multiple" id="archivo' + uuid + '" name="archivo' + uuid + '[]" class="choose" style="display: none;" onchange="contarImagenes(\'' + uuid + '\');">';
+                                html += '</label>';
+                                html += '</center>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '<hr>';
+
+                                idetiquetas.push('color' + uuid);
+                                idetiquetas.push('marca' + uuid);
+                                idetiquetas.push('pieza' + uuid);
                             }
+
+                            document.getElementById("items" + id).innerHTML = html;
+
+                            for (var n = 0; n < idetiquetas.length; n++) {
+                                $("#" + idetiquetas[n]).select2().trigger("change");
+                            }
+
                         }
-                        console.log(json);
                     }
                 });
             }
@@ -821,160 +742,249 @@
                     'url': ruta + "Pieza",
                     'data': {'cmd': "listapiezasxprenda", 'idprenda': idprenda},
                     'success': function (json) {
+                        var valueidprenda = document.getElementById("prenda" + id).value;
+                        var cantPiezas = json['cantpiezas'];
+                        var datos = json['data'];
+                        var uuid = "";
+                        var html = "";
+                        var idetiquetas = [];
 
-                        // CUANDO NO ES POR PIEZA
-                        if (json['status'] == 'Ok' && json['cantpiezas'] <= 1) {
-                            var cantPiezas = json['cantpiezas'];
-                            subordenes = subordenes + 1;
-                            document.querySelector("#items" + id).insertAdjacentHTML('afterbegin', `<br/>
-                            <div class="card">
-                            <div class="card-body">
-        
-                            <div class="form-group basic">
-                            <div class="input-wrapper">
-                            <input type="hidden" hidden="hidden" value="${cantPiezas}" id="cantidadpieza${id}_${subordenes}" name="cantidadpieza${id}_${subordenes}">    
-                            </div>
-                            </div>
-                            
-                            <div class="form-group basic">
-                            <div class="input-wrapper">
-                            <strong>                        
-                                <a href="javascript:void(0)" class="text-secondary">ESTADO:</a>
-                            </strong>    
-                            <div class="col-12" id="estado${id}_${subordenes}" name="estado${id}_${subordenes}" style="margin-top: 10px;">${opcionesEstado(idprenda)}</div>
-                            </div>
-                            </div>
-                                
-                            <div class="form-group basic">
-                            <div class="input-wrapper">
-                            <strong>                        
-                                <a href="javascript:void(0)" class="text-secondary">OBSERVACIONES:</a>
-                            </strong>    
-                            <textarea class="form-control" id="observacion${id}_${subordenes}" name="observacion${id}_${subordenes}" rows="4" style="resize: none;border: 1px solid #ccc;padding: 15px;margin-top: 10px;" placeholder="OBSERVACIONES"></textarea>
-                            </div>
-                            </div>
-                                
-                            <div class="form-group basic">
-                            <div class="input-wrapper">
-                            <div class="row">                        
-                                <div class="col-6">
-                                    <center>
-                                        <label for="audio${id}_${subordenes}">
-                                            <span class="headerButton">
-                                                <ion-icon name="mic-outline" style="font-size: 40px;"></ion-icon>
-                                                <sup id="cantidadaudio${id}_${subordenes}" name="cantidadaudio${id}_${subordenes}" class="badge badge-success" style="float: right;"></sup>
-                                            </span>
-                                            <input type="file" id="audio${id}_${subordenes}" name="audio${id}_${subordenes}" accept="audio/*" capture style="display: none;" onchange="contarAudios(${id} , ${subordenes});">
-                                        </label>
-                                    </center>
-                                </div>
-                                <div class="col-6">
-                                    <center>
-                                        <label for="archivo${id}_${subordenes}">
-                                            <span class="headerButton">
-                                                <ion-icon name="camera-outline" style="font-size: 40px;"></ion-icon>
-                                                <sup id="cantidadarchivos${id}_${subordenes}" name="cantidadarchivos${id}_${subordenes}" class="badge badge-success" style="float: right;"></sup>
-                                            </span>                                
-                                            <input type="file" accept="image/*;capture=camera;video/*" multiple="multiple" id="archivo${id}_${subordenes}" name="archivo${id}_${subordenes}[]" class="choose" style="display: none;" onchange="contarImagenes(${id} , ${subordenes});">
-                                        </label>
-                                    </center>
-                                </div>
-                            </div>
-                            </div>
-                            </div>    
-                            
-                            </div>
-                            </div>
-                            `);
+                        // CUANDO ES SIN PIEZA
+                        if (json['status'] == 'Ok' && cantPiezas == 0) {
+                            var uuid = generate();
 
+                            // IDPRENDA - EN ESTE CASO SI ES EL ID DE LA PRENDA
+                            html += "<input type='text' id='subidprenda" + uuid + "' name='subidprenda" + uuid + "' value='" + valueidprenda + "' class='ocultarid'>";
+                            html += "<input type='text' id='piezasids" + uuid + "' name='piezasids" + uuid + "' value='" + uuid + "' class='ocultarid'>";
 
-                            // CUANDO ES POR PIEZA
-                        } else if (json['status'] == 'Ok' && json['cantpiezas'] > 1) {
-                            if (json['data']) {
-                                var datos = json['data'];
-                                var cantPiezas = json['cantpiezas'];
-                                subordenes = subordenes + 1;
+                            // COLOR
+                            html += '<div class="row">';
+                            html += '<div class="col-6">';
+                            html += '<div class="form-group basic">';
+                            html += '<div class="input-wrapper">';
+                            html += '<div class="input-wrapper">';
+                            html += '<strong>';
+                            html += '<a href="#" class="text-secondary">COLOR:</a>';
+                            html += '</strong>';
+                            html += '<select class="search-live add-new-tags tagsColor form-control" id="color' + uuid + '" name="color' + uuid + '" data-select2-tags="true" onchange="addnewTagsColor(\'' + uuid + '\');">' + Color() + '</select>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '<div class="col-6">';
+                            html += '<div class="form-group basic">';
+                            html += '<div class="input-wrapper">';
+                            html += '<div class="input-wrapper">';
+                            html += '<strong>';
+                            html += '<a href="#" class="text-secondary">MARCA:</a>';
+                            html += '</strong>';
+                            // MARCA
+                            html += '<select class="search-live add-new-tags tagsColor form-control" id="marca' + uuid + '" name="marca' + uuid + '" data-select2-tags="true" onchange="addnewTagsMarca(\'' + uuid + '\');">' + Marca() + '</select>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
 
-                                var opciones = "";
-                                var j = -1;
-                                for (var i = 1; i <= cantPiezas; i++) {
+                            // ESTADOS
+                            html += '<div class="form-group basic">';
+                            html += '<div class="input-wrapper">';
+                            html += '<strong>';
+                            html += '<a href="javascript:void(0)" class="text-secondary">ESTADO:</a>';
+                            html += '</strong>';
+                            html += '<div class="col-12" id="campo' + uuid + '" name="campo' + uuid + '" style="margin-top: 10px;">';
+                            html += opcionesEstado(uuid);
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
 
-                                    subordenes = subordenes + 1;
+                            // OBSERVACIONES
+                            html += '<div class="form-group basic">';
+                            html += '<div class="input-wrapper">';
+                            html += '<strong>';
+                            html += '<a href="javascript:void(0)" class="text-secondary">OBSERVACIONES:</a>';
+                            html += '</strong>';
+                            html += '<textarea class="form-control" id="observacion' + uuid + '" name="observacion' + uuid + '" rows="4" class="observacion" placeholder="OBSERVACIONES"></textarea>';
+                            html += '</div>';
+                            html += '</div>';
 
-                                    // OPCION POR PIEZA
-                                    j = j + 1;
-                                    opciones = "<option value='" + datos[j].idpieza + "'>" + datos[j].nombrepieza.toUpperCase() + "</option>";
+                            // AUDIOS E IMAGENES
+                            html += '<div class="form-group basic">';
+                            html += '<div class="input-wrapper">';
+                            html += '<div class="row">';
+                            html += '<div class="col-6">';
+                            html += '<center>';
+                            html += '<label for="audio' + uuid + '">';
+                            html += '<span class="headerButton">';
+                            html += '<ion-icon name="mic-outline" style="font-size: 40px;"></ion-icon>';
+                            html += '<sup id="cantidadaudio' + uuid + '" name="cantidadaudio' + uuid + '" class="badge badge-success" style="float: right;"></sup>';
+                            html += '</span>';
+                            html += '<input type="file" id="audio' + uuid + '" name="audio' + uuid + '[]" accept="audio/*" capture style="display: none;" onchange="contarAudios(\'' + uuid + '\');">';
+                            html += '</label>';
+                            html += '</center>';
+                            html += '</div>';
+                            html += '<div class="col-6">';
+                            html += '<center>';
+                            html += '<label for="archivo' + uuid + '">';
+                            html += '<span class="headerButton">';
+                            html += '<ion-icon name="camera-outline" style="font-size: 40px;"></ion-icon>';
+                            html += '<sup id="cantidadarchivos' + uuid + '" name="cantidadarchivos' + uuid + '" class="badge badge-success" style="float: right;"></sup>';
+                            html += '</span>';
+                            html += '<input type="file" accept="image/*;capture=camera;video/*" multiple="multiple" id="archivo' + uuid + '" name="archivo' + uuid + '[]" class="choose" style="display: none;" onchange="contarImagenes(\'' + uuid + '\');">';
+                            html += '</label>';
+                            html += '</center>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '<hr>';
 
-                                    document.querySelector("#items" + id).insertAdjacentHTML('afterbegin', `<br/>
-                                        <div class="card">
-                                        <div class="card-body">
+                            idetiquetas.push('color' + uuid);
+                            idetiquetas.push('marca' + uuid);
 
-                                        <div class="form-group basic">
-                                        <div class="input-wrapper">
-                                        <strong>                        
-                                            <a href="javascript:void(0)" class="text-secondary">PIEZAS:</a>
-                                        </strong> 
-                                        <input type="hidden" hidden="hidden" value="${cantPiezas}" id="cantidadpieza${id}_${subordenes}" name="cantidadpieza${id}_${subordenes}">
-                                        <select class='search-live form-control' id="pieza${id}_${subordenes}" name="pieza${id}_${subordenes}">
-                                            ${opciones}
-                                        </select>    
-                                        </div>
-                                        </div>
+                            document.getElementById("items" + id).innerHTML = html;
+                            for (var n = 0; n < idetiquetas.length; n++) {
+                                $("#" + idetiquetas[n]).select2().trigger("change");
+                            }
 
-                                        <div class="form-group basic">
-                                        <div class="input-wrapper">
-                                        <strong>                        
-                                            <a href="javascript:void(0)" class="text-secondary">ESTADO:</a>
-                                        </strong>    
-                                        <div class="col-12" id="estado${id}_${subordenes}" name="estado${id}_${subordenes}" style="margin-top: 10px;">${opcionesEstado(idprenda)}</div>
-                                        </div>
-                                        </div>
+                            // CUANDO ES POR PIEZA    
+                        } else if (json['status'] == 'Ok' && cantPiezas >= 1) {
+                            uuid = generate();
+                            var idspiezas = "";
 
-                                        <div class="form-group basic">
-                                        <div class="input-wrapper">
-                                        <strong>                        
-                                            <a href="javascript:void(0)" class="text-secondary">OBSERVACIONES:</a>
-                                        </strong>    
-                                        <textarea class="form-control" id="observacion${id}_${subordenes}" name="observacion${id}_${subordenes}" rows="4" style="resize: none;border: 1px solid #ccc;padding: 15px;margin-top: 10px;" placeholder="OBSERVACIONES"></textarea>
-                                        </div>
-                                        </div>
+                            // IDPRENDA - EN ESTE CASO SI ES EL ID DE LA PRENDA
+                            html += "<input type='text' id='subidprenda" + uuid + "' name='subidprenda" + uuid + "' value='" + valueidprenda + "' class='ocultarid'>";
 
-                                        <div class="form-group basic">
-                                        <div class="input-wrapper">
-                                        <div class="row">                        
-                                            <div class="col-6">
-                                                <center>
-                                                    <label for="audio${id}_${subordenes}">
-                                                        <span class="headerButton">
-                                                            <ion-icon name="mic-outline" style="font-size: 40px;"></ion-icon>
-                                                            <sup id="cantidadaudio${id}_${subordenes}" name="cantidadaudio${id}_${subordenes}" class="badge badge-success" style="float: right;"></sup>
-                                                        </span>
-                                                        <input type="file" id="audio${id}_${subordenes}" name="audio${id}_${subordenes}" accept="audio/*" capture style="display: none;" onchange="contarAudios(${id} , ${subordenes});">
-                                                    </label>
-                                                </center>
-                                            </div>
-                                            <div class="col-6">
-                                                <center>
-                                                    <label for="archivo${id}_${subordenes}">
-                                                        <span class="headerButton">
-                                                            <ion-icon name="camera-outline" style="font-size: 40px;"></ion-icon>
-                                                            <sup id="cantidadarchivos${id}_${subordenes}" name="cantidadarchivos${id}_${subordenes}" class="badge badge-success" style="float: right;"></sup>
-                                                        </span>                                
-                                                        <input type="file" accept="image/*;capture=camera;video/*" multiple="multiple" id="archivo${id}_${subordenes}" name="archivo${id}_${subordenes}[]" class="choose" style="display: none;" onchange="contarImagenes(${id} , ${subordenes});">
-                                                    </label>
-                                                </center>
-                                            </div>
-                                        </div>
-                                        </div>
-                                        </div>    
+                            // COLOR
+                            html += '<div class="row">';
+                            html += '<div class="col-6">';
+                            html += '<div class="form-group basic">';
+                            html += '<div class="input-wrapper">';
+                            html += '<div class="input-wrapper">';
+                            html += '<strong>';
+                            html += '<a href="#" class="text-secondary">COLOR:</a>';
+                            html += '</strong>';
+                            html += '<select class="search-live add-new-tags tagsColor form-control" id="color' + uuid + '" name="color' + uuid + '" data-select2-tags="true" onchange="addnewTagsColor(\'' + uuid + '\');">' + Color() + '</select>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '<div class="col-6">';
+                            html += '<div class="form-group basic">';
+                            html += '<div class="input-wrapper">';
+                            html += '<div class="input-wrapper">';
+                            html += '<strong>';
+                            html += '<a href="#" class="text-secondary">MARCA:</a>';
+                            html += '</strong>';
+                            // MARCA
+                            html += '<select class="search-live add-new-tags tagsColor form-control" id="marca' + uuid + '" name="marca' + uuid + '" data-select2-tags="true" onchange="addnewTagsMarca(\'' + uuid + '\');">' + Marca() + '</select>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
 
-                                        </div>
-                                        </div>
-                                        `);
-                                    $("#pieza" + id + "_" + subordenes).select2().trigger("change");
+                            idetiquetas.push('color' + uuid);
+                            idetiquetas.push('marca' + uuid);
+
+                            // ORDENO LAS PIEZAS ALFABETICAMENTE
+                            datos.sort(function (a, b) {
+                                if (a.nombrepieza > b.nombrepieza) {
+                                    return 1;
                                 }
+                                if (a.nombrepieza < b.nombrepieza) {
+                                    return -1;
+                                }
+                                // a must be equal to b
+                                return 0;
+                            });
+                            for (var pi = 0; pi < cantPiezas; pi++) {
+                                // PIEZAS
+                                uuid = generate();
+
+                                if (pi > 0) {
+                                    idspiezas += ';';
+                                }
+                                idspiezas += uuid;
+
+                                html += '<div class="form-group basic">';
+                                html += '<div class="input-wrapper">';
+                                html += '<strong>';
+                                html += '<a href="javascript:void(0)" class="text-secondary">PRENDAS:</a>';
+                                html += '</strong>';
+                                html += "<select class='search-live form-control' id='pieza" + uuid + "' name='pieza" + uuid + "' onchange='promocionPrecio(\"" + uuid + "\",\"" + contarordenes + "\");'>";
+                                html += "<option selected='selected' price='" + datos[pi].preciopieza + "' value='" + datos[pi].idpieza + "'>";
+                                html += datos[pi].nombrepieza.toUpperCase();
+                                html += "</option>";
+                                html += "</select>";
+                                html += "</div>";
+                                html += "</div>";
+
+                                // ESTADOS
+                                html += '<div class="form-group basic">';
+                                html += '<div class="input-wrapper">';
+                                html += '<strong>';
+                                html += '<a href="javascript:void(0)" class="text-secondary">ESTADO:</a>';
+                                html += '</strong>';
+                                html += '<div class="col-12" id="campo' + uuid + '" name="campo' + uuid + '" style="margin-top: 10px;">';
+                                html += opcionesEstado(uuid);
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</div>';
+
+                                // OBSERVACIONES
+                                html += '<div class="form-group basic">';
+                                html += '<div class="input-wrapper">';
+                                html += '<strong>';
+                                html += '<a href="javascript:void(0)" class="text-secondary">OBSERVACIONES:</a>';
+                                html += '</strong>';
+                                html += '<textarea class="form-control" id="observacion' + uuid + '" name="observacion' + uuid + '" rows="4" class="observacion" placeholder="OBSERVACIONES"></textarea>';
+                                html += '</div>';
+                                html += '</div>';
+
+                                // AUDIOS E IMAGENES
+                                html += '<div class="form-group basic">';
+                                html += '<div class="input-wrapper">';
+                                html += '<div class="row">';
+                                html += '<div class="col-6">';
+                                html += '<center>';
+                                html += '<label for="audio' + uuid + '">';
+                                html += '<span class="headerButton">';
+                                html += '<ion-icon name="mic-outline" style="font-size: 40px;"></ion-icon>';
+                                html += '<sup id="cantidadaudio' + uuid + '" name="cantidadaudio' + uuid + '" class="badge badge-success" style="float: right;"></sup>';
+                                html += '</span>';
+                                html += '<input type="file" id="audio' + uuid + '" name="audio' + uuid + '[]" accept="audio/*" capture style="display: none;" onchange="contarAudios(\'' + uuid + '\');">';
+                                html += '</label>';
+                                html += '</center>';
+                                html += '</div>';
+                                html += '<div class="col-6">';
+                                html += '<center>';
+                                html += '<label for="archivo' + uuid + '">';
+                                html += '<span class="headerButton">';
+                                html += '<ion-icon name="camera-outline" style="font-size: 40px;"></ion-icon>';
+                                html += '<sup id="cantidadarchivos' + uuid + '" name="cantidadarchivos' + uuid + '" class="badge badge-success" style="float: right;"></sup>';
+                                html += '</span>';
+                                html += '<input type="file" accept="image/*;capture=camera;video/*" multiple="multiple" id="archivo' + uuid + '" name="archivo' + uuid + '[]" class="choose" style="display: none;" onchange="contarImagenes(\'' + uuid + '\');">';
+                                html += '</label>';
+                                html += '</center>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '<hr>';
+                            }
+
+
+                            // IRA LOS IDS
+                            html += "<input type='text' id='piezasids" + uuid + "' name='piezasids" + uuid + "' value='" + idspiezas + "' class='ocultarid'>";
+                            document.getElementById("items" + id).innerHTML = html;
+                            for (var n = 0; n < idetiquetas.length; n++) {
+                                $("#" + idetiquetas[n]).select2().trigger("change");
                             }
                         }
+
+
+
                     }
                 });
             }
@@ -986,18 +996,18 @@
     // Para verificar si el key existe en un array - Ejm: https://stackoverflow.com/a/17126504/16488926
     // if NaN value javascript - Ejm: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/isNaN
     var promociones = [];
-    function promocionPrecio(id, idselect) {
-        var precioOption = $("#pieza" + id + "_" + idselect).find("option:selected").attr('price');
+    function promocionPrecio(id, idprecio) {
+        var precioOption = $("#pieza" + id).find("option:selected").attr('price');
 
         if (precioOption === "0.00" || precioOption === "" || isNaN(precioOption) || typeof precioOption === 'undefined') {
             precioOption = 0;
         }
-        var testArray = "precio" + id in promociones; // false o true
+        var testArray = "precio" + idprecio in promociones; // false o true
         if (!testArray) {
-            promociones["precio" + id] = {};
+            promociones["precio" + idprecio] = {};
         }
         if (testArray) {
-            promociones["precio" + id]['pieza' + id + '_' + idselect] = parseFloat(precioOption).toFixed(2);
+            promociones["precio" + idprecio]['pieza' + id] = parseFloat(precioOption).toFixed(2);
         }
 
         // Ejm: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
@@ -1005,7 +1015,7 @@
         var precios = [];
         var preciototal = 0;
         var pr = 0;
-        Object.entries(promociones["precio" + id]).forEach(([key, value]) => {
+        Object.entries(promociones["precio" + idprecio]).forEach(([key, value]) => {
             precios[pr] = parseFloat(value).toFixed(2);
             pr = pr + 1;
         });
@@ -1014,12 +1024,12 @@
             preciototal = Math.max.apply(null, precios);
         } else if (precios.length > 2) {
             precios.sort(function (a, b) {
-                return b - a
+                return b - a;
             });
             preciototal = parseFloat(precios[0]) + parseFloat(precios[1]);
         }
 
-        document.getElementById("precio" + id).value = preciototal.toFixed(2);
+        document.getElementById("precio" + idprecio).value = preciototal.toFixed(2);
         sumarPrecios();
     }
     //
@@ -1162,38 +1172,6 @@
     }
     // FIN SIRVE PARA CUANDO LA FECHA QUE ESTAMOS RESTANDO UN DIA, NO SEA MENOR A LA FECHA QUE NOS DA POR DEFECTO CON LOS DIAS DEL SERVICIO.
 
-    // ENVIO DE DATOS Y REGISTRAR LA BOLETA O FACTURA E IMPRIMIR TICKETS SI TODO ESTA OKEY 
-    $(document).ready(function () {
-        $("#enviarDatos").click(function () {
-            $("#cancelarfechaentrega").click();
-            var form = new FormData(document.getElementById('formData'));
-            var fechaentrega = document.getElementById("fechatotalmax").value;
-            var fechaentregaminimo = document.getElementById("fechatotalmin").value; // ESTA FECHA ES LA SUMA DE: DIAS + LA FECHA ACTUAL                    
-            var nombre_servicio = $("#servicio").find("option:selected").attr('name-service');
-            form.append('fechadeentrega', fechaentrega);
-            form.append('fechaminimodeentrega', fechaentregaminimo);
-            form.append('nombreservicio', nombre_servicio);
-            form.append('pagototal', preciototalapagar);
-            form.append('cmd', 'registrarrecojo');
-            $.ajax({
-                type: "POST",
-                dataType: "html",
-                url: ruta + 'Recojo',
-                data: form,
-                cache: false,
-                contentType: false, //must, tell jQuery not to process the data
-                processData: false,
-                success: function (data)
-                {
-                    document.getElementById("htmlprint").innerHTML = '';
-                    document.getElementById("htmlprint").innerHTML = data;
-                }
-            });
-
-        });
-    });
-    // FIN ENVIO DE DATOS Y REGISTRAR LA BOLETA O FACTURA E IMPRIMIR TICKETS SI TODO ESTA OKEY
-
     // SIRVE PARA REGISTRAR LOS COLORES Y LAS MARCAS QUE NO EXISTE 
     // EJEM: https://stackoverflow.com/a/35544242/16488926
     function addnewTagsColor(idselect) {
@@ -1230,4 +1208,52 @@
         }
     }
     // FIN SIRVE PARA REGISTRAR LOS COLORES Y LAS MARCAS QUE NO EXISTE 
+
+    // ENVIO DE DATOS Y REGISTRAR LA BOLETA O FACTURA E IMPRIMIR TICKETS SI TODO ESTA OKEY 
+    $(document).ready(function () {
+        $("#enviarDatos").click(function () {
+            $("#cancelarfechaentrega").click();
+            var form = new FormData(document.getElementById('formData'));
+            var fechaentrega = document.getElementById("fechatotalmax").value;
+            var fechaentregaminimo = document.getElementById("fechatotalmin").value; // ESTA FECHA ES LA SUMA DE: DIAS + LA FECHA ACTUAL                    
+            var nombre_servicio = $("#servicio").find("option:selected").attr('name-service');
+            form.append('fechadeentrega', fechaentrega);
+            form.append('fechaminimodeentrega', fechaentregaminimo);
+            form.append('nombreservicio', nombre_servicio);
+            form.append('pagototal', preciototalapagar);
+            form.append('numOrdenes', ordenes);
+            form.append('numSubordenes', subordenes);
+            form.append('cantEstados', idestados);
+            form.append('cmd', 'registrarrecojo');
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: ruta + 'Recojo',
+                data: form,
+                cache: false,
+                contentType: false, //must, tell jQuery not to process the data
+                processData: false,
+                success: function (data)
+                {
+                    document.getElementById("htmlprint").innerHTML = '';
+                    document.getElementById("htmlprint").innerHTML = data;
+                }
+            });
+
+        });
+    });
+    // FIN ENVIO DE DATOS Y REGISTRAR LA BOLETA O FACTURA E IMPRIMIR TICKETS SI TODO ESTA OKEY
+
+    // GENERAR ID UNICO
+    // Ejm: https://stackoverflow.com/a/59913873/16488926
+    // Ejm: https://stackoverflow.com/a/6248722/16488926
+    function generate() {
+        while (true) {
+            var uid = 'U' + ("0000" + ((Math.random() * Math.pow(36, 4)) | 0).toString(36)).slice(-4);
+            if (!idsunique.hasOwnProperty(uid)) {
+                idsunique[uid] = true;
+                return uid;
+            }
+        }
+    }
 </script>

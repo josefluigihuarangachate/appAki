@@ -123,8 +123,8 @@ require '../servicios/include/function.php';
         <?php
         include "./include/footer/footer_login.php";
         ?>
-        <script src="design/js/crud/searchFilter.js<?php echo @$v; ?>" type="text/javascript"></script>
-        <script src="design/js/crud/cliente.js<?php echo @$v; ?>" type="text/javascript"></script>
+        <script async src="design/js/crud/searchFilter.js<?php echo @$v; ?>" type="text/javascript"></script>
+        <script async src="design/js/crud/cliente.js<?php echo @$v; ?>" type="text/javascript"></script>
 
         <script>
                                     function mapaporturno(tipoturno) {

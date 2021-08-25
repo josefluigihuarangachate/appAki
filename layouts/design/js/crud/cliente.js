@@ -9,6 +9,9 @@ function listado() {
 
         if (json['status'] == 'Ok') {
             var data = json['data'];
+            data.sort(function (a, b) {
+                return a.horaturno.localeCompare(b.horaturno);
+            });
             if (data) {
                 for (var i = 0; i < data.length; i++) {
                     div = "";
@@ -23,13 +26,19 @@ function listado() {
                     div += '<img src="design/aki/' + imgAtencion + '.png" alt="image" class="image">';
                     div += '<div class="in">';
                     div += '<div>';
-                    div += '<label class="label fontSize-1">NR°. ORDEN: ' + data[i].numeroorden + '</label>';
+                    if (data[i].estadoturno == 'Despacho') {
+                        div += '<label class="label fontSize-1">NR°. ORDEN: ' + data[i].numeroorden + '</label>';
+                    }
+
                     div += '<label class="label fontSize-1">' + data[i].nombrecliente + ' ' + data[i].apellidopaternocliente + ' ' + data[i].apellidomaternocliente + '</label>';
                     div += '<header class="header fontSize-2">' + data[i].numerocelcliente + '</header>';
                     div += '<footer class="footer fontSize-3">' + data[i].direccion1cliente + '</footer>';
                     div += '</div>';
                     div += '<div>';
-                    div += '<footer style="float: right;font-size: 11px;width: 100%;margin-left: 10px;color: #fff;font-weight: bold;" class="badge badge-danger">' + data[i].horaturno + '</footer>';
+
+                    var hora = data[i].horaturno.split(':');
+
+                    div += '<footer style="float: right;font-size: 11px;width: 100%;margin-left: 10px;color: #fff;font-weight: bold;" class="badge badge-danger">' + hora[0] + ":" + hora[1] + '</footer>';
                     div += '</div>';
                     div += '</div>';
                     div += '</a>';

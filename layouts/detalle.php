@@ -89,7 +89,6 @@ include "./include/sessionstart/session.php";
 
 
             <div class="section mt-2">
-
                 <?php
                 if (@$_SESSION['estadoturnotemp'] == 'Recojo') {
                     include "./recojo.php";
@@ -113,7 +112,7 @@ include "./include/sessionstart/session.php";
         <?php
         include "./include/footer/footer_login.php";
         ?>
-<!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                      ?>" type="text/javascript"></script>
-        <script src="design/js/crud/cliente.js<?php //echo @$v;                      ?>" type="text/javascript"></script>-->
+<!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                       ?>" type="text/javascript"></script>
+        <script src="design/js/crud/cliente.js<?php //echo @$v;                       ?>" type="text/javascript"></script>-->
     </body>
 </html>

@@ -96,3 +96,20 @@ function nombreDia($fecha) {
             return '';
     }
 }
+
+// zero_fill 
+// $valor = sera un numero
+// $long = cuantos ceros adelante quieres que tenga
+// ejem:
+// $valor = 5
+// $long = 7
+// RESULTADO: 0000005
+// https://es.stackoverflow.com/a/74997
+function zero_fill($valor, $long = 0) {
+    return str_pad($valor, $long, '0', STR_PAD_LEFT);
+}
+
+// GENERAR CODIGO ID PARA GUARDAR IMAGENES O AUDIOS EN UNA CARPETA
+function generateRandomString($length = 6) {
+    return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+}

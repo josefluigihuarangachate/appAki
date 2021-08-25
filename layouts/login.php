@@ -61,6 +61,6 @@
         $v = "?v=" . date("Ymdhis");
         include "./include/footer/footer_login.php";
         ?>
-        <script src="design/js/crud/login.js<?php echo $v; ?>" type="text/javascript"></script>        
+        <script async src="design/js/crud/login.js<?php echo $v; ?>" type="text/javascript"></script>        
     </body>
 </html>

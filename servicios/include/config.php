@@ -28,6 +28,8 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 
 define('RUTA_PDF', 'archivos/despacho_recojo/');
+define('RUTA_ARCHIVOS', 'archivos/archivos/');
+define('RUTA_AUDIOS', 'archivos/audios/');
 //define('RUTA_SERVICIOS', 'http://192.168.0.103:81/appAki/servicios/');
 //define('RUTA_DESIGN', 'http://192.168.0.103:81:81/appAki/design/');
 // ACTUALIZAR FECHA ACTUAL DE TURNOXCLIENTE

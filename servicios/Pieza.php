@@ -19,6 +19,7 @@ if ($ajax) {
                     [
                         tabla('articulo') . ".id(idpieza)",
                         tabla('articulo') . ".Nombre_Articulo(nombrepieza)",
+                        tabla('articulo') . ".Precio_Articulo(preciopieza)",
                     ],
                     [
                         tabla('receta') . '.IdArticulo_Receta' => $idprenda,

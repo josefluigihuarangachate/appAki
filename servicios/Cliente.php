@@ -60,9 +60,19 @@ if ($ajax) {
                         tabla('turnoxcliente') . '.id_repartidor' => $idrepartidor,
                         tabla('turnoxcliente') . '.puesto_turno' => $tipoturno,
                         tabla('turnoxcliente') . '.fecha_turno' => date('Y-m-d'),
+                    ],
+                    [
+                        // Multiple condition.
+                        "ORDER" => [
+                            tabla('turnoxcliente') . ".fecha_turno(fechaturno)" => "DESC",
+                            tabla('turnoxcliente') . ".hora_turno(horaturno)" => "DESC",
+                        ]
                     ]
             );
             if ($data) {
+                usort($data, function (array $elem1, $elem2) {
+                    return $elem1['horaturno'] <=> $elem2['horaturno'];
+                });
                 $json['code'] = '200';
                 $json['status'] = 'Ok';
                 $json['msg'] = strings('success_read');
