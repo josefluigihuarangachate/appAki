@@ -8,7 +8,6 @@ include './Barcode.php';
 $html = ob_get_clean();
 
 use Dompdf\Dompdf;
-use Medoo\Medoo;
 
 if ($ajax) {
     if (METODO($method) == 'POST') {
@@ -161,9 +160,13 @@ if ($ajax) {
                         }
 
                         $k = 0;
-
+                        $inidestado = "";
                         while ($k < count($keyname)) {
-                            $inidestado = implode(" @ ", @$_REQUEST['estado' . $keyname[$k]]);
+
+                            try {
+                                $inidestado = implode(" @ ", $_REQUEST['estado' . $keyname[$k]]);
+                            } catch (Throwable $e) {}
+
                             // SUBIMOS LAS IMAGENES POR PRENDA
                             $carpeta_archivo = RUTA_ARCHIVOS . $numero_orden . "/";
                             $inidarchivo = '';
@@ -418,19 +421,15 @@ if ($ajax) {
                 }
             } else {
                 echo html_error(strings('error_empty'));
-                die();
             }
         } else {
             echo html_error(strings('error_cmd'));
-            die();
         }
     } else {
         echo html_error(strings('error_method'));
-        die();
     }
 } else {
     echo html_error(strings('error_ajax'));
-    die();
 }
 
 //'X-Requested-With', 'XMLHttpRequest'
