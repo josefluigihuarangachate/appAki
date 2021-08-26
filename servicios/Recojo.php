@@ -66,7 +66,7 @@ if ($ajax) {
                             "idzona" => @$zona[0]['puesto_zona'],
                             "total_s_dscto" => '',
                             "descuento" => '',
-                            "total_pagar" => $pagototal,
+                            "total_pagar" => str_replace(',', '', number_format($pagototal, 2, '.', '')),
                             "a_cuenta" => '',
                             "saldo" => '',
                             "estado" => 'Activo'
@@ -130,14 +130,226 @@ if ($ajax) {
 
                         // RECORRO PARA OBTENER LOS IDS
                         $keyname = array();
+                        $vf = 0;
                         foreach ($_REQUEST as $key => $value) {
-                            if (str_contains(strval($key), 'pieza')) {
-                                array_push($keyname, str_replace("pieza", "", $key));
+                            if (str_contains(strval($key), 'laprendapertenece')) {
+                                $namekey = str_replace("laprendapertenece", "", $key);
+
+                                $idspiezas = explode(';', @$_REQUEST["piezasids" . $namekey]);
+                                $arrpiezas = [];
+
+                                if (count($idspiezas) >= 1) {
+                                    for ($pz = 0; $pz < count($idspiezas); $pz++) {
+
+                                        $nombrepieza = $pdo->select(
+                                                tabla('articulo'),
+                                                [
+                                                    "nombre_articulo",
+                                                ],
+                                                [
+                                                    "id" => @$_REQUEST['pieza' . $idspiezas[$pz]]
+                                                ],
+                                                [
+                                                    "LIMIT" => [0, 1]
+                                                ]
+                                        );
+                                        $precioprenda = $pdo->select(
+                                                tabla('articulo'),
+                                                [
+                                                    "precio_articulo",
+                                                ],
+                                                [
+                                                    "id" => @$_REQUEST['pieza' . $namekey]
+                                                ],
+                                                [
+                                                    "LIMIT" => [0, 1]
+                                                ]
+                                        );
+
+                                        $inidestado = "";
+                                        try {
+                                            $inidestado = implode(" @ ", @$_REQUEST['estado' . $idspiezas[$pz]]);
+                                        } catch (Throwable $e) {
+                                            
+                                        }
+
+                                        // SUBIMOS LAS IMAGENES POR PRENDA
+                                        $carpeta_archivo = RUTA_ARCHIVOS . $numero_orden . "/";
+                                        $inidarchivo = '';
+                                        $file = @$_FILES['archivo' . $idspiezas[$pz]];
+                                        if (count($file['name'])) {
+                                            $fi = 0;
+                                            while ($fi < count($file['name'])) {
+                                                $tmpFilePath = $file['tmp_name'][$fi];
+                                                if ($tmpFilePath) {
+                                                    if ($fi == 0) {
+                                                        if (!file_exists($carpeta_archivo)) {
+                                                            mkdir($carpeta_archivo, 0777, true);
+                                                        }
+                                                    }
+                                                    $temp = explode(".", $file["name"][$fi]);
+                                                    $newfilename = 'I' . generateRandomString() . '.jpg';
+                                                    if ($fi > 0) {
+                                                        $inidarchivo .= ' @ ';
+                                                    }
+                                                    $inidarchivo .= $newfilename;
+                                                    move_uploaded_file($file["tmp_name"][$fi], $carpeta_archivo . $newfilename);
+                                                }
+                                                $fi = $fi + 1;
+                                            }
+                                        }
+                                        // FIN SUBIMOS LAS IMAGENES POR PRENDA
+                                        // SUBIMOS LOS AUDIOS POR PRENDA
+                                        $carpeta_audio = RUTA_AUDIOS . $numero_orden . "/";
+                                        $inidaudio = '';
+                                        $file = @$_FILES['audio' . $idspiezas[$pz]];
+                                        if (count($file['name'])) {
+                                            $fi = 0;
+                                            while ($fi < count($file['name'])) {
+                                                $tmpFilePath = $file['tmp_name'][$fi];
+                                                if ($tmpFilePath) {
+                                                    if ($fi == 0) {
+                                                        if (!file_exists($carpeta_audio)) {
+                                                            mkdir($carpeta_audio, 0777, true);
+                                                        }
+                                                    }
+                                                    $temp = explode(".", $file["name"][$fi]);
+                                                    $newfilename = 'M' . generateRandomString() . '.' . end($temp);
+                                                    if ($fi > 0) {
+                                                        $inidaudio .= ' @ ';
+                                                    }
+                                                    $inidaudio .= $newfilename;
+                                                    move_uploaded_file($file["tmp_name"][$fi], $carpeta_audio . $newfilename);
+                                                }
+                                                $fi = $fi + 1;
+                                            }
+                                        }
+                                        // FIN SUBIMOS LOS AUDIOS POR PRENDA
+
+                                        $arrpiezas[] = array(
+                                            'idpieza' => @$_REQUEST['pieza' . $idspiezas[$pz]],
+                                            'nombrepieza' => @$nombrepieza[0]['nombre_articulo'],
+                                            'nombresestados' => isEmpty($inidestado),
+                                            'observacion' => isEmpty(@$_REQUEST['observacion' . $idspiezas[$pz]]),
+                                            'audios' => isEmpty(strval(@$inidaudio)),
+                                            'imagenes' => isEmpty(strval(@$inidarchivo)),
+                                        );
+                                        unset($nombrepieza);
+                                    }
+
+                                    $nombreprenda = $pdo->select(
+                                            tabla('articulo'),
+                                            [
+                                                "nombre_articulo",
+                                            ],
+                                            [
+                                                "id" => $_REQUEST[$key]
+                                            ],
+                                            [
+                                                "LIMIT" => [0, 1]
+                                            ]
+                                    );
+
+                                    $precioprenda = $pdo->select(
+                                            tabla('articulo'),
+                                            [
+                                                "precio_articulo",
+                                            ],
+                                            [
+                                                "id" => $_REQUEST[$key]
+                                            ],
+                                            [
+                                                "LIMIT" => [0, 1]
+                                            ]
+                                    );
+
+                                    $piezas[$vf] = array(
+                                        'idprenda' => $_REQUEST[$key],
+                                        'ordenpromocion' => $namekey,
+                                        'precio' => $precioprenda[0]['precio_articulo'],
+                                        'nombreprenda' => $nombreprenda[0]['nombre_articulo'],
+                                        'color' => $_REQUEST['color' . $namekey],
+                                        'marca' => $_REQUEST['marca' . $namekey],
+                                        'cantpiezas' => count($idspiezas),
+                                        'piezas' => $arrpiezas
+                                    );
+                                    unset($nombreprenda);
+                                }
+                                $vf = $vf + 1;
                             }
                         }
 
-                        imprimir($keyname);
-                        die();
+                        // ARMANDO EL INSERT
+                        $vi = 0;
+                        while ($vi < count($piezas)) {
+                            $cPiezas = $piezas[$vi]['piezas'];
+                            $bi = 0;
+
+                            while ($bi < count($cPiezas)) {
+
+                                $precio = isEmpty('');
+                                if ($bi == 0) {
+                                    $precio = $piezas[$vi]['precio'];
+                                }
+
+                                $idpromo = isEmpty('');
+                                $nombrepromo = isEmpty('');
+                                $idpieza = isEmpty('');
+                                $nombrepieza = isEmpty('');
+
+                                if ($piezas[$vi]['cantpiezas'] == 1 && $vi == 0) {
+                                    $idpieza = isEmpty($piezas[$vi]['idprenda']);
+                                    $nombrepieza = isEmpty($piezas[$vi]['nombreprenda']);
+                                } else if ($piezas[$vi]['cantpiezas'] >= 2) {
+                                    $idpromo = isEmpty($piezas[$vi]['idprenda']);
+                                    $nombrepromo = isEmpty($piezas[$vi]['nombreprenda']);
+                                    $idpieza = isEmpty($cPiezas[$bi]['idpieza']);
+                                    $nombrepieza = isEmpty($cPiezas[$bi]['nombrepieza']);
+                                }
+
+                                $arr = array(
+                                    'idorden' => $lastinsert_id,
+                                    'ordenpromocion' => strval($piezas[$vi]['ordenpromocion']),
+                                    'idpromocion' => $idpromo,
+                                    'nombrepromocion' => $nombrepromo,
+                                    'idprenda' => $idpieza, //$cPiezas[$bi]['idpieza'],
+                                    'nombreprenda' => $nombrepieza, //$cPiezas[$bi]['nombrepieza'],
+                                    'color' => strtoupper($piezas[$vi]['color']),
+                                    'marca' => strtoupper($piezas[$vi]['marca']),
+                                    'precioprenda' => str_replace(',', '', number_format($precio, 2, '.', '')),
+                                    'nombreestados' => isEmpty($cPiezas[$bi]['nombresestados']),
+                                    'observaciones' => isEmpty($cPiezas[$bi]['observacion']),
+                                    'audios' => isEmpty(strval($cPiezas[$bi]['audios'])),
+                                    'imagenes' => isEmpty(strval($cPiezas[$bi]['imagenes'])),
+                                );
+                                array_push($insert, $arr);
+                                unset($arr);
+                                $bi = $bi + 1;
+                            }
+
+                            $vi = $vi + 1;
+                        }
+
+
+                        try {
+                            $pdo->insert(
+                                    tabla('detalleorden'),
+                                    $insert
+                            );
+                        } catch (Exception $e) {
+                            echo html_error(strings('error_create'));
+                            $pdo->delete(tabla('orden'), [
+                                "AND" => [
+                                    "id" => $lastinsert_id
+                                ]
+                            ]);
+                            $pdo->delete(tabla('detalleorden'), [
+                                "AND" => [
+                                    "idorden" => $lastinsert_id
+                                ]
+                            ]);
+                            die();
+                        }
                     }
                     // SI SON PROMOCIONES
                     else if (
@@ -264,6 +476,7 @@ if ($ajax) {
 
                             $arr = array(
                                 'idorden' => $lastinsert_id,
+                                'ordenpromocion' => strval($keyname[$k]),
                                 'idpromocion' => @$_REQUEST['subidprenda' . $keyname[$k]],
                                 'nombrepromocion' => strval($nombrepromocion[0]['nombre_articulo']),
                                 'idprenda' => @$_REQUEST['pieza' . $keyname[$k]],
@@ -377,12 +590,42 @@ if ($ajax) {
                             for ($pre = 0; $pre < count(@$prendas); $pre++) {
                                 $html .= "&nbsp;&nbsp;&nbsp; (1)&nbsp;" . @$prendas[$pre]['nombreprenda'] . " <label style='float: right;'>" . $prendas[$pre]['precioprenda'] . "</label><br>";
                                 $html .= "&nbsp;&nbsp;&nbsp; " . @$prendas[$pre]['color'] . "<br>";
-                                $html .= "&nbsp;&nbsp;&nbsp; " . @$prendas[$pre]['marca'] . "<br>";
+                                $html .= "&nbsp;&nbsp;&nbsp; " . @$prendas[$pre]['marca'];
                                 if (@$prendas[$pre]['nombreestados']) {
-                                    $html .= "&nbsp;&nbsp;&nbsp; " . str_replace(' @ ', ',', $prendas[$pre]['nombreestados']) . "<br>";
+                                    $html .= "<br>&nbsp;&nbsp;&nbsp; " . str_replace(' @ ', ',', $prendas[$pre]['nombreestados']) . "<br>";
                                 }
                                 //$sumaprecios = $sumaprecios + @$prendas[$pre]['precioprenda'];
                             }
+                        }
+                        $html .= "<br><strong>TOTAL A PAGAR : S/.</strong>" . " <strong style='float: right;'>" . number_format($pagototal, 2, '.', '') . "</strong><br>";
+                        $html .= '</div><br>';
+                    } else if ($piezas) {
+                        $html .= '<div style="text-align: left;font-family: sans-serif;">';
+                        $ti = 0;
+                        $sumarPrecios = 0;
+                        while ($ti < count($piezas)) {
+                            $sumarPrecios = $piezas[$ti]['precio'];
+                            $iPiezas = $piezas[$ti]['piezas'];
+                            $html .= "1 &nbsp;" . $piezas[$ti]['nombreprenda'] . " <strong style='float: right;'>" . $piezas[$ti]['precio'] . "</strong><br>";
+                            if (count($iPiezas) >= 2) {
+                                $yi = 0;
+                                while ($yi < count($iPiezas)) {
+                                    $html .= "&nbsp;&nbsp; (1) &nbsp;" . @$iPiezas[$yi]['nombrepieza'] . "<br>";
+                                    $html .= "&nbsp;&nbsp;&nbsp;" . @$piezas[$ti]['color'] . "<br>";
+                                    if ($iPiezas[$yi]['nombresestados']) {
+                                        $html .= "&nbsp;&nbsp;&nbsp;" . str_replace(" @ ", ',', $iPiezas[$yi]['nombresestados']) . "<br>";
+                                    }
+                                    $yi = $yi + 1;
+                                }
+                            } else if (count($iPiezas) == 1) {
+                                $html .= "&nbsp;&nbsp;&nbsp;" . @$piezas[$ti]['color'] . "<br>";
+                                $html .= "&nbsp;&nbsp;&nbsp;" . @$piezas[$ti]['marca'] . "<br>";
+                                if (@$iPiezas[0]['nombresestados']) {
+                                    $html .= "&nbsp;&nbsp;&nbsp;" . str_replace(" @ ", ',', $iPiezas[0]['nombresestados']) . "<br>";
+                                }
+                            }
+
+                            $ti = $ti + 1;
                         }
                         $html .= "<br><strong>TOTAL A PAGAR : S/.</strong>" . " <strong style='float: right;'>" . number_format($pagototal, 2, '.', '') . "</strong><br>";
                         $html .= '</div><br>';

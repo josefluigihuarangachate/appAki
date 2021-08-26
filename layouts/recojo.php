@@ -734,6 +734,11 @@
                                 idetiquetas.push('marca' + uuid);
                                 idetiquetas.push('pieza' + uuid);
                             }
+                            
+                            // IRA LOS IDS - TENDRIA QUE VER COMO APLICARLO
+                            //html += "<input type='text' id='piezasids" + uuid + "' name='piezasids" + uuid + "' value='" + idspiezas + "' class='ocultarid'>";
+                            //html += "<input type='text' id='laprendapertenece" + uuid + "' name='estaprendapertenece" + uuid + "' value='" + idprenda + "' class='ocultarid'>";
+                            
 
                             document.getElementById("items" + id).innerHTML = html;
 
@@ -851,6 +856,11 @@
                             html += '</div>';
                             html += '</div>';
                             html += '<hr>';
+                            
+                            // IRA LOS IDS
+                            html += "<input type='text' id='piezasids" + uuid + "' name='piezasids" + uuid + "' value='" + uuid + "' class='ocultarid'>";
+                            html += "<input type='text' id='laprendapertenece" + uuid + "' name='laprendapertenece" + uuid + "' value='" + idprenda + "' class='ocultarid'>";
+                            
 
                             idetiquetas.push('color' + uuid);
                             idetiquetas.push('marca' + uuid);
@@ -863,6 +873,7 @@
                             // CUANDO ES POR PIEZA    
                         } else if (json['status'] == 'Ok' && cantPiezas >= 1) {
                             uuid = generate();
+                            var uuidtemp = uuid;
                             var idspiezas = "";
 
                             // IDPRENDA - EN ESTE CASO SI ES EL ID DE LA PRENDA
@@ -989,7 +1000,9 @@
 
 
                             // IRA LOS IDS
-                            html += "<input type='text' id='piezasids" + uuid + "' name='piezasids" + uuid + "' value='" + idspiezas + "' class='ocultarid'>";
+                            html += "<input type='text' id='piezasids" + uuidtemp + "' name='piezasids" + uuidtemp + "' value='" + idspiezas + "' class='ocultarid'>";
+                            html += "<input type='text' id='laprendapertenece" + uuidtemp + "' name='laprendapertenece" + uuidtemp + "' value='" + idprenda + "' class='ocultarid'>";
+                            
                             document.getElementById("items" + id).innerHTML = html;
                             for (var n = 0; n < idetiquetas.length; n++) {
                                 $("#" + idetiquetas[n]).select2().trigger("change");
