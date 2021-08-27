@@ -2,6 +2,7 @@
     "require": {
         "catfan/medoo": "^2.1",
         "dompdf/dompdf": "^1.0",
-        "ext-gd": "*"
+        "ext-gd": "*",
+        "picqer/php-barcode-generator": "^2.2"
     }
 }

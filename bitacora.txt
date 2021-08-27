@@ -23,3 +23,10 @@ EXCEL:
 concatenar celdas:
     https://es.extendoffice.com/documents/excel/1252-excel-combine-cells-with-space-commas-semicolon.html
 
+
+
+
+INSTALAR EL SISTEMA:
+
+- CONFIGURAR LA BASE DE DATOS EN EL CONFIG
+- CONFIGURAR LA RUTA DE LOS WEBSERVICE EN JS / CONFIG

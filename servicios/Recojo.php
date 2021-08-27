@@ -3,9 +3,9 @@
 include './include/app.php';
 include './include/session.php';
 
-// Barcode github: https://github.com/davidscotttufts/php-barcode
-include './Barcode.php';
-$html = ob_get_clean();
+//$html = ob_get_clean();
+// GITHUB: https://github.com/picqer/php-barcode-generator
+$generator = new Picqer\Barcode\BarcodeGeneratorPNG();
 
 use Dompdf\Dompdf;
 
@@ -534,7 +534,9 @@ if ($ajax) {
 
                     $logo = convertirblobimageporruta("../layouts/design/aki/bn-logo.png");
 
-                    barcode(RUTA_PDF . $codbar, $numero_orden, 20, 'horizontal', 'code128', true);
+                    //barcode(RUTA_PDF . $codbar, $numero_orden, 20, 'horizontal', 'code128', true);
+                    $redColor = [0, 0, 0];
+                    file_put_contents(RUTA_PDF . $codbar, $generator->getBarcode($numero_orden, $generator::TYPE_CODE_128, 3, 50, $redColor));
 
                     // instantiate and use the dompdf class
                     // Quitar padding y margin pdf: https://stackoverflow.com/q/19779285/16488926
@@ -644,7 +646,10 @@ if ($ajax) {
                     <strong style="font-family: sans-serif;">' . @ucwords(nombreDia($fechadeentrega)) . ', ' . date('d/m/Y', strtotime($fechadeentrega)) . ' ' . date('h:i A', strtotime($horahoypm)) . '</strong><br>
                     <strong style="font-family: sans-serif;"><u>' . $tipo_cobro . '</u></strong>
                     <center>
-                        <img src="' . convertirblobimageporruta(RUTA_PDF . $codbar) . '" alt="" style="width: 80%;height: 85px;"/>
+                        <img src="' . convertirblobimageporruta(RUTA_PDF . $codbar) . '" alt="" style="width: 80%;height: 85px;margin-bottom: 12px;"/><br>
+                        <p>
+                            <strong style="font-size: 35px;color: black;font-weight: bold;font-family: sans-serif;">' . $numero_orden . '</strong>
+                        </p>
                     </center>
                     <strong style="font-family: sans-serif;">Condiciones del servicio</strong><br>
                     <strong style="font-family: sans-serif;font-size: 11px;">Visita nuestra pagina web: www.lavanderiaaki.com e infórmese de las condiciones de nuestro servicio</strong><br>
@@ -655,7 +660,7 @@ if ($ajax) {
                     unlink(RUTA_PDF . $codbar);
                     $dompdf->loadHtml($html);
                     $dompdf->set_option('isRemoteEnabled', TRUE);
-                    $dompdf->set_paper(array(0, 0, 280, (492 + $sumarpixeles)));
+                    $dompdf->set_paper(array(0, 0, 280, 492));
                     $dompdf->render();
                     $output = $dompdf->output();
                     file_put_contents(RUTA_PDF . $codpdf, $output);

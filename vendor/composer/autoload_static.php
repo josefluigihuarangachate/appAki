@@ -11,6 +11,10 @@ class ComposerStaticInitab9b7b96a4594e824e16ec7d84636a90
         array (
             'Svg\\' => 4,
         ),
+        'P' => 
+        array (
+            'Picqer\\Barcode\\' => 15,
+        ),
         'M' => 
         array (
             'Medoo\\' => 6,
@@ -29,6 +33,10 @@ class ComposerStaticInitab9b7b96a4594e824e16ec7d84636a90
         'Svg\\' => 
         array (
             0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
+        ),
+        'Picqer\\Barcode\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/picqer/php-barcode-generator/src',
         ),
         'Medoo\\' => 
         array (
