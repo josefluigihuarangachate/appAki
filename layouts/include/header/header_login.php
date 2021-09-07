@@ -8,8 +8,7 @@ $v = "?v=" . date("Ydmhis");
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#12598e">
 <title>Lavanderia Aki</title>
-<link rel="icon" type="image/png" href="design/aki/logo.png">
-<link rel="apple-touch-icon" href="design/aki/logo.png">
+<link rel="icon" type="image/png" href="design/aki/logo.png"/>
 <link rel="stylesheet" href="design/assets/css/style.css<?php echo $v; ?>">
 <link rel="manifest" href="__manifest.json">
 <script src="design/js/config.js<?php echo $v; ?>"></script>

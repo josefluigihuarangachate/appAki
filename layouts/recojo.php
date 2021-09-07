@@ -110,7 +110,7 @@
             </button>
         </div>
         <div class="col-2" style="padding-left: 0px;margin-left: 0px;padding-right: 0px;margin-right: 0px;right: 0px;position: absolute;">
-            <label class="btn btn-danger" style="width: 100%;border-radius: 0px;height: 56px;padding: 0px;" onclick="addItem();">
+            <label class="btn btn-danger ir-arriba-add" style="width: 100%;border-radius: 0px;height: 56px;padding: 0px;" onclick="addItem();">
                 <center>
                     <ion-icon name="add-outline"></ion-icon>
                 </center>
@@ -176,7 +176,9 @@
 </div>
 <!-- Fin Modal Imprimir Ticket -->
 
-
+<span class="ir-arriba icon-arrow-up2">
+    <ion-icon name="chevron-up-outline"></ion-icon>
+</span>
 
 <script>
     function imprSelec(nombre, idimage) {
@@ -734,11 +736,11 @@
                                 idetiquetas.push('marca' + uuid);
                                 idetiquetas.push('pieza' + uuid);
                             }
-                            
+
                             // IRA LOS IDS - TENDRIA QUE VER COMO APLICARLO
                             //html += "<input type='text' id='piezasids" + uuid + "' name='piezasids" + uuid + "' value='" + idspiezas + "' class='ocultarid'>";
                             //html += "<input type='text' id='laprendapertenece" + uuid + "' name='estaprendapertenece" + uuid + "' value='" + idprenda + "' class='ocultarid'>";
-                            
+
 
                             document.getElementById("items" + id).innerHTML = html;
 
@@ -856,11 +858,11 @@
                             html += '</div>';
                             html += '</div>';
                             html += '<hr>';
-                            
+
                             // IRA LOS IDS
                             html += "<input type='text' id='piezasids" + uuid + "' name='piezasids" + uuid + "' value='" + uuid + "' class='ocultarid'>";
                             html += "<input type='text' id='laprendapertenece" + uuid + "' name='laprendapertenece" + uuid + "' value='" + idprenda + "' class='ocultarid'>";
-                            
+
 
                             idetiquetas.push('color' + uuid);
                             idetiquetas.push('marca' + uuid);
@@ -1002,7 +1004,7 @@
                             // IRA LOS IDS
                             html += "<input type='text' id='piezasids" + uuidtemp + "' name='piezasids" + uuidtemp + "' value='" + idspiezas + "' class='ocultarid'>";
                             html += "<input type='text' id='laprendapertenece" + uuidtemp + "' name='laprendapertenece" + uuidtemp + "' value='" + idprenda + "' class='ocultarid'>";
-                            
+
                             document.getElementById("items" + id).innerHTML = html;
                             for (var n = 0; n < idetiquetas.length; n++) {
                                 $("#" + idetiquetas[n]).select2().trigger("change");
@@ -1267,6 +1269,11 @@
                 {
                     document.getElementById("htmlprint").innerHTML = '';
                     document.getElementById("htmlprint").innerHTML = data;
+                },
+                error: function (xhr) { // if error occured
+                    console.log(xhr);
+                },
+                complete: function () {
                 }
             });
 

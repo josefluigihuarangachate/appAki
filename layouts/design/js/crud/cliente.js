@@ -16,17 +16,17 @@ function listado() {
                 for (var i = 0; i < data.length; i++) {
                     div = "";
                     div += '<li>';
-                    div += '<a href="#" onclick="getIdTurnoxRepartidor(' + data[i].idturnoxcliente + ',\'' + data[i].estadoturno + '\',\'' + (data[i].nombrecliente + ' ' + data[i].apellidopaternocliente) + '\',\'' + data[i].numerocelcliente + '\',\'' + data[i].direccion1cliente + '\');" class="item">';
+                    div += '<a href="#" onclick="getIdTurnoxRepartidor(' + data[i].idturnoxcliente + ',\'' + data[i].estadoturno + '\',\'' + (data[i].nombrecliente + ' ' + data[i].apellidopaternocliente) + '\',\'' + data[i].numerocelcliente + '\',\'' + data[i].direccion1cliente + '\',' + data[i].idcliente + ',\'' + data[i].numeroorden + '\');" class="item">';
 
                     var imgAtencion = "recojo";
-                    if (data[i].estadoturno == 'Despacho') {
-                        imgAtencion = "despacho";
+                    if (data[i].estadoturno == 'Entrega') {
+                        imgAtencion = "entrega";
                     }
 
                     div += '<img src="design/aki/' + imgAtencion + '.png" alt="image" class="image">';
                     div += '<div class="in">';
                     div += '<div>';
-                    if (data[i].estadoturno == 'Despacho') {
+                    if (data[i].estadoturno == 'Entrega') {
                         div += '<label class="label fontSize-1">NR°. ORDEN: ' + data[i].numeroorden + '</label><br>';
                     }
 
@@ -82,8 +82,8 @@ function listado() {
 listado();
 
 // CONSULTAR CLIENTES RECOJO Y REPARTOS
-function getIdTurnoxRepartidor(id, estadoturno, nombrecliente, telefono, direccion) {
-    $.post(ruta + "Cliente", {idturnoxrepartidor: id, estadoturno: estadoturno, nombrecliente: nombrecliente, telefono: telefono, direccion: direccion, cmd: 'guardaridturnoxrepartidor'}, function (json) {
+function getIdTurnoxRepartidor(id, estadoturno, nombrecliente, telefono, direccion, idcliente, numeroorden) {
+    $.post(ruta + "Cliente", {idcliente: idcliente, idturnoxrepartidor: id, estadoturno: estadoturno, nombrecliente: nombrecliente, telefono: telefono, direccion: direccion, numeroorden: numeroorden, cmd: 'guardaridturnoxrepartidor'}, function (json) {
         console.log(json['msg']);
         location.href = "detalle";
     });

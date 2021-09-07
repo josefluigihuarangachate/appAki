@@ -7,6 +7,24 @@ include "./include/sessionstart/session.php";
         <?php
         include "./include/header/header_login.php";
         ?>
+        <style>
+            .ir-arriba {
+                text-align: center;
+                display: none;
+                border-radius: 50px;
+                height: 55px;
+                width: 55px;
+                background: #24c6f5;
+                font-size: 30px;
+                line-height: 60px;
+                color: #fff;
+                cursor: pointer;
+                position: fixed;
+                bottom: 70px;
+                right: 20px;
+                opacity: 0.7;
+            }
+        </style>
     </head>
     <body class="<?php echo @$_SESSION['themedark']; ?>">
 
@@ -70,7 +88,7 @@ include "./include/sessionstart/session.php";
                                                 <strong>RECOJO</strong>
                                             </span>   
                                             <?php
-                                        } else if (@$_SESSION['estadoturnotemp'] == 'Despacho') {
+                                        } else if (@$_SESSION['estadoturnotemp'] == 'Entrega') {
                                             ?>
                                             <span class="badge badge-success" style="padding: 14px;font-size: 14px;">
                                                 <strong>ENTREGA</strong>                                        
@@ -88,16 +106,20 @@ include "./include/sessionstart/session.php";
             <!-- * card block -->
 
 
-            <div class="section mt-2">
-                <?php
-                if (@$_SESSION['estadoturnotemp'] == 'Recojo') {
-                    include "./recojo.php";
-                } else if (@$_SESSION['estadoturnotemp'] == 'Despacho') {
-                    include "./despacho.php";
-                }
-                ?>
 
-            </div>
+            <?php
+            if (@$_SESSION['estadoturnotemp'] == 'Recojo') {
+                ?>
+                <div class="section mt-2">
+                    <?php include "./recojo.php"; ?> 
+                </div>
+                <?php
+            } else if (@$_SESSION['estadoturnotemp'] == 'Entrega') {
+                include "./despacho.php";
+            }
+            ?>
+
+
         </div>
         <!-- * App Capsule -->
         <br>
@@ -112,7 +134,29 @@ include "./include/sessionstart/session.php";
         <?php
         include "./include/footer/footer_login.php";
         ?>
-<!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                        ?>" type="text/javascript"></script>
-        <script src="design/js/crud/cliente.js<?php //echo @$v;                        ?>" type="text/javascript"></script>-->
+        <script>
+            $(document).ready(function () {
+                $('.ir-arriba').click(function () {
+                    $('body, html').animate({
+                        scrollTop: '0px'
+                    }, 300);
+                });
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 0) {
+                        $('.ir-arriba').slideDown(300);
+                    } else {
+                        $('.ir-arriba').slideUp(300);
+                    }
+                });
+
+            });
+            $(document).ready(function () {
+                $('.ir-arriba-add').click(function () {
+                    $('.ir-arriba').click();
+                });
+            });
+        </script>
+        <!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                                ?>" type="text/javascript"></script>
+                <script src="design/js/crud/cliente.js<?php //echo @$v;                                 ?>" type="text/javascript"></script>-->
     </body>
 </html>

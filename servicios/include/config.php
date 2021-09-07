@@ -36,7 +36,8 @@ define('RUTA_AUDIOS', 'archivos/audios/');
 /*
   UPDATE `turnoxcliente`
   SET
-  `fecha_turno` = DATE(CURDATE())
+  `fecha_turno` = DATE(CURDATE()) ,
+  `atencion` = 'Sin Atender'
   WHERE id > 0;
  */
 
@@ -58,6 +59,16 @@ $json = array(
     'code' => "405",
     'msg' => 'Acceso Denegado',
     'data' => ''
+);
+
+$metododepago = array(
+    'Por Cobrar',
+    'Efectivo',
+    'Tarjeta Credito/Debito',
+    'Cheque',
+    'Deposito',
+    'Yape',
+    'Plin'
 );
 
 // Permisos Ajax

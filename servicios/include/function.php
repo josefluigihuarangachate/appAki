@@ -120,11 +120,81 @@ function html_error($mensaje) {
 }
 
 // CAMPOS VACIOS
-function isEmpty($value){
+function isEmpty($value) {
     $dato = trim($value);
-    if(empty($dato)){
+    if (empty($dato)) {
         return null;
-    }else{
+    } else {
         return trim($dato);
     }
 }
+
+// PARA SABER EL PUESTO DEL TURNO
+function temprano_tarde($hora) {
+    $horaactualpm = strtotime(date("12:00:00"));
+    $horaactualam = strtotime(date("23:59:59"));
+
+    if (
+            $horaactualpm <= strtotime($hora) &&
+            strtotime($hora) <= $horaactualam
+    ) {
+        return 'Tarde';
+    } else {
+        return 'Temprano';
+    }
+}
+
+// CONVERTIR DE OBJECT CLASS A ARRAY
+// https://stackoverflow.com/questions/19495068/convert-stdclass-object-to-array-in-php/19495142
+function objectToArray($d) {
+    if (is_object($d)) {
+        // Gets the properties of the given object
+        // with get_object_vars function
+        $d = get_object_vars($d);
+    }
+
+    if (is_array($d)) {
+        /*
+         * Return array converted to object
+         * Using __FUNCTION__ (Magic constant)
+         * for recursive call
+         */
+        return array_map(__FUNCTION__, $d);
+    } else {
+        // Return array
+        return $d;
+    }
+}
+
+// CONVERTIR DE NUMERO A LETRA
+// LIBRERIA: https://github.com/lecano/php-numero-a-letras
+// EJM 1: https://es.stackoverflow.com/a/301625
+// EJM 2:https://baulcode.com/codigos/convertir-importe-a-letras-mediante-php/
+// mb_strtoupper : sirve para convertir en mayuscula y si tiene tilde lo convierte en mayuscula con tilde
+// Ejm mb_strtoupper: http://kiuvox.com/solucion-a-strtoupper-con-tildes-php/
+function number_words($valor, $desc_moneda, $sep, $desc_decimal) {
+    if (!empty($valor)) {
+        $arr = explode(".", str_replace(",", "", $valor));
+        $entero = $arr[0];
+        if (isset($arr[1])) {
+            $decimos = strlen($arr[1]) == 1 ? $arr[1] . '0' : $arr[1];
+        }
+
+        $fmt = new \NumberFormatter('es', \NumberFormatter::SPELLOUT);
+        if (is_array($arr)) {
+            $num_word = ($arr[0] >= 1000000) ? "{$fmt->format($entero)} de $desc_moneda" : "{$fmt->format($entero)} $desc_moneda";
+            if (isset($decimos) && $decimos > 0) {
+                $num_word .= " $sep {$fmt->format($decimos)} $desc_decimal";
+            }
+        }
+    } else {
+        $num_word = "";
+    }
+    return mb_strtoupper($num_word, 'utf-8');
+}
+
+//echo number_words("10.10","soles","con","centimos");
+//echo number_words("10","soles","con","centimos");
+//echo number_words("1000000","soles","con","centimos");
+//echo number_words("0.25","soles","con","centimos");
+//echo number_words("500.35","soles","con","centimos");

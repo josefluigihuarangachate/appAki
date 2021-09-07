@@ -154,7 +154,10 @@ if ($ajax) {
             }
         } else if ($cmd == 'guardaridturnoxrepartidor') {
             if (input('idturnoxrepartidor')) {
+                $_SESSION['idclientetemp'] = input('idcliente');
                 $_SESSION['idturnoxrepartidortemp'] = input('idturnoxrepartidor');
+                $_SESSION['numeroordentemp'] = input('numeroorden');
+                
                 $_SESSION['estadoturnotemp'] = input('estadoturno');
 
                 $_SESSION['nombrecliente'] = input('nombrecliente');

@@ -1,5 +1,10 @@
 <?php
 
+// ES MUY IMPORTANTE YA QUE SIRVE PARA VER ERRORES
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+
 include './include/app.php';
 include './include/session.php';
 
@@ -35,6 +40,7 @@ if ($ajax) {
                 $zona = $pdo->select(
                         tabla('zona'),
                         [
+                            "id",
                             "codigo_zona",
                             "puesto_zona"
                         ],
@@ -46,7 +52,7 @@ if ($ajax) {
                 // POR DEFECTO LA HORA DE ENTREGA ES A LAS 5PM
                 $fechahoy = date('Y-m-d');
                 $fechahoyslash = date('d/m/Y');
-                $horahoy = date('h:i:s');
+                $horahoy = date('H:i:s');
                 $horahoypm = $horahoy . ' ' . date('A');
 
                 $pdo->insert(
@@ -61,7 +67,7 @@ if ($ajax) {
                             "celular_cliente" => @$_SESSION['telefono'],
                             "direccion_cliente" => @$_SESSION['direccion'],
                             "fecha_entrega" => $fechadeentrega,
-                            "hora_entrega" => '',
+                            "hora_entrega" => $horahoy,
                             "tipo_cobro" => $tipo_cobro,
                             "idzona" => @$zona[0]['puesto_zona'],
                             "total_s_dscto" => '',
@@ -82,6 +88,23 @@ if ($ajax) {
                     $numero_orden = strtoupper(@$zona[0]['puesto_zona']) . '-' . zero_fill($lastinsert_id, 7);
 
                     try {
+                        // REGISTRO EL TURNO X CLIENTE
+                        $pdo->insert(
+                                tabla('turnoxcliente'),
+                                [
+                                    "numero_orden" => $numero_orden,
+                                    "id_repartidor" => @$_SESSION['id'],
+                                    "id_cliente" => @$_SESSION['idclientetemp'],
+                                    "id_zona" => @$zona[0]['id'],
+                                    "puesto_turno" => temprano_tarde($horahoy),
+                                    "fecha_turno" => $fechadeentrega,
+                                    "hora_turno" => $horahoy,
+                                    "atencion" => 'Sin Atender',
+                                    "estado_turno" => 'Entrega'
+                                ]
+                        );
+                        // FIN REGISTRO EL TURNO X CLIENTE
+
                         $pdo->update(tabla('orden'),
                                 [
                                     "numeroorden" => $numero_orden
@@ -91,7 +114,7 @@ if ($ajax) {
                                 ]
                         );
 
-                        // ACTUALIZO EL ESTADO PARA QUE NO ME APAREZCA EN LA LISTA
+                        // ACTUALIZO EL ESTADO PARA QUE NO ME APAREZCA EN LA LISTA DE TURNOXCLIENTE
                         // id del turnoxcliente
                         $pdo->update(tabla('turnoxcliente'),
                                 [
@@ -137,10 +160,10 @@ if ($ajax) {
 
                                 $idspiezas = explode(';', @$_REQUEST["piezasids" . $namekey]);
                                 $arrpiezas = [];
+                                $inidestado = "";
 
                                 if (count($idspiezas) >= 1) {
                                     for ($pz = 0; $pz < count($idspiezas); $pz++) {
-
                                         $nombrepieza = $pdo->select(
                                                 tabla('articulo'),
                                                 [
@@ -165,12 +188,15 @@ if ($ajax) {
                                                     "LIMIT" => [0, 1]
                                                 ]
                                         );
-
                                         $inidestado = "";
                                         try {
-                                            $inidestado = implode(" @ ", @$_REQUEST['estado' . $idspiezas[$pz]]);
+                                            if (@$_REQUEST['estado' . $idspiezas[$pz]]) {
+                                                $inidestado = implode(" @ ", @$_REQUEST['estado' . $idspiezas[$pz]]);
+                                            } else {
+                                                $inidestado = "";
+                                            }
                                         } catch (Throwable $e) {
-                                            
+                                            $inidestado = "";
                                         }
 
                                         // SUBIMOS LAS IMAGENES POR PRENDA
@@ -235,6 +261,7 @@ if ($ajax) {
                                             'imagenes' => isEmpty(strval(@$inidarchivo)),
                                         );
                                         unset($nombrepieza);
+                                        unset($precioprenda);
                                     }
 
                                     $nombreprenda = $pdo->select(
@@ -274,6 +301,7 @@ if ($ajax) {
                                         'piezas' => $arrpiezas
                                     );
                                     unset($nombreprenda);
+                                    unset($precioprenda);
                                 }
                                 $vf = $vf + 1;
                             }
@@ -297,7 +325,7 @@ if ($ajax) {
                                 $idpieza = isEmpty('');
                                 $nombrepieza = isEmpty('');
 
-                                if ($piezas[$vi]['cantpiezas'] == 1 && $vi == 0) {
+                                if ($piezas[$vi]['cantpiezas'] == 1) {
                                     $idpieza = isEmpty($piezas[$vi]['idprenda']);
                                     $nombrepieza = isEmpty($piezas[$vi]['nombreprenda']);
                                 } else if ($piezas[$vi]['cantpiezas'] >= 2) {
@@ -326,10 +354,8 @@ if ($ajax) {
                                 unset($arr);
                                 $bi = $bi + 1;
                             }
-
                             $vi = $vi + 1;
                         }
-
 
                         try {
                             $pdo->insert(
@@ -351,6 +377,7 @@ if ($ajax) {
                             die();
                         }
                     }
+
                     // SI SON PROMOCIONES
                     else if (
                             strtolower($nombreservicio) == 'promocion' ||
@@ -372,11 +399,15 @@ if ($ajax) {
                         $k = 0;
                         $inidestado = "";
                         while ($k < count($keyname)) {
-
+                            $inidestado = "";
                             try {
-                                $inidestado = implode(" @ ", $_REQUEST['estado' . $keyname[$k]]);
+                                if (@$_REQUEST['estado' . $keyname[$k]]) {
+                                    $inidestado = implode(" @ ", @$_REQUEST['estado' . $keyname[$k]]);
+                                } else {
+                                    $inidestado = '';
+                                }
                             } catch (Throwable $e) {
-                                
+                                $inidestado = '';
                             }
 
                             // SUBIMOS LAS IMAGENES POR PRENDA
@@ -405,7 +436,6 @@ if ($ajax) {
                                     $fi = $fi + 1;
                                 }
                             }
-
                             // FIN SUBIMOS LAS IMAGENES POR PRENDA
                             // SUBIMOS LOS AUDIOS POR PRENDA
                             $carpeta_audio = RUTA_AUDIOS . $numero_orden . "/";
@@ -432,7 +462,6 @@ if ($ajax) {
                                     $fi = $fi + 1;
                                 }
                             }
-
                             // FIN SUBIMOS LOS AUDIOS POR PRENDA
 
                             $nombrepromocion = $pdo->select(
@@ -500,6 +529,9 @@ if ($ajax) {
                                 'nombreestados' => isEmpty(@$inidestado),
                             );
                             $k = $k + 1;
+                            unset($nombrepromocion);
+                            unset($nombreprenda);
+                            unset($precioprenda);
                         }
 
                         try {
@@ -601,6 +633,17 @@ if ($ajax) {
                         }
                         $html .= "<br><strong>TOTAL A PAGAR : S/.</strong>" . " <strong style='float: right;'>" . number_format($pagototal, 2, '.', '') . "</strong><br>";
                         $html .= '</div><br>';
+
+                        // GUARDO EL JSON DE LAS PROMOCIONES
+                        $pdo->update(tabla('orden'),
+                                [
+                                    "array_detalleorden" => json_encode($promociones)
+                                ],
+                                [
+                                    "id" => $lastinsert_id
+                                ]
+                        );
+                        // FIN GUARDO EL JSON DE LAS PROMOCIONES
                     } else if ($piezas) {
                         $html .= '<div style="text-align: left;font-family: sans-serif;">';
                         $ti = 0;
@@ -631,6 +674,17 @@ if ($ajax) {
                         }
                         $html .= "<br><strong>TOTAL A PAGAR : S/.</strong>" . " <strong style='float: right;'>" . number_format($pagototal, 2, '.', '') . "</strong><br>";
                         $html .= '</div><br>';
+
+                        // GUARDO EL JSON DE LAS PIEZAS
+                        $pdo->update(tabla('orden'),
+                                [
+                                    "array_detalleorden" => json_encode($piezas)
+                                ],
+                                [
+                                    "id" => $lastinsert_id
+                                ]
+                        );
+                        // FIN GUARDO EL JSON DE LAS PIEZAS
                     }
 
                     $html .= '

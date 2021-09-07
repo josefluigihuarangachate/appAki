@@ -13,7 +13,7 @@ if ($ajax) {
                         tabla('servicio') . ".Codigo_Servicio(codigoservicio)",
                         tabla('servicio') . ".Nombre_Servicio(nombreservicio)",
                         tabla('servicio') . ".Estado_Servicio(estadoservicio)",
-                        tabla('servicio') . ".Dias_Servicio(diasservicio)",
+                        tabla('servicio') . ".Orden_Servicio(ordenservicio)",
                     ],
                     [
                         tabla('servicio') . ".Estado_Servicio" => 'Activo',
@@ -21,17 +21,19 @@ if ($ajax) {
                     [
                         // Multiple condition.
                         "ORDER" => [
-                            "Nombre_Servicio" => "ASC"
+                            "Orden_Servicio" => "DESC"
                         ]
                     ]
             );
 
             if ($data) {
-                
+
                 // Ejm: https://academy.leewayweb.com/como-ordenar-un-array-multidimensional-en-php/
                 usort($data, function (array $elem1, $elem2) {
-                    return $elem1['nombreservicio'] <=> $elem2['nombreservicio'];
+                    return $elem1['ordenservicio'] <=> $elem2['ordenservicio'];
                 });
+                // 2 - SECO,3 - AGUA,4 - PIELES,6 - COSTURA,5 - PLANCHADO,1 - PROMOCIONES
+
 
                 $json['code'] = '200';
                 $json['status'] = 'Ok';

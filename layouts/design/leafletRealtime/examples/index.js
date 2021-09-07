@@ -41,7 +41,7 @@ var arrClientes = function () {
                     for (var i = 0; i < data.length; i++) {
                         estado = "";
                         className = "classR";
-                        if (data[i].estadoturno == 'Despacho') {
+                        if (data[i].estadoturno == 'Entrega') {
                             className = "classE";
                             data[i].estadoturno = 'Entrega';
                         }
@@ -66,7 +66,7 @@ var arrClientes = function () {
 var markers = arrClientes;
 
 var PaqueteEntrega = L.icon({
-    iconUrl: '../../aki/despacho-circulo.png',
+    iconUrl: '../../aki/entrega-circulo.png',
     iconSize: [30, 30]
 });
 

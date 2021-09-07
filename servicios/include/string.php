@@ -13,7 +13,7 @@ function strings($name) {
         'verify_user' => 'El nombre de usuario no está disponible',
         'existing_code' => 'El codigo que trata de registrar ya existe',
         'error_method' => 'Tipo de metodo no reconocido',
-        'success_login' => 'Los datos son correctos',
+        'success_login' => 'El usuario y la contraseña son correctas, El aplicativo Aki te da la bienvenida.',
         'error_login' => 'El ususario o contraseña es incorrecta',
         'success_read' => 'Datos encontrados',
         'error_read' => 'No se encontraron datos',

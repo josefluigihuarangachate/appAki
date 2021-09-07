@@ -25,7 +25,7 @@ require '../servicios/include/function.php';
                     <ion-icon name="chevron-back-outline"></ion-icon>
                 </a>
             </div>
-            <div class="pageTitle">DESPACHO Y RECOJO</div>
+            <div class="pageTitle">ENTREGA Y RECOJO</div>
             <div class="right">
                 <a href="" class="headerButton goBack">
                     <ion-icon name="reload-outline"></ion-icon>
