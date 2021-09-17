@@ -24,7 +24,9 @@ function tabla($name) {
         'prenda' => 'prenda',
         'servicio' => 'servicio',
         'estadoprenda' => 'estadoprenda',
-        'prenda' => 'prenda',        
+        'prenda' => 'prenda',
+        'estadoreclamo' => 'estadoreclamo',
+        'reclamoxprenda' => 'reclamoxprenda',
     );
 
     return @strval(@$table[$name]);

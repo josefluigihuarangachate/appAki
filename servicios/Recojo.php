@@ -5,6 +5,8 @@
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ALL);
 
+error_reporting(0); // NO ES RECOMENDABLE
+
 include './include/app.php';
 include './include/session.php';
 
@@ -25,6 +27,10 @@ if ($ajax) {
             $pagototal = input('pagototal');
             $tipo_cobro = 'Por Cobrar';
             $numOrdenes = input('numOrdenes');
+
+            // COORDENADAS DEL CLIENTE
+            $latitud_cliente = input('latitud');
+            $longitud_cliente = input('longitud');
 
             if (
                     !empty($idservicio) &&
@@ -124,13 +130,34 @@ if ($ajax) {
                                     "id" => @$_SESSION['idturnoxrepartidortemp']
                                 ]
                         );
+
+                        // ACTUALIZO LAS COORDENAS DEL CLIENTE
+                        try {
+                            if ($latitud_cliente && $longitud_cliente) {
+                                $pdo->update(tabla('cliente'),
+                                        [
+                                            "Latitud" => strval($latitud_cliente),
+                                            "Longitud" => strval($longitud_cliente)
+                                        ],
+                                        [
+                                            "id" => @$_SESSION['idclientetemp']
+                                        ]
+                                );
+                            }
+                        } catch (Throwable $e) {
+                            
+                        }
                     } catch (Exception $e) {
                         echo html_error(strings('error_create'));
+
+                        // ELIMINO LA ORDEN YA QUE HUBO UN ERROR AL INSERTARLO LA ORDEN
                         $pdo->delete(tabla('orden'), [
                             "AND" => [
                                 "id" => $lastinsert_id
                             ]
                         ]);
+
+                        // ELIMINO EL DETALLE DE LA ORDEN YA QUE HUBO UN ERROR AL INSERTAR LA ORDEN
                         $pdo->delete(tabla('detalleorden'), [
                             "AND" => [
                                 "idorden" => $lastinsert_id
@@ -214,7 +241,7 @@ if ($ajax) {
                                                         }
                                                     }
                                                     $temp = explode(".", $file["name"][$fi]);
-                                                    $newfilename = 'I' . generateRandomString() . '.jpg';
+                                                    $newfilename = 'I' . generateRandomString() . '.' . end($temp);
                                                     if ($fi > 0) {
                                                         $inidarchivo .= ' @ ';
                                                     }
@@ -253,6 +280,7 @@ if ($ajax) {
                                         // FIN SUBIMOS LOS AUDIOS POR PRENDA
 
                                         $arrpiezas[] = array(
+                                            'key' => $idspiezas[$pz],
                                             'idpieza' => @$_REQUEST['pieza' . $idspiezas[$pz]],
                                             'nombrepieza' => @$nombrepieza[0]['nombre_articulo'],
                                             'nombresestados' => isEmpty($inidestado),
@@ -425,7 +453,7 @@ if ($ajax) {
                                             }
                                         }
                                         $temp = explode(".", $file["name"][$fi]);
-                                        $newfilename = 'I' . generateRandomString() . '.jpg';
+                                        $newfilename = 'I' . generateRandomString() . '.' . end($temp);
                                         if ($fi > 0) {
                                             $inidarchivo .= ' @ ';
                                         }
@@ -522,11 +550,16 @@ if ($ajax) {
                             unset($arr);
 
                             $promociones[$nombrepromocion[0]['nombre_articulo']][] = array(
+                                'key' => $keyname[$k],
+                                'idprenda' => @$_REQUEST['pieza' . $keyname[$k]],
                                 'nombreprenda' => $nombreprenda[0]['nombre_articulo'],
                                 'color' => @$_REQUEST['color' . $keyname[$k]],
                                 'marca' => @$_REQUEST['marca' . $keyname[$k]],
                                 'precioprenda' => $precioprenda[0]['precio_articulo'],
                                 'nombreestados' => isEmpty(@$inidestado),
+                                'observaciones' => isEmpty(@$_REQUEST['observacion' . $keyname[$k]]),
+                                'audios' => isEmpty(strval($inidaudio)),
+                                'imagenes' => isEmpty(strval($inidarchivo)),
                             );
                             $k = $k + 1;
                             unset($nombrepromocion);
@@ -627,6 +660,8 @@ if ($ajax) {
                                 $html .= "&nbsp;&nbsp;&nbsp; " . @$prendas[$pre]['marca'];
                                 if (@$prendas[$pre]['nombreestados']) {
                                     $html .= "<br>&nbsp;&nbsp;&nbsp; " . str_replace(' @ ', ',', $prendas[$pre]['nombreestados']) . "<br>";
+                                } else {
+                                    $html .= "<br>";
                                 }
                                 //$sumaprecios = $sumaprecios + @$prendas[$pre]['precioprenda'];
                             }
@@ -688,13 +723,6 @@ if ($ajax) {
                     }
 
                     $html .= '
-                    <!--<table cellspacing="0" style="width: 100%;border: 0px solid transparent;border-bottom: 1px solid black;">
-                        <tr style="text-align: left;font-family: sans-serif;">
-                            <td>1</td>
-                            <td>Chompa</td>
-                            <td>23.00</td>
-                        </tr>                        
-                    </table>-->
                     <!-- VA ABAJO DE LAS PRENDAS -->
                     <label style="font-family: sans-serif;font-size: 17px;font-weight: bold">FECHA DE ENTREGA:</label><br>
                     <strong style="font-family: sans-serif;">' . @ucwords(nombreDia($fechadeentrega)) . ', ' . date('d/m/Y', strtotime($fechadeentrega)) . ' ' . date('h:i A', strtotime($horahoypm)) . '</strong><br>

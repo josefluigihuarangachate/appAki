@@ -19,14 +19,16 @@ function listado() {
                     div += '<a href="#" onclick="getIdTurnoxRepartidor(' + data[i].idturnoxcliente + ',\'' + data[i].estadoturno + '\',\'' + (data[i].nombrecliente + ' ' + data[i].apellidopaternocliente) + '\',\'' + data[i].numerocelcliente + '\',\'' + data[i].direccion1cliente + '\',' + data[i].idcliente + ',\'' + data[i].numeroorden + '\');" class="item">';
 
                     var imgAtencion = "recojo";
-                    if (data[i].estadoturno == 'Entrega') {
+                    if (data[i].estadoturno === 'Entrega') {
                         imgAtencion = "entrega";
+                    }else if (data[i].estadoturno === 'Reclamo') {
+                        imgAtencion = "reclamo";
                     }
 
                     div += '<img src="design/aki/' + imgAtencion + '.png" alt="image" class="image">';
                     div += '<div class="in">';
                     div += '<div>';
-                    if (data[i].estadoturno == 'Entrega') {
+                    if (data[i].estadoturno === 'Entrega' || data[i].estadoturno === 'Reclamo') {
                         div += '<label class="label fontSize-1">NR°. ORDEN: ' + data[i].numeroorden + '</label><br>';
                     }
 

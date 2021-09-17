@@ -11,6 +11,7 @@ if ($ajax) {
                     [
                         tabla('servicio') . ".id(idservicio)",
                         tabla('servicio') . ".Codigo_Servicio(codigoservicio)",
+                        tabla('servicio') . ".Dias_Servicio(diasservicio)",
                         tabla('servicio') . ".Nombre_Servicio(nombreservicio)",
                         tabla('servicio') . ".Estado_Servicio(estadoservicio)",
                         tabla('servicio') . ".Orden_Servicio(ordenservicio)",

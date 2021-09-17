@@ -35,6 +35,20 @@ function input($nameInput) {
     return CleanInput(@$_REQUEST[$nameInput]);
 }
 
+function tipo_documento($i) {
+    if ($i == 1) {
+        return "DNI";
+    } else if ($i == 2) {
+        return "RUC";
+    } else if ($i == 3) {
+        return "C.E";
+    } else if ($i == 4) {
+        return "OTRO";
+    }else{
+        return "";
+    }
+}
+
 // EJEM:
 // $type = tmp_name
 // $nameInput = txtfile
@@ -45,6 +59,10 @@ function inputfile($nameInput, $type, $index = '') {
     } else {
         return @$_FILES[$nameInput][$type];
     }
+}
+
+function inputTextArray($nameInput) {
+    return @$_REQUEST[$nameInput];
 }
 
 function inputArray($nameInput) {
@@ -105,6 +123,7 @@ function nombreDia($fecha) {
 // $long = 7
 // RESULTADO: 0000005
 // https://es.stackoverflow.com/a/74997
+// $long LO MANEJO CON EL NUMERO: 7
 function zero_fill($valor, $long = 0) {
     return str_pad($valor, $long, '0', STR_PAD_LEFT);
 }
@@ -121,11 +140,15 @@ function html_error($mensaje) {
 
 // CAMPOS VACIOS
 function isEmpty($value) {
-    $dato = trim($value);
+
+    // SI VALUE NO ES UN 
+    if (!is_array($value)) {
+        $dato = trim($value);
+    }
     if (empty($dato)) {
         return null;
     } else {
-        return trim($dato);
+        return $dato;
     }
 }
 
@@ -198,3 +221,17 @@ function number_words($valor, $desc_moneda, $sep, $desc_decimal) {
 //echo number_words("1000000","soles","con","centimos");
 //echo number_words("0.25","soles","con","centimos");
 //echo number_words("500.35","soles","con","centimos");
+
+function getLatLonByAddressName($nombrededireccion, $key) {
+    // https://stackoverflow.com/a/11065535
+    $url = "https://api.opencagedata.com/geocode/v1/json?q=" . urlencode(trim($nombrededireccion) . ' - Perú') . "&key=" . $key . "&language=es&pretty=1";
+    $ch = curl_init();
+    $timeout = 5;
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    $json = @json_decode(curl_exec($ch), true)['results'][1]['geometry'];
+    curl_close($ch);
+    //$json = json_decode(file_get_contents($url), true)['results'][1]['geometry']; //['results'][0]['bounds'];
+    return $json;
+}

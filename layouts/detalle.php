@@ -94,6 +94,12 @@ include "./include/sessionstart/session.php";
                                                 <strong>ENTREGA</strong>                                        
                                             </span>  
                                             <?php
+                                        } else if (@$_SESSION['estadoturnotemp'] == 'Reclamo') {
+                                            ?>
+                                            <span class="badge badge-info" style="padding: 14px;font-size: 14px;">
+                                                <strong>ENTREGA DE RECLAMO</strong>                                        
+                                            </span> 
+                                            <?php
                                         }
                                         ?>
                                     </p>
@@ -114,12 +120,13 @@ include "./include/sessionstart/session.php";
                     <?php include "./recojo.php"; ?> 
                 </div>
                 <?php
-            } else if (@$_SESSION['estadoturnotemp'] == 'Entrega') {
+            } else {
                 include "./despacho.php";
             }
             ?>
 
-
+            <input type="hidden" hidden="hidden" id="latitud_actual" name="latitud_actual">
+            <input type="hidden" hidden="hidden" id="longitud_actual" name="longitud_actual">
         </div>
         <!-- * App Capsule -->
         <br>
@@ -156,7 +163,7 @@ include "./include/sessionstart/session.php";
                 });
             });
         </script>
-        <!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                                ?>" type="text/javascript"></script>
-                <script src="design/js/crud/cliente.js<?php //echo @$v;                                 ?>" type="text/javascript"></script>-->
+        <!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                                    ?>" type="text/javascript"></script>
+                <script src="design/js/crud/cliente.js<?php //echo @$v;                                     ?>" type="text/javascript"></script>-->
     </body>
 </html>

@@ -30,6 +30,8 @@ define('DB_PASS', '');
 define('RUTA_PDF', 'archivos/despacho_recojo/');
 define('RUTA_ARCHIVOS', 'archivos/archivos/');
 define('RUTA_AUDIOS', 'archivos/audios/');
+define('KEYOPENCAGE', '60c99ad7fa9a42a79c6974d7465f5bcc');
+define('FACTURACION_ELECTRONICA', 'http://www.sigerp.com/AKI/aSOAPImportarVentas.aspx?wsdl');
 //define('RUTA_SERVICIOS', 'http://192.168.0.103:81/appAki/servicios/');
 //define('RUTA_DESIGN', 'http://192.168.0.103:81:81/appAki/design/');
 // ACTUALIZAR FECHA ACTUAL DE TURNOXCLIENTE
@@ -74,3 +76,8 @@ $metododepago = array(
 // Permisos Ajax
 $ajax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
 $method = htmlspecialchars(trim($_SERVER['REQUEST_METHOD']));
+
+// https://opencagedata.com/
+// Documentacion: https://opencagedata.com/api
+// COMO USAR: https://api.opencagedata.com/geocode/v1/json?q=Santa Anita&key=60c99ad7fa9a42a79c6974d7465f5bcc
+//$_SESSION['apiopencage'] = '60c99ad7fa9a42a79c6974d7465f5bcc';

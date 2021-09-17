@@ -26,6 +26,7 @@ if ($ajax) {
             }
             // FIN
             // LLENO LOS DATOS EN SESIONES POR LOS CAMPOS DE LA BASE DE DATOS
+            // VA USAR DATOS DE ESTE SESSION USAR SIN GUION ABAJO
             $_SESSION[atributo('id')] = @$data[0]['id'];
             $_SESSION[atributo('codigo_repartidor')] = @$data[0]['codigo_repartidor'];
             $_SESSION[atributo('nombre_repartidor')] = @$data[0]['nombre_repartidor'];
@@ -38,16 +39,17 @@ if ($ajax) {
             $nom = explode(' ', @$data[0]['nombre_repartidor']);
             $ape = explode(' ', @$data[0]['apellido_repartidor']);
             $_SESSION[atributo('nombre_corto')] = @$nom[0] . " " . @$ape[0];
-            $_SESSION['apigooglemap'] = 'AIzaSyBjAd55ccknLheORKj-8YMVTMcuS02llSA';
+            //$_SESSION['apigooglemap'] = 'AIzaSyBjAd55ccknLheORKj-8YMVTMcuS02llSA';
 
             // EJM: https://powerbiuniversity.com/convertir-direcciones-latitud-longitud-automaticamente-power-bi-traves-la-api-google/
             // SE DEBE DE PAGAR: https://support.google.com/googleapi/answer/6158867?hl=en
-            $_SESSION['apigoogleaddress'] = 'AIzaSyDezU9TFYMqHBD_m0jaxlupt8QBVZe2oio';
+            //$_SESSION['apigoogleaddress'] = 'AIzaSyDezU9TFYMqHBD_m0jaxlupt8QBVZe2oio';
 
             // https://opencagedata.com/
             // Documentacion: https://opencagedata.com/api
             // COMO USAR: https://api.opencagedata.com/geocode/v1/json?q=Santa Anita&key=60c99ad7fa9a42a79c6974d7465f5bcc
-            $_SESSION['apiopencage'] = '60c99ad7fa9a42a79c6974d7465f5bcc';
+            //$_SESSION['apiopencage'] = KEYOPENCAGE;
+            //$_SESSION['factueacionelectronica'] = KEYOPENCAGE;
 
             $_SESSION['themedark'] = '';
             //FIN

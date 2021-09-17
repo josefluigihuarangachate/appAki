@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-09-2021 a las 03:21:09
+-- Tiempo de generación: 17-09-2021 a las 07:43:53
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -475,8 +475,8 @@ CREATE TABLE `cliente` (
 
 INSERT INTO `cliente` (`id`, `Tipo_Cliente`, `Codigo_Cliente`, `Nombre_Cliente`, `ApellidoPaterno_Cliente`, `ApellidoMaterno_Cliente`, `TipoDocumento_Cliente`, `NumeroDocumento_Cliente`, `Direccion1_Cliente`, `Direccion2_Cliente`, `Email_Cliente`, `NumeroCel_Cliente`, `CodDistrito1_Cliente`, `CodDistrito2_Cliente`, `Estado_Cliente`, `CodZona_Cliente`, `FechaRegistro_Cliente`, `CantOrdenAtendida_Clliente`, `ImporteAcumulado_Cliente`, `Latitud`, `Longitud`) VALUES
 (4, 'Persona', '12345', 'Juan Luis', 'Huaman', 'Sanchez', '1', '76543218', 'Calle Simoni 209', 'Cdra. 28 Av. Aviación', 'juan@gmail.com', '7777777', '150130', '150130', 'Activo', 1, '2020-01-01', '1', '0.00', '-12.09594', '-77.00141'),
-(5, 'Persona', '4535', 'Renan', 'Urteaga', 'Boggio', '1', '78906586', 'Calle Matier 604', 'Cdra. 27 Av. Aviación', 'renan@gmail.com', '7777777', '150130', '150130', 'Activo', 1, '2020-01-04', '1', '1.00', '-12.09645', '-76.99984'),
-(8, 'Persona', '4536', 'Luis', 'Rodriguez', 'Huaman', '1', '78906777', 'Calle Beethoven 530', 'Cdra. 22 Av. San Luis', 'luis@gmail.com', '7777799', '150130', '150130', 'Activo', 1, '2020-01-01', '1', '2.00', '-12.09878', '-76.99399'),
+(5, 'Persona', '4535', 'Renan', 'Urteaga', 'Boggio', '1', '78906586', 'Calle Matier 604', 'Cdra. 27 Av. Aviación', 'renan@gmail.com', '7777777', '150130', '150130', 'Activo', 1, '2020-01-04', '1', '1.00', '-12.1154531', '-76.9984062'),
+(8, 'Persona', '4536', 'Luis', 'Rodriguez', 'Huaman', '1', '78906777', 'Calle Beethoven 530', 'Cdra. 22 Av. San Luis', 'luis@gmail.com', '7777799', '150130', '150130', 'Activo', 1, '2020-01-01', '1', '2.00', '-12.1154268', '-76.9984274'),
 (10, 'Persona', '87075', 'Luigi', 'Huaranga', 'Chate', '1', '77223910', 'Av. Santa Anita 530', 'Cdra. 28 Av. Encalada', 'luigi@gmail.com', '999999999', '150130', '150130', 'Activo', 1, '2020-01-01', '3', '30.00', '-12.095338', '-76.994546');
 
 -- --------------------------------------------------------
@@ -547,18 +547,6 @@ CREATE TABLE `detalleorden` (
   `imagenes` text COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Sera asi:\r\n\r\n{\r\n  ''imagen1.png'',\r\n  ''imagen2.png'',\r\n}'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `detalleorden`
---
-
-INSERT INTO `detalleorden` (`id`, `idorden`, `ordenpromocion`, `idpromocion`, `nombrepromocion`, `idprenda`, `nombreprenda`, `color`, `marca`, `precioprenda`, `nombreestados`, `observaciones`, `audios`, `imagenes`) VALUES
-(70, 55, 'Uq4v3', 473, '3x2 PRENDAS DE CAMA', 1, 'ABRIGO', 'TURQUESA', 'RIPLEY', '23.00', NULL, NULL, NULL, NULL),
-(71, 55, 'Uvdsg', 473, '3x2 PRENDAS DE CAMA', 3, 'ALMOHADA', 'VERDE / VERDE A RAYAS', 'TIGRE', '10.00', NULL, NULL, NULL, NULL),
-(72, 55, 'U16gx', 473, '3x2 PRENDAS DE CAMA', 6, 'BABUCHAS  NIÑO', 'TURQUESA', 'TIGRE', '8.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
-(73, 56, 'Uenl2', 119, 'TERNO NIÑO (2 PZS.)', 40, 'CHALECO VESTIR', 'TURQUESA', 'TRIAL', '17.00', NULL, NULL, NULL, NULL),
-(74, 56, 'Uenl2', 119, 'TERNO NIÑO (2 PZS.)', 93, 'PANTALÓN VESTIR', 'TURQUESA', 'TRIAL', '0.00', 'Con Mancha @ Con Desgaste', NULL, NULL, NULL),
-(75, 56, 'Uzopw', NULL, NULL, 2, 'ABRIGO  NIÑO', 'TURQUESA', 'TRIAL', '15.00', NULL, NULL, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -608,6 +596,28 @@ INSERT INTO `estadoprenda` (`id`, `Codigo_Prenda`, `Nombre_Prenda`, `Estado_Pren
 (4, 'ESTPRENDA04', 'Con Arrugas', 'Inactivo'),
 (5, 'ESTPRENDA05', 'Con Decoloración', 'Activo'),
 (6, 'ESTPRENDA06', 'Con Huequito', 'Activo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estadoreclamo`
+--
+
+CREATE TABLE `estadoreclamo` (
+  `id` int(25) NOT NULL,
+  `codigo` varchar(255) DEFAULT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `estado` enum('Activo','Inactivo') NOT NULL DEFAULT 'Activo'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `estadoreclamo`
+--
+
+INSERT INTO `estadoreclamo` (`id`, `codigo`, `nombre`, `estado`) VALUES
+(1, 'ESTRECLM01', 'Mal Lavado', 'Activo'),
+(2, 'ESTRECLM02', 'Mal Planchado', 'Activo'),
+(3, 'ESTRECLM03', 'Falta Botones', 'Activo');
 
 -- --------------------------------------------------------
 
@@ -686,7 +696,7 @@ CREATE TABLE `orden` (
   `direccion_cliente` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `fecha_entrega` date NOT NULL DEFAULT current_timestamp(),
   `hora_entrega` time NOT NULL DEFAULT current_timestamp(),
-  `tipo_cobro` enum('Por Cobrar','Cancelado') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'Por Cobrar',
+  `tipo_cobro` enum('Por Cobrar','Cancelado','Reclamo','Aceptado') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'Por Cobrar',
   `idzona` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `total_s_dscto` decimal(19,2) DEFAULT 0.00,
   `descuento` decimal(19,2) DEFAULT 0.00,
@@ -695,17 +705,11 @@ CREATE TABLE `orden` (
   `saldo` decimal(19,2) DEFAULT 0.00,
   `estado` enum('Activo','Inactivo') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'Activo',
   `tipo_pago` enum('Efectivo','Tarjeta Credito/Debito','Cheque','Deposito','Yape','Plin','Por Cobrar') COLLATE utf8_spanish_ci DEFAULT 'Por Cobrar',
-  `tipo_atencion` enum('Entrega','Recojo') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'Entrega',
-  `array_detalleorden` text COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'para convertir en array usar: json_decode'
+  `tipo_atencion` enum('Entrega','Recojo','Reclamo') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'Entrega',
+  `array_detalleorden` text COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'para convertir en array usar: json_decode',
+  `Id_Orden_Orig` varchar(255) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Numero de la atención original (RECLAMOS)\r\n',
+  `Id_prenda_orig` varchar(255) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Número de la prenda dentro de la orden original (RECLAMOS).\r\n\r\nSe guardara los Ids de las prendas que fueron reclamadas o solo se guardara un id por la prenda:\r\n\r\nEjm:\r\n1,75,67,345,8,9'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `orden`
---
-
-INSERT INTO `orden` (`id`, `idservicio`, `numeroorden`, `nombre_servicio`, `nombre_repartidor`, `fecha`, `hora`, `nombre_cliente`, `celular_cliente`, `direccion_cliente`, `fecha_entrega`, `hora_entrega`, `tipo_cobro`, `idzona`, `total_s_dscto`, `descuento`, `total_pagar`, `a_cuenta`, `saldo`, `estado`, `tipo_pago`, `tipo_atencion`, `array_detalleorden`) VALUES
-(55, 1, 'C1-0000055', 'PROMOCIONES', 'Roberto Manrique', '2021-09-03', '13:39:07', 'Renan Urteaga', '7777777', 'Calle Matier 604', '2021-09-03', '13:39:07', 'Cancelado', 'C1', '0.00', '0.00', '33.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '{\"3x2 PRENDAS DE CAMA\":[{\"nombreprenda\":\"ABRIGO\",\"color\":\"TURQUESA\",\"marca\":\"RIPLEY\",\"precioprenda\":\"23.00\",\"nombreestados\":null},{\"nombreprenda\":\"ALMOHADA\",\"color\":\"VERDE \\/ VERDE A RAYAS\",\"marca\":\"TIGRE\",\"precioprenda\":\"10.00\",\"nombreestados\":null},{\"nombreprenda\":\"BABUCHAS  NI\\u00d1O\",\"color\":\"TURQUESA\",\"marca\":\"TIGRE\",\"precioprenda\":\"8.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\"}]}'),
-(56, 3, 'C1-0000056', 'AGUA', 'Roberto Manrique', '2021-09-03', '13:39:47', 'Renan Urteaga', '7777777', 'Calle Matier 604', '2021-09-03', '13:39:47', 'Por Cobrar', 'C1', '0.00', '0.00', '32.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '[{\"idprenda\":\"119\",\"ordenpromocion\":\"Uenl2\",\"precio\":\"17.00\",\"nombreprenda\":\"TERNO NI\\u00d1O (2 PZS.)\",\"color\":\"TURQUESA\",\"marca\":\"TRIAL\",\"cantpiezas\":2,\"piezas\":[{\"idpieza\":\"40\",\"nombrepieza\":\"CHALECO VESTIR\",\"nombresestados\":null,\"observacion\":null,\"audios\":null,\"imagenes\":null},{\"idpieza\":\"93\",\"nombrepieza\":\"PANTAL\\u00d3N VESTIR\",\"nombresestados\":\"Con Mancha @ Con Desgaste\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]},{\"idprenda\":\"2\",\"ordenpromocion\":\"Uzopw\",\"precio\":\"15.00\",\"nombreprenda\":\"ABRIGO  NI\\u00d1O\",\"color\":\"TURQUESA\",\"marca\":\"TRIAL\",\"cantpiezas\":1,\"piezas\":[{\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":null,\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]');
 
 -- --------------------------------------------------------
 
@@ -784,6 +788,32 @@ INSERT INTO `receta` (`id`, `IdArticulo_Receta`, `Cantidad_Receta`, `IdArticuloP
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `reclamoxprenda`
+--
+
+CREATE TABLE `reclamoxprenda` (
+  `id` int(25) NOT NULL,
+  `numeroorden` varchar(255) DEFAULT NULL,
+  `origennumeroorden` varchar(255) NOT NULL,
+  `idcliente` int(25) NOT NULL,
+  `idrepartidor` int(25) NOT NULL,
+  `nombrecliente` varchar(255) NOT NULL,
+  `nombrerepartidor` varchar(255) NOT NULL,
+  `idzona` varchar(255) NOT NULL,
+  `idprenda` int(25) NOT NULL,
+  `nombreprenda` varchar(255) NOT NULL,
+  `color` varchar(255) NOT NULL COMMENT 'Color y marca que se registro en el registro',
+  `marca` varchar(255) NOT NULL COMMENT 'Color y marca que se registro en el registro',
+  `observacion` text DEFAULT NULL,
+  `estados` varchar(255) DEFAULT NULL,
+  `audio` text DEFAULT NULL,
+  `imagen` text DEFAULT NULL,
+  `ordenprenda` varchar(255) DEFAULT NULL COMMENT 'Se guardara el key que generamos con el uniqueKey'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `repartidor`
 --
 
@@ -797,7 +827,7 @@ CREATE TABLE `repartidor` (
   `Latitud` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `Longitud` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `idimpresora` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `Estado_Repartidor` varchar(255) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'Activo'
+  `Estado_Repartidor` enum('Activo','Inactivo') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'Activo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -805,7 +835,7 @@ CREATE TABLE `repartidor` (
 --
 
 INSERT INTO `repartidor` (`id`, `codigo_repartidor`, `nombre_repartidor`, `apellido_repartidor`, `avatar_repartidor`, `id_zona`, `Latitud`, `Longitud`, `idimpresora`, `Estado_Repartidor`) VALUES
-(1, 'REP0001', 'Roberto Manuel', 'Manrique Rodriguez', '', 1, '-12.038749', '-76.962361', '74:F0:7D:E9:B8:4C', 'Activo'),
+(1, 'REP0001', 'Roberto Manuel', 'Manrique Rodriguez', '', 1, '-12.1154202', '-76.9984335', '74:F0:7D:E9:B8:4C', 'Activo'),
 (2, 'REP0002', 'Juan Carlos', 'Mamani Quispe', '', 2, NULL, NULL, '', 'Activo'),
 (3, 'REP0003', 'Luis Miguel', 'Chavez de la Cruz', '', 3, NULL, NULL, '', 'Activo');
 
@@ -844,15 +874,15 @@ INSERT INTO `servicio` (`id`, `Nombre_Servicio`, `Codigo_Servicio`, `Estado_Serv
 
 CREATE TABLE `turnoxcliente` (
   `id` int(25) NOT NULL,
-  `numero_orden` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `numero_orden` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Cuando es recojo no tiene numero de orden, solo cuando es entrega se puede tiene numero de orden',
   `id_repartidor` int(25) NOT NULL,
   `id_cliente` int(25) NOT NULL,
   `id_zona` int(25) NOT NULL,
   `puesto_turno` enum('Temprano','Tarde') COLLATE utf8_spanish_ci DEFAULT 'Temprano' COMMENT 'Temprano es : Mañana, lo puse temprano porque no acepataba ñ en base de datos',
   `fecha_turno` date NOT NULL,
-  `hora_turno` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `hora_turno` time NOT NULL,
   `atencion` enum('Atendido','Sin Atender') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'Sin Atender',
-  `estado_turno` enum('Entrega','Recojo') COLLATE utf8_spanish_ci DEFAULT 'Recojo'
+  `estado_turno` enum('Entrega','Recojo','Reclamo') COLLATE utf8_spanish_ci DEFAULT 'Recojo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -860,15 +890,7 @@ CREATE TABLE `turnoxcliente` (
 --
 
 INSERT INTO `turnoxcliente` (`id`, `numero_orden`, `id_repartidor`, `id_cliente`, `id_zona`, `puesto_turno`, `fecha_turno`, `hora_turno`, `atencion`, `estado_turno`) VALUES
-(1, 'C1-10401', 1, 4, 1, 'Temprano', '2021-09-03', '08:00:01', 'Sin Atender', 'Entrega'),
-(2, 'C1-10402', 1, 4, 1, 'Tarde', '2021-09-03', '14:00:00', 'Sin Atender', 'Recojo'),
-(3, 'C1-10403', 1, 5, 1, 'Tarde', '2021-09-03', '16:00:00', 'Sin Atender', 'Recojo'),
-(4, 'C1-10404', 1, 8, 1, 'Temprano', '2021-09-03', '19:00:00', 'Sin Atender', 'Recojo'),
-(5, 'C1-10405', 1, 8, 1, 'Tarde', '2021-09-03', '09:00:00', 'Sin Atender', 'Entrega'),
-(6, 'C1-10406', 1, 5, 1, 'Temprano', '2021-09-03', '10:30:00', 'Sin Atender', 'Recojo'),
-(7, 'C1-10407', 1, 10, 1, 'Tarde', '2021-09-03', '13:00:00', 'Sin Atender', 'Recojo'),
-(42, 'C1-0000055', 1, 5, 1, 'Tarde', '2021-09-03', '13:39:07', 'Sin Atender', 'Entrega'),
-(43, 'C1-0000056', 1, 5, 1, 'Tarde', '2021-09-03', '13:39:47', 'Sin Atender', 'Entrega');
+(4, '', 1, 8, 1, 'Temprano', '2021-09-17', '19:00:00', 'Sin Atender', 'Recojo');
 
 -- --------------------------------------------------------
 
@@ -965,6 +987,13 @@ ALTER TABLE `estadoprenda`
   ADD UNIQUE KEY `Codigo_Prenda` (`Codigo_Prenda`);
 
 --
+-- Indices de la tabla `estadoreclamo`
+--
+ALTER TABLE `estadoreclamo`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
+
+--
 -- Indices de la tabla `impresora`
 --
 ALTER TABLE `impresora`
@@ -1007,6 +1036,12 @@ ALTER TABLE `receta`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK6_idarticuloreceta` (`IdArticulo_Receta`),
   ADD KEY `FK7_idarticulopiezareceta` (`IdArticuloPieza_Receta`);
+
+--
+-- Indices de la tabla `reclamoxprenda`
+--
+ALTER TABLE `reclamoxprenda`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `repartidor`
@@ -1069,13 +1104,13 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `color`
 --
 ALTER TABLE `color`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4410;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4484;
 
 --
 -- AUTO_INCREMENT de la tabla `detalleorden`
 --
 ALTER TABLE `detalleorden`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT de la tabla `distrito`
@@ -1090,6 +1125,12 @@ ALTER TABLE `estadoprenda`
   MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de la tabla `estadoreclamo`
+--
+ALTER TABLE `estadoreclamo`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `impresora`
 --
 ALTER TABLE `impresora`
@@ -1099,13 +1140,13 @@ ALTER TABLE `impresora`
 -- AUTO_INCREMENT de la tabla `marca`
 --
 ALTER TABLE `marca`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1498;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1572;
 
 --
 -- AUTO_INCREMENT de la tabla `orden`
 --
 ALTER TABLE `orden`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT de la tabla `promocion`
@@ -1126,6 +1167,12 @@ ALTER TABLE `receta`
   MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT de la tabla `reclamoxprenda`
+--
+ALTER TABLE `reclamoxprenda`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
 -- AUTO_INCREMENT de la tabla `repartidor`
 --
 ALTER TABLE `repartidor`
@@ -1141,7 +1188,7 @@ ALTER TABLE `servicio`
 -- AUTO_INCREMENT de la tabla `turnoxcliente`
 --
 ALTER TABLE `turnoxcliente`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT de la tabla `zona`
@@ -1192,27 +1239,12 @@ ALTER TABLE `receta`
   ADD CONSTRAINT `FK7_idarticulopiezareceta` FOREIGN KEY (`IdArticuloPieza_Receta`) REFERENCES `articulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `repartidor`
---
-ALTER TABLE `repartidor`
-  ADD CONSTRAINT `FK1_idzona` FOREIGN KEY (`id_zona`) REFERENCES `zona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK2_idimpresora` FOREIGN KEY (`idimpresora`) REFERENCES `impresora` (`mac`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `repartidor_ibfk_1` FOREIGN KEY (`idimpresora`) REFERENCES `impresora` (`mac`);
-
---
 -- Filtros para la tabla `turnoxcliente`
 --
 ALTER TABLE `turnoxcliente`
   ADD CONSTRAINT `FK1_idrepartidor` FOREIGN KEY (`id_repartidor`) REFERENCES `repartidor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK2_idcliente` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK3_idzona` FOREIGN KEY (`id_zona`) REFERENCES `zona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `zonaxrepartidor`
---
-ALTER TABLE `zonaxrepartidor`
-  ADD CONSTRAINT `FK4_idzona` FOREIGN KEY (`id_zona`) REFERENCES `zona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK5_idrepartidor` FOREIGN KEY (`id_repartidor`) REFERENCES `repartidor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

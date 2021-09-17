@@ -1,0 +1,61 @@
+.form-group.basic .form-control, .form-group.basic .custom-select {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #DCDCE9;
+    padding: 0 0px 0 0;
+    border-radius: 0;
+    height: 40px;
+    color: #27173E;
+    font-size: 15px;
+}
+.addOrden{
+    position: fixed;
+    z-index: 9;
+    bottom: 77px;
+    right: 15px;
+    font-size: 21px;
+    border-radius: 50px;
+    padding: 25px;
+    width: 60px;
+    height: 60px;
+    opacity: 0.2;
+}
+.addOrden:hover{
+    opacity: 1;
+}
+.hideButton{
+    display: none !important;
+}
+.modal-backdrop.show{
+    z-index: 9991 !important;
+}
+.modal{
+    z-index: 9992 !important;
+}
+.observacion{
+    resize: none !important;
+    border: 1px solid #ccc !important;
+    padding: 15px !important;
+    margin-top: 10px !important;
+}
+.ocultarid{
+    color: #fff;
+    border: 1px solid transparent;
+    height: 0px;
+    width: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+.div-contenedor {
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin: auto;
+    height: 200px;
+    width: 100%;
+}
+.div-contenedor .centrar{
+    text-align: center;
+}

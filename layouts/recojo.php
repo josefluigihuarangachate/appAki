@@ -1,67 +1,4 @@
-<style>
-    .form-group.basic .form-control, .form-group.basic .custom-select {
-        background: transparent;
-        border: none;
-        border-bottom: 1px solid #DCDCE9;
-        padding: 0 0px 0 0;
-        border-radius: 0;
-        height: 40px;
-        color: #27173E;
-        font-size: 15px;
-    }
-    .addOrden{
-        position: fixed;
-        z-index: 9;
-        bottom: 77px;
-        right: 15px;
-        font-size: 21px;
-        border-radius: 50px;
-        padding: 25px;
-        width: 60px;
-        height: 60px;
-        opacity: 0.2;
-    }
-    .addOrden:hover{
-        opacity: 1;
-    }
-    .hideButton{
-        display: none !important;
-    }
-    .modal-backdrop.show{
-        z-index: 9991 !important;
-    }
-    .modal{
-        z-index: 9992 !important;
-    }
-    .observacion{
-        resize: none !important;
-        border: 1px solid #ccc !important;
-        padding: 15px !important;
-        margin-top: 10px !important;
-    }
-    .ocultarid{
-        color: #fff;
-        border: 1px solid transparent;
-        height: 0px;
-        width: 0px;
-        padding: 0px;
-        margin: 0px;
-    }
-    .div-contenedor {
-        position: absolute;
-        top:0;
-        left:0;
-        right:0;
-        bottom:0;
-        margin: auto;
-        height: 200px;
-        width: 100%;
-    }
-    .div-contenedor .centrar{
-        text-align: center;
-    }
-</style>
-
+<link href="design/assets/css/recojo.css" rel="stylesheet" type="text/css"/>
 <div class="card" style="margin-bottom: 18px;text-align: center;">
     <div class="card-body">
         <div class="row">
@@ -75,7 +12,7 @@
     </div>
 </div>
 
-<form action="javascript:void(0)" method="POST" enctype="multipart/form-data" id="formData" name="formData">
+<form action="javascript:void(0)" method="POST" enctype="multipart/form-data" class="formData" id="formData" name="formData">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
             <div class="card h-100">
@@ -494,12 +431,16 @@
         var nombre_servicio = $("#servicio").find("option:selected").attr('name-service');
 
         if (idservicio.trim() != "") {
+
             $('body, html').animate({
-                scrollTop: '250px'
+                scrollTop: '350px'
             }, 200);
 
             contarordenes = contarordenes + 1;
             ordenes = ordenes + 1;
+            //$('div').scrollTo('#item'+ordenes);
+
+
             validarOrdenes();
 
             try {
@@ -514,43 +455,9 @@
             } catch (e) {
             }
 
-//            html_color_marca = "";
-//
-//            // SI NO ES IGUAL A PROMOCION MOSTRAR COLOR Y MARCA
-//            if (
-//                    (nombre_servicio != 'PROMOCIONES' || nombre_servicio != 'PROMOCION') && idservicio != 1
-//                    ) {
-//                html_color_marca = `<div class="row">                        
-//                                <div class="col-6">
-//                                    <div class="form-group basic">
-//                                        <div class="input-wrapper">   
-//                                            <div class="input-wrapper">
-//                                                <strong>                        
-//                                                    <a href="#" class="text-secondary">COLOR:</a>
-//                                                </strong>
-//                                                <select class="search-live add-new-tags tagsColor form-control" id="color${contarordenes}" name="color${contarordenes}" data-select2-tags="true" onchange="addnewTagsColor(${contarordenes});">${Color()}</select>
-//                                            </div>
-//                                        </div>
-//                                    </div>
-//                                </div>                    
-//                                <div class="col-6">
-//                                    <div class="form-group basic">
-//                                        <div class="input-wrapper">   
-//                                            <div class="input-wrapper">
-//                                                <strong>                        
-//                                                    <a href="#" class="text-secondary">MARCA:</a>
-//                                                </strong>
-//                                                <select class="search-live add-new-tags tagsMarca form-control" id="marca${contarordenes}" name="marca${contarordenes}" data-select2-tags="true" onchange="addnewTagsMarca(${contarordenes});">${Marca()}</select>
-//                                            </div>
-//                                        </div>
-//                                    </div>
-//                                </div>
-//                            </div>`;
-//            }
-
             document.querySelector('#itemsservicios').insertAdjacentHTML('afterbegin', `
         
-            <div id="item${contarordenes}" name="item${contarordenes}" style="margin-bottom: 15px;">
+            <div ss="item${contarordenes}" id="item${contarordenes}" name="item${contarordenes}" style="margin-bottom: 15px;">
                 <div class="card" id='card${contarordenes}' name='card${contarordenes}'>
                     <button type="button" class="btn-close botoneliminarorden" aria-label="Close" onclick="removeItem(${contarordenes});" style="z-index: 9;"></button>
                     <div class="card-body">              
@@ -595,9 +502,14 @@
             $("#prenda" + contarordenes).select2().val(null).trigger("change");
             //$("#color" + contarordenes).select2().val(null).trigger("change");
             //$("#marca" + contarordenes).select2().val(null).trigger("change");
+
+            //$('html, body').animate({scrollTop: $('#item' + ordenes).position().top}, 'fast');
+
         }
     }
     // FIN AGREGAR MAS ORDENES
+
+
 
     // OBTENER PIEZAS POR PRENDA
     function piezasPrendas(id) {
@@ -1243,6 +1155,8 @@
             $("#cancelarfechaentrega").click();
             var form = new FormData(document.getElementById('formData'));
             var fechaentrega = document.getElementById("fechatotalmax").value;
+            var latitud = document.getElementById("latitud_actual").value;
+            var longitud = document.getElementById("longitud_actual").value;
             var fechaentregaminimo = document.getElementById("fechatotalmin").value; // ESTA FECHA ES LA SUMA DE: DIAS + LA FECHA ACTUAL                    
             var nombre_servicio = $("#servicio").find("option:selected").attr('name-service');
             form.append('fechadeentrega', fechaentrega);
@@ -1253,6 +1167,8 @@
             form.append('numSubordenes', subordenes);
             form.append('cantEstados', idestados);
             form.append('cmd', 'registrarrecojo');
+            form.append('latitud', latitud);
+            form.append('longitud', longitud);
             $.ajax({
                 type: "POST",
                 dataType: "html",

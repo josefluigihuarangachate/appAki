@@ -9,6 +9,12 @@ if ($ajax) {
     } else if (METODO($method) == 'POST') {
         if ($cmd == 'confirmarentregaexitosa') {
             $numerodeordenes = input('numerosdeordenes');
+
+            $id_cliente = input('idcliente');
+            // COORDENADAS DEL CLIENTE
+            $latitud_cliente = input('latitud');
+            $longitud_cliente = input('longitud');
+
             if ($numerodeordenes) {
 
                 // LE PASAMOS POR EJEMPLO: C1-0543,C1-0534,C1-64564 EN ESE FORMATO, CON ESO ACTUALIZA 
@@ -43,6 +49,25 @@ if ($ajax) {
                             ]
                     );
                     $cantOrden = $updateOrden->rowCount(); // CUANTO LAS CANTIDADDES DE LAS ACTUALIZACIONES DE LAS ORDENES
+                    // SELECCIONO Y ACTUALIZO LATITUD Y LONGITUD DEL CLIENTE
+                    // $id_cliente
+                    // ACTUALIZO LAS COORDENAS DEL CLIENTE
+                    try {
+                        if ($latitud_cliente && $longitud_cliente) {
+                            $pdo->update(tabla('cliente'),
+                                    [
+                                        "Latitud" => strval($latitud_cliente),
+                                        "Longitud" => strval($longitud_cliente)
+                                    ],
+                                    [
+                                        "id" => @$id_cliente
+                                    ]
+                            );
+                        }
+                    } catch (Throwable $e) {
+                        
+                    }
+
 
                     if (intval($cantTurnoxCliente) && intval($cantOrden)) {
                         $json['msg'] = strings('success_update') . ': ' . PHP_EOL . implode(", ", $arraynumerodeordenes);

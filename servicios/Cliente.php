@@ -60,7 +60,7 @@ if ($ajax) {
                         tabla('turnoxcliente') . '.id_repartidor' => $idrepartidor,
                         tabla('turnoxcliente') . '.puesto_turno' => $tipoturno,
                         tabla('turnoxcliente') . '.fecha_turno' => date('Y-m-d'),
-                        tabla('turnoxcliente') . '.atencion' => 'Sin Atender'
+                        tabla('turnoxcliente') . '.atencion' => 'Sin Atender',
                     ],
                     [
                         // Multiple condition.

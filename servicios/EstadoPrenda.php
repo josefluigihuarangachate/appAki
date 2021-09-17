@@ -5,7 +5,29 @@ include './include/session.php';
 
 if ($ajax) {
     if (METODO($method) == 'GET') {
-        if ($cmd == 'listaestadoprenda') {
+        if ($cmd == 'listaestadoreclamo') {
+            $data = $pdo->select(
+                    tabla('estadoreclamo'),
+                    [
+                        //tabla('estadoreclamo') . ".id(idestadoreclamo)",
+                        //tabla('estadoreclamo') . ".codigo(codigoreclamo)",
+                        tabla('estadoreclamo') . ".nombre(nombrereclamo)",
+                        //tabla('estadoreclamo') . ".estado(estadoreclamo)",
+                    ],
+                    [
+                        tabla('estadoreclamo') . ".estado" => 'Activo',
+                    ]
+            );
+
+            if ($data) {
+                $json['code'] = '200';
+                $json['status'] = 'Ok';
+                $json['msg'] = strings('success_read');
+                $json['data'] = $data;
+            } else {
+                $json['msg'] = strings('error_read');
+            }
+        } else if ($cmd == 'listaestadoprenda') {
             $data = $pdo->select(
                     tabla('estadoprenda'),
                     [
