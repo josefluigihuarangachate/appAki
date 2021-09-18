@@ -84,6 +84,8 @@ if ($ajax) {
                     $pdo->insert(
                             tabla('reclamoxprenda'),
                             [
+                                "fechaentrega" => $fechadeentrega,
+                                "horaentrega" => $horahoy,
                                 "numeroorden" => isEmpty(''),
                                 "origennumeroorden" => $numerodeorden,
                                 "idcliente" => $idcliente,

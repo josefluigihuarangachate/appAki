@@ -3,6 +3,8 @@
 include './include/app.php';
 include './include/session.php';
 
+use Medoo\Medoo;
+
 if ($ajax) {
     if (METODO($method) == 'GET') {
         
@@ -135,15 +137,80 @@ if ($ajax) {
                         tabla('turnoxcliente') . '.id_zona' => $idzona,
                         tabla('turnoxcliente') . '.id_repartidor' => $idrepartidor,
                         tabla('turnoxcliente') . '.fecha_turno' => date('Y-m-d'),
-                        tabla('turnoxcliente') . '.atencion' => 'Sin Atender'
+                        tabla('turnoxcliente') . '.atencion' => 'Sin Atender',
+                        tabla('turnoxcliente') . '.estado_turno' => ['Recojo', 'Entrega'],
                     ]
             );
+
+            // SELECCIONO TODO LOS RECLAMOS
+            $reclamo = $pdo->select(
+                    tabla('turnoxcliente'),
+                    [
+                        //INNER JOIN
+                        "[><]" . tabla('zona') =>
+                        [
+                            tabla('turnoxcliente') . ".id_zona" => "id"
+                        ],
+                        //INNER JOIN
+                        "[><]" . tabla('cliente') =>
+                        [
+                            tabla('turnoxcliente') . ".id_cliente" => "id"
+                        ],
+                        //INNER JOIN
+                        "[><]" . tabla('distrito') =>
+                        [
+                            tabla('cliente') . ".CodDistrito1_Cliente" => "Codigo_Distrito"
+                        ],
+                        //INNER JOIN
+                        tabla('reclamoxprenda') =>
+                        [
+                            tabla('turnoxcliente') . ".numero_orden" => "origennumeroorden"
+                        ],
+                    ],
+                    [
+                        // ESTOS DATOS JALO DE LA TABLA ATENCION
+                        tabla('zona') . ".id(idzona)",
+                        tabla('zona') . ".codigo_zona(codigozona)",
+                        tabla('zona') . ".nombre_zona(nombrezona)",
+                        tabla('zona') . ".descripcion_zona(descripcionzona)",
+                        tabla('zona') . ".puesto_zona(puestozona)",
+                        tabla('zona') . ".imagen_zona(imagenzona)",
+                        tabla('turnoxcliente') . ".id(idturnoxcliente)",
+                        tabla('turnoxcliente') . ".id_repartidor(idrepartidor)",
+                        tabla('turnoxcliente') . ".id_cliente(idcliente)",
+                        tabla('turnoxcliente') . ".puesto_turno(puestoturno)",
+                        tabla('turnoxcliente') . ".fecha_turno(fechaturno)",
+                        tabla('turnoxcliente') . ".hora_turno(horaturno)",
+                        tabla('turnoxcliente') . ".estado_turno(estadoturno)",
+                        tabla('turnoxcliente') . ".numero_orden(numeroorden)",
+                        tabla('cliente') . ".nombre_cliente(nombrecliente)",
+                        tabla('cliente') . ".apellidopaterno_cliente(apellidopaternocliente)",
+                        tabla('cliente') . ".apellidomaterno_cliente(apellidomaternocliente)",
+                        tabla('cliente') . ".numerocel_cliente(numerocelcliente)",
+                        tabla('cliente') . ".direccion1_cliente(direccion1cliente)",
+                        tabla('cliente') . ".latitud(latitudcliente)",
+                        tabla('cliente') . ".longitud(longitudcliente)",
+                    ],
+                    [
+                        tabla('turnoxcliente') . '.id_zona' => $idzona,
+                        tabla('turnoxcliente') . '.id_repartidor' => $idrepartidor,
+                        tabla('turnoxcliente') . '.fecha_turno' => Medoo::raw("(SELECT fechaentrega FROM " . tabla('reclamoxprenda') . " WHERE fechaentrega='" . date('Y-m-d') . "')"), //date('Y-m-d'),
+                        tabla('turnoxcliente') . '.atencion' => 'Sin Atender',
+                        tabla('turnoxcliente') . '.estado_turno' => ['Reclamo'],
+                    ]
+            );
+
+            //var_dump($pdo->log());
+            //die();
+
+            if ($reclamo) {
+                $resultado = array_merge($data, $reclamo);
+                $data = $resultado;
+            }
+
             //imprimir($data);
             //die();
-            //var_dump($pdo->log());
-            //die();
-            //var_dump($pdo->log());
-            //die();
+            
             if ($data) {
                 $json['code'] = '200';
                 $json['status'] = 'Ok';
@@ -157,7 +224,7 @@ if ($ajax) {
                 $_SESSION['idclientetemp'] = input('idcliente');
                 $_SESSION['idturnoxrepartidortemp'] = input('idturnoxrepartidor');
                 $_SESSION['numeroordentemp'] = input('numeroorden');
-                
+
                 $_SESSION['estadoturnotemp'] = input('estadoturno');
 
                 $_SESSION['nombrecliente'] = input('nombrecliente');

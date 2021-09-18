@@ -22,7 +22,7 @@ function listado() {
                     if (data[i].estadoturno === 'Entrega') {
                         imgAtencion = "entrega";
                     }else if (data[i].estadoturno === 'Reclamo') {
-                        imgAtencion = "reclamo";
+                        imgAtencion = "entrega";
                     }
 
                     div += '<img src="design/aki/' + imgAtencion + '.png" alt="image" class="image">';

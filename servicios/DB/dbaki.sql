@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-09-2021 a las 07:43:53
+-- Tiempo de generación: 17-09-2021 a las 17:18:57
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -793,6 +793,8 @@ INSERT INTO `receta` (`id`, `IdArticulo_Receta`, `Cantidad_Receta`, `IdArticuloP
 
 CREATE TABLE `reclamoxprenda` (
   `id` int(25) NOT NULL,
+  `fechaentrega` date NOT NULL DEFAULT current_timestamp(),
+  `horaentrega` time NOT NULL DEFAULT current_timestamp(),
   `numeroorden` varchar(255) DEFAULT NULL,
   `origennumeroorden` varchar(255) NOT NULL,
   `idcliente` int(25) NOT NULL,
@@ -890,7 +892,7 @@ CREATE TABLE `turnoxcliente` (
 --
 
 INSERT INTO `turnoxcliente` (`id`, `numero_orden`, `id_repartidor`, `id_cliente`, `id_zona`, `puesto_turno`, `fecha_turno`, `hora_turno`, `atencion`, `estado_turno`) VALUES
-(4, '', 1, 8, 1, 'Temprano', '2021-09-17', '19:00:00', 'Sin Atender', 'Recojo');
+(4, '', 1, 8, 1, 'Tarde', '2021-09-17', '19:00:00', 'Sin Atender', 'Recojo');
 
 -- --------------------------------------------------------
 
@@ -1104,13 +1106,13 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `color`
 --
 ALTER TABLE `color`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4484;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4551;
 
 --
 -- AUTO_INCREMENT de la tabla `detalleorden`
 --
 ALTER TABLE `detalleorden`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- AUTO_INCREMENT de la tabla `distrito`
@@ -1140,13 +1142,13 @@ ALTER TABLE `impresora`
 -- AUTO_INCREMENT de la tabla `marca`
 --
 ALTER TABLE `marca`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1572;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1639;
 
 --
 -- AUTO_INCREMENT de la tabla `orden`
 --
 ALTER TABLE `orden`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT de la tabla `promocion`
@@ -1170,7 +1172,7 @@ ALTER TABLE `receta`
 -- AUTO_INCREMENT de la tabla `reclamoxprenda`
 --
 ALTER TABLE `reclamoxprenda`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `repartidor`
@@ -1188,7 +1190,7 @@ ALTER TABLE `servicio`
 -- AUTO_INCREMENT de la tabla `turnoxcliente`
 --
 ALTER TABLE `turnoxcliente`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT de la tabla `zona`

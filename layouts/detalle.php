@@ -120,8 +120,10 @@ include "./include/sessionstart/session.php";
                     <?php include "./recojo.php"; ?> 
                 </div>
                 <?php
-            } else {
-                include "./despacho.php";
+            } else if (@$_SESSION['estadoturnotemp'] == 'Entrega') {
+                include "./entrega.php";
+            } else if (@$_SESSION['estadoturnotemp'] == 'Reclamo') {
+                include "./reclamo.php";
             }
             ?>
 
@@ -163,7 +165,7 @@ include "./include/sessionstart/session.php";
                 });
             });
         </script>
-        <!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                                    ?>" type="text/javascript"></script>
-                <script src="design/js/crud/cliente.js<?php //echo @$v;                                     ?>" type="text/javascript"></script>-->
+        <!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                                     ?>" type="text/javascript"></script>
+                <script src="design/js/crud/cliente.js<?php //echo @$v;                                      ?>" type="text/javascript"></script>-->
     </body>
 </html>
