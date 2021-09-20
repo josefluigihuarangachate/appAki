@@ -219,6 +219,28 @@ if ($ajax) {
             if ($reclamo) {
                 $resultado = array_merge($data, $reclamo);
                 $data = $resultado;
+
+                // ACTUALIZAR LAS FECHAS DE LAS ORDENES Y DE LAS DE TURNO X CLIENTE
+                $pdo->update(
+                        tabla('turnoxcliente'),
+                        [
+                            "fecha_turno" => date('Y-m-d')
+                        ],
+                        [
+                            "numero_orden" => $arr_ordenes
+                        ]
+                );                
+                $pdo->update(
+                        tabla('orden'),
+                        [
+                            "fecha_turno" => date('Y-m-d')
+                        ],
+                        [
+                            "numeroorden" => $arr_ordenes
+                        ]
+                );
+                // FIN DE ACTUALIZAR LAS FECHAS DE LAS ORDENES Y DE LAS DE TURNO X CLIENTE
+                
             }
 
             //imprimir($data);

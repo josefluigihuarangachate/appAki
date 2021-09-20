@@ -46,9 +46,7 @@ if (METODO($method) == 'POST') {
                 !empty($marcaprenda)
         ) {
 
-
             try {
-
 
                 // FECHA Y HORA ACTUAL
                 $fechahoyslash = date('d/m/Y');
@@ -57,7 +55,6 @@ if (METODO($method) == 'POST') {
                 $in_audios = "";
                 $in_archivos = "";
                 // FIN FECHA Y HORA ACTUAL
-                
                 // OBTENEMOS INFORMACION DEL ORDEN
                 $datosdelorden = $pdo->select(
                         tabla('orden'),
@@ -274,30 +271,36 @@ if (METODO($method) == 'POST') {
             $json['msg'] = strings('error_read');
         }
     } else if ($cmd == 'listadeprendapororden') {
-        @$numerodeorden = input('numerodeorden'); // PARAMETRO OPCIONAL
-        @$fechadeentrega = input('fechadeentrega'); // PARAMETRO OPCIONAL
-        $where = "";
+        $numerodeorden = @input('numerodeorden'); // PARAMETRO OPCIONAL
+        $fechadeentrega = @input('fechadeentrega'); // PARAMETRO OPCIONAL
+        $where = array();
 
-        if (@$numerodeorden && @$fechadeentrega) {
-            $where = [
-                tabla('orden') . '.numeroorden' => @$numerodeorden,
-                tabla('orden') . '.fecha' => @$fechadeentrega,
-            ];
-        } else if (@$numerodeorden && empty(@$fechadeentrega)) {
-            $where = [
-                tabla('orden') . '.numeroorden' => @$numerodeorden,
-            ];
-        } else if (@$fechadeentrega && empty(@$numerodeorden)) {
-            $where = [
-                tabla('orden') . '.fecha' => @$fechadeentrega,
-            ];
+        if (!empty(@$numerodeorden) && !empty(@$fechadeentrega)) {
+            $where = array(
+                "AND" => [
+                    tabla('orden') . '.numeroorden' => @$numerodeorden,
+                    tabla('orden') . '.fecha_entrega' => @$fechadeentrega
+                ]
+            );
+        } else if (!empty(@$numerodeorden) && empty(@$fechadeentrega)) {
+            $where = array(
+                "AND" => [
+                    tabla('orden') . '.numeroorden' => @$numerodeorden
+                ]
+            );
+        } else if (!empty(@$fechadeentrega) && empty(@$numerodeorden)) {
+            $where = array(
+                "AND" => [
+                    tabla('orden') . '.fecha_entrega' => @$fechadeentrega
+                ]
+            );
         }
 
         $data = $pdo->select(
                 tabla('detalleorden'),
                 [
                     //INNER JOIN
-                    tabla('orden') =>
+                    "[><]" . tabla('orden') =>
                     [
                         tabla('detalleorden') . ".idorden" => "id"
                     ],
@@ -318,6 +321,8 @@ if (METODO($method) == 'POST') {
                 ],
                 $where
         );
+        //var_dump($pdo->log());
+        //die();
 
         if ($data) {
             $json['code'] = '200';
