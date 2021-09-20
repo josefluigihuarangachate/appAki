@@ -143,6 +143,26 @@ if ($ajax) {
             );
 
             // SELECCIONO TODO LOS RECLAMOS
+            // Medoo::raw("(SELECT fechaentrega FROM " . tabla('reclamoxprenda') . " WHERE fechaentrega='" . date('Y-m-d') . "' LIMIT 1)"),
+
+            $ordenes = $pdo->select(tabla('reclamoxprenda'),
+                    [
+                        "@origennumeroorden",
+                    ],
+                    [
+                        "fechaentrega[>]" => date('Y-m-d')
+                    ]
+            );
+
+            $arr_ordenes = [-222222];
+            if ($ordenes) {
+                $arr_ordenes = [];
+                for ($or = 0; $or < count($ordenes); $or++) {
+                    $arr_ordenes[] = $ordenes[$or]['origennumeroorden'];
+                }
+            }
+            unset($ordenes);
+
             $reclamo = $pdo->select(
                     tabla('turnoxcliente'),
                     [
@@ -161,11 +181,6 @@ if ($ajax) {
                         [
                             tabla('cliente') . ".CodDistrito1_Cliente" => "Codigo_Distrito"
                         ],
-                        //INNER JOIN
-                        tabla('reclamoxprenda') =>
-                        [
-                            tabla('turnoxcliente') . ".numero_orden" => "origennumeroorden"
-                        ],
                     ],
                     [
                         // ESTOS DATOS JALO DE LA TABLA ATENCION
@@ -179,7 +194,8 @@ if ($ajax) {
                         tabla('turnoxcliente') . ".id_repartidor(idrepartidor)",
                         tabla('turnoxcliente') . ".id_cliente(idcliente)",
                         tabla('turnoxcliente') . ".puesto_turno(puestoturno)",
-                        tabla('turnoxcliente') . ".fecha_turno(fechaturno)",
+                        'fechaturno' => Medoo::raw('(select current_date)'),
+                        //tabla('turnoxcliente') . ".fecha_turno(fechaturno)",
                         tabla('turnoxcliente') . ".hora_turno(horaturno)",
                         tabla('turnoxcliente') . ".estado_turno(estadoturno)",
                         tabla('turnoxcliente') . ".numero_orden(numeroorden)",
@@ -194,14 +210,11 @@ if ($ajax) {
                     [
                         tabla('turnoxcliente') . '.id_zona' => $idzona,
                         tabla('turnoxcliente') . '.id_repartidor' => $idrepartidor,
-                        tabla('turnoxcliente') . '.fecha_turno' => Medoo::raw("(SELECT fechaentrega FROM " . tabla('reclamoxprenda') . " WHERE fechaentrega='" . date('Y-m-d') . "')"), //date('Y-m-d'),
+                        tabla('turnoxcliente') . '.numero_orden' => $arr_ordenes,
                         tabla('turnoxcliente') . '.atencion' => 'Sin Atender',
                         tabla('turnoxcliente') . '.estado_turno' => ['Reclamo'],
                     ]
             );
-
-            //var_dump($pdo->log());
-            //die();
 
             if ($reclamo) {
                 $resultado = array_merge($data, $reclamo);
@@ -210,7 +223,7 @@ if ($ajax) {
 
             //imprimir($data);
             //die();
-            
+
             if ($data) {
                 $json['code'] = '200';
                 $json['status'] = 'Ok';

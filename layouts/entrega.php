@@ -9,6 +9,7 @@ $ordenes = explode(",", @$_SESSION['numeroordentemp']);
 
 $o = 0;
 ?>
+<link href="design/assets/css/recojo.css" rel="stylesheet" type="text/css"/>
 <br>
 <div style="padding-left: 18px;padding-right: 18px;">
     <div class="card" style="margin-bottom: 20px;text-align: center;">

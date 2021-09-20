@@ -235,3 +235,12 @@ function getLatLonByAddressName($nombrededireccion, $key) {
     //$json = json_decode(file_get_contents($url), true)['results'][1]['geometry']; //['results'][0]['bounds'];
     return $json;
 }
+
+// OBTENER LOS VALUES DE UN ARRAY POR SU KEY NAME, ESTA FUNCION ES RECURSIVA 
+function array_value_recursive($key, array $arr){
+    $val = array();
+    array_walk_recursive($arr, function($v, $k) use($key, &$val){
+        if($k == $key) array_push($val, $v);
+    });
+    return count($val) > 1 ? $val : array_pop($val);
+}

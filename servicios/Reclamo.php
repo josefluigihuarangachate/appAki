@@ -251,6 +251,12 @@ if ($ajax) {
                         $html .= '<div style="text-align: left;font-family: sans-serif;">';
                         //$html .= "&nbsp;&nbsp;&nbsp; (1)&nbsp;" . $nombreprenda . " <label style='float: right;'>" . $precioprenda . "</label><br>";
                         $html .= "&nbsp;&nbsp;&nbsp; (1)&nbsp;" . $nombreprenda . "<br>";
+                        $html .= "&nbsp;&nbsp;&nbsp;" . $colorprenda . "<br>";
+                        $html .= "&nbsp;&nbsp;&nbsp;" . $marcaprenda . "<br>";
+                        if ($estados) {
+                            $html .= "&nbsp;&nbsp;&nbsp;" . str_replace(" @ ", ',', $estados) . "<br>";
+                        }
+
                         //$html .= "<br><strong>MONTO : S/.</strong>" . " <strong style='float: right;'>" . number_format($precioprenda, 2, '.', '') . "</strong><br>";
                         $html .= '</div><br>';
 

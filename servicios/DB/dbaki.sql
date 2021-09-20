@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-09-2021 a las 17:18:57
+-- Tiempo de generación: 19-09-2021 a las 00:58:18
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -547,6 +547,13 @@ CREATE TABLE `detalleorden` (
   `imagenes` text COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Sera asi:\r\n\r\n{\r\n  ''imagen1.png'',\r\n  ''imagen2.png'',\r\n}'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `detalleorden`
+--
+
+INSERT INTO `detalleorden` (`id`, `idorden`, `ordenpromocion`, `idpromocion`, `nombrepromocion`, `idprenda`, `nombreprenda`, `color`, `marca`, `precioprenda`, `nombreestados`, `observaciones`, `audios`, `imagenes`) VALUES
+(116, 72, 'Udkpp', NULL, NULL, 41, 'CHAL - PASHMINA GRANDE', 'VERDE', 'TRIAL', '12.00', 'Con Mancha @ Con Desgaste @ Con Huequito', NULL, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -711,6 +718,13 @@ CREATE TABLE `orden` (
   `Id_prenda_orig` varchar(255) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Número de la prenda dentro de la orden original (RECLAMOS).\r\n\r\nSe guardara los Ids de las prendas que fueron reclamadas o solo se guardara un id por la prenda:\r\n\r\nEjm:\r\n1,75,67,345,8,9'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `orden`
+--
+
+INSERT INTO `orden` (`id`, `idservicio`, `numeroorden`, `nombre_servicio`, `nombre_repartidor`, `fecha`, `hora`, `nombre_cliente`, `celular_cliente`, `direccion_cliente`, `fecha_entrega`, `hora_entrega`, `tipo_cobro`, `idzona`, `total_s_dscto`, `descuento`, `total_pagar`, `a_cuenta`, `saldo`, `estado`, `tipo_pago`, `tipo_atencion`, `array_detalleorden`, `Id_Orden_Orig`, `Id_prenda_orig`) VALUES
+(72, 2, 'C1-0000072', 'SECO', 'Roberto Manrique', '2021-09-17', '10:24:07', 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-09-21', '10:25:33', 'Reclamo', 'C1', '0.00', '0.00', '12.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Reclamo', '[{\"idprenda\":\"41\",\"ordenpromocion\":\"Udkpp\",\"precio\":\"12.00\",\"nombreprenda\":\"CHAL - PASHMINA GRANDE\",\"color\":\"VERDE\",\"marca\":\"TRIAL\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Udkpp\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Desgaste @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', '', '');
+
 -- --------------------------------------------------------
 
 --
@@ -813,6 +827,14 @@ CREATE TABLE `reclamoxprenda` (
   `ordenprenda` varchar(255) DEFAULT NULL COMMENT 'Se guardara el key que generamos con el uniqueKey'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `reclamoxprenda`
+--
+
+INSERT INTO `reclamoxprenda` (`id`, `fechaentrega`, `horaentrega`, `numeroorden`, `origennumeroorden`, `idcliente`, `idrepartidor`, `nombrecliente`, `nombrerepartidor`, `idzona`, `idprenda`, `nombreprenda`, `color`, `marca`, `observacion`, `estados`, `audio`, `imagen`, `ordenprenda`) VALUES
+(18, '2021-09-17', '10:25:33', 'C1-0000018', 'C1-0000072', 8, 1, 'Luis Rodriguez', 'Roberto Manrique', 'C1', 41, 'CHAL - PASHMINA GRANDE', 'VERDE', 'TRIAL', 'Estaba mal lavado y le faltaba un par de botones', 'Mal Lavado @ Falta Botones', 'I7wMyE3.', 'INi3bOP.jpg', 'Udkpp'),
+(19, '2021-09-18', '10:29:33', 'C1-0000018', 'C1-0000072', 8, 1, 'Luis Rodriguez', 'Roberto Manrique', 'C1', 41, 'CHAL - PASHMINA GRANDE', 'VERDE', 'TRIAL', 'Estaba mal lavado y le faltaba un par de botones', 'Mal Lavado @ Falta Botones', 'I7wMyE3.', 'INi3bOP.jpg', 'Udkpp');
+
 -- --------------------------------------------------------
 
 --
@@ -892,7 +914,8 @@ CREATE TABLE `turnoxcliente` (
 --
 
 INSERT INTO `turnoxcliente` (`id`, `numero_orden`, `id_repartidor`, `id_cliente`, `id_zona`, `puesto_turno`, `fecha_turno`, `hora_turno`, `atencion`, `estado_turno`) VALUES
-(4, '', 1, 8, 1, 'Tarde', '2021-09-17', '19:00:00', 'Sin Atender', 'Recojo');
+(4, '', 1, 8, 1, 'Tarde', '2021-09-17', '19:00:00', 'Sin Atender', 'Recojo'),
+(59, 'C1-0000072', 1, 8, 1, 'Temprano', '2021-09-17', '10:25:33', 'Sin Atender', 'Reclamo');
 
 -- --------------------------------------------------------
 
@@ -1106,13 +1129,13 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `color`
 --
 ALTER TABLE `color`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4551;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4555;
 
 --
 -- AUTO_INCREMENT de la tabla `detalleorden`
 --
 ALTER TABLE `detalleorden`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT de la tabla `distrito`
@@ -1142,13 +1165,13 @@ ALTER TABLE `impresora`
 -- AUTO_INCREMENT de la tabla `marca`
 --
 ALTER TABLE `marca`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1639;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1643;
 
 --
 -- AUTO_INCREMENT de la tabla `orden`
 --
 ALTER TABLE `orden`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT de la tabla `promocion`
@@ -1172,7 +1195,7 @@ ALTER TABLE `receta`
 -- AUTO_INCREMENT de la tabla `reclamoxprenda`
 --
 ALTER TABLE `reclamoxprenda`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `repartidor`
@@ -1190,7 +1213,7 @@ ALTER TABLE `servicio`
 -- AUTO_INCREMENT de la tabla `turnoxcliente`
 --
 ALTER TABLE `turnoxcliente`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT de la tabla `zona`
