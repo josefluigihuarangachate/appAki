@@ -20,3 +20,13 @@ https://stackoverflow.com/questions/28429819/rejected-master-master-fetch-first
 - git push origin master
 
 - git push
+
+
+
+
+Subir archivo creado:
+    - git status
+    - git add {File_Name} //the file name you haven been changed
+    - git status
+    - git commit -m "Mensaje"
+    - git push origin master

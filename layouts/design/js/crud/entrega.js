@@ -3,6 +3,22 @@ function entregaexitosa(confirm) {
         var tipodepago = document.getElementById("metododepago").value;
         var latitud = document.getElementById("latitud_actual").value;
         var longitud = document.getElementById("longitud_actual").value;
+
+        //
+        var facturaelectronica = $("input[name='facturaelectronica']:checked").val();
+        if (facturaelectronica === undefined) {
+            facturaelectronica = 'ninguno';
+        }
+        var dni_ruc = document.getElementById("ruc").value;
+        var razon_social = document.getElementById("razonsocial").value;
+        var correoelectronico = document.getElementById("correoelectronico").value;
+        var enviarporcorreo = false;
+        if ($('#enviarporcorreo').is(':checked')) {
+            enviarporcorreo = true;
+        }
+
+//        alert(facturaelectronica);
+
         $.post(ruta + "Entrega",
                 {
                     cmd: 'confirmarentregaexitosa',

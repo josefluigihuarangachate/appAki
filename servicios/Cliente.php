@@ -229,7 +229,7 @@ if ($ajax) {
                         [
                             "numero_orden" => $arr_ordenes
                         ]
-                );                
+                );
                 $pdo->update(
                         tabla('orden'),
                         [
@@ -240,7 +240,6 @@ if ($ajax) {
                         ]
                 );
                 // FIN DE ACTUALIZAR LAS FECHAS DE LAS ORDENES Y DE LAS DE TURNO X CLIENTE
-                
             }
 
             //imprimir($data);
@@ -256,7 +255,9 @@ if ($ajax) {
             }
         } else if ($cmd == 'guardaridturnoxrepartidor') {
             if (input('idturnoxrepartidor')) {
+
                 $_SESSION['idclientetemp'] = input('idcliente');
+
                 $_SESSION['idturnoxrepartidortemp'] = input('idturnoxrepartidor');
                 $_SESSION['numeroordentemp'] = input('numeroorden');
 
@@ -265,6 +266,27 @@ if ($ajax) {
                 $_SESSION['nombrecliente'] = input('nombrecliente');
                 $_SESSION['telefono'] = input('telefono');
                 $_SESSION['direccion'] = input('direccion');
+
+                // OBTENGO EL NUMERO DE DNI/RUC DEL CLIENTE
+                $razonsocial = input('nombrecliente');
+                $clientess = $pdo->select(
+                        tabla('cliente'),
+                        [
+                            "NumeroDocumento_Cliente",
+                            'nombreempresa',
+                            'Email_Cliente'
+                        ],
+                        [
+                            "id" => input('idcliente')
+                        ]
+                );
+                if (@$clientess[0]['nombreempresa']) {
+                    $razonsocial = @$clientess[0]['nombreempresa'];
+                }
+                $_SESSION['dniclientetemp'] = @$clientess[0]['NumeroDocumento_Cliente'];
+                $_SESSION['razonsocialtemp'] = $razonsocial;
+                $_SESSION['enviarporcorreotemp'] = @$clientess[0]['Email_Cliente'];
+                // OBTENGO EL NUMERO DE DNI/RUC DEL CLIENTE
 
                 $json['code'] = '200';
                 $json['status'] = 'Ok';

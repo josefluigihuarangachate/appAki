@@ -60,7 +60,46 @@ if (METODO($method) == 'GET') {
         $json['msg'] = strings('error_cmd');
     }
 } else if (METODO($method) == 'POST') {
-    
+    if ($cmd == 'actualizarflag') {
+
+        $numerodeorden = @input('numerodeorden');
+        $flag = @input('flag');
+
+        if (
+                !empty($numerodeorden) &&
+                intval($flag) >= 0
+        ) {
+
+            try {
+                $data = $pdo->update(
+                        tabla('orden'),
+                        [
+                            "flag" => intval($flag)
+                        ],
+                        [
+                            "numeroorden" => strval($numerodeorden)
+                        ]
+                );
+
+                $rowCount = $data->rowCount();
+                if (
+                        intval($rowCount) > 0
+                ) {
+                    $json['code'] = '200';
+                    $json['status'] = 'Ok';
+                    $json['msg'] = strings('success_update');
+                } else {
+                    $json['msg'] = strings('error_update');
+                }
+            } catch (Throwable $t) {
+                $json['msg'] = strings('error_update');
+            }
+        } else {
+            $json['msg'] = strings('error_empty');
+        }
+    } else {
+        $json['msg'] = strings('error_cmd');
+    }
 } else if (METODO($method) == 'PUT') {
     
 } else if (METODO($method) == 'DELETE') {
