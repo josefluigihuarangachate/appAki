@@ -3,6 +3,10 @@
 include './include/app.php';
 include './include/session.php';
 
+$generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+
+use Dompdf\Dompdf;
+
 if ($ajax) {
     if (METODO($method) == 'GET') {
         
@@ -14,12 +18,54 @@ if ($ajax) {
             // COORDENADAS DEL CLIENTE
             $latitud_cliente = input('latitud');
             $longitud_cliente = input('longitud');
+            $facturaelectronica = input('facturaelectronica'); // ninguno, boleta, factura
+            $dniruc = input("dniruc");
+            $razonsocial = input("razonsocial");
+            $correoelectronico = input("correoelectronico");
+            $enviarporcorreo = input("enviarporcorreo");
 
             if ($numerodeordenes) {
 
+                // numserieboleta, numseriefactura
                 // LE PASAMOS POR EJEMPLO: C1-0543,C1-0534,C1-64564 EN ESE FORMATO, CON ESO ACTUALIZA 
                 // LAS ORDENES DE SERVICIOS QUE LE PASAMOS
                 $arraynumerodeordenes = explode(",", $numerodeordenes);
+                $html_factura = "";
+
+                if ($facturaelectronica == 'boleta') {
+                    
+                    // RECORRO LOS NUMEROS DE ORDENES
+//                    for ($b = 0; $b < count($arraynumerodeordenes); $b++) {
+//                        $data = $pdo->select(
+//                                tabla('detalleorden'),
+//                                [
+//                                    //INNER JOIN
+//                                    "[><]" . tabla('orden') =>
+//                                    [
+//                                        tabla('detalleorden') . ".idorden" => "id"
+//                                    ],
+//                                    //INNER JOIN
+//                                    "[><]" . tabla('articulo') =>
+//                                    [
+//                                        tabla('detalleorden') . ".idprenda" => "id"
+//                                    ],
+//                                ],
+//                                [
+//                                    // ESTOS DATOS JALO DE LA TABLA PROMOCION
+//                                    tabla('detalleorden') . ".nombreprenda(nombreprenda)",
+//                                    tabla('articulo') . ".precio_articulo(preciodeprenda)",
+//                                ],
+//                                [
+//                                    tabla('orden') . '.numeroorden' => $arraynumerodeordenes[$b],
+//                                    tabla('orden') . '.estado' => 'Activo',
+//                                ]
+//                        );
+//                    }
+                } else if ($facturaelectronica == 'factura') {
+                    
+                } else if ($facturaelectronica == 'ninguno') {
+                    
+                }
 
                 try {
                     $updateTurnoxCliente = $pdo->update(

@@ -69,6 +69,7 @@ if ($ajax) {
                             "nombre_repartidor" => @ucwords(strtolower(@$_SESSION['nombrecorto'])), // NOMBRE CORTO DEL REPARTIDOR
                             "fecha" => $fechahoy,
                             "hora" => $horahoy,
+                            "idcliente" => @$_SESSION['idclientetemp'],
                             "nombre_cliente" => @ucwords(strtolower(@$_SESSION['nombrecliente'])),
                             "celular_cliente" => @$_SESSION['telefono'],
                             "direccion_cliente" => @$_SESSION['direccion'],

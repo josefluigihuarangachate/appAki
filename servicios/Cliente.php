@@ -150,7 +150,7 @@ if ($ajax) {
                         "@origennumeroorden",
                     ],
                     [
-                        "fechaentrega[>]" => date('Y-m-d')
+                        "fechaentrega" => date('Y-m-d')
                     ]
             );
 

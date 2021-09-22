@@ -16,11 +16,12 @@ if (METODO($method) == 'GET') {
                 [
                     tabla('orden') . ".id(idorden)",
                     tabla('orden') . ".idservicio(idservicio)",
-                    tabla('orden') . ".nombre_servicio",
+                    tabla('orden') . ".nombre_servicio(nombredelservicio)",
                     tabla('orden') . ".numeroorden(numeroorden)",
                     tabla('orden') . ".nombre_repartidor(nombredelrepartidor)",
                     tabla('orden') . ".fecha(fechaderegistro)",
                     tabla('orden') . ".hora(horaderegistro)",
+                    tabla('orden') . ".idcliente(iddelcliente)",
                     tabla('orden') . ".nombre_cliente(nombredelcliente)",
                     tabla('orden') . ".celular_cliente(celulardelcliente)",
                     tabla('orden') . ".direccion_cliente(direcciondelcliente)",
@@ -45,9 +46,63 @@ if (METODO($method) == 'GET') {
         if ($data) {
 
             for ($d = 0; $d < count($data); $d++) {
-                $data[$d]['detalledeorden'] = json_decode($data[$d]['detalledeorden']);
+                if (
+                        $data[$d]['nombredelservicio'] == 'PROMOCIONES' ||
+                        $data[$d]['nombredelservicio'] == 'PROMOCION' ||
+                        $data[$d]['nombredelservicio'] == 'PROMOCIÓN'
+                ) {
+                    $detalledeorden = (array) json_decode("[" . @$data[$d]['detalledeorden'] . "]", true);
+                    unset($data[$d]['detalledeorden']);
+                    $data[$d]['detalledeorden'] = $detalledeorden[0];
+                } else {
+                    $detalledeorden = (array) json_decode(@$data[$d]['detalledeorden'], true);
+                    unset($data[$d]['detalledeorden']);
+                    $data[$d]['detalledeorden'] = $detalledeorden[0];
+                }
                 continue;
             }
+
+            for ($d = 0; $d < count($data); $d++) {
+                if (
+                        $data[$d]['nombredelservicio'] == 'PROMOCIONES' ||
+                        $data[$d]['nombredelservicio'] == 'PROMOCION' ||
+                        $data[$d]['nombredelservicio'] == 'PROMOCIÓN'
+                ) {
+                    $promociones = $data[$d]['detalledeorden'];
+                    foreach ($promociones as $promo => $value) {
+                        if ($promo) {
+
+                            $appPrecio = [];
+                            for ($v = 0; $v < count($value); $v++) {
+                                $appPrecio[] = $value[$v]['precioprenda'];
+                            }
+                            $pagoPromocion = array_sum($appPrecio) - min($appPrecio);
+                            $dataprom = $pdo->select(
+                                    tabla('detalleorden'),
+                                    [
+                                        tabla('detalleorden') . ".idpromocion(idpromocion)",
+                                    ],
+                                    [
+                                        "AND" => [
+                                            tabla('detalleorden') . '.idorden' => $data[$d]['idorden'],
+                                            tabla('detalleorden') . '.nombrepromocion' => $promo
+                                        ]
+                                    ],
+                                    [
+                                        'LIMIT' => 1
+                                    ]
+                            );
+                            $data[$d]['detalledeorden'][$promo]['DATOS'] = array(
+                                "idpromocion" => @$dataprom[0]['idpromocion'],
+                                "preciopromocion" => str_replace(",", "", number_format($pagoPromocion, 2, '.', ','))
+                            );
+                            unset($dataprom);
+                        }
+                    }
+                }
+                continue;
+            }
+
 
             $json['code'] = '200';
             $json['status'] = 'Ok';

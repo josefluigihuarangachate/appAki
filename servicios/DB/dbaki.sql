@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-09-2021 a las 22:20:38
+-- Tiempo de generación: 22-09-2021 a las 17:14:05
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -477,7 +477,7 @@ CREATE TABLE `cliente` (
 INSERT INTO `cliente` (`id`, `Tipo_Cliente`, `Codigo_Cliente`, `Nombre_Cliente`, `ApellidoPaterno_Cliente`, `ApellidoMaterno_Cliente`, `TipoDocumento_Cliente`, `NumeroDocumento_Cliente`, `nombreempresa`, `Direccion1_Cliente`, `Direccion2_Cliente`, `Email_Cliente`, `NumeroCel_Cliente`, `CodDistrito1_Cliente`, `CodDistrito2_Cliente`, `Estado_Cliente`, `CodZona_Cliente`, `FechaRegistro_Cliente`, `CantOrdenAtendida_Clliente`, `ImporteAcumulado_Cliente`, `Latitud`, `Longitud`) VALUES
 (4, 'Persona', '12345', 'Juan Luis', 'Huaman', 'Sanchez', '1', '76543218', NULL, 'Calle Simoni 209', 'Cdra. 28 Av. Aviación', 'juan@gmail.com', '7777777', '150130', '150130', 'Activo', 1, '2020-01-01', '1', '0.00', '-12.09594', '-77.00141'),
 (5, 'Persona', '4535', 'Renan', 'Urteaga', 'Boggio', '1', '78906586', NULL, 'Calle Matier 604', 'Cdra. 27 Av. Aviación', 'renan@gmail.com', '7777777', '150130', '150130', 'Activo', 1, '2020-01-04', '1', '1.00', '-12.1154531', '-76.9984062'),
-(8, 'Persona', '4536', 'Luis', 'Rodriguez', 'Huaman', '1', '78906777', 'INTELLIPOS', 'Calle Beethoven 530', 'Cdra. 22 Av. San Luis', 'luis@gmail.com', '7777799', '150130', '150130', 'Activo', 1, '2020-01-01', '1', '2.00', '-12.0387843', '-76.9623709'),
+(8, 'Persona', '4536', 'Luis', 'Rodriguez', 'Huaman', '1', '78906777', 'INTELLIPOS', 'Calle Beethoven 530', 'Cdra. 22 Av. San Luis', 'luis@gmail.com', '7777799', '150130', '150130', 'Activo', 1, '2020-01-01', '1', '2.00', '-12.0386564', '-76.9623006'),
 (10, 'Persona', '87075', 'Luigi', 'Huaranga', 'Chate', '1', '77223910', NULL, 'Av. Santa Anita 530', 'Cdra. 28 Av. Encalada', 'luigi@gmail.com', '999999999', '150130', '150130', 'Activo', 1, '2020-01-01', '3', '30.00', '-12.095338', '-76.994546');
 
 -- --------------------------------------------------------
@@ -563,7 +563,11 @@ INSERT INTO `detalleorden` (`id`, `idorden`, `ordenpromocion`, `idpromocion`, `n
 (123, 75, 'Ugd72', 473, '3x2 PRENDAS DE CAMA', 3, 'ALMOHADA', 'VERDE', 'TIGRE', '10.00', 'Con Rotura @ Con Huequito', NULL, NULL, NULL),
 (124, 75, 'Uyfwg', 473, '3x2 PRENDAS DE CAMA', 5, 'BABUCHAS', 'VERDE', 'TIGRE', '10.00', 'Con Rotura @ Con Decoloración', NULL, NULL, NULL),
 (125, 76, 'Uym35', NULL, NULL, 2, 'ABRIGO  NIÑO', 'VERDE', 'TIGRE', '15.00', 'Con Mancha @ Con Desgaste @ Con Decoloración', NULL, NULL, NULL),
-(126, 77, 'Uvfgi', NULL, NULL, 140, 'BLUSA  CUERO', 'VERDE', 'TIGRE', '30.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL);
+(126, 77, 'Uvfgi', NULL, NULL, 140, 'BLUSA  CUERO', 'VERDE', 'TIGRE', '30.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
+(127, 78, 'Unbbp', 473, '3x2 PRENDAS DE CAMA', 2, 'ABRIGO  NIÑO', 'VIOLETA', 'ÉL', '15.00', 'Con Rotura @ Con Huequito', NULL, NULL, NULL),
+(128, 78, 'U1djc', 473, '3x2 PRENDAS DE CAMA', 4, 'ALMOHADA GRANDE', 'VIOLETA', 'ÉL', '15.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
+(129, 78, 'Uq18n', 473, '3x2 PRENDAS DE CAMA', 5, 'BABUCHAS', 'VIOLETA', 'ÉL', '10.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
+(130, 79, 'Uueq0', NULL, NULL, 41, 'CHAL - PASHMINA GRANDE', 'VERDE', 'TRIAL', '12.00', 'Con Desgaste @ Con Huequito', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -640,6 +644,22 @@ INSERT INTO `estadoreclamo` (`id`, `codigo`, `nombre`, `estado`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `facturacionelectronica`
+--
+
+CREATE TABLE `facturacionelectronica` (
+  `id` int(25) NOT NULL,
+  `numeroserie` varchar(255) NOT NULL,
+  `numeroorden` varchar(255) NOT NULL,
+  `dniruc` varchar(255) NOT NULL,
+  `nombrecliente` varchar(255) NOT NULL,
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `impresora`
 --
 
@@ -709,6 +729,7 @@ CREATE TABLE `orden` (
   `nombre_repartidor` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `fecha` date NOT NULL DEFAULT current_timestamp(),
   `hora` time NOT NULL DEFAULT current_timestamp(),
+  `idcliente` int(25) NOT NULL,
   `nombre_cliente` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `celular_cliente` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `direccion_cliente` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
@@ -732,12 +753,14 @@ CREATE TABLE `orden` (
 -- Volcado de datos para la tabla `orden`
 --
 
-INSERT INTO `orden` (`id`, `idservicio`, `numeroorden`, `nombre_servicio`, `nombre_repartidor`, `fecha`, `hora`, `nombre_cliente`, `celular_cliente`, `direccion_cliente`, `fecha_entrega`, `hora_entrega`, `tipo_cobro`, `idzona`, `total_s_dscto`, `descuento`, `total_pagar`, `a_cuenta`, `saldo`, `estado`, `tipo_pago`, `tipo_atencion`, `array_detalleorden`, `flag`) VALUES
-(72, 2, 'C1-0000072', 'SECO', 'Roberto Manrique', '2021-09-17', '10:24:07', 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-09-20', '18:15:57', 'Por Cobrar', 'C1', '0.00', '0.00', '12.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '[{\"idprenda\":\"41\",\"ordenpromocion\":\"Udkpp\",\"precio\":\"12.00\",\"nombreprenda\":\"CHAL - PASHMINA GRANDE\",\"color\":\"VERDE\",\"marca\":\"TRIAL\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Udkpp\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Desgaste @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 0),
-(73, 3, 'C1-0000073', 'AGUA', 'Roberto Manrique', '2021-09-18', '18:20:57', 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-09-20', '12:34:00', 'Por Cobrar', 'C1', '0.00', '0.00', '27.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '[{\"idprenda\":\"119\",\"ordenpromocion\":\"U95e2\",\"precio\":\"17.00\",\"nombreprenda\":\"TERNO NI\\u00d1O (2 PZS.)\",\"color\":\"VERDE\",\"marca\":\"RIPLEY\",\"cantpiezas\":2,\"piezas\":[{\"key\":\"U2474\",\"idpieza\":\"40\",\"nombrepieza\":\"CHALECO VESTIR\",\"nombresestados\":null,\"observacion\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uf278\",\"idpieza\":\"93\",\"nombrepieza\":\"PANTAL\\u00d3N VESTIR\",\"nombresestados\":\"Con Mancha @ Con Rotura @ Con Decoloraci\\u00f3n @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]},{\"idprenda\":\"3\",\"ordenpromocion\":\"Uemz5\",\"precio\":\"10.00\",\"nombreprenda\":\"ALMOHADA\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Uemz5\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Decoloraci\\u00f3n\",\"observacion\":\"Tiene desgastes\",\"audios\":null,\"imagenes\":null}]}]', 0),
-(75, 1, 'C1-0000075', 'PROMOCIONES', 'Roberto Manrique', '2021-09-20', '17:33:03', 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-09-20', '17:33:03', 'Por Cobrar', 'C1', '0.00', '0.00', '33.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '{\"3x2 PRENDAS DE CAMA\":[{\"key\":\"U1ilf\",\"idprenda\":\"1\",\"nombreprenda\":\"ABRIGO\",\"color\":\"VERDE\",\"marca\":\"RIPLEY\",\"precioprenda\":\"23.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Ugd72\",\"idprenda\":\"3\",\"nombreprenda\":\"ALMOHADA\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"precioprenda\":\"10.00\",\"nombreestados\":\"Con Rotura @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uyfwg\",\"idprenda\":\"5\",\"nombreprenda\":\"BABUCHAS\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"precioprenda\":\"10.00\",\"nombreestados\":\"Con Rotura @ Con Decoloraci\\u00f3n\",\"observaciones\":null,\"audios\":null,\"imagenes\":null}]}', 0),
-(76, 3, 'C1-0000076', 'AGUA', 'Roberto Manrique', '2021-09-20', '17:34:45', 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-09-20', '17:34:45', 'Por Cobrar', 'C1', '0.00', '0.00', '15.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '[{\"idprenda\":\"2\",\"ordenpromocion\":\"Uym35\",\"precio\":\"15.00\",\"nombreprenda\":\"ABRIGO  NI\\u00d1O\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Uym35\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Desgaste @ Con Decoloraci\\u00f3n\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 0),
-(77, 4, 'C1-0000077', 'PIELES', 'Roberto Manrique', '2021-09-20', '17:36:55', 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-09-20', '17:36:55', 'Por Cobrar', 'C1', '0.00', '0.00', '30.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '[{\"idprenda\":\"140\",\"ordenpromocion\":\"Uvfgi\",\"precio\":\"30.00\",\"nombreprenda\":\"BLUSA  CUERO\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Uvfgi\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 0);
+INSERT INTO `orden` (`id`, `idservicio`, `numeroorden`, `nombre_servicio`, `nombre_repartidor`, `fecha`, `hora`, `idcliente`, `nombre_cliente`, `celular_cliente`, `direccion_cliente`, `fecha_entrega`, `hora_entrega`, `tipo_cobro`, `idzona`, `total_s_dscto`, `descuento`, `total_pagar`, `a_cuenta`, `saldo`, `estado`, `tipo_pago`, `tipo_atencion`, `array_detalleorden`, `flag`) VALUES
+(72, 2, 'C1-0000072', 'SECO', 'Roberto Manrique', '2021-09-17', '10:24:07', 8, 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-09-22', '18:15:57', 'Por Cobrar', 'C1', '0.00', '0.00', '12.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '[{\"idprenda\":\"41\",\"ordenpromocion\":\"Udkpp\",\"precio\":\"12.00\",\"nombreprenda\":\"CHAL - PASHMINA GRANDE\",\"color\":\"VERDE\",\"marca\":\"TRIAL\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Udkpp\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Desgaste @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 1),
+(73, 3, 'C1-0000073', 'AGUA', 'Roberto Manrique', '2021-09-18', '18:20:57', 8, 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-09-22', '12:34:00', 'Por Cobrar', 'C1', '0.00', '0.00', '27.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '[{\"idprenda\":\"119\",\"ordenpromocion\":\"U95e2\",\"precio\":\"17.00\",\"nombreprenda\":\"TERNO NI\\u00d1O (2 PZS.)\",\"color\":\"VERDE\",\"marca\":\"RIPLEY\",\"cantpiezas\":2,\"piezas\":[{\"key\":\"U2474\",\"idpieza\":\"40\",\"nombrepieza\":\"CHALECO VESTIR\",\"nombresestados\":null,\"observacion\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uf278\",\"idpieza\":\"93\",\"nombrepieza\":\"PANTAL\\u00d3N VESTIR\",\"nombresestados\":\"Con Mancha @ Con Rotura @ Con Decoloraci\\u00f3n @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]},{\"idprenda\":\"3\",\"ordenpromocion\":\"Uemz5\",\"precio\":\"10.00\",\"nombreprenda\":\"ALMOHADA\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Uemz5\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Decoloraci\\u00f3n\",\"observacion\":\"Tiene desgastes\",\"audios\":null,\"imagenes\":null}]}]', 2),
+(75, 1, 'C1-0000075', 'PROMOCIONES', 'Roberto Manrique', '2021-09-20', '17:33:03', 8, 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-09-22', '17:58:25', 'Reclamo', 'C1', '0.00', '0.00', '33.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Reclamo', '{\"3x2 PRENDAS DE CAMA\":[{\"key\":\"U1ilf\",\"idprenda\":\"1\",\"nombreprenda\":\"ABRIGO\",\"color\":\"VERDE\",\"marca\":\"RIPLEY\",\"precioprenda\":\"23.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Ugd72\",\"idprenda\":\"3\",\"nombreprenda\":\"ALMOHADA\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"precioprenda\":\"10.00\",\"nombreestados\":\"Con Rotura @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uyfwg\",\"idprenda\":\"5\",\"nombreprenda\":\"BABUCHAS\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"precioprenda\":\"10.00\",\"nombreestados\":\"Con Rotura @ Con Decoloraci\\u00f3n\",\"observaciones\":null,\"audios\":null,\"imagenes\":null}]}', 2),
+(76, 3, 'C1-0000076', 'AGUA', 'Roberto Manrique', '2021-09-20', '17:34:45', 8, 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-09-22', '17:34:45', 'Por Cobrar', 'C1', '0.00', '0.00', '15.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '[{\"idprenda\":\"2\",\"ordenpromocion\":\"Uym35\",\"precio\":\"15.00\",\"nombreprenda\":\"ABRIGO  NI\\u00d1O\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Uym35\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Desgaste @ Con Decoloraci\\u00f3n\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 2),
+(77, 4, 'C1-0000077', 'PIELES', 'Roberto Manrique', '2021-09-20', '17:36:55', 8, 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-09-22', '17:36:55', 'Por Cobrar', 'C1', '0.00', '0.00', '30.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '[{\"idprenda\":\"140\",\"ordenpromocion\":\"Uvfgi\",\"precio\":\"30.00\",\"nombreprenda\":\"BLUSA  CUERO\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Uvfgi\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 1),
+(78, 1, 'C1-0000078', 'PROMOCIONES', 'Roberto Manrique', '2021-09-21', '17:18:40', 8, 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-09-22', '17:18:40', 'Por Cobrar', 'C1', '0.00', '0.00', '30.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '{\"3x2 PRENDAS DE CAMA\":[{\"key\":\"Unbbp\",\"idprenda\":\"2\",\"nombreprenda\":\"ABRIGO  NI\\u00d1O\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"precioprenda\":\"15.00\",\"nombreestados\":\"Con Rotura @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"U1djc\",\"idprenda\":\"4\",\"nombreprenda\":\"ALMOHADA GRANDE\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"precioprenda\":\"15.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uq18n\",\"idprenda\":\"5\",\"nombreprenda\":\"BABUCHAS\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"precioprenda\":\"10.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null}]}', 2),
+(79, 2, 'C1-0000079', 'SECO', 'Roberto Manrique', '2021-09-22', '10:12:47', 8, 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-09-22', '10:12:47', 'Por Cobrar', 'C1', '0.00', '0.00', '12.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '[{\"idprenda\":\"41\",\"ordenpromocion\":\"Uueq0\",\"precio\":\"12.00\",\"nombreprenda\":\"CHAL - PASHMINA GRANDE\",\"color\":\"VERDE\",\"marca\":\"TRIAL\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Uueq0\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Desgaste @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 0);
 
 -- --------------------------------------------------------
 
@@ -841,6 +864,14 @@ CREATE TABLE `reclamoxprenda` (
   `ordenprenda` varchar(255) DEFAULT NULL COMMENT 'Se guardara el key que generamos con el uniqueKey'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `reclamoxprenda`
+--
+
+INSERT INTO `reclamoxprenda` (`id`, `fechaentrega`, `horaentrega`, `numeroorden`, `origennumeroorden`, `idcliente`, `idrepartidor`, `nombrecliente`, `nombrerepartidor`, `idzona`, `idprenda`, `nombreprenda`, `color`, `marca`, `observacion`, `estados`, `audio`, `imagen`, `ordenprenda`) VALUES
+(38, '2021-09-22', '17:53:43', 'C1-0000038', 'C1-0000075', 8, 1, 'Luis Rodriguez', 'Roberto Manrique', 'C1', 1, 'ABRIGO', 'VERDE', 'RIPLEY', 'Faltaba dos botones', 'Mal Lavado @ Falta Botones', 'I6g43VM.', 'IYm18SJ.jpg', 'U1ilf'),
+(39, '2021-09-22', '17:58:25', 'C1-0000039', 'C1-0000075', 8, 1, 'Luis Rodriguez', 'Roberto Manrique', 'C1', 3, 'ALMOHADA', 'VERDE', 'TIGRE', NULL, NULL, 'IJR3PWE.', 'ICc8K0w.', 'Ugd72');
+
 -- --------------------------------------------------------
 
 --
@@ -857,6 +888,8 @@ CREATE TABLE `repartidor` (
   `Latitud` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `Longitud` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `idimpresora` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `NumSerieBoleta` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `NumSerieFactura` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `Estado_Repartidor` enum('Activo','Inactivo') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'Activo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -864,10 +897,10 @@ CREATE TABLE `repartidor` (
 -- Volcado de datos para la tabla `repartidor`
 --
 
-INSERT INTO `repartidor` (`id`, `codigo_repartidor`, `nombre_repartidor`, `apellido_repartidor`, `avatar_repartidor`, `id_zona`, `Latitud`, `Longitud`, `idimpresora`, `Estado_Repartidor`) VALUES
-(1, 'REP0001', 'Roberto Manuel', 'Manrique Rodriguez', '', 1, '-12.038781', '-76.962372', '74:F0:7D:E9:B8:4C', 'Activo'),
-(2, 'REP0002', 'Juan Carlos', 'Mamani Quispe', '', 2, NULL, NULL, '', 'Activo'),
-(3, 'REP0003', 'Luis Miguel', 'Chavez de la Cruz', '', 3, NULL, NULL, '', 'Activo');
+INSERT INTO `repartidor` (`id`, `codigo_repartidor`, `nombre_repartidor`, `apellido_repartidor`, `avatar_repartidor`, `id_zona`, `Latitud`, `Longitud`, `idimpresora`, `NumSerieBoleta`, `NumSerieFactura`, `Estado_Repartidor`) VALUES
+(1, 'REP0001', 'Roberto Manuel', 'Manrique Rodriguez', '', 1, '-12.0386976', '-76.9622839', '74:F0:7D:E9:B8:4C', 'B003', 'F003', 'Activo'),
+(2, 'REP0002', 'Juan Carlos', 'Mamani Quispe', '', 2, NULL, NULL, '', '', '', 'Activo'),
+(3, 'REP0003', 'Luis Miguel', 'Chavez de la Cruz', '', 3, NULL, NULL, '', '', '', 'Activo');
 
 -- --------------------------------------------------------
 
@@ -920,12 +953,14 @@ CREATE TABLE `turnoxcliente` (
 --
 
 INSERT INTO `turnoxcliente` (`id`, `numero_orden`, `id_repartidor`, `id_cliente`, `id_zona`, `puesto_turno`, `fecha_turno`, `hora_turno`, `atencion`, `estado_turno`) VALUES
-(4, '', 1, 8, 1, 'Tarde', '2021-09-21', '19:00:00', 'Sin Atender', 'Recojo'),
-(60, 'C1-0000073', 1, 8, 1, 'Temprano', '2021-09-21', '10:40:00', 'Sin Atender', 'Entrega'),
-(62, 'C1-0000075', 1, 8, 1, 'Tarde', '2021-09-21', '17:33:03', 'Sin Atender', 'Entrega'),
-(63, 'C1-0000076', 1, 8, 1, 'Tarde', '2021-09-21', '17:34:45', 'Sin Atender', 'Entrega'),
-(64, '', 1, 8, 1, 'Temprano', '2021-09-21', '10:00:00', 'Sin Atender', 'Recojo'),
-(65, 'C1-0000077', 1, 8, 1, 'Tarde', '2021-09-21', '17:36:55', 'Sin Atender', 'Entrega');
+(4, '', 1, 8, 1, 'Tarde', '2021-09-22', '19:00:00', 'Sin Atender', 'Recojo'),
+(60, 'C1-0000073', 1, 8, 1, 'Temprano', '2021-09-22', '10:40:00', 'Sin Atender', 'Entrega'),
+(62, 'C1-0000075', 1, 8, 1, 'Tarde', '2021-09-22', '17:58:25', 'Sin Atender', 'Reclamo'),
+(63, 'C1-0000076', 1, 8, 1, 'Tarde', '2021-09-22', '17:34:45', 'Sin Atender', 'Entrega'),
+(64, '', 1, 8, 1, 'Temprano', '2021-09-22', '10:00:00', 'Sin Atender', 'Recojo'),
+(65, 'C1-0000077', 1, 8, 1, 'Tarde', '2021-09-22', '17:36:55', 'Sin Atender', 'Entrega'),
+(66, 'C1-0000078', 1, 8, 1, 'Tarde', '2021-09-22', '17:18:40', 'Sin Atender', 'Entrega'),
+(67, 'C1-0000079', 1, 8, 1, 'Temprano', '2021-09-22', '10:12:47', 'Sin Atender', 'Entrega');
 
 -- --------------------------------------------------------
 
@@ -1027,6 +1062,12 @@ ALTER TABLE `estadoprenda`
 ALTER TABLE `estadoreclamo`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nombre` (`nombre`);
+
+--
+-- Indices de la tabla `facturacionelectronica`
+--
+ALTER TABLE `facturacionelectronica`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `impresora`
@@ -1139,13 +1180,13 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `color`
 --
 ALTER TABLE `color`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4573;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4578;
 
 --
 -- AUTO_INCREMENT de la tabla `detalleorden`
 --
 ALTER TABLE `detalleorden`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT de la tabla `distrito`
@@ -1166,6 +1207,12 @@ ALTER TABLE `estadoreclamo`
   MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `facturacionelectronica`
+--
+ALTER TABLE `facturacionelectronica`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `impresora`
 --
 ALTER TABLE `impresora`
@@ -1175,13 +1222,13 @@ ALTER TABLE `impresora`
 -- AUTO_INCREMENT de la tabla `marca`
 --
 ALTER TABLE `marca`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1660;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1665;
 
 --
 -- AUTO_INCREMENT de la tabla `orden`
 --
 ALTER TABLE `orden`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT de la tabla `promocion`
@@ -1205,7 +1252,7 @@ ALTER TABLE `receta`
 -- AUTO_INCREMENT de la tabla `reclamoxprenda`
 --
 ALTER TABLE `reclamoxprenda`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT de la tabla `repartidor`
@@ -1223,7 +1270,7 @@ ALTER TABLE `servicio`
 -- AUTO_INCREMENT de la tabla `turnoxcliente`
 --
 ALTER TABLE `turnoxcliente`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT de la tabla `zona`

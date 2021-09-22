@@ -39,6 +39,9 @@ if ($ajax) {
             $nom = explode(' ', @$data[0]['nombre_repartidor']);
             $ape = explode(' ', @$data[0]['apellido_repartidor']);
             $_SESSION[atributo('nombre_corto')] = @$nom[0] . " " . @$ape[0];
+            $_SESSION['numserieboleta'] = @$data[0]['NumSerieBoleta'];
+            $_SESSION['numseriefactura'] = @$data[0]['NumSerieFactura'];
+            
             //$_SESSION['apigooglemap'] = 'AIzaSyBjAd55ccknLheORKj-8YMVTMcuS02llSA';
 
             // EJM: https://powerbiuniversity.com/convertir-direcciones-latitud-longitud-automaticamente-power-bi-traves-la-api-google/

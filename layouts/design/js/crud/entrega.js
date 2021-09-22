@@ -26,7 +26,12 @@ function entregaexitosa(confirm) {
                     idcliente: id_cliente,
                     tipodepago: tipodepago,
                     latitud: latitud,
-                    longitud: longitud
+                    longitud: longitud,
+                    facturaelectronica: facturaelectronica,
+                    dniruc: dni_ruc,
+                    razonsocial: razon_social,
+                    correoelectronico: correoelectronico,
+                    enviarporcorreo: enviarporcorreo
                 }, function (json) {
             DialogAlertConfirm(json['msg'], '');
         });
