@@ -3,14 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/appAki/servicios/wsOrdenes.php</file>
             <file>file:/C:/xampp/htdocs/appAki/servicios/Cliente.php</file>
-            <file>file:/C:/xampp/htdocs/appAki/servicios/Recojo.php</file>
+            <file>file:/C:/xampp/htdocs/appAki/layouts/entrega.php</file>
+            <file>file:/C:/xampp/htdocs/appAki/layouts/design/js/crud/recojo.js</file>
             <file>file:/C:/xampp/htdocs/appAki/servicios/Entrega.php</file>
             <file>file:/C:/xampp/htdocs/appAki/servicios/Reclamo.php</file>
             <file>file:/C:/xampp/htdocs/appAki/layouts/design/js/crud/entrega.js</file>
-            <file>file:/C:/xampp/htdocs/appAki/servicios/wsCliente.php</file>
-            <file>file:/C:/xampp/htdocs/appAki/servicios/Login.php</file>
+            <file>file:/C:/xampp/htdocs/appAki/servicios/include/function.php</file>
+            <file>file:/C:/xampp/htdocs/appAki/layouts/reclamo.php</file>
         </group>
     </open-files>
 </project-private>

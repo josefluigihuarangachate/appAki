@@ -32,6 +32,10 @@ define('RUTA_ARCHIVOS', 'archivos/archivos/');
 define('RUTA_AUDIOS', 'archivos/audios/');
 define('KEYOPENCAGE', '60c99ad7fa9a42a79c6974d7465f5bcc');
 define('FACTURACION_ELECTRONICA', 'http://www.sigerp.com/AKI/aSOAPImportarVentas.aspx?wsdl');
+
+define('CORREO_ELECTRONICO_AKI', 'Luigi.huaranga@intellipos.com.pe');
+define('CONTRASENIA_AKI', 'Intellipos1234');
+
 //define('RUTA_SERVICIOS', 'http://192.168.0.103:81/appAki/servicios/');
 //define('RUTA_DESIGN', 'http://192.168.0.103:81:81/appAki/design/');
 // ACTUALIZAR FECHA ACTUAL DE TURNOXCLIENTE
@@ -66,11 +70,11 @@ $json = array(
 $metododepago = array(
     'Por Cobrar',
     'Efectivo',
-    'Tarjeta Credito/Debito',
-    'Cheque',
-    'Deposito',
-    'Yape',
-    'Plin'
+    'Tarjeta',
+    //'Cheque',
+    'Transferencia',
+        //'Yape',
+        //'Plin'
 );
 
 // Permisos Ajax

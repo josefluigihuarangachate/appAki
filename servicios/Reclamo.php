@@ -187,7 +187,8 @@ if ($ajax) {
                                     'tipo_cobro' => 'Reclamo',
                                     'fecha_entrega' => $fechadeentrega,
                                     'hora_entrega' => $horahoy,
-                                    'tipo_atencion' => 'Reclamo'
+                                    'tipo_atencion' => 'Reclamo',
+                                    'flag' => 2
                                 ],
                                 [
                                     "numeroorden" => $numerodeorden

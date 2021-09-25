@@ -44,7 +44,7 @@ function tipo_documento($i) {
         return "C.E";
     } else if ($i == 4) {
         return "OTRO";
-    }else{
+    } else {
         return "";
     }
 }
@@ -237,10 +237,16 @@ function getLatLonByAddressName($nombrededireccion, $key) {
 }
 
 // OBTENER LOS VALUES DE UN ARRAY POR SU KEY NAME, ESTA FUNCION ES RECURSIVA 
-function array_value_recursive($key, array $arr){
+function array_value_recursive($key, array $arr) {
     $val = array();
-    array_walk_recursive($arr, function($v, $k) use($key, &$val){
-        if($k == $key) array_push($val, $v);
+    array_walk_recursive($arr, function ($v, $k) use ($key, &$val) {
+        if ($k == $key)
+            array_push($val, $v);
     });
     return count($val) > 1 ? $val : array_pop($val);
+}
+
+// SUNAT - ENVIAR FACTURA Y OBTENER RESPUESTA
+function Emitir_Factura_Boleta(){
+    
 }

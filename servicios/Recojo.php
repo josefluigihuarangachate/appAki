@@ -82,7 +82,8 @@ if ($ajax) {
                             "total_pagar" => str_replace(',', '', number_format($pagototal, 2, '.', '')),
                             "a_cuenta" => '',
                             "saldo" => '',
-                            "estado" => 'Activo'
+                            "estado" => 'Activo',
+                            'flag' => 2
                         ]
                 );
 

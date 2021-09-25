@@ -15,6 +15,7 @@ if (METODO($method) == 'GET') {
         $idcliente = input('idcliente'); // CORRELATIVO O EL AUTOINCREMENT DE ELLOS
         $tipodecliente = input('tipodecliente'); // Empresa o Persona
         $codigodecliente = input('codigodecliente'); // PONER EL AUTO INCREMENT QUE ESTA EN EL SISTEMA BASE
+        $nombredeempresa = input('nombredeempresa');
         $nombredecliente = input('nombredecliente');
         $apellidopaterno = input('apellidopaterno');
         $apellidomaterno = input('apellidomaterno');
@@ -62,6 +63,7 @@ if (METODO($method) == 'GET') {
                 $pdo->insert(tabla('cliente'), [
                     "id" => $idcliente,
                     "Tipo_Cliente" => intval($tipodecliente),
+                    "nombreempresa" => isEmpty($nombredeempresa),
                     "Codigo_Cliente" => isEmpty($codigodecliente),
                     "Nombre_Cliente" => $nombredecliente,
                     "ApellidoPaterno_Cliente" => $apellidopaterno,

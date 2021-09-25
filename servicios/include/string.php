@@ -28,6 +28,7 @@ function strings($name) {
         'success_upload' => 'El archivo o imagen fue guardada',
         'error_session' => 'El dato no pudo ser guardado',
         'success_session' => 'La sesion fue creada para el dato enviado',
+        'error_correo' => 'No se pudo enviar el mensaje al correo electronico'
     );
 
     return @$string[$name];

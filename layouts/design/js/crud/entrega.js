@@ -34,6 +34,25 @@ function entregaexitosa(confirm) {
                     enviarporcorreo: enviarporcorreo
                 }, function (json) {
             DialogAlertConfirm(json['msg'], '');
+
+
+            if (json['status'] === "Ok") {
+                if (document.getElementById("idpdfexist")) {
+                    //alert("Element exists");
+                    console.log("El id existe, imprimir pdf");
+                } else {
+                    //alert("Element does not exist");
+                    document.querySelector('#PanelLeft').insertAdjacentHTML('afterbegin', `
+                    <input type="hidden" hidden="hidden" value="" id="idpdfexist" name="idpdfexist">
+                `);
+                }
+                document.getElementById("idpdfexist").value = json['url_archivo'];
+
+                setTimeout(function () {
+                    goBack();
+                }, 2000);
+
+            }
         });
     }
 }

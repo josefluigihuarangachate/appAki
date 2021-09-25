@@ -50,23 +50,15 @@ $o = 0;
         <div class="card-body">
 
             <div class="row">
-                <div class="col-4">
+                <div class="col-6">
                     <div class="form-check mb-1">
-                        <input class="form-check-input" type="radio" name="facturaelectronica" id="facturaelectronican" value="ninguno" checked="checked">
-                        <label class="form-check-label" for="facturaelectronican">
-                            NINGUNO
-                        </label>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="form-check mb-1">
-                        <input class="form-check-input" type="radio" name="facturaelectronica" id="facturaelectronicab" value="boleta">
+                        <input class="form-check-input" type="radio" name="facturaelectronica" id="facturaelectronicab" value="boleta" checked="checked">
                         <label class="form-check-label" for="facturaelectronicab">
                             BOLETA
                         </label>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <div class="form-check mb-1">
                         <input class="form-check-input" type="radio" name="facturaelectronica" id="facturaelectronicaf" value="factura">
                         <label class="form-check-label" for="facturaelectronicaf">
@@ -79,11 +71,13 @@ $o = 0;
             <div class="row">
                 <div class="col-6">
                     <div class="form-check mb-1">
+                        <label>DNI/RUC</label>
                         <input type="text" class="form-control" id="ruc" name="ruc" placeholder="DNI/RUC" value="<?php echo $_SESSION['dniclientetemp']; ?>">
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-check mb-1">
+                        <label>CLIENTE/EMPRESA</label>
                         <input type="text" class="form-control" id="razonsocial" name="razonsocial" placeholder="NOMBRE DE LA EMPRESA" value="<?php echo $_SESSION['razonsocialtemp']; ?>">
                     </div>
                 </div>
@@ -92,11 +86,12 @@ $o = 0;
             <div class="row">
                 <div class="col-8">
                     <div class="form-check mb-1">
+                        <label>CORREO ELECTRÓNICO</label>
                         <input type="text" class="form-control" placeholder="* Correo Electronico" id="correoelectronico" name="correoelectronico" value="<?php echo $_SESSION['enviarporcorreotemp']; ?>">
                     </div>
                 </div>
                 <div class="col-4">
-                    <div class="form-check mb-1" style="padding-top: 8px;">
+                    <div class="form-check mb-1" style="padding-top: 35px;">
                         <input type="checkbox" class="form-check-input" id="enviarporcorreo" name="enviarporcorreo">
                         <label class="form-check-label" for="enviarporcorreo">ENVIARLE</label>
                     </div>
@@ -551,10 +546,8 @@ $o = 0;
 
                         <!--
                         TODO
-                        - Agregar en la tabla repartidor serie de comprobante: serie_boleta y serie_factura
+                        
                         - Tiene que ser varias prendas o solo por uno no es obligacion por el momento, por el numero de orden del reclamo
-                        - Guardar la orden original a al de reclamo
-                        - PAGADO: En reclamo, Por Cobrar, Cancelado                  
                         - CUANDO LA ENTREGA VENGA DEL SISTEMA BASE, NO MOSTRAR OPCIONES DE METODO 
                           DE PAGO SOLO MOSTRAR CON EL METODO DE PAGO QUE REALIZO SI ES QUE LO HIZO                    
                         - SI TIENE CORREO ELECTRONICO REGISTRADO EL CLIENTE, MOSTRAR UN CHECKBOX 
