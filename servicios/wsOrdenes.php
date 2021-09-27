@@ -115,7 +115,124 @@ if (METODO($method) == 'GET') {
         $json['msg'] = strings('error_cmd');
     }
 } else if (METODO($method) == 'POST') {
-    if ($cmd == 'actualizarflag') {
+    if ($cmd === 'registrarllamadaxfecha') {
+        $numerodeorden = input('numerodeorden');
+        $fechadeentrega = input('fechadeentrega');
+
+        if (
+                !empty($numerodeorden) &&
+                !empty($fechadeentrega)
+        ) {
+            try {
+                // OBTENGO EL ID DE LA ZONA POR EL C1,C2,C3 O C4
+                $turnoxcliente = $pdo->update(
+                        tabla("turnoxcliente"),
+                        [
+                            "fecha_turno" => $fechadeentrega
+                        ],
+                        [
+                            "numero_orden" => $numerodeorden
+                        ]
+                );
+                $countturnoxcliente = $turnoxcliente->rowCount();
+
+                // OBTENGO EL ID DE LA ZONA POR EL C1,C2,C3 O C4
+                $orden = $pdo->update(
+                        tabla("orden"),
+                        [
+                            "fecha_entrega" => $fechadeentrega
+                        ],
+                        [
+                            "numeroorden" => $numerodeorden
+                        ]
+                );
+                $countorden = $orden->rowCount();
+
+                if (
+                        $countturnoxcliente &&
+                        $countorden
+                ) {
+                    $json['code'] = '200';
+                    $json['status'] = 'Ok';
+                    $json['msg'] = strings('success_update');
+                    $json['data'] = '';
+                } else {
+                    $json['msg'] = strings('error_update');
+                }
+            } catch (Throwable $e) {
+                $json['msg'] = strings('error_update');
+            }
+        } else {
+            $json['msg'] = strings('error_empty');
+        }
+    } else if ($cmd == 'registrarrecojo') {
+
+        $idrepartidor = input('idrepartidor'); // AUTO INCREMENT ID, ACA SE CREARA UN WEBSERVICE PARA QUE PUEDA CONSUMIR
+        $idcliente = input('idcliente'); // AUTO INCREMENT ID
+        $idzona = input('idzona');  // (C1, C2, C3, ETC)
+        $fecha = input('fechadelrecojo');
+        $hora = input('horadelrecojo');
+        $puestodeturno = temprano_tarde($hora);
+        $atencion = 'Sin Atender';
+        $estadodeturno = 'Recojo'; // SIEMPRE SERA RECOJO
+
+        if (
+                $idrepartidor &&
+                $idcliente &&
+                $idzona &&
+                $fecha &&
+                $hora &&
+                $puestodeturno &&
+                $atencion &&
+                $estadodeturno
+        ) {
+            try {
+                // OBTENGO EL ID DE LA ZONA POR EL C1,C2,C3 O C4
+                $obteneridzona = $pdo->select(
+                        tabla("zona"),
+                        [
+                            "id",
+                        ],
+                        [
+                            "puesto_zona" => $idzona
+                        ],
+                        [
+                            "LIMIT" => [0, 1]
+                        ]
+                );
+                $iddezona = @$obteneridzona[0]['id'];
+
+                // REGISTRAMOS EL TURNO X CLIENTE
+                $pdo->insert(
+                        tabla("turnoxcliente"),
+                        [
+                            "id_repartidor" => $idrepartidor,
+                            "id_cliente" => $idcliente,
+                            "id_zona" => $iddezona,
+                            "puesto_turno" => $puestodeturno,
+                            "fecha_turno" => $fecha,
+                            "hora_turno" => $hora,
+                            "atencion" => $atencion,
+                            "estado_turno" => $estadodeturno,
+                        ]
+                );
+                $roeCountTurnoxCliente = $pdo->id();
+
+                if ($roeCountTurnoxCliente) {
+                    $json['code'] = '200';
+                    $json['status'] = 'Ok';
+                    $json['msg'] = strings('success_create');
+                    $json['data'] = '';
+                } else {
+                    $json['msg'] = strings('error_create');
+                }
+            } catch (Throwable $e) {
+                $json['msg'] = strings('error_create');
+            }
+        } else {
+            $json['msg'] = strings('error_empty');
+        }
+    } else if ($cmd == 'actualizarflag') {
 
         $numerodeorden = @input('numerodeorden');
         $flag = @input('flag');
@@ -152,6 +269,12 @@ if (METODO($method) == 'GET') {
         } else {
             $json['msg'] = strings('error_empty');
         }
+    } else if ($cmd === 'registrarentrega') {
+        
+    } else if ($cmd === 'registrarrepartidor') {
+        
+    } else if ($cmd === '') {
+        
     } else {
         $json['msg'] = strings('error_cmd');
     }
