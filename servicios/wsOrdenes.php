@@ -269,12 +269,114 @@ if (METODO($method) == 'GET') {
         } else {
             $json['msg'] = strings('error_empty');
         }
-    } else if ($cmd === 'registrarentrega') {
-        
     } else if ($cmd === 'registrarrepartidor') {
-        
-    } else if ($cmd === '') {
-        
+        $codigorepartidor = input("codigodelrepartidor"); // CODIGO CON EL CUAL HARA EL LOGIN DESDE EL APP
+        $nombredelrepartidor = input("nombredelrepartidor"); // Nombre Completos
+        $apellidodelrepartidor = input("apellidodelrepartidor"); // Apellidos Completos
+        $idzona = input('idzona'); // C1, C2
+        $numerodeserieboleta = input('numserieboleta');
+        $numerodeseriefactura = input('numseriefactura');
+
+        if (
+                !empty($codigorepartidor) &&
+                !empty($nombredelrepartidor) &&
+                !empty($apellidodelrepartidor) &&
+                !empty($idzona) && // C1, C2
+                !empty($numerodeserieboleta) &&
+                !empty($numerodeseriefactura)
+        ) {
+            try {
+
+
+                $data = $pdo->select(
+                        tabla('zona'),
+                        "id",
+                        [
+                            "puesto_zona" => $idzona
+                        ],
+                        [
+                            // Get the first 1 of rows.
+                            'LIMIT' => 1
+                        ]
+                );
+
+                $pdo->insert(
+                        tabla("repartidor"),
+                        [
+                            "codigo_repartidor" => $codigorepartidor,
+                            "nombre_repartidor" => $nombredelrepartidor,
+                            "apellido_repartidor" => $apellidodelrepartidor,
+                            "id_zona" => @$data[0]['id'],
+                            "NumSerieBoleta" => $numerodeserieboleta,
+                            "NumSerieFactura" => $numerodeseriefactura
+                        ]
+                );
+                $driver_id = $pdo->id();
+
+                $pdo->insert(
+                        tabla("zonaxrepartidor"),
+                        [
+                            "id_zona" => @$data[0]['id'],
+                            "id_repartidor" => $driver_id
+                        ]
+                );
+                $zonaxrepartidor_id = $pdo->id();
+
+                if (
+                        $account_id &&
+                        $zonaxrepartidor_id
+                ) {
+                    $json['code'] = '200';
+                    $json['status'] = 'Ok';
+                    $json['msg'] = strings('success_create');
+                    $json['idrepartidor'] = $driver_id;
+                    $json['idzonaxrepartidor'] = $zonaxrepartidor_id;
+                    $json['data'] = "";
+                } else {
+                    $json['msg'] = strings('error_create');
+                }
+            } catch (Throwable $t) {
+                $json['msg'] = strings('error_create');
+            }
+        } else {
+            $json['msg'] = strings('error_empty');
+        }
+    } else if ($cmd === 'registrarzonas') {
+        $codigozona = input("codigozona");
+        $nombrezona = input("nombredeldistrito"); // SANTA ANITA, SAN ISIDRO, SURCO
+        $puestozona = input("nombrezona"); // C1, C2, C3, C4, C5, C6, C7, .....
+
+        if (
+                !empty($codigozona) &&
+                !empty($nombrezona) &&
+                !empty($nombrezona)
+        ) {
+            try {
+                $pdo->insert(
+                        tabla("zona"),
+                        [
+                            "codigo_zona" => $codigozona,
+                            "nombre_zona" => strtoupper($nombrezona),
+                            "puesto_zona" => ucwords(strtolower($puestozona))
+                        ]
+                );
+                $account_id = $pdo->id();
+
+                if ($account_id) {
+                    $json['code'] = '200';
+                    $json['status'] = 'Ok';
+                    $json['msg'] = strings('success_create');
+                    $json['data'] = "";
+                    $json['idzona'] = $account_id;
+                } else {
+                    $json['msg'] = strings('error_create');
+                }
+            } catch (Throwable $t) {
+                $json['msg'] = strings('error_create');
+            }
+        } else {
+            $json['msg'] = strings('error_empty');
+        }
     } else {
         $json['msg'] = strings('error_cmd');
     }
