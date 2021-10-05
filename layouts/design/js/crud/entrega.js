@@ -48,9 +48,11 @@ function entregaexitosa(confirm) {
                 }
                 document.getElementById("idpdfexist").value = json['url_archivo'];
 
-                setTimeout(function () {
-                    goBack();
-                }, 2000);
+                //setTimeout(function () {
+                //    if (document.getElementById("idpdfexist").value === "") {
+                //        goBack();
+                //    }
+                //}, 2000);
 
             }
         });

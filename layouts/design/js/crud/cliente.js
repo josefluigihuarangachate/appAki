@@ -21,7 +21,7 @@ function listado() {
                     var imgAtencion = "recojo";
                     if (data[i].estadoturno === 'Entrega') {
                         imgAtencion = "entrega";
-                    }else if (data[i].estadoturno === 'Reclamo') {
+                    } else if (data[i].estadoturno === 'Reclamo') {
                         imgAtencion = "entrega";
                     }
 
@@ -82,6 +82,9 @@ function listado() {
 
 }
 listado();
+setInterval(function () {
+    listado();
+}, 10000);
 
 // CONSULTAR CLIENTES RECOJO Y REPARTOS
 function getIdTurnoxRepartidor(id, estadoturno, nombrecliente, telefono, direccion, idcliente, numeroorden) {

@@ -5,6 +5,7 @@
         "ext-gd": "*",
         "picqer/php-barcode-generator": "^2.2",
         "phpmailer/phpmailer": "^6.5",
-        "endroid/qrcode": "^4.3"
+        "endroid/qrcode": "^4.3",
+        "mike42/escpos-php": "^3.0"
     }
 }

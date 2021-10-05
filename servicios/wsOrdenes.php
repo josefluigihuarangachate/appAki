@@ -232,6 +232,19 @@ if (METODO($method) == 'GET') {
         } else {
             $json['msg'] = strings('error_empty');
         }
+    }else if($cmd == 'registrarreclamo'){
+        // NUMERO DE ORDEN Y ITEMS
+        $numerodeorden = @input('numerodeorden');
+        $fechadeentrega = @input('fechadeentrega');
+        $horadeentrega = @input('horadeentrega');      
+        $numerodeorden = @input('numerodeorden');
+        $origennumerodeorden = @input('origennumerodeorden');
+        $idcliente = @input('idcliente');
+        $horadeentrega = @input('horadeentrega');
+        $horadeentrega = @input('horadeentrega');
+        $horadeentrega = @input('horadeentrega');
+        
+        
     } else if ($cmd == 'actualizarflag') {
 
         $numerodeorden = @input('numerodeorden');
@@ -270,6 +283,7 @@ if (METODO($method) == 'GET') {
             $json['msg'] = strings('error_empty');
         }
     } else if ($cmd === 'registrarrepartidor') {
+        
         $codigorepartidor = input("codigodelrepartidor"); // CODIGO CON EL CUAL HARA EL LOGIN DESDE EL APP
         $nombredelrepartidor = input("nombredelrepartidor"); // Nombre Completos
         $apellidodelrepartidor = input("apellidodelrepartidor"); // Apellidos Completos

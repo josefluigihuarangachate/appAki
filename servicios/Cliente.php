@@ -136,7 +136,7 @@ if ($ajax) {
                     [
                         tabla('turnoxcliente') . '.id_zona' => $idzona,
                         tabla('turnoxcliente') . '.id_repartidor' => $idrepartidor,
-                        tabla('turnoxcliente') . '.fecha_turno' => date('Y-m-d'),
+                        tabla('turnoxcliente') . '.fecha_turno[<=]' => date('Y-m-d'),
                         tabla('turnoxcliente') . '.atencion' => 'Sin Atender',
                         tabla('turnoxcliente') . '.estado_turno' => ['Recojo', 'Entrega'],
                     ]
@@ -195,7 +195,6 @@ if ($ajax) {
                         tabla('turnoxcliente') . ".id_cliente(idcliente)",
                         tabla('turnoxcliente') . ".puesto_turno(puestoturno)",
                         'fechaturno' => Medoo::raw('(select current_date)'),
-                        //tabla('turnoxcliente') . ".fecha_turno(fechaturno)",
                         tabla('turnoxcliente') . ".hora_turno(horaturno)",
                         tabla('turnoxcliente') . ".estado_turno(estadoturno)",
                         tabla('turnoxcliente') . ".numero_orden(numeroorden)",

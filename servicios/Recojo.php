@@ -607,7 +607,9 @@ if ($ajax) {
 
                     // instantiate and use the dompdf class
                     // Quitar padding y margin pdf: https://stackoverflow.com/q/19779285/16488926
-                    $dompdf = new Dompdf();
+
+                    $height = 0;
+
                     $html = '
                     <style>
                         @page {
@@ -634,16 +636,18 @@ if ($ajax) {
                     <center>
                         <label style="font-family: sans-serif;font-size: 17px;font-weight: bold;line-height: 25px;">' . @strtoupper(strtolower($nombreservicio)) . '</label>
                     </center>
-                    <br>
+                    <br>';
+
+                    $html .= '
                     <small style="font-family: sans-serif;line-height: 23px;">ATENDIDO POR: ' . @strtoupper(strtolower(@$_SESSION['nombrecorto'])) . '</small><br>
                     <small style="font-family: sans-serif;line-height: 23px;">FECHA : ' . $fechahoyslash . ' ' . $horahoypm . '</small><br>
                     <small style="font-family: sans-serif;line-height: 23px;">CLIENTE : ' . @strtoupper(strtolower(@$_SESSION['nombrecliente'])) . '</small><br>
                     <small style="font-family: sans-serif;line-height: 23px;">TELEFONO : ' . @$_SESSION['telefono'] . '</small><br>
                     <small style="font-family: sans-serif;line-height: 23px;">DIRECCIÓN : ' . @strtoupper(strtolower(@$_SESSION['direccion'])) . '</small>
                     <br>
-                    <br>
-                    
-                    <table cellspacing="0" style="width: 100%;border-top: 1px solid black;border-bottom: 1px solid black;">
+                    ';
+
+                    $html .= '<table cellspacing="0" style="width: 100%;border-top: 1px solid black;border-bottom: 1px solid black;">
                         <tr style="text-align: left;font-family: sans-serif;">
                             <td><b>CANT</b></td>
                             <td><b>DESCRIPCION</b></td>
@@ -651,25 +655,41 @@ if ($ajax) {
                         </tr>                        
                     </table>';
 
+                    $height += 330; // HASTA LA TABLA CANT |   DESCRIPCION    |    IMPORTE                  
+
+                    $copia = $html;
+
                     if ($promociones) {
                         //$sumaprecios = 0;
                         $html .= '<div style="text-align: left;font-family: sans-serif;">';
+                        $copia .= '<div style="text-align: left;font-family: sans-serif;">';
                         foreach ($promociones as $promo => $prendas) {
                             $html .= "1 &nbsp;" . $promo . "<br>";
+                            $copia .= "1 &nbsp;" . $promo . "<br>";
+                            $height += 14;
+
                             for ($pre = 0; $pre < count(@$prendas); $pre++) {
                                 $html .= "&nbsp;&nbsp;&nbsp; (1)&nbsp;" . @$prendas[$pre]['nombreprenda'] . " <label style='float: right;'>" . $prendas[$pre]['precioprenda'] . "</label><br>";
-                                $html .= "&nbsp;&nbsp;&nbsp; " . @$prendas[$pre]['color'] . "<br>";
-                                $html .= "&nbsp;&nbsp;&nbsp; " . @$prendas[$pre]['marca'];
+                                $copia .= "&nbsp;&nbsp;&nbsp; (1)&nbsp;" . @$prendas[$pre]['nombreprenda'] . " <label style='float: right;'>" . $prendas[$pre]['precioprenda'] . "</label><br>";
+                                $html .= "&nbsp;&nbsp;&nbsp; " . @$prendas[$pre]['color'] . " / ";
+                                $copia .= "&nbsp;&nbsp;&nbsp; " . @$prendas[$pre]['color'] . " / ";
+                                $html .= "&nbsp;&nbsp;" . @$prendas[$pre]['marca'];
+                                $copia .= "&nbsp;&nbsp;" . @$prendas[$pre]['marca'];
+                                $height += (14 * 3);
                                 if (@$prendas[$pre]['nombreestados']) {
                                     $html .= "<br>&nbsp;&nbsp;&nbsp; " . str_replace(' @ ', ',', $prendas[$pre]['nombreestados']) . "<br>";
+                                    $copia .= "<br>&nbsp;&nbsp;&nbsp; " . str_replace(' @ ', ',', $prendas[$pre]['nombreestados']) . "<br>";
                                 } else {
                                     $html .= "<br>";
+                                    $copia .= "<br>";
                                 }
                                 //$sumaprecios = $sumaprecios + @$prendas[$pre]['precioprenda'];
                             }
                         }
                         $html .= "<br><strong>TOTAL A PAGAR : S/.</strong>" . " <strong style='float: right;'>" . number_format($pagototal, 2, '.', '') . "</strong><br>";
+                        $copia .= "<br><strong>TOTAL A PAGAR : S/.</strong>" . " <strong style='float: right;'>" . number_format($pagototal, 2, '.', '') . "</strong><br>";
                         $html .= '</div><br>';
+                        $copia .= '</div><br>';
 
                         // GUARDO EL JSON DE LAS PROMOCIONES
                         $pdo->update(tabla('orden'),
@@ -683,34 +703,54 @@ if ($ajax) {
                         // FIN GUARDO EL JSON DE LAS PROMOCIONES
                     } else if ($piezas) {
                         $html .= '<div style="text-align: left;font-family: sans-serif;">';
+                        $copia .= '<div style="text-align: left;font-family: sans-serif;">';
                         $ti = 0;
                         $sumarPrecios = 0;
                         while ($ti < count($piezas)) {
                             $sumarPrecios = $piezas[$ti]['precio'];
                             $iPiezas = $piezas[$ti]['piezas'];
                             $html .= "1 &nbsp;" . $piezas[$ti]['nombreprenda'] . " <strong style='float: right;'>" . $piezas[$ti]['precio'] . "</strong><br>";
+                            $copia .= "1 &nbsp;" . $piezas[$ti]['nombreprenda'] . " <strong style='float: right;'>" . $piezas[$ti]['precio'] . "</strong><br>";
+                            //$height += 30;
+                            $height += 14;
                             if (count($iPiezas) >= 2) {
                                 $yi = 0;
                                 while ($yi < count($iPiezas)) {
                                     $html .= "&nbsp;&nbsp; (1) &nbsp;" . @$iPiezas[$yi]['nombrepieza'] . "<br>";
-                                    $html .= "&nbsp;&nbsp;&nbsp;" . @$piezas[$ti]['color'] . "<br>";
+                                    $copia .= "&nbsp;&nbsp; (1) &nbsp;" . @$iPiezas[$yi]['nombrepieza'] . "<br>";
+                                    $html .= "&nbsp;&nbsp;&nbsp;" . @$piezas[$ti]['color'] . " / ";
+                                    $copia .= "&nbsp;&nbsp;&nbsp;" . @$piezas[$ti]['color'] . " / ";
+
+                                    $html .= "&nbsp;&nbsp;" . @$piezas[$ti]['marca'] . "<br>";
+                                    $copia .= "&nbsp;&nbsp;" . @$piezas[$ti]['marca'] . "<br>";
                                     if ($iPiezas[$yi]['nombresestados']) {
                                         $html .= "&nbsp;&nbsp;&nbsp;" . str_replace(" @ ", ',', $iPiezas[$yi]['nombresestados']) . "<br>";
+                                        $copia .= "&nbsp;&nbsp;&nbsp;" . str_replace(" @ ", ',', $iPiezas[$yi]['nombresestados']) . "<br>";
                                     }
                                     $yi = $yi + 1;
+
+                                    $height += (3 * 14);
                                 }
                             } else if (count($iPiezas) == 1) {
-                                $html .= "&nbsp;&nbsp;&nbsp;" . @$piezas[$ti]['color'] . "<br>";
-                                $html .= "&nbsp;&nbsp;&nbsp;" . @$piezas[$ti]['marca'] . "<br>";
+                                $html .= "&nbsp;&nbsp;&nbsp;" . @$piezas[$ti]['color'] . " / ";
+                                $copia .= "&nbsp;&nbsp;&nbsp;" . @$piezas[$ti]['color'] . " / ";
+                                $html .= "&nbsp;&nbsp;" . @$piezas[$ti]['marca'] . "<br>";
+                                $copia .= "&nbsp;&nbsp;" . @$piezas[$ti]['marca'] . "<br>";
                                 if (@$iPiezas[0]['nombresestados']) {
                                     $html .= "&nbsp;&nbsp;&nbsp;" . str_replace(" @ ", ',', $iPiezas[0]['nombresestados']) . "<br>";
+                                    $copia .= "&nbsp;&nbsp;&nbsp;" . str_replace(" @ ", ',', $iPiezas[0]['nombresestados']) . "<br>";
                                 }
+                                $height += 42;
                             }
 
                             $ti = $ti + 1;
                         }
                         $html .= "<br><strong>TOTAL A PAGAR : S/.</strong>" . " <strong style='float: right;'>" . number_format($pagototal, 2, '.', '') . "</strong><br>";
+                        //$height += 50;
+
+                        $copia .= "<br><strong>TOTAL A PAGAR : S/.</strong>" . " <strong style='float: right;'>" . number_format($pagototal, 2, '.', '') . "</strong><br>";
                         $html .= '</div><br>';
+                        $copia .= '</div><br>';
 
                         // GUARDO EL JSON DE LAS PIEZAS
                         $pdo->update(tabla('orden'),
@@ -734,17 +774,41 @@ if ($ajax) {
                         <p>
                             <strong style="font-size: 35px;color: black;font-weight: bold;font-family: sans-serif;">' . $numero_orden . '</strong>
                         </p>
-                    </center>
-                    <strong style="font-family: sans-serif;">Condiciones del servicio</strong><br>
-                    <strong style="font-family: sans-serif;font-size: 11px;">Visita nuestra pagina web: www.lavanderiaaki.com e infórmese de las condiciones de nuestro servicio</strong><br>
-                        
-                    <input type="hidden" hidden="hidden" id="idpdfexist" name="idpdfexist" value="' . $codpdf . '">                    
-                    ';
+                    </center>';
+                    //$height += 50;
 
+                    $copia .= '
+                    <!-- VA ABAJO DE LAS PRENDAS -->
+                    <label style="font-family: sans-serif;font-size: 17px;font-weight: bold">FECHA DE ENTREGA:</label><br>
+                    <strong style="font-family: sans-serif;">' . @ucwords(nombreDia($fechadeentrega)) . ', ' . date('d/m/Y', strtotime($fechadeentrega)) . ' ' . date('h:i A', strtotime($horahoypm)) . '</strong><br>
+                    <strong style="font-family: sans-serif;"><u>' . $tipo_cobro . '</u></strong>
+                    <center>
+                        <img src="' . convertirblobimageporruta(RUTA_PDF . $codbar) . '" alt="" style="width: 80%;height: 85px;margin-bottom: 12px;"/><br>
+                        <p>
+                            <strong style="font-size: 35px;color: black;font-weight: bold;font-family: sans-serif;">' . $numero_orden . '</strong>
+                        </p>
+                    </center>';
+                    //$height += 20;
+                    // AQUI SOLO CLIENTE
+                    $copia .= '<center><strong style="font-family: sans-serif;font-size: 25px;">COPIA INTERNA</strong></center><br>';
+                    // FIN AQUI SOLO CLIENTE
+                    // AQUI VARIA - SOLO DRIVER
+                    $html .= '<strong style="font-family: sans-serif;">Condiciones del servicio</strong><br><strong style="font-family: sans-serif;font-size: 11px;">Visita nuestra pagina web: www.lavanderiaaki.com e infórmese de las condiciones de nuestro servicio</strong><br>';
+                    // FIN AQUI VARIA - SOLO DRIVER
+
+                    $html .= '<input type="hidden" hidden="hidden" id="idpdfexist" name="idpdfexist" value="' . $codpdf . '"> ';
+
+                    $height += 320;
+
+                    //echo $html2pdf;
+                    //die();
+                    //$htmlDriver = $html;
+                    //$html2pdf = $html . $htmlDriver;
+                    $dompdf = new Dompdf();
                     unlink(RUTA_PDF . $codbar);
-                    $dompdf->loadHtml($html);
+                    $dompdf->loadHtml($html . "<br><hr><br>" . $copia);
                     $dompdf->set_option('isRemoteEnabled', TRUE);
-                    $dompdf->set_paper(array(0, 0, 280, 492));
+                    $dompdf->set_paper(array(0, 0, 280, ($height * 2)));
                     $dompdf->render();
                     $output = $dompdf->output();
                     file_put_contents(RUTA_PDF . $codpdf, $output);

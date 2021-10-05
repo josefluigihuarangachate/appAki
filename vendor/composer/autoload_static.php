@@ -18,6 +18,7 @@ class ComposerStaticInitab9b7b96a4594e824e16ec7d84636a90
         ),
         'M' => 
         array (
+            'Mike42\\' => 7,
             'Medoo\\' => 6,
         ),
         'F' => 
@@ -51,6 +52,11 @@ class ComposerStaticInitab9b7b96a4594e824e16ec7d84636a90
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'Mike42\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mike42/gfx-php/src/Mike42',
+            1 => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42',
         ),
         'Medoo\\' => 
         array (

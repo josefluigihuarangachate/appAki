@@ -193,6 +193,7 @@ if ($ajax) {
                         
                     }
 
+                    $height = 0;
                     $html = '
                     <style>
                         @page {
@@ -243,9 +244,11 @@ if ($ajax) {
                             <td><b>TOTAL</b></td>
                         </tr>                        
                     ';
+                    $height += 394; // HASTA LA TABLA CANT |   DESCRIPCION    |    IMPORTE     
 
                     $promociones = objectToArray(json_decode($detalleorden));
                     $piezas = objectToArray(json_decode($detalleorden));
+
                     $pagototal = 0;
                     if (
                             $nombredeservicio == 'PROMOCIONES' ||
@@ -325,6 +328,7 @@ if ($ajax) {
                             $arrpagototal[] = $piezas[$p]['precio'];
                             $html .= "<tr>";
                             $html .= "<td colspan='2'>1 UNAD &nbsp;" . $piezas[$p]['nombreprenda'];
+                            $height += 14;
                             $subpiezas = $piezas[$p]['piezas'];
                             if (count($subpiezas) == 1) {
                                 $html .= "</td>";
@@ -336,15 +340,19 @@ if ($ajax) {
                                 $html .= "<td>";
                                 $html .= $piezas[$p]['precio'];
                                 $html .= "</td>";
+                                $height += (14 * 3);
                             } else if (count($piezas) >= 2) {
                                 // ACA UN FOR
                                 $html .= "<br>&nbsp;&nbsp;&nbsp;";
+                                $height += 14;
                                 for ($sp = 0; $sp < count($subpiezas); $sp++) {
-                                    $html .= "1 &nbsp;" . @$subpiezas[$sp]['nombrepieza'];
+                                    $html .= "1 &nbsp;" . $subpiezas[$sp]['nombrepieza'];
                                     if ($sp < (count($subpiezas) - 1)) {
-                                        $html .= ",";
+                                        $html .= ", ";
                                     }
+                                    // echo $subpiezas[$sp]['nombrepieza'];
                                 }
+
                                 $html .= "</td>";
 
                                 $precio_unitario = $piezas[$p]['precio'] / 1.18;
@@ -356,6 +364,8 @@ if ($ajax) {
                                 $html .= "<td>";
                                 $html .= $piezas[$p]['precio'];
                                 $html .= "</td>";
+
+                                $height += (14 * 3);
                             }
                             $html .= "</tr>";
                         }
@@ -411,6 +421,8 @@ if ($ajax) {
                     $soles_centimos = @explode('.', str_replace(",", "", strval(number_format($op_gravada, 2, '.', ''))));
                     $html .= "<strong>SON: " . number_words(@$soles_centimos[0], "", "", "") . ' Y ' . @$soles_centimos[1] . '/100 SOLES</strong><br>';
 
+                    $height += 85;
+
                     // ruc aki| codigo sunat | serie |  numero bv | valor vta | monto vtaa |  fecha doc |  tipo doc |  numero doc
                     $tipo_doc = 1;
                     if ($tipodedocumento == 'RUC') {
@@ -422,14 +434,16 @@ if ($ajax) {
                     $png = convertirblobimageporruta(RUTA_PDF . "QR" . $numerodefactura . '.png');
                     unlink(RUTA_PDF . "QR" . $numerodefactura . '.png');
                     $html .= "<center><img src='" . $png . "' width='135'/></center>";
+                    $height += 95 + (14 * 4);
                     $html .= "<label>CAJERO: MIGUEL GIBU</label><br>";
                     $html .= "<label>Medio de pago: " . strtoupper($metododepago) . "</label>";
+                    $height += 28;
 
                     // FALTA EL JSON
 
                     $dompdf->loadHtml($html);
                     $dompdf->set_option('isRemoteEnabled', TRUE);
-                    $dompdf->set_paper(array(0, 0, 280, 492));
+                    $dompdf->set_paper(array(0, 0, 280, $height));
                     $dompdf->render();
                     $output = $dompdf->output();
                     file_put_contents(RUTA_PDF . $codpdf, $output);
@@ -462,7 +476,8 @@ if ($ajax) {
                                         ';
 
                             $mail = new PHPMailer;
-                            $mail->SMTPDebug = 3;
+                            $mail->SMTPDebug = false;
+                            $mail->do_debug = 0;
                             $mail->isSMTP();
                             $mail->Host = 'mail.intellipos.com.pe';
                             $mail->Port = '587'; //Sets the default SMTP server port
@@ -478,12 +493,6 @@ if ($ajax) {
                             $mail->AddAttachment(RUTA_PDF . $codpdf);
                             $mail->Subject = $titulo . ' - LAVANDERIA AKI';
                             $mail->Body = $message;
-
-                            try {
-                                $mail->send();
-                            } catch (Exception $e) {
-                                $json['msg'] = strings('error_correo');
-                            }
                             //echo 'Message has been sent';
                         } catch (Throwable $e) {
                             $json['msg'] = strings('error_correo');
@@ -541,6 +550,19 @@ if ($ajax) {
                             $json['status'] = 'Ok';
                             $json['url_archivo'] = strval($codpdf);
                             $json['msg'] = strings('success_update') . ': ' . PHP_EOL . $arraynumerodeordenes;
+
+                            // ENVIAR POR CORREO ELECTRONICO SI MARQUE EL CHECKBOX
+                            if ($enviarporcorreo && !empty($correoelectronico)) {
+                                // AQUI ENVIO EL ARCHIVO AL CORREO ELECTRONICO PARA CONCATENAR EL MENSAJE
+                                try {
+                                    $mail->send();
+                                    // AQUI ENVIAR EL JSON
+                                } catch (Throwable $t) {
+                                    $json['msg'] = $json['msg'] . ". " . strings('error_correo');
+                                }
+                                // FIN AQUI ENVIO EL ARCHIVO AL CORREO ELECTRONICO PARA CONCATENAR EL MENSAJE
+                            }
+                            // FIN ENVIAR POR CORREO ELECTRONICO SI MARQUE EL CHECKBOX
                         } else {
                             $json['msg'] = strings('error_update') . ', porque los datos ya fueron registrados';
                         }
