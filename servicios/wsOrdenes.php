@@ -206,9 +206,9 @@ if (METODO($method) == 'GET') {
                 $pdo->insert(
                         tabla("turnoxcliente"),
                         [
-                            "id_repartidor" => $idrepartidor,
-                            "id_cliente" => $idcliente,
-                            "id_zona" => $iddezona,
+                            "id_repartidor" => intval($idrepartidor),
+                            "id_cliente" => intval($idcliente),
+                            "id_zona" => intval($iddezona),
                             "puesto_turno" => $puestodeturno,
                             "fecha_turno" => $fecha,
                             "hora_turno" => $hora,
@@ -216,9 +216,10 @@ if (METODO($method) == 'GET') {
                             "estado_turno" => $estadodeturno,
                         ]
                 );
+
                 $roeCountTurnoxCliente = $pdo->id();
 
-                if ($roeCountTurnoxCliente) {
+                if (intval($roeCountTurnoxCliente) > 0) {
                     $json['code'] = '200';
                     $json['status'] = 'Ok';
                     $json['msg'] = strings('success_create');
@@ -232,19 +233,17 @@ if (METODO($method) == 'GET') {
         } else {
             $json['msg'] = strings('error_empty');
         }
-    }else if($cmd == 'registrarreclamo'){
+    } else if ($cmd == 'registrarreclamo') {
         // NUMERO DE ORDEN Y ITEMS
         $numerodeorden = @input('numerodeorden');
         $fechadeentrega = @input('fechadeentrega');
-        $horadeentrega = @input('horadeentrega');      
+        $horadeentrega = @input('horadeentrega');
         $numerodeorden = @input('numerodeorden');
         $origennumerodeorden = @input('origennumerodeorden');
         $idcliente = @input('idcliente');
         $horadeentrega = @input('horadeentrega');
         $horadeentrega = @input('horadeentrega');
         $horadeentrega = @input('horadeentrega');
-        
-        
     } else if ($cmd == 'actualizarflag') {
 
         $numerodeorden = @input('numerodeorden');
@@ -283,7 +282,7 @@ if (METODO($method) == 'GET') {
             $json['msg'] = strings('error_empty');
         }
     } else if ($cmd === 'registrarrepartidor') {
-        
+
         $codigorepartidor = input("codigodelrepartidor"); // CODIGO CON EL CUAL HARA EL LOGIN DESDE EL APP
         $nombredelrepartidor = input("nombredelrepartidor"); // Nombre Completos
         $apellidodelrepartidor = input("apellidodelrepartidor"); // Apellidos Completos
@@ -391,6 +390,25 @@ if (METODO($method) == 'GET') {
         } else {
             $json['msg'] = strings('error_empty');
         }
+    } else if ($cmd === 'registrarcliente') {
+        $idcliente = input('idcliente');
+        $tipodecliente = input('tipodecliente');
+        $nombredelcliente = input('nombredelcliente');
+        $apellidopaterno = input('apellidopaterno');
+        $apellidomaterno = input('apellidomaterno');
+        $tipodedocumento = input('tipodedocumento');
+        $numerodedocumento = input('numerodedocumento');
+        $nombredeempresa = input('nombredeempresa');
+        $direcciondelcliente = input('direcciondelcliente');
+        $referenciadelcliente = input('referenciadelcliente');
+        $correodelcliente = input('correodelcliente');
+        $numerodelcliente = input('numerodelcliente');
+        $codigodeldistrito = input('codigodeldistrito');
+        $codigodezona = input('codigodezona');
+        $fechaderegistro = input('fechaderegistro');
+        
+        // OBTENER LATITUD Y LONGITUD
+        
     } else {
         $json['msg'] = strings('error_cmd');
     }
