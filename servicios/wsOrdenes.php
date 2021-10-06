@@ -391,24 +391,99 @@ if (METODO($method) == 'GET') {
             $json['msg'] = strings('error_empty');
         }
     } else if ($cmd === 'registrarcliente') {
-        $idcliente = input('idcliente');
-        $tipodecliente = input('tipodecliente');
-        $nombredelcliente = input('nombredelcliente');
+        $idcliente = input('idcliente'); // CORRELATIVO O EL AUTOINCREMENT DE ELLOS
+        $tipodecliente = input('tipodecliente'); // Empresa o Persona
+        $codigodecliente = input('codigodecliente'); // PONER EL AUTO INCREMENT QUE ESTA EN EL SISTEMA BASE
+        $nombredeempresa = input('nombredeempresa'); // Poner el nombre de la empresa
+        $nombredecliente = input('nombredecliente');
         $apellidopaterno = input('apellidopaterno');
         $apellidomaterno = input('apellidomaterno');
-        $tipodedocumento = input('tipodedocumento');
+        $tipodedocumento = input('tipodedocumento'); // (1=DNI, 2=RUC, 3=C.E. 4=OTRO)
         $numerodedocumento = input('numerodedocumento');
-        $nombredeempresa = input('nombredeempresa');
         $direcciondelcliente = input('direcciondelcliente');
-        $referenciadelcliente = input('referenciadelcliente');
-        $correodelcliente = input('correodelcliente');
-        $numerodelcliente = input('numerodelcliente');
-        $codigodeldistrito = input('codigodeldistrito');
-        $codigodezona = input('codigodezona');
-        $fechaderegistro = input('fechaderegistro');
-        
-        // OBTENER LATITUD Y LONGITUD
-        
+        $direcciondereferencia = input('direcciondereferencia');
+        $emaildelcliente = input('emaildelcliente');
+        $numerodelcliente = input('numerodecelulardelcliente');
+        $codigodedistrito = input('codigodedistrito');
+        $estadodelcliente = input('estadodelcliente'); // Activo o Inactivo
+        $codigodezona = input('codigodezona'); // C1 , C2 , C3
+        $fecharegistro = input('fecharegistro'); // Es la fecha en la que se registro el cliente
+        //$cantidaddeordenatendidas = input('cantidaddeordenatendidas');
+        //$importeacumulado = input('importeacumulado');
+
+        $latitud = "";
+        $longitud = "";
+
+        if (
+                !empty($idcliente) &&
+                !empty($tipodecliente) &&
+                !empty($codigodecliente) &&
+                !empty($nombredecliente) &&
+                !empty($apellidopaterno) &&
+                !empty($apellidomaterno) &&
+                !empty($tipodedocumento) &&
+                !empty($numerodedocumento) &&
+                !empty($direcciondelcliente) &&
+                !empty($numerodelcliente) &&
+                !empty($codigodedistrito) &&
+                !empty($estadodelcliente) &&
+                !empty($codigodezona) &&
+                !empty($fecharegistro)
+        ) {
+
+            $latlon = getLatLonByAddressName(input('direcciondelcliente'), KEYOPENCAGE);
+            if ($json) {
+                $latitud = strval(@$latlon['lat']);
+                $longitud = strval(@$latlon['lng']);
+            }
+
+            // OBTENER EL ID DE LA ZONA
+            $idzona = $pdo->select(
+                    tabla('zona'),
+                    "id",
+                    [
+                        "puesto_zona" => $codigodezona
+                    ]
+            );
+
+            try {
+                $pdo->insert(tabla('cliente'), [
+                    "id" => $idcliente,
+                    "Tipo_Cliente" => intval($tipodecliente),
+                    "nombreempresa" => isEmpty($nombredeempresa),
+                    "Codigo_Cliente" => isEmpty($codigodecliente),
+                    "Nombre_Cliente" => $nombredecliente,
+                    "ApellidoPaterno_Cliente" => $apellidopaterno,
+                    "ApellidoMaterno_Cliente" => $apellidomaterno,
+                    "TipoDocumento_Cliente" => $tipodedocumento,
+                    "NumeroDocumento_Cliente" => $numerodedocumento,
+                    "Direccion1_Cliente" => $direcciondelcliente,
+                    "Direccion2_Cliente" => isEmpty($direcciondereferencia), // 
+                    "Email_Cliente" => isEmpty($emaildelcliente), //
+                    "NumeroCel_Cliente" => $celulardecliente,
+                    "CodDistrito1_Cliente" => $codigodedistrito,
+                    "CodDistrito2_Cliente" => $codigodedistrito,
+                    "Estado_Cliente" => ucwords(strtolower($estadodelcliente)),
+                    "CodZona_Cliente" => $idzona[0]['id'],
+                    "FechaRegistro_Cliente" => $fecharegistro,
+                    "Latitud" => isEmpty($latitud), //
+                    "Longitud" => isEmpty($longitud), //
+                ]);
+                $account_id = $pdo->id();
+
+                if ($account_id) {
+                    $json['code'] = '200';
+                    $json['status'] = 'Ok';
+                    $json['msg'] = strings('success_create');
+                } else {
+                    $json['msg'] = strings('error_create');
+                }
+            } catch (Throwable $t) {
+                $json['msg'] = strings('error_create');
+            }
+        } else {
+            $json['msg'] = strings('error_empty');
+        }
     } else {
         $json['msg'] = strings('error_cmd');
     }
