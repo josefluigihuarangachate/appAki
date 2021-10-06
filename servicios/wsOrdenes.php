@@ -391,6 +391,7 @@ if (METODO($method) == 'GET') {
             $json['msg'] = strings('error_empty');
         }
     } else if ($cmd === 'registrarcliente') {
+
         $idcliente = input('idcliente'); // CORRELATIVO O EL AUTOINCREMENT DE ELLOS
         $tipodecliente = input('tipodecliente'); // Empresa o Persona
         $codigodecliente = input('codigodecliente'); // PONER EL AUTO INCREMENT QUE ESTA EN EL SISTEMA BASE
@@ -404,7 +405,7 @@ if (METODO($method) == 'GET') {
         $direcciondereferencia = input('direcciondereferencia');
         $emaildelcliente = input('emaildelcliente');
         $numerodelcliente = input('numerodecelulardelcliente');
-        $codigodedistrito = input('codigodedistrito');
+        $codigodedistrito = input('codigodedistrito'); // Ubigeo: 324324
         $estadodelcliente = input('estadodelcliente'); // Activo o Inactivo
         $codigodezona = input('codigodezona'); // C1 , C2 , C3
         $fecharegistro = input('fecharegistro'); // Es la fecha en la que se registro el cliente
@@ -431,6 +432,8 @@ if (METODO($method) == 'GET') {
                 !empty($fecharegistro)
         ) {
 
+
+
             $latlon = getLatLonByAddressName(input('direcciondelcliente'), KEYOPENCAGE);
             if ($json) {
                 $latitud = strval(@$latlon['lat']);
@@ -448,8 +451,8 @@ if (METODO($method) == 'GET') {
 
             try {
                 $pdo->insert(tabla('cliente'), [
-                    "id" => $idcliente,
-                    "Tipo_Cliente" => intval($tipodecliente),
+                    "id" => intval($idcliente),
+                    "Tipo_Cliente" => $tipodecliente,
                     "nombreempresa" => isEmpty($nombredeempresa),
                     "Codigo_Cliente" => isEmpty($codigodecliente),
                     "Nombre_Cliente" => $nombredecliente,
@@ -460,18 +463,19 @@ if (METODO($method) == 'GET') {
                     "Direccion1_Cliente" => $direcciondelcliente,
                     "Direccion2_Cliente" => isEmpty($direcciondereferencia), // 
                     "Email_Cliente" => isEmpty($emaildelcliente), //
-                    "NumeroCel_Cliente" => $celulardecliente,
+                    "NumeroCel_Cliente" => $numerodelcliente,
                     "CodDistrito1_Cliente" => $codigodedistrito,
                     "CodDistrito2_Cliente" => $codigodedistrito,
                     "Estado_Cliente" => ucwords(strtolower($estadodelcliente)),
-                    "CodZona_Cliente" => $idzona[0]['id'],
+                    "CodZona_Cliente" => intval(@$idzona[0]),
                     "FechaRegistro_Cliente" => $fecharegistro,
                     "Latitud" => isEmpty($latitud), //
                     "Longitud" => isEmpty($longitud), //
                 ]);
+
                 $account_id = $pdo->id();
 
-                if ($account_id) {
+                if (intval($account_id)) {
                     $json['code'] = '200';
                     $json['status'] = 'Ok';
                     $json['msg'] = strings('success_create');

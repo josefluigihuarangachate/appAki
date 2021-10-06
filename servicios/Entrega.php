@@ -428,6 +428,9 @@ if ($ajax) {
                     if ($tipodedocumento == 'RUC') {
                         $tipo_doc = 6;
                     }
+                    
+                    // FALTA EL JSON
+                    
 
                     $codigoqr = "20123257899|" . "CodigodeSunatJson" . '|' . str_replace("-", '|', $numerodefactura) . '|' . number_format($op_gravada, 2, '.', '') . '|' . number_format($pagototal, 2, '.', '') . '|' . $fecha . '|' . $tipo_doc . '|' . $numerodedocumento;
                     QRcode::png($codigoqr, RUTA_PDF . "QR" . $numerodefactura . '.png');
@@ -439,7 +442,7 @@ if ($ajax) {
                     $html .= "<label>Medio de pago: " . strtoupper($metododepago) . "</label>";
                     $height += 28;
 
-                    // FALTA EL JSON
+                    
 
                     $dompdf->loadHtml($html);
                     $dompdf->set_option('isRemoteEnabled', TRUE);

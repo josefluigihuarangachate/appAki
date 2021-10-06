@@ -1,5 +1,10 @@
 <?php
 
+$data = 'hello';
+$output = shell_exec("py rc_soft.py " . $data);
+echo $output;
+die();
+
 $servername = "localhost";
 $username = "root";
 $password = "";
