@@ -32,7 +32,7 @@ function CleanInput($input) {
 }
 
 function input($nameInput) {
-    return CleanInput(@$_REQUEST[$nameInput]);
+    return trim(CleanInput(@$_REQUEST[$nameInput]));
 }
 
 function tipo_documento($i) {

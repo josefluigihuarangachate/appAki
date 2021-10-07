@@ -53,14 +53,15 @@ if (METODO($method) == 'GET') {
                 ) {
                     $detalledeorden = (array) json_decode("[" . @$data[$d]['detalledeorden'] . "]", true);
                     unset($data[$d]['detalledeorden']);
-                    $data[$d]['detalledeorden'] = $detalledeorden[0];
+                    $data[$d]['detalledeorden'] = $detalledeorden;
                 } else {
                     $detalledeorden = (array) json_decode(@$data[$d]['detalledeorden'], true);
                     unset($data[$d]['detalledeorden']);
-                    $data[$d]['detalledeorden'] = $detalledeorden[0];
+                    $data[$d]['detalledeorden'] = $detalledeorden;
                 }
                 continue;
             }
+
 
             for ($d = 0; $d < count($data); $d++) {
                 if (
@@ -69,14 +70,19 @@ if (METODO($method) == 'GET') {
                         $data[$d]['nombredelservicio'] == 'PROMOCIÓN'
                 ) {
                     $promociones = $data[$d]['detalledeorden'];
-                    foreach ($promociones as $promo => $value) {
-                        if ($promo) {
+
+                    for ($pm = 0; $pm < count($promociones); $pm++) {
+                        $arrpromociones = $promociones[$pm];
+                        $appPrecio = [];
+                        $pagoPromocion = 0;
+                        foreach ($arrpromociones as $promo => $value) {
 
                             $appPrecio = [];
                             for ($v = 0; $v < count($value); $v++) {
                                 $appPrecio[] = $value[$v]['precioprenda'];
                             }
                             $pagoPromocion = array_sum($appPrecio) - min($appPrecio);
+
                             $dataprom = $pdo->select(
                                     tabla('detalleorden'),
                                     [
@@ -92,17 +98,14 @@ if (METODO($method) == 'GET') {
                                         'LIMIT' => 1
                                     ]
                             );
-                            $data[$d]['detalledeorden'][$promo]['DATOS'] = array(
-                                "idpromocion" => @$dataprom[0]['idpromocion'],
-                                "preciopromocion" => str_replace(",", "", number_format($pagoPromocion, 2, '.', ','))
-                            );
+                            $data[$d]['detalledeorden'][$pm][$promo]['idpromocion'] = @$dataprom[0]['idpromocion'];
+                            $data[$d]['detalledeorden'][$pm][$promo]['preciopromocion'] = str_replace(",", "", number_format($pagoPromocion, 2, '.', ','));
                             unset($dataprom);
                         }
                     }
                 }
                 continue;
             }
-
 
             $json['code'] = '200';
             $json['status'] = 'Ok';
@@ -536,7 +539,7 @@ if (METODO($method) == 'GET') {
                                 "id" => intval($idcliente)
                             ]
                     );
-                    
+
                     if ($data->rowCount()) {
                         $json['code'] = '200';
                         $json['status'] = 'Ok';
@@ -549,6 +552,244 @@ if (METODO($method) == 'GET') {
                 }
             } else {
                 $json['msg'] = 'Debe ingresar el id del cliente';
+            }
+        } else {
+            $json['msg'] = strings('error_empty');
+        }
+    } else if ($cmd === 'registrararticulosimple') {
+
+        $idarticulo = input('idarticulo');
+        $nombredearticulo = input('nombredearticulo');
+        $unidaddemedida = input('unidaddemedida');
+        $codigodearticulo = input('idarticulo');
+        $preciodearticulo = input('preciodearticulo'); // DECIMAL: 10.00
+        $nombredelservicio = input('nombredelservicio'); // Manejo estas categorias y sin tildes: Agua, Promociones, Pieles, Etc..
+
+        if (
+                !empty($idarticulo) &&
+                !empty($nombredearticulo) &&
+                !empty($unidaddemedida) &&
+                !empty($codigodearticulo) &&
+                !empty($preciodearticulo) &&
+                !empty($nombredelservicio)
+        ) {
+
+            // OBTENGO EL ID DEL SERVICIO
+            $idservicio = $pdo->select(
+                    tabla('servicio'),
+                    "id",
+                    [
+                        "Nombre_Servicio[~]" => trim($nombredelservicio)
+                    ]
+            );
+
+            // OBTENGO EL ID DEL SERVICIO
+            $verificaridarticulo = $pdo->select(
+                    tabla('articulo'),
+                    "id",
+                    [
+                        "id" => intval($idarticulo)
+                    ]
+            );
+
+            if (
+                    !empty($verificaridarticulo)
+            ) {
+                // UPDATE
+                try {
+                    $data = $pdo->update(
+                            tabla('articulo'),
+                            [
+                                "nombre_articulo" => strtoupper($nombredearticulo),
+                                "codigo_articulo" => $idarticulo,
+                                "precio_articulo" => $preciodearticulo,
+                                "flkpak_prenda" => 1,
+                                "Id_Servicio" => intval($idservicio[0]),
+                                "estado_articulo" => 'Activo'
+                            ],
+                            [
+                                "id" => intval($idarticulo)
+                            ]
+                    );
+
+                    if ($data->rowCount()) {
+                        $json['code'] = '200';
+                        $json['status'] = 'Ok';
+                        $json['msg'] = strings('success_update');
+                    } else {
+                        $json['msg'] = strings('error_update');
+                    }
+                } catch (Throwable $t) {
+                    $json['msg'] = strings('error_update');
+                }
+            } else if (
+                    empty($verificaridarticulo)
+            ) {
+                // INSERT
+                try {
+                    $pdo->insert(
+                            tabla('articulo'),
+                            [
+                                "id" => intval($idarticulo),
+                                "nombre_articulo" => strtoupper($nombredearticulo),
+                                "codigo_articulo" => $idarticulo,
+                                "precio_articulo" => $preciodearticulo,
+                                "flkpak_prenda" => 1,
+                                "Id_Servicio" => intval($idservicio[0]),
+                                "estado_articulo" => 'Activo'
+                            ]
+                    );
+
+                    $account_id = $pdo->id();
+
+                    if (intval($account_id)) {
+                        $json['code'] = '200';
+                        $json['status'] = 'Ok';
+                        $json['msg'] = strings('success_create');
+                    } else {
+                        $json['msg'] = strings('error_create');
+                    }
+                } catch (Throwable $t) {
+                    $json['msg'] = strings('error_create');
+                }
+            }
+        } else {
+            $json['msg'] = strings('error_empty');
+        }
+    } else if ($cmd === 'registrararticulocompuesto') {
+
+        // ARTICULO
+        $idarticulo = input('idarticulo');
+        $nombredearticulo = input('nombredearticulo');
+        $unidaddemedida = input('unidaddemedida');
+        $codigodearticulo = input('idarticulo');
+        $preciodearticulo = input('preciodearticulo'); // DECIMAL: 10.00
+        $nombredelservicio = input('nombredelservicio'); // Manejo estas categorias y sin tildes: Agua, Promociones, Pieles, Etc..
+        // RECETA
+        $inidarticulos = explode(",", input('inidarticulos')); // PASAR DE ESTA FORMA: inidarticulos = "1,3,4,5"
+
+        if (
+                !empty($idarticulo) &&
+                !empty($nombredearticulo) &&
+                !empty($unidaddemedida) &&
+                !empty($codigodearticulo) &&
+                !empty($preciodearticulo) &&
+                !empty($nombredelservicio) &&
+                !empty($inidarticulos)
+        ) {
+
+            // OBTENGO EL ID DEL SERVICIO
+            $idservicio = $pdo->select(
+                    tabla('servicio'),
+                    "id",
+                    [
+                        "Nombre_Servicio[~]" => trim($nombredelservicio)
+                    ]
+            );
+
+            // OBTENGO EL ID DEL SERVICIO
+            $verificaridarticulo = $pdo->select(
+                    tabla('articulo'),
+                    "id",
+                    [
+                        "id" => intval($idarticulo)
+                    ]
+            );
+
+            if (
+                    !empty($verificaridarticulo)
+            ) {
+
+                
+                // UPDATE
+                try {
+
+                    $rowCount = "";
+                    try {
+                        $data = $pdo->update(
+                                tabla('articulo'),
+                                [
+                                    "nombre_articulo" => strtoupper($nombredearticulo),
+                                    "codigo_articulo" => $idarticulo,
+                                    "precio_articulo" => $preciodearticulo,
+                                    "flkpak_prenda" => 1,
+                                    "Id_Servicio" => intval($idservicio[0]),
+                                    "estado_articulo" => 'Activo'
+                                ],
+                                [
+                                    "id" => intval($idarticulo)
+                                ]
+                        );
+
+                        $rowCount = $data->rowCount();
+                    } catch (Throwable $t) {
+                        
+                    }
+                    
+                    // OTRO TRY PARA ELIMINAR LA RECETA Y OTRO PARA REGISTARR LA RECETA
+
+                    if ($rowCount) {
+                        $json['code'] = '200';
+                        $json['status'] = 'Ok';
+                        $json['msg'] = strings('success_update');
+                    } else {
+                        $json['msg'] = strings('error_update');
+                    }
+                } catch (Throwable $t) {
+                    $json['msg'] = strings('error_update');
+                }
+            } else if (
+                    empty($verificaridarticulo)
+            ) {
+                // INSERT
+                try {
+
+                    // INSERTO EL ARTICULO
+                    $pdo->insert(
+                            tabla('articulo'),
+                            [
+                                "id" => intval($idarticulo),
+                                "nombre_articulo" => strtoupper($nombredearticulo),
+                                "codigo_articulo" => $idarticulo,
+                                "precio_articulo" => $preciodearticulo,
+                                "flkpak_prenda" => 1,
+                                "Id_Servicio" => intval($idservicio[0]),
+                                "estado_articulo" => 'Activo'
+                            ]
+                    );
+                    $account_id = $pdo->id();
+
+                    // INSERTO LAS PIEZAS
+                    $insertpiezas = [];
+                    for ($a = 0; $a < count($inidarticulos); $a++) {
+                        $insertpiezas[] = array(
+                            "IdArticulo_Receta" => intval($idarticulo),
+                            "Cantidad_Receta" => 1,
+                            "IdArticulo_Receta" => intval($inidarticulos[$a])
+                        );
+                    }                    
+
+                    // INSERTO EL ARTICULO
+                    $pdo->insert(
+                            tabla('receta'),
+                            [
+                                $insertpiezas
+                            ]
+                    );
+                    
+                    var_dump($pdo->log());
+                    die();
+
+                    if (intval($account_id)) {
+                        $json['code'] = '200';
+                        $json['status'] = 'Ok';
+                        $json['msg'] = strings('success_create');
+                    } else {
+                        $json['msg'] = strings('error_create');
+                    }
+                } catch (Throwable $t) {
+                    $json['msg'] = strings('error_create');
+                }
             }
         } else {
             $json['msg'] = strings('error_empty');
