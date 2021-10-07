@@ -432,58 +432,123 @@ if (METODO($method) == 'GET') {
                 !empty($fecharegistro)
         ) {
 
-
-
-            $latlon = getLatLonByAddressName(input('direcciondelcliente'), KEYOPENCAGE);
-            if ($json) {
-                $latitud = strval(@$latlon['lat']);
-                $longitud = strval(@$latlon['lng']);
-            }
-
-            // OBTENER EL ID DE LA ZONA
-            $idzona = $pdo->select(
-                    tabla('zona'),
+            // VERIFICAR SI EL ID DEL CLIENTE EXISTE
+            $verdificaridcliente = $pdo->select(
+                    tabla('cliente'),
                     "id",
                     [
-                        "puesto_zona" => $codigodezona
+                        "id" => $idcliente
                     ]
             );
 
-            try {
-                $pdo->insert(tabla('cliente'), [
-                    "id" => intval($idcliente),
-                    "Tipo_Cliente" => $tipodecliente,
-                    "nombreempresa" => isEmpty($nombredeempresa),
-                    "Codigo_Cliente" => isEmpty($codigodecliente),
-                    "Nombre_Cliente" => $nombredecliente,
-                    "ApellidoPaterno_Cliente" => $apellidopaterno,
-                    "ApellidoMaterno_Cliente" => $apellidomaterno,
-                    "TipoDocumento_Cliente" => $tipodedocumento,
-                    "NumeroDocumento_Cliente" => $numerodedocumento,
-                    "Direccion1_Cliente" => $direcciondelcliente,
-                    "Direccion2_Cliente" => isEmpty($direcciondereferencia), // 
-                    "Email_Cliente" => isEmpty($emaildelcliente), //
-                    "NumeroCel_Cliente" => $numerodelcliente,
-                    "CodDistrito1_Cliente" => $codigodedistrito,
-                    "CodDistrito2_Cliente" => $codigodedistrito,
-                    "Estado_Cliente" => ucwords(strtolower($estadodelcliente)),
-                    "CodZona_Cliente" => intval(@$idzona[0]),
-                    "FechaRegistro_Cliente" => $fecharegistro,
-                    "Latitud" => isEmpty($latitud), //
-                    "Longitud" => isEmpty($longitud), //
-                ]);
+            if (
+                    empty($verdificaridcliente)
+            ) {
+                // INSERT
+                // SOLO ES UN PROMEDIO DE DONDE ESTA UBICADO 
+                $latlon = getLatLonByAddressName(input('direcciondelcliente'), KEYOPENCAGE);
+                if ($json) {
+                    $latitud = strval(@$latlon['lat']);
+                    $longitud = strval(@$latlon['lng']);
+                }
 
-                $account_id = $pdo->id();
+                // OBTENER EL ID DE LA ZONA
+                $idzona = $pdo->select(
+                        tabla('zona'),
+                        "id",
+                        [
+                            "puesto_zona" => $codigodezona
+                        ]
+                );
 
-                if (intval($account_id)) {
-                    $json['code'] = '200';
-                    $json['status'] = 'Ok';
-                    $json['msg'] = strings('success_create');
-                } else {
+                try {
+                    $pdo->insert(tabla('cliente'), [
+                        "id" => intval($idcliente),
+                        "Tipo_Cliente" => $tipodecliente,
+                        "nombreempresa" => isEmpty($nombredeempresa),
+                        "Codigo_Cliente" => isEmpty($codigodecliente),
+                        "Nombre_Cliente" => $nombredecliente,
+                        "ApellidoPaterno_Cliente" => $apellidopaterno,
+                        "ApellidoMaterno_Cliente" => $apellidomaterno,
+                        "TipoDocumento_Cliente" => $tipodedocumento,
+                        "NumeroDocumento_Cliente" => $numerodedocumento,
+                        "Direccion1_Cliente" => $direcciondelcliente,
+                        "Direccion2_Cliente" => isEmpty($direcciondereferencia), // 
+                        "Email_Cliente" => isEmpty($emaildelcliente), //
+                        "NumeroCel_Cliente" => $numerodelcliente,
+                        "CodDistrito1_Cliente" => $codigodedistrito,
+                        "CodDistrito2_Cliente" => $codigodedistrito,
+                        "Estado_Cliente" => ucwords(strtolower($estadodelcliente)),
+                        "CodZona_Cliente" => intval(@$idzona[0]),
+                        "FechaRegistro_Cliente" => $fecharegistro,
+                        "Latitud" => isEmpty($latitud), //
+                        "Longitud" => isEmpty($longitud), //
+                    ]);
+
+                    $account_id = $pdo->id();
+
+                    if (intval($account_id)) {
+                        $json['code'] = '200';
+                        $json['status'] = 'Ok';
+                        $json['msg'] = strings('success_create');
+                    } else {
+                        $json['msg'] = strings('error_create');
+                    }
+                } catch (Throwable $t) {
                     $json['msg'] = strings('error_create');
                 }
-            } catch (Throwable $t) {
-                $json['msg'] = strings('error_create');
+            } else if (
+                    !empty($verdificaridcliente)
+            ) {
+                // UPDATE
+                // OBTENER EL ID DE LA ZONA
+                $idzona = $pdo->select(
+                        tabla('zona'),
+                        "id",
+                        [
+                            "puesto_zona" => $codigodezona
+                        ]
+                );
+
+                try {
+                    $data = $pdo->update(
+                            tabla('cliente'),
+                            [
+                                "Tipo_Cliente" => $tipodecliente,
+                                "nombreempresa" => isEmpty($nombredeempresa),
+                                "Codigo_Cliente" => isEmpty($codigodecliente),
+                                "Nombre_Cliente" => $nombredecliente,
+                                "ApellidoPaterno_Cliente" => $apellidopaterno,
+                                "ApellidoMaterno_Cliente" => $apellidomaterno,
+                                "TipoDocumento_Cliente" => $tipodedocumento,
+                                "NumeroDocumento_Cliente" => $numerodedocumento,
+                                "Direccion1_Cliente" => $direcciondelcliente,
+                                "Direccion2_Cliente" => isEmpty($direcciondereferencia), // 
+                                "Email_Cliente" => isEmpty($emaildelcliente), //
+                                "NumeroCel_Cliente" => $numerodelcliente,
+                                "CodDistrito1_Cliente" => $codigodedistrito,
+                                "CodDistrito2_Cliente" => $codigodedistrito,
+                                "Estado_Cliente" => ucwords(strtolower($estadodelcliente)),
+                                "CodZona_Cliente" => intval(@$idzona[0]),
+                                "FechaRegistro_Cliente" => $fecharegistro
+                            ],
+                            [
+                                "id" => intval($idcliente)
+                            ]
+                    );
+                    
+                    if ($data->rowCount()) {
+                        $json['code'] = '200';
+                        $json['status'] = 'Ok';
+                        $json['msg'] = strings('success_update');
+                    } else {
+                        $json['msg'] = strings('error_update');
+                    }
+                } catch (Throwable $t) {
+                    $json['msg'] = strings('error_update');
+                }
+            } else {
+                $json['msg'] = 'Debe ingresar el id del cliente';
             }
         } else {
             $json['msg'] = strings('error_empty');

@@ -246,7 +246,39 @@ function array_value_recursive($key, array $arr) {
     return count($val) > 1 ? $val : array_pop($val);
 }
 
-// SUNAT - ENVIAR FACTURA Y OBTENER RESPUESTA
-function Emitir_Factura_Boleta(){
-    
+// sigerp - ENVIAR FACTURA Y OBTENER RESPUESTA
+function Emitir_Factura_Boleta($array) {
+    $data_string = json_encode($array);
+    $ws = 'https://www.sigerp.com/SIG/aSOAPImportarVentas.aspx?wsdl';
+    $xml_envio = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:vbf="VBFENETEVO3">
+                    <soapenv:Header/>
+                    <soapenv:Body>
+                       <vbf:RSoap.Execute>
+                          <vbf:Jsonfe>' . $data_string . '</vbf:Jsonfe>
+                       </vbf:RSoap.Execute>
+                    </soapenv:Body>
+                 </soapenv:Envelope>';
+
+    $header = array(
+        "Content-type: text/xml; charset=\"utf-8\"",
+        "Accept: text/xml",
+        "Cache-Control: no-cache",
+        "Pragma: no-cache",
+        "SOAPAction: ",
+        "Content-lenght: " . strlen($xml_envio)
+    );
+
+    $ch = curl_init(); //inicia la llamada
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1); //
+    curl_setopt($ch, CURLOPT_URL, $ws); //url a consultar
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_envio);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+
+    $response = curl_exec($ch); //Ejecutar y obtiene respuesta
+    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    return $httpcode; // 200 = Ok
 }

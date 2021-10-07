@@ -36,6 +36,63 @@ if ($ajax) {
             $correoelectronico = input("correoelectronico");
             $enviarporcorreo = input("enviarporcorreo") === 'true' ? true : false;
 
+            $factura_boleta = array(
+                "emiRucTipo" => "6",
+                "emiRucNumero" => "20123257899", // QUEDA IGUAL
+                "emiNombre" => "LAVANDERIA AKI DRY CLEANERS S.R.L.", // QUEDA IGUAL
+                "emiUbigeo" => "150130",
+                "adqRucTipo" => "2",
+                "adqRucNumero" => "99999999",
+                "adqNombre" => "CLIENTES VARIOS",
+                "adqUbigeo" => "",
+                "adqDireccion" => "Lima", // QUEDA IGUAL
+                "adqProvincia" => "", // QUEDA IGUAL
+                "adqDepartamento" => "", // QUEDA IGUAL
+                "adqDistrito" => "", // QUEDA IGUAL
+                "docFechaEmision" => "25/09/2021",
+                "docTipo" => "03",
+                "docNumero" => "B09000121108",
+                "docMoneda" => "PEN", // QUEDA IGUAL
+                "docTipoReferencia" => "", // QUEDA IGUAL
+                "docReferencia" => "", // QUEDA IGUAL
+                "docMovimiento" => "", // QUEDA IGUAL
+                "docTotOperGravada" => "28.00",
+                "docTotOperInafecta" => "0", // QUEDA IGUAL
+                "docTotOperExonerada" => "0", // QUEDA IGUAL
+                "docTotIGVMonto" => "4.27",
+                "docTotIGVPctaje" => "18.00",
+                "docTotISCMonto" => "0", // QUEDA IGUAL
+                "docTotDsctoGlobMonto" => "0", // QUEDA IGUAL
+                "docTotDsctoMonto" => "0", // QUEDA IGUAL
+                "docImporteTotalVenta" => "28.00",
+                "docImporteVtaLetras" => "VEINTIOCHO Y 00/100 Soles",
+                "docTipoCambio" => "0", // QUEDA IGUAL
+                "docCondPago" => "", // QUEDA IGUAL
+                "docVendCodigo" => "", // QUEDA IGUAL
+                "docTdaCodigo" => "", // QUEDA IGUAL
+                "docEstado" => "", // QUEDA IGUAL
+                "docSUNATCodigo" => "", // QUEDA IGUAL
+                "docSUNATObservacion" => "", // QUEDA IGUAL
+                "docValorResumen" => "", // QUEDA IGUAL
+                "docFechaVcto" => "25/09/2021",
+                "docICBPER" => "0.00",
+                "detalle" => array(
+                    "item" => "1",
+                    "prodCodigoInterno" => "455",
+                    "prodUniMedida" => "NIU",
+                    "prodCantidad" => "1.000",
+                    "prodDescripcion" => "3x2 Prendas De Vestir",
+                    "prodPrecioUnitario" => "28.0000",
+                    "prodPrecioVenta" => "28.0000",
+                    "itemIGVMonto" => "4.2712",
+                    "itemDscto" => "0",
+                    "itemValorVenta" => "28.0000",
+                    "ItemAfectacion" => "0",
+                    "itemObservacion" => "",
+                    "itemICBPER" => "0.00"
+                )
+            );
+
             // ACTUALIZO EL CORREO DEL CLIENTE
             try {
                 if ($correoelectronico) {
@@ -428,9 +485,9 @@ if ($ajax) {
                     if ($tipodedocumento == 'RUC') {
                         $tipo_doc = 6;
                     }
-                    
-                    // FALTA EL JSON
-                    
+
+                    // OBTENGO RESPUESTA DEL JSON
+                    $respuesta = Emitir_Factura_Boleta($factura_boleta);
 
                     $codigoqr = "20123257899|" . "CodigodeSunatJson" . '|' . str_replace("-", '|', $numerodefactura) . '|' . number_format($op_gravada, 2, '.', '') . '|' . number_format($pagototal, 2, '.', '') . '|' . $fecha . '|' . $tipo_doc . '|' . $numerodedocumento;
                     QRcode::png($codigoqr, RUTA_PDF . "QR" . $numerodefactura . '.png');
@@ -441,8 +498,6 @@ if ($ajax) {
                     $html .= "<label>CAJERO: MIGUEL GIBU</label><br>";
                     $html .= "<label>Medio de pago: " . strtoupper($metododepago) . "</label>";
                     $height += 28;
-
-                    
 
                     $dompdf->loadHtml($html);
                     $dompdf->set_option('isRemoteEnabled', TRUE);
