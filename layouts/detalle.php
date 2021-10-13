@@ -1,5 +1,10 @@
 <?php
+include "../vendor/autoload.php";
+include "../servicios/include/function.php";
 include "./include/sessionstart/session.php";
+include "../servicios/include/config.php";
+include "../servicios/include/conexion.php";
+include "../servicios/include/tables.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -114,7 +119,60 @@ include "./include/sessionstart/session.php";
 
 
             <?php
-            if (@$_SESSION['estadoturnotemp'] == 'Recojo') {
+            $recojoreclamo = $pdo->select(
+                    tabla('turnoxcliente'),
+                    [
+                        "[><]" . tabla('orden') =>
+                        [
+                            tabla('turnoxcliente') . ".numero_orden" => "numeroorden"
+                        ],
+                        "[><]" . tabla('servicio') =>
+                        [
+                            tabla('orden') . ".nombre_servicio" => "Nombre_Servicio"
+                        ]
+                    ],
+                    [
+                        tabla('orden') . ".id(idorden)",
+                        tabla('orden') . ".numeroorden(numerodeorden)",
+                        tabla('orden') . ".nombre_servicio(nombredeservicio)",
+                        tabla('servicio') . ".id(idservicio)",
+                        tabla('servicio') . ".Dias_Servicio(diasdeservicio)",
+                        tabla('turnoxcliente') . ".numero_orden",
+                        tabla('turnoxcliente') . ".idprenda",
+                    ],
+                    [
+                        tabla('turnoxcliente') . ".id" => intval(@$_SESSION['idturnoxrepartidortemp'])
+                    ],
+                    [
+                        'LIMIT' => 1
+                    ]
+            );
+
+            $reclamodeprenda = $pdo->select(
+                    tabla('detalleorden'),
+                    [
+                        tabla('detalleorden') . ".idprenda(idprenda)",
+                        tabla('detalleorden') . ".nombreprenda(nombreprenda)",
+                        tabla('detalleorden') . ".color",
+                        tabla('detalleorden') . ".marca",
+                        tabla('detalleorden') . ".ordenpromocion(keyprenda)",
+                    ],
+                    [
+                        tabla('detalleorden') . ".idorden" => @$recojoreclamo[0]['idorden'],
+                        tabla('detalleorden') . ".idprenda" => @$recojoreclamo[0]['idprenda'],
+                    ],
+                    [
+                        'LIMIT' => 1
+                    ]
+            );
+
+            if (@$recojoreclamo && @$_SESSION['estadoturnotemp'] == 'Recojo') {
+                ?>
+                <div class="section mt-2">
+                    <?php include "./recojoreclamo.php"; ?> 
+                </div>
+                <?php
+            } else if (@$_SESSION['estadoturnotemp'] == 'Recojo') {
                 ?>
                 <div class="section mt-2">
                     <?php include "./recojo.php"; ?> 
@@ -165,7 +223,7 @@ include "./include/sessionstart/session.php";
                 });
             });
         </script>
-        <!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                                     ?>" type="text/javascript"></script>
-                <script src="design/js/crud/cliente.js<?php //echo @$v;                                      ?>" type="text/javascript"></script>-->
+        <!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                                                                                  ?>" type="text/javascript"></script>
+                <script src="design/js/crud/cliente.js<?php //echo @$v;                                                                                   ?>" type="text/javascript"></script>-->
     </body>
 </html>

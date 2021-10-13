@@ -28,7 +28,10 @@ function listado() {
                     div += '<img src="design/aki/' + imgAtencion + '.png" alt="image" class="image">';
                     div += '<div class="in">';
                     div += '<div>';
-                    if (data[i].estadoturno === 'Entrega' || data[i].estadoturno === 'Reclamo') {
+
+                    var numerodeOrden = data[i].numeroorden;
+
+                    if (numerodeOrden) {
                         div += '<label class="label fontSize-1">NR°. ORDEN: ' + data[i].numeroorden + '</label><br>';
                     }
 

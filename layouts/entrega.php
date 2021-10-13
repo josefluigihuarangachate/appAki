@@ -1,10 +1,4 @@
 <?php
-include "../vendor/autoload.php";
-include '../servicios/include/config.php';
-include '../servicios/include/function.php';
-include '../servicios/include/tables.php';
-include '../servicios/include/conexion.php';
-
 $ordenes = explode(",", @$_SESSION['numeroordentemp']);
 
 $o = 0;

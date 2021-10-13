@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-10-2021 a las 18:52:07
+-- Tiempo de generación: 13-10-2021 a las 04:55:21
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -437,7 +437,10 @@ INSERT INTO `articulo` (`id`, `nombre_articulo`, `unidadmedida_articulo`, `codig
 (471, 'SACO ALPACA', 'UNAD', '471', '25.00', 1, 2, 'Activo'),
 (472, 'CASACA ALPACA', 'UNAD', '472', '25.00', 1, 2, 'Activo'),
 (473, '3x2 PRENDAS DE CAMA', 'UNAD', '473', '0.00', 1, 1, 'Activo'),
-(475, '3x2 PRENDAS DE VESTIR', 'UNAD', '475', '0.00', 1, 1, 'Activo');
+(475, '3x2 PRENDAS DE VESTIR', 'UNAD', '475', '0.00', 1, 1, 'Activo'),
+(1000006, 'NUEVA 1995', 'UNAD', '999999', '10.00', 1, 2, 'Activo'),
+(1000007, 'TERNO (2 PZS.)', 'UNAD', '118', '24.00', 1, 2, 'Activo'),
+(1000012, '4X5 PRENDAS DE ROPERO', 'UNAD', '89', '0.00', 1, 1, 'Activo');
 
 -- --------------------------------------------------------
 
@@ -515,7 +518,8 @@ INSERT INTO `boleta` (`id`, `idrepartidor`, `nombrerepartidor`, `idservicio`, `n
 (42, 1, 'Roberto Manuel', 3, 'AGUA', 'Boleta', 'B003-0000042', 'C1-0000257', 'DNI', '78906777', 'Luis Rodriguez', 8, '2021-10-05', '02:50:00', '[{\"idprenda\":\"119\",\"ordenpromocion\":\"Ucwtj\",\"precio\":\"17.00\",\"nombreprenda\":\"TERNO NI\\u00d1O (2 PZS.)\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"cantpiezas\":2,\"piezas\":[{\"key\":\"Uxklm\",\"idpieza\":\"40\",\"nombrepieza\":\"CHALECO VESTIR\",\"nombresestados\":null,\"observacion\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uqvlr\",\"idpieza\":\"93\",\"nombrepieza\":\"PANTAL\\u00d3N VESTIR\",\"nombresestados\":null,\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 'B003-000004220211005025000.pdf', 'error', NULL),
 (43, 1, 'Roberto Manuel', 3, 'AGUA', 'Boleta', 'B003-0000043', 'C1-0000257', 'DNI', '78906777', 'Luis Rodriguez', 8, '2021-10-05', '02:56:00', '[{\"idprenda\":\"119\",\"ordenpromocion\":\"Ucwtj\",\"precio\":\"17.00\",\"nombreprenda\":\"TERNO NI\\u00d1O (2 PZS.)\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"cantpiezas\":2,\"piezas\":[{\"key\":\"Uxklm\",\"idpieza\":\"40\",\"nombrepieza\":\"CHALECO VESTIR\",\"nombresestados\":null,\"observacion\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uqvlr\",\"idpieza\":\"93\",\"nombrepieza\":\"PANTAL\\u00d3N VESTIR\",\"nombresestados\":null,\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 'B003-000004320211005025600.pdf', 'error', NULL),
 (44, 1, 'Roberto Manuel', 3, 'AGUA', 'Boleta', 'B003-0000044', 'C1-0000150', 'DNI', '78906777', 'Luis Rodriguez', 8, '2021-10-05', '10:39:00', '[{\"idprenda\":\"4\",\"ordenpromocion\":\"Uicge\",\"precio\":\"15.00\",\"nombreprenda\":\"ALMOHADA GRANDE\",\"color\":\"VERDE\",\"marca\":\"REUSH\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Uicge\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Rotura @ Con Decoloraci\\u00f3n\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 'B003-000004420211005103900.pdf', 'error', NULL),
-(45, 1, 'Roberto Manuel', 2, 'SECO', 'Boleta', 'B003-0000045', 'C1-0000148', 'DNI', '78906777', 'Luis Rodriguez', 8, '2021-10-05', '10:46:00', '[{\"idprenda\":\"41\",\"ordenpromocion\":\"Uxx8z\",\"precio\":\"12.00\",\"nombreprenda\":\"CHAL - PASHMINA GRANDE\",\"color\":\"VERDE \\/ VERDE A RAYAS\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Uxx8z\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Rotura @ Con Desgaste @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]},{\"idprenda\":\"18\",\"ordenpromocion\":\"Uaf87\",\"precio\":\"12.00\",\"nombreprenda\":\"CAMISA  C\\/ ALMID\\u00d3N\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Uaf87\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Rotura @ Con Desgaste @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 'B003-000004520211005104600.pdf', 'error', NULL);
+(45, 1, 'Roberto Manuel', 2, 'SECO', 'Boleta', 'B003-0000045', 'C1-0000148', 'DNI', '78906777', 'Luis Rodriguez', 8, '2021-10-05', '10:46:00', '[{\"idprenda\":\"41\",\"ordenpromocion\":\"Uxx8z\",\"precio\":\"12.00\",\"nombreprenda\":\"CHAL - PASHMINA GRANDE\",\"color\":\"VERDE \\/ VERDE A RAYAS\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Uxx8z\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Rotura @ Con Desgaste @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]},{\"idprenda\":\"18\",\"ordenpromocion\":\"Uaf87\",\"precio\":\"12.00\",\"nombreprenda\":\"CAMISA  C\\/ ALMID\\u00d3N\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Uaf87\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Rotura @ Con Desgaste @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 'B003-000004520211005104600.pdf', 'error', NULL),
+(46, 1, 'Roberto Manuel', 2, 'SECO', 'Boleta', 'B003-0000046', 'C1-0000311', 'DNI', '78906777', 'Luis Rodriguez', 8, '2021-10-07', '19:15:00', '[{\"idprenda\":\"69\",\"ordenpromocion\":\"Ucf47\",\"precio\":\"35.00\",\"nombreprenda\":\"FRAZADA ALPACA 1 1\\/2 PLAZA\",\"color\":\"AMARILLO\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Ucf47\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]},{\"idprenda\":\"18\",\"ordenpromocion\":\"Ufh21\",\"precio\":\"12.00\",\"nombreprenda\":\"CAMISA  C\\/ ALMID\\u00d3N\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Ufh21\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Decoloraci\\u00f3n\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 'B003-000004620211007191500.pdf', 'error', NULL);
 
 -- --------------------------------------------------------
 
@@ -555,8 +559,10 @@ CREATE TABLE `cliente` (
 INSERT INTO `cliente` (`id`, `Tipo_Cliente`, `Codigo_Cliente`, `Nombre_Cliente`, `ApellidoPaterno_Cliente`, `ApellidoMaterno_Cliente`, `TipoDocumento_Cliente`, `NumeroDocumento_Cliente`, `nombreempresa`, `Direccion1_Cliente`, `Direccion2_Cliente`, `Email_Cliente`, `NumeroCel_Cliente`, `CodDistrito1_Cliente`, `CodDistrito2_Cliente`, `Estado_Cliente`, `CodZona_Cliente`, `FechaRegistro_Cliente`, `CantOrdenAtendida_Clliente`, `ImporteAcumulado_Cliente`, `Latitud`, `Longitud`) VALUES
 (4, 'Persona', '12345', 'Juan Luis', 'Huaman', 'Sanchez', '1', '76543218', NULL, 'Calle Simoni 209', 'Cdra. 28 Av. Aviación', 'juan@gmail.com', '7777777', '150130', '150130', 'Activo', 1, '2020-01-01', '1', '0.00', '-12.09594', '-77.00141'),
 (5, 'Persona', '4535', 'Renan', 'Urteaga', 'Boggio', '1', '78906586', NULL, 'Calle Matier 604', 'Cdra. 27 Av. Aviación', 'renan@gmail.com', '7777777', '150130', '150130', 'Activo', 1, '2020-01-04', '1', '1.00', '-12.1154531', '-76.9984062'),
-(8, 'Persona', '4536', 'Luis', 'Rodriguez', 'Huaman', '1', '78906777', 'INTELLIPOS', 'Calle Beethoven 530', 'Cdra. 22 Av. San Luis', 'Luigi.huaranga@intellipos.com.pe', '7777799', '150130', '150130', 'Activo', 1, '2020-01-01', '1', '2.00', '-12.1154919', '-76.9984484'),
-(10, 'Persona', '87075', 'Luigi', 'Huaranga', 'Chate', '1', '77223910', NULL, 'Av. Santa Anita 530', 'Cdra. 28 Av. Encalada', 'luigi@gmail.com', '999999999', '150130', '150130', 'Activo', 1, '2020-01-01', '3', '30.00', '-12.095338', '-76.994546');
+(8, 'Persona', '4536', 'Luis', 'Rodriguez', 'Huaman', '1', '78906777', 'INTELLIPOS', 'Calle Beethoven 530', 'Cdra. 22 Av. San Luis', 'Luigi.huaranga@intellipos.com.pe', '7777799', '150130', '150130', 'Activo', 1, '2020-01-01', '1', '2.00', '-12.0387852', '-76.9623357'),
+(10, 'Persona', '87075', 'Luigi', 'Huaranga', 'Chate', '1', '77223910', NULL, 'Av. Santa Anita 530', 'Cdra. 28 Av. Encalada', 'luigi@gmail.com', '999999999', '150130', '150130', 'Activo', 1, '2020-01-01', '3', '30.00', '-12.095338', '-76.994546'),
+(17, 'Persona', '17', 'Carlos', 'Juarez', 'SAC', '1', '98828282', NULL, 'San Borja', 'al costado de aki', NULL, '98353333', '324324', '324324', 'Activo', 1, '2021-10-06', NULL, NULL, '-11.8200523', '-77.1300079'),
+(10468, 'Empresa', '10468', 'FUNDACION PERUANA', '-', '-', '2', '20137741378', 'FUNDACION PERUANA DE CANCER', 'AV PRIMAVERA 1075', '-', 'prueba2@gyvsoftwa.com', '978914219', '150130', '150130', 'Activo', 1, '2021-10-09', NULL, NULL, '-15.8525286', '-70.0117343');
 
 -- --------------------------------------------------------
 
@@ -1078,7 +1084,10 @@ INSERT INTO `detalleorden` (`id`, `idorden`, `ordenpromocion`, `idpromocion`, `n
 (559, 309, 'Uqnvv', 473, '3x2 PRENDAS DE CAMA', 5, 'BABUCHAS', 'VERDE', 'TRIAL', '10.00', 'Con Mancha @ Con Desgaste', NULL, NULL, NULL),
 (560, 310, 'Ue0l0', NULL, NULL, 70, 'FRAZADA ALPACA 2 PLAZA', 'VERDE / VERDE A RAYAS', 'TIGRE', '50.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
 (561, 310, 'Uyg9e', NULL, NULL, 18, 'CAMISA  C/ ALMIDÓN', 'VERDE / VERDE A RAYAS', 'TIGRE', '12.00', 'Con Mancha @ Con Rotura @ Con Desgaste @ Con Decoloración @ Con Huequito', NULL, NULL, NULL),
-(562, 310, 'Usy94', NULL, NULL, 18, 'CAMISA  C/ ALMIDÓN', 'VERDE / VERDE A RAYAS', 'TRIAL', '12.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL);
+(562, 310, 'Usy94', NULL, NULL, 18, 'CAMISA  C/ ALMIDÓN', 'VERDE / VERDE A RAYAS', 'TRIAL', '12.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
+(563, 311, 'Ucf47', NULL, NULL, 69, 'FRAZADA ALPACA 1 1/2 PLAZA', 'AMARILLO', 'TIGRE', '35.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
+(564, 311, 'Ufh21', NULL, NULL, 18, 'CAMISA  C/ ALMIDÓN', 'VERDE', 'TIGRE', '12.00', 'Con Mancha @ Con Decoloración', NULL, NULL, NULL),
+(565, 312, 'U0aej', NULL, NULL, 18, 'CAMISA  C/ ALMIDÓN', 'VERDE', 'TIGRE', '12.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1526,7 +1535,9 @@ INSERT INTO `orden` (`id`, `idservicio`, `numeroorden`, `nombre_servicio`, `nomb
 (307, 1, 'C1-0000307', 'PROMOCIONES', 'Roberto Manrique', '2021-10-04', '18:21:30', 8, 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-10-05', '18:21:30', 'Por Cobrar', 'C1', '0.00', '0.00', '76.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '{\"3x2 PRENDAS DE VESTIR\":[{\"key\":\"Uqbee\",\"idprenda\":\"1\",\"nombreprenda\":\"ABRIGO\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"precioprenda\":\"23.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Un1ud\",\"idprenda\":\"4\",\"nombreprenda\":\"ALMOHADA GRANDE\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"precioprenda\":\"15.00\",\"nombreestados\":\"Con Mancha @ Con Rotura\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uljw0\",\"idprenda\":\"5\",\"nombreprenda\":\"BABUCHAS\",\"color\":\"TURQUESA\",\"marca\":\"TRIAL\",\"precioprenda\":\"10.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null}],\"3x2 PRENDAS DE CAMA\":[{\"key\":\"U5tew\",\"idprenda\":\"1\",\"nombreprenda\":\"ABRIGO\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"precioprenda\":\"23.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uquik\",\"idprenda\":\"4\",\"nombreprenda\":\"ALMOHADA GRANDE\",\"color\":\"VERDE\",\"marca\":\"RIPLEY\",\"precioprenda\":\"15.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uqnvv\",\"idprenda\":\"5\",\"nombreprenda\":\"BABUCHAS\",\"color\":\"VERDE\",\"marca\":\"TRIAL\",\"precioprenda\":\"10.00\",\"nombreestados\":\"Con Mancha @ Con Desgaste\",\"observaciones\":null,\"audios\":null,\"imagenes\":null}]}', 2),
 (308, 1, 'C1-0000308', 'PROMOCIONES', 'Roberto Manrique', '2021-10-04', '18:26:58', 8, 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-10-05', '18:26:58', 'Por Cobrar', 'C1', '0.00', '0.00', '76.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '{\"3x2 PRENDAS DE VESTIR\":[{\"key\":\"Uqbee\",\"idprenda\":\"1\",\"nombreprenda\":\"ABRIGO\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"precioprenda\":\"23.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Un1ud\",\"idprenda\":\"4\",\"nombreprenda\":\"ALMOHADA GRANDE\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"precioprenda\":\"15.00\",\"nombreestados\":\"Con Mancha @ Con Rotura\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uljw0\",\"idprenda\":\"5\",\"nombreprenda\":\"BABUCHAS\",\"color\":\"TURQUESA\",\"marca\":\"TRIAL\",\"precioprenda\":\"10.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null}],\"3x2 PRENDAS DE CAMA\":[{\"key\":\"U5tew\",\"idprenda\":\"1\",\"nombreprenda\":\"ABRIGO\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"precioprenda\":\"23.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uquik\",\"idprenda\":\"4\",\"nombreprenda\":\"ALMOHADA GRANDE\",\"color\":\"VERDE\",\"marca\":\"RIPLEY\",\"precioprenda\":\"15.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uqnvv\",\"idprenda\":\"5\",\"nombreprenda\":\"BABUCHAS\",\"color\":\"VERDE\",\"marca\":\"TRIAL\",\"precioprenda\":\"10.00\",\"nombreestados\":\"Con Mancha @ Con Desgaste\",\"observaciones\":null,\"audios\":null,\"imagenes\":null}]}', 2),
 (309, 1, 'C1-0000309', 'PROMOCIONES', 'Roberto Manrique', '2021-10-04', '18:28:03', 8, 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-10-05', '18:28:03', 'Por Cobrar', 'C1', '0.00', '0.00', '76.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '{\"3x2 PRENDAS DE VESTIR\":[{\"key\":\"Uqbee\",\"idprenda\":\"1\",\"nombreprenda\":\"ABRIGO\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"precioprenda\":\"23.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Un1ud\",\"idprenda\":\"4\",\"nombreprenda\":\"ALMOHADA GRANDE\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"precioprenda\":\"15.00\",\"nombreestados\":\"Con Mancha @ Con Rotura\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uljw0\",\"idprenda\":\"5\",\"nombreprenda\":\"BABUCHAS\",\"color\":\"TURQUESA\",\"marca\":\"TRIAL\",\"precioprenda\":\"10.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null}],\"3x2 PRENDAS DE CAMA\":[{\"key\":\"U5tew\",\"idprenda\":\"1\",\"nombreprenda\":\"ABRIGO\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"precioprenda\":\"23.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uquik\",\"idprenda\":\"4\",\"nombreprenda\":\"ALMOHADA GRANDE\",\"color\":\"VERDE\",\"marca\":\"RIPLEY\",\"precioprenda\":\"15.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uqnvv\",\"idprenda\":\"5\",\"nombreprenda\":\"BABUCHAS\",\"color\":\"VERDE\",\"marca\":\"TRIAL\",\"precioprenda\":\"10.00\",\"nombreestados\":\"Con Mancha @ Con Desgaste\",\"observaciones\":null,\"audios\":null,\"imagenes\":null}]}', 2),
-(310, 2, 'C1-0000310', 'SECO', 'Roberto Manrique', '2021-10-05', '00:59:13', 8, 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-10-05', '00:59:13', 'Cancelado', 'C1', '0.00', '0.00', '74.00', '0.00', '0.00', 'Activo', 'Tarjeta', 'Entrega', '[{\"idprenda\":\"70\",\"ordenpromocion\":\"Ue0l0\",\"precio\":\"50.00\",\"nombreprenda\":\"FRAZADA ALPACA 2 PLAZA\",\"color\":\"VERDE \\/ VERDE A RAYAS\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Ue0l0\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]},{\"idprenda\":\"18\",\"ordenpromocion\":\"Uyg9e\",\"precio\":\"12.00\",\"nombreprenda\":\"CAMISA  C\\/ ALMID\\u00d3N\",\"color\":\"VERDE \\/ VERDE A RAYAS\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Uyg9e\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Rotura @ Con Desgaste @ Con Decoloraci\\u00f3n @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]},{\"idprenda\":\"18\",\"ordenpromocion\":\"Usy94\",\"precio\":\"12.00\",\"nombreprenda\":\"CAMISA  C\\/ ALMID\\u00d3N\",\"color\":\"VERDE \\/ VERDE A RAYAS\",\"marca\":\"TRIAL\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Usy94\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 2);
+(310, 2, 'C1-0000310', 'SECO', 'Roberto Manrique', '2021-10-05', '00:59:13', 8, 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-10-05', '00:59:13', 'Cancelado', 'C1', '0.00', '0.00', '74.00', '0.00', '0.00', 'Activo', 'Tarjeta', 'Entrega', '[{\"idprenda\":\"70\",\"ordenpromocion\":\"Ue0l0\",\"precio\":\"50.00\",\"nombreprenda\":\"FRAZADA ALPACA 2 PLAZA\",\"color\":\"VERDE \\/ VERDE A RAYAS\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Ue0l0\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]},{\"idprenda\":\"18\",\"ordenpromocion\":\"Uyg9e\",\"precio\":\"12.00\",\"nombreprenda\":\"CAMISA  C\\/ ALMID\\u00d3N\",\"color\":\"VERDE \\/ VERDE A RAYAS\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Uyg9e\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Rotura @ Con Desgaste @ Con Decoloraci\\u00f3n @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]},{\"idprenda\":\"18\",\"ordenpromocion\":\"Usy94\",\"precio\":\"12.00\",\"nombreprenda\":\"CAMISA  C\\/ ALMID\\u00d3N\",\"color\":\"VERDE \\/ VERDE A RAYAS\",\"marca\":\"TRIAL\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Usy94\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 2),
+(311, 2, 'C1-0000311', 'SECO', 'Roberto Manrique', '2021-10-07', '18:31:18', 8, 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-10-14', '14:35:26', 'Reclamo', 'C1', '0.00', '0.00', '47.00', '0.00', '0.00', 'Activo', 'Tarjeta', 'Reclamo', '[{\"idprenda\":\"69\",\"ordenpromocion\":\"Ucf47\",\"precio\":\"35.00\",\"nombreprenda\":\"FRAZADA ALPACA 1 1\\/2 PLAZA\",\"color\":\"AMARILLO\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Ucf47\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]},{\"idprenda\":\"18\",\"ordenpromocion\":\"Ufh21\",\"precio\":\"12.00\",\"nombreprenda\":\"CAMISA  C\\/ ALMID\\u00d3N\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Ufh21\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Decoloraci\\u00f3n\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 2),
+(312, 2, 'C1-0000312', 'SECO', 'Roberto Manrique', '2021-10-07', '19:13:54', 8, 'Luis Rodriguez', '7777799', 'Calle Beethoven 530', '2021-10-12', '19:13:54', 'Por Cobrar', 'C1', '0.00', '0.00', '12.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '[{\"idprenda\":\"18\",\"ordenpromocion\":\"U0aej\",\"precio\":\"12.00\",\"nombreprenda\":\"CAMISA  C\\/ ALMID\\u00d3N\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"U0aej\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null}]}]', 2);
 
 -- --------------------------------------------------------
 
@@ -1553,7 +1564,9 @@ INSERT INTO `promocion` (`id`, `idarticulo_promocion`, `codigo_promocion`, `nomb
 (9, 473, 'PROMO475', 'PROMOCION 3', '0.00', 'Activo'),
 (11, 475, 'PROMO475E', 'PROMOCION 1', '0.00', 'Activo'),
 (12, 475, 'PROMO4759', 'PROMOCION 2', '0.00', 'Activo'),
-(13, 475, 'PROMO486', 'PROMOCION 3', '0.00', 'Activo');
+(13, 475, 'PROMO486', 'PROMOCION 3', '0.00', 'Activo'),
+(27, 1000012, 'PROMO1000012', 'PROMO TR1', '0.00', 'Activo'),
+(28, 1000012, 'PROMO1000012', 'PROMO TR2', '0.00', 'Activo');
 
 -- --------------------------------------------------------
 
@@ -1583,7 +1596,15 @@ INSERT INTO `promocionxarticulo` (`id`, `idpromocion`, `idarticulo`) VALUES
 (18, 12, 3),
 (19, 12, 4),
 (20, 13, 5),
-(21, 13, 6);
+(21, 13, 6),
+(48, 27, 1),
+(49, 27, 2),
+(50, 27, 3),
+(51, 27, 4),
+(52, 28, 1),
+(53, 28, 2),
+(54, 28, 3),
+(55, 28, 4);
 
 -- --------------------------------------------------------
 
@@ -1609,7 +1630,11 @@ INSERT INTO `receta` (`id`, `IdArticulo_Receta`, `Cantidad_Receta`, `IdArticuloP
 (4, 391, '1', 40),
 (5, 391, '1', 19),
 (6, 119, '1', 93),
-(7, 119, '1', 40);
+(7, 119, '1', 40),
+(34, 1000006, '1', 1),
+(35, 1000006, '1', 2),
+(38, 1000007, '1', 93),
+(39, 1000007, '1', 109);
 
 -- --------------------------------------------------------
 
@@ -1644,8 +1669,8 @@ CREATE TABLE `reclamoxprenda` (
 --
 
 INSERT INTO `reclamoxprenda` (`id`, `fechaentrega`, `horaentrega`, `numeroorden`, `origennumeroorden`, `idcliente`, `idrepartidor`, `nombrecliente`, `nombrerepartidor`, `idzona`, `idprenda`, `nombreprenda`, `color`, `marca`, `observacion`, `estados`, `audio`, `imagen`, `ordenprenda`) VALUES
-(38, '2021-10-05', '17:53:43', 'C1-0000038', 'C1-0000075', 8, 1, 'Luis Rodriguez', 'Roberto Manrique', 'C1', 1, 'ABRIGO', 'VERDE', 'RIPLEY', 'Faltaba dos botones', 'Mal Lavado @ Falta Botones', 'I6g43VM.', 'IYm18SJ.jpg', 'U1ilf'),
-(39, '2021-10-05', '17:58:25', 'C1-0000039', 'C1-0000075', 8, 1, 'Luis Rodriguez', 'Roberto Manrique', 'C1', 3, 'ALMOHADA', 'VERDE', 'TIGRE', NULL, NULL, 'IJR3PWE.', 'ICc8K0w.', 'Ugd72');
+(38, '2021-10-12', '17:53:43', 'C1-0000038', 'C1-0000075', 8, 1, 'Luis Rodriguez', 'Roberto Manrique', 'C1', 1, 'ABRIGO', 'VERDE', 'RIPLEY', 'Faltaba dos botones', 'Mal Lavado @ Falta Botones', NULL, 'IYm18SJ.jpg', 'U1ilf'),
+(39, '2021-10-12', '17:58:25', 'C1-0000039', 'C1-0000075', 8, 1, 'Luis Rodriguez', 'Roberto Manrique', 'C1', 3, 'ALMOHADA', 'VERDE', 'TIGRE', NULL, NULL, NULL, NULL, 'Ugd72');
 
 -- --------------------------------------------------------
 
@@ -1673,9 +1698,10 @@ CREATE TABLE `repartidor` (
 --
 
 INSERT INTO `repartidor` (`id`, `codigo_repartidor`, `nombre_repartidor`, `apellido_repartidor`, `avatar_repartidor`, `id_zona`, `Latitud`, `Longitud`, `idimpresora`, `NumSerieBoleta`, `NumSerieFactura`, `Estado_Repartidor`) VALUES
-(1, 'REP0001', 'Roberto Manuel', 'Manrique Rodriguez', '', 1, '-12.1154476', '-76.9984089', '74:F0:7D:E9:B8:4C', 'B003', 'F003', 'Activo'),
+(1, 'REP0001', 'Roberto Manuel', 'Manrique Rodriguez', '', 1, '-12.0387869', '-76.9623343', '74:F0:7D:E9:B8:4C', 'B003', 'F003', 'Activo'),
 (2, 'REP0002', 'Juan Carlos', 'Mamani Quispe', '', 2, NULL, NULL, '', 'B003', 'F003', 'Activo'),
-(3, 'REP0003', 'Luis Miguel', 'Chavez de la Cruz', '', 3, NULL, NULL, '', 'B003', 'F003', 'Activo');
+(3, 'REP0003', 'Luis Miguel', 'Chavez de la Cruz', '', 3, NULL, NULL, '', 'B003', 'F003', 'Activo'),
+(7, 'empleado3', 'Juan Luis', 'Huaman Keiko', '', 4, NULL, NULL, '', 'B006', 'F006', 'Activo');
 
 -- --------------------------------------------------------
 
@@ -1720,245 +1746,18 @@ CREATE TABLE `turnoxcliente` (
   `fecha_turno` date NOT NULL,
   `hora_turno` time NOT NULL,
   `atencion` enum('Atendido','Sin Atender') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'Sin Atender',
-  `estado_turno` enum('Entrega','Recojo','Reclamo') COLLATE utf8_spanish_ci DEFAULT 'Recojo'
+  `estado_turno` enum('Entrega','Recojo','Reclamo') COLLATE utf8_spanish_ci DEFAULT 'Recojo',
+  `idprenda` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `turnoxcliente`
 --
 
-INSERT INTO `turnoxcliente` (`id`, `numero_orden`, `id_repartidor`, `id_cliente`, `id_zona`, `puesto_turno`, `fecha_turno`, `hora_turno`, `atencion`, `estado_turno`) VALUES
-(4, '', 1, 8, 1, 'Tarde', '2021-10-05', '19:00:00', 'Sin Atender', 'Recojo'),
-(60, 'C1-0000073', 1, 8, 1, 'Temprano', '2021-10-05', '10:40:00', 'Sin Atender', 'Entrega'),
-(62, 'C1-0000075', 1, 8, 1, 'Tarde', '2021-10-05', '17:58:25', 'Sin Atender', 'Reclamo'),
-(63, 'C1-0000076', 1, 8, 1, 'Tarde', '2021-10-05', '17:34:45', 'Sin Atender', 'Entrega'),
-(64, '', 1, 8, 1, 'Temprano', '2021-10-05', '10:00:00', 'Sin Atender', 'Recojo'),
-(65, 'C1-0000077', 1, 8, 1, 'Tarde', '2021-10-05', '17:36:55', 'Sin Atender', 'Entrega'),
-(66, 'C1-0000078', 1, 8, 1, 'Tarde', '2021-10-05', '17:18:40', 'Sin Atender', 'Entrega'),
-(67, 'C1-0000079', 1, 8, 1, 'Temprano', '2021-10-05', '10:12:47', 'Sin Atender', 'Entrega'),
-(68, 'C1-0000080', 1, 8, 1, 'Tarde', '2021-10-05', '12:15:19', 'Sin Atender', 'Entrega'),
-(69, 'C1-0000081', 1, 8, 1, 'Tarde', '2021-10-05', '12:16:18', 'Sin Atender', 'Entrega'),
-(70, 'C1-0000082', 1, 8, 1, 'Temprano', '2021-10-05', '10:19:44', 'Sin Atender', 'Entrega'),
-(71, 'C1-0000083', 1, 8, 1, 'Tarde', '2021-10-05', '15:04:55', 'Sin Atender', 'Entrega'),
-(72, 'C1-0000084', 1, 8, 1, 'Tarde', '2021-10-05', '15:08:19', 'Sin Atender', 'Entrega'),
-(73, 'C1-0000085', 1, 8, 1, 'Tarde', '2021-10-05', '15:10:58', 'Sin Atender', 'Entrega'),
-(74, 'C1-0000086', 1, 8, 1, 'Tarde', '2021-10-05', '15:17:54', 'Sin Atender', 'Entrega'),
-(75, 'C1-0000087', 1, 8, 1, 'Tarde', '2021-10-05', '15:19:08', 'Sin Atender', 'Entrega'),
-(76, 'C1-0000088', 1, 8, 1, 'Tarde', '2021-10-05', '15:21:25', 'Sin Atender', 'Entrega'),
-(77, 'C1-0000089', 1, 8, 1, 'Tarde', '2021-10-05', '15:23:41', 'Sin Atender', 'Entrega'),
-(78, 'C1-0000090', 1, 8, 1, 'Tarde', '2021-10-05', '15:25:03', 'Sin Atender', 'Entrega'),
-(79, 'C1-0000091', 1, 8, 1, 'Tarde', '2021-10-05', '15:29:56', 'Sin Atender', 'Entrega'),
-(80, 'C1-0000092', 1, 8, 1, 'Tarde', '2021-10-05', '15:36:38', 'Sin Atender', 'Entrega'),
-(81, 'C1-0000093', 1, 8, 1, 'Tarde', '2021-10-05', '15:43:23', 'Sin Atender', 'Entrega'),
-(82, 'C1-0000094', 1, 8, 1, 'Tarde', '2021-10-05', '15:57:50', 'Sin Atender', 'Entrega'),
-(83, 'C1-0000095', 1, 8, 1, 'Tarde', '2021-10-05', '16:00:39', 'Sin Atender', 'Entrega'),
-(84, 'C1-0000096', 1, 8, 1, 'Tarde', '2021-10-05', '16:17:05', 'Sin Atender', 'Entrega'),
-(93, 'C1-0000105', 1, 8, 1, 'Tarde', '2021-10-05', '21:06:32', 'Sin Atender', 'Entrega'),
-(94, 'C1-0000106', 1, 8, 1, 'Tarde', '2021-10-05', '21:10:32', 'Sin Atender', 'Entrega'),
-(95, 'C1-0000107', 1, 8, 1, 'Tarde', '2021-10-05', '21:10:54', 'Sin Atender', 'Entrega'),
-(96, 'C1-0000108', 1, 8, 1, 'Tarde', '2021-10-05', '21:11:42', 'Sin Atender', 'Entrega'),
-(97, 'C1-0000109', 1, 8, 1, 'Tarde', '2021-10-05', '21:24:32', 'Sin Atender', 'Entrega'),
-(98, 'C1-0000110', 1, 8, 1, 'Tarde', '2021-10-05', '21:32:23', 'Sin Atender', 'Entrega'),
-(99, 'C1-0000111', 1, 8, 1, 'Tarde', '2021-10-05', '21:36:05', 'Sin Atender', 'Entrega'),
-(100, 'C1-0000112', 1, 8, 1, 'Tarde', '2021-10-05', '21:38:40', 'Sin Atender', 'Entrega'),
-(101, 'C1-0000113', 1, 8, 1, 'Tarde', '2021-10-05', '21:41:06', 'Sin Atender', 'Entrega'),
-(102, 'C1-0000114', 1, 8, 1, 'Tarde', '2021-10-05', '21:41:41', 'Sin Atender', 'Entrega'),
-(103, 'C1-0000115', 1, 8, 1, 'Tarde', '2021-10-05', '21:41:59', 'Sin Atender', 'Entrega'),
-(105, 'C1-0000117', 1, 8, 1, 'Tarde', '2021-10-05', '21:52:22', 'Sin Atender', 'Entrega'),
-(106, 'C1-0000118', 1, 8, 1, 'Tarde', '2021-10-05', '21:53:47', 'Sin Atender', 'Entrega'),
-(107, 'C1-0000119', 1, 8, 1, 'Tarde', '2021-10-05', '22:00:12', 'Sin Atender', 'Entrega'),
-(108, 'C1-0000120', 1, 8, 1, 'Tarde', '2021-10-05', '22:00:46', 'Sin Atender', 'Entrega'),
-(109, 'C1-0000121', 1, 8, 1, 'Tarde', '2021-10-05', '22:02:53', 'Sin Atender', 'Entrega'),
-(110, 'C1-0000122', 1, 8, 1, 'Tarde', '2021-10-05', '22:11:48', 'Sin Atender', 'Entrega'),
-(111, 'C1-0000123', 1, 8, 1, 'Tarde', '2021-10-05', '22:12:55', 'Sin Atender', 'Entrega'),
-(112, 'C1-0000124', 1, 8, 1, 'Tarde', '2021-10-05', '22:13:28', 'Sin Atender', 'Entrega'),
-(113, 'C1-0000125', 1, 8, 1, 'Tarde', '2021-10-05', '22:20:37', 'Sin Atender', 'Entrega'),
-(114, 'C1-0000126', 1, 8, 1, 'Tarde', '2021-10-05', '22:21:03', 'Sin Atender', 'Entrega'),
-(115, 'C1-0000127', 1, 8, 1, 'Tarde', '2021-10-05', '22:28:38', 'Sin Atender', 'Entrega'),
-(116, 'C1-0000128', 1, 8, 1, 'Tarde', '2021-10-05', '22:31:06', 'Sin Atender', 'Entrega'),
-(117, 'C1-0000129', 1, 8, 1, 'Tarde', '2021-10-05', '22:31:51', 'Sin Atender', 'Entrega'),
-(118, 'C1-0000130', 1, 8, 1, 'Tarde', '2021-10-05', '22:32:30', 'Sin Atender', 'Entrega'),
-(119, 'C1-0000131', 1, 8, 1, 'Tarde', '2021-10-05', '22:33:23', 'Sin Atender', 'Entrega'),
-(120, 'C1-0000132', 1, 8, 1, 'Tarde', '2021-10-05', '22:34:55', 'Sin Atender', 'Entrega'),
-(121, 'C1-0000133', 1, 8, 1, 'Tarde', '2021-10-05', '22:35:33', 'Sin Atender', 'Entrega'),
-(122, 'C1-0000134', 1, 8, 1, 'Tarde', '2021-10-05', '22:36:37', 'Sin Atender', 'Entrega'),
-(123, 'C1-0000135', 1, 8, 1, 'Tarde', '2021-10-05', '22:37:10', 'Sin Atender', 'Entrega'),
-(124, 'C1-0000136', 1, 8, 1, 'Tarde', '2021-10-05', '22:37:59', 'Sin Atender', 'Entrega'),
-(125, 'C1-0000137', 1, 8, 1, 'Tarde', '2021-10-05', '22:41:50', 'Sin Atender', 'Entrega'),
-(126, 'C1-0000138', 1, 8, 1, 'Tarde', '2021-10-05', '22:43:19', 'Sin Atender', 'Entrega'),
-(127, 'C1-0000139', 1, 8, 1, 'Tarde', '2021-10-05', '23:01:33', 'Sin Atender', 'Entrega'),
-(128, 'C1-0000140', 1, 8, 1, 'Tarde', '2021-10-05', '23:05:08', 'Sin Atender', 'Entrega'),
-(129, 'C1-0000141', 1, 8, 1, 'Tarde', '2021-10-05', '23:06:24', 'Sin Atender', 'Entrega'),
-(130, 'C1-0000142', 1, 8, 1, 'Tarde', '2021-10-05', '23:13:08', 'Sin Atender', 'Entrega'),
-(131, 'C1-0000143', 1, 8, 1, 'Tarde', '2021-10-05', '23:14:14', 'Sin Atender', 'Entrega'),
-(132, 'C1-0000144', 1, 8, 1, 'Tarde', '2021-10-05', '23:20:06', 'Sin Atender', 'Entrega'),
-(133, 'C1-0000145', 1, 8, 1, 'Tarde', '2021-10-05', '23:20:50', 'Sin Atender', 'Entrega'),
-(134, 'C1-0000146', 1, 8, 1, 'Tarde', '2021-10-05', '23:22:30', 'Sin Atender', 'Entrega'),
-(135, 'C1-0000147', 1, 8, 1, 'Tarde', '2021-10-05', '23:28:00', 'Sin Atender', 'Entrega'),
-(136, 'C1-0000148', 1, 8, 1, 'Tarde', '2021-10-05', '23:32:04', 'Atendido', 'Entrega'),
-(137, 'C1-0000149', 1, 8, 1, 'Tarde', '2021-10-05', '23:34:59', 'Sin Atender', 'Entrega'),
-(138, 'C1-0000150', 1, 8, 1, 'Temprano', '2021-10-05', '00:02:39', 'Sin Atender', 'Entrega'),
-(139, 'C1-0000151', 1, 8, 1, 'Temprano', '2021-10-05', '00:02:51', 'Sin Atender', 'Entrega'),
-(140, 'C1-0000152', 1, 8, 1, 'Temprano', '2021-10-05', '00:04:13', 'Sin Atender', 'Entrega'),
-(141, 'C1-0000153', 1, 8, 1, 'Temprano', '2021-10-05', '00:04:32', 'Sin Atender', 'Entrega'),
-(142, 'C1-0000154', 1, 8, 1, 'Temprano', '2021-10-05', '00:10:02', 'Sin Atender', 'Entrega'),
-(143, 'C1-0000155', 1, 8, 1, 'Temprano', '2021-10-05', '00:10:58', 'Sin Atender', 'Entrega'),
-(144, 'C1-0000156', 1, 8, 1, 'Temprano', '2021-10-05', '00:12:33', 'Sin Atender', 'Entrega'),
-(145, 'C1-0000157', 1, 8, 1, 'Temprano', '2021-10-05', '00:13:41', 'Sin Atender', 'Entrega'),
-(146, 'C1-0000158', 1, 8, 1, 'Temprano', '2021-10-05', '00:14:16', 'Sin Atender', 'Entrega'),
-(147, 'C1-0000159', 1, 8, 1, 'Temprano', '2021-10-05', '15:15:37', 'Sin Atender', 'Entrega'),
-(148, 'C1-0000160', 1, 8, 1, 'Tarde', '2021-10-05', '13:57:10', 'Sin Atender', 'Entrega'),
-(149, 'C1-0000161', 1, 8, 1, 'Tarde', '2021-10-05', '14:04:41', 'Sin Atender', 'Entrega'),
-(150, 'C1-0000162', 1, 8, 1, 'Tarde', '2021-10-05', '14:06:42', 'Sin Atender', 'Entrega'),
-(151, 'C1-0000163', 1, 8, 1, 'Tarde', '2021-10-05', '14:08:00', 'Sin Atender', 'Entrega'),
-(152, 'C1-0000164', 1, 8, 1, 'Tarde', '2021-10-05', '14:09:22', 'Sin Atender', 'Entrega'),
-(153, 'C1-0000165', 1, 8, 1, 'Tarde', '2021-10-05', '14:10:32', 'Sin Atender', 'Entrega'),
-(154, 'C1-0000166', 1, 8, 1, 'Tarde', '2021-10-05', '14:12:16', 'Sin Atender', 'Entrega'),
-(155, 'C1-0000167', 1, 8, 1, 'Tarde', '2021-10-05', '14:21:21', 'Sin Atender', 'Entrega'),
-(156, '', 1, 8, 1, 'Tarde', '2021-10-05', '14:00:00', 'Sin Atender', 'Recojo'),
-(157, 'C1-0000168', 1, 8, 1, 'Tarde', '2021-10-05', '15:34:03', 'Sin Atender', 'Entrega'),
-(158, 'C1-0000169', 1, 8, 1, 'Tarde', '2021-10-05', '15:34:40', 'Sin Atender', 'Entrega'),
-(159, 'C1-0000170', 1, 8, 1, 'Tarde', '2021-10-05', '15:35:03', 'Sin Atender', 'Entrega'),
-(160, 'C1-0000171', 1, 8, 1, 'Tarde', '2021-10-05', '15:35:36', 'Sin Atender', 'Entrega'),
-(161, 'C1-0000172', 1, 8, 1, 'Tarde', '2021-10-05', '15:35:58', 'Sin Atender', 'Entrega'),
-(162, 'C1-0000173', 1, 8, 1, 'Tarde', '2021-10-05', '15:36:28', 'Sin Atender', 'Entrega'),
-(163, 'C1-0000174', 1, 8, 1, 'Tarde', '2021-10-05', '15:36:45', 'Sin Atender', 'Entrega'),
-(164, 'C1-0000175', 1, 8, 1, 'Tarde', '2021-10-05', '15:38:24', 'Sin Atender', 'Entrega'),
-(165, 'C1-0000176', 1, 8, 1, 'Tarde', '2021-10-05', '15:38:51', 'Sin Atender', 'Entrega'),
-(166, 'C1-0000177', 1, 8, 1, 'Tarde', '2021-10-05', '15:38:57', 'Sin Atender', 'Entrega'),
-(167, 'C1-0000178', 1, 8, 1, 'Tarde', '2021-10-05', '15:39:27', 'Sin Atender', 'Entrega'),
-(168, 'C1-0000179', 1, 8, 1, 'Tarde', '2021-10-05', '15:39:44', 'Sin Atender', 'Entrega'),
-(169, 'C1-0000180', 1, 8, 1, 'Tarde', '2021-10-05', '15:40:04', 'Sin Atender', 'Entrega'),
-(170, 'C1-0000181', 1, 8, 1, 'Tarde', '2021-10-05', '15:40:57', 'Sin Atender', 'Entrega'),
-(171, 'C1-0000182', 1, 8, 1, 'Tarde', '2021-10-05', '15:41:38', 'Sin Atender', 'Entrega'),
-(172, 'C1-0000183', 1, 8, 1, 'Tarde', '2021-10-05', '15:41:58', 'Sin Atender', 'Entrega'),
-(173, 'C1-0000184', 1, 8, 1, 'Tarde', '2021-10-05', '15:42:19', 'Sin Atender', 'Entrega'),
-(174, 'C1-0000185', 1, 8, 1, 'Tarde', '2021-10-05', '15:42:40', 'Sin Atender', 'Entrega'),
-(175, 'C1-0000186', 1, 8, 1, 'Tarde', '2021-10-05', '15:43:27', 'Sin Atender', 'Entrega'),
-(176, 'C1-0000187', 1, 8, 1, 'Tarde', '2021-10-05', '15:48:30', 'Sin Atender', 'Entrega'),
-(177, 'C1-0000188', 1, 8, 1, 'Tarde', '2021-10-05', '15:50:03', 'Sin Atender', 'Entrega'),
-(178, 'C1-0000189', 1, 8, 1, 'Tarde', '2021-10-05', '15:50:52', 'Sin Atender', 'Entrega'),
-(179, 'C1-0000190', 1, 8, 1, 'Tarde', '2021-10-05', '15:52:13', 'Sin Atender', 'Entrega'),
-(180, 'C1-0000191', 1, 8, 1, 'Tarde', '2021-10-05', '15:52:36', 'Sin Atender', 'Entrega'),
-(181, 'C1-0000192', 1, 8, 1, 'Tarde', '2021-10-05', '15:58:11', 'Sin Atender', 'Entrega'),
-(182, 'C1-0000193', 1, 8, 1, 'Tarde', '2021-10-05', '16:05:44', 'Sin Atender', 'Entrega'),
-(183, 'C1-0000194', 1, 8, 1, 'Tarde', '2021-10-05', '16:06:04', 'Sin Atender', 'Entrega'),
-(184, 'C1-0000195', 1, 8, 1, 'Tarde', '2021-10-05', '16:07:11', 'Sin Atender', 'Entrega'),
-(185, 'C1-0000196', 1, 8, 1, 'Tarde', '2021-10-05', '16:07:29', 'Sin Atender', 'Entrega'),
-(186, 'C1-0000197', 1, 8, 1, 'Tarde', '2021-10-05', '16:08:45', 'Sin Atender', 'Entrega'),
-(187, 'C1-0000198', 1, 8, 1, 'Tarde', '2021-10-05', '16:09:31', 'Sin Atender', 'Entrega'),
-(188, 'C1-0000199', 1, 8, 1, 'Tarde', '2021-10-05', '16:09:58', 'Sin Atender', 'Entrega'),
-(189, 'C1-0000200', 1, 8, 1, 'Tarde', '2021-10-05', '16:11:02', 'Sin Atender', 'Entrega'),
-(190, 'C1-0000201', 1, 8, 1, 'Tarde', '2021-10-05', '16:11:35', 'Sin Atender', 'Entrega'),
-(191, 'C1-0000202', 1, 8, 1, 'Tarde', '2021-10-05', '16:12:06', 'Sin Atender', 'Entrega'),
-(192, 'C1-0000203', 1, 8, 1, 'Tarde', '2021-10-05', '16:15:32', 'Sin Atender', 'Entrega'),
-(193, 'C1-0000204', 1, 8, 1, 'Tarde', '2021-10-05', '16:17:06', 'Sin Atender', 'Entrega'),
-(194, 'C1-0000205', 1, 8, 1, 'Tarde', '2021-10-05', '16:17:41', 'Sin Atender', 'Entrega'),
-(195, 'C1-0000206', 1, 8, 1, 'Tarde', '2021-10-05', '16:17:59', 'Sin Atender', 'Entrega'),
-(196, 'C1-0000207', 1, 8, 1, 'Tarde', '2021-10-05', '16:18:34', 'Sin Atender', 'Entrega'),
-(197, 'C1-0000208', 1, 8, 1, 'Tarde', '2021-10-05', '16:19:27', 'Sin Atender', 'Entrega'),
-(198, 'C1-0000209', 1, 8, 1, 'Tarde', '2021-10-05', '16:19:53', 'Sin Atender', 'Entrega'),
-(199, 'C1-0000210', 1, 8, 1, 'Tarde', '2021-10-05', '16:20:27', 'Sin Atender', 'Entrega'),
-(200, 'C1-0000211', 1, 8, 1, 'Tarde', '2021-10-05', '16:21:20', 'Sin Atender', 'Entrega'),
-(201, 'C1-0000212', 1, 8, 1, 'Tarde', '2021-10-05', '16:22:00', 'Sin Atender', 'Entrega'),
-(202, 'C1-0000213', 1, 8, 1, 'Tarde', '2021-10-05', '16:22:16', 'Sin Atender', 'Entrega'),
-(203, 'C1-0000214', 1, 8, 1, 'Tarde', '2021-10-05', '16:22:39', 'Sin Atender', 'Entrega'),
-(204, 'C1-0000215', 1, 8, 1, 'Tarde', '2021-10-05', '16:23:18', 'Sin Atender', 'Entrega'),
-(205, 'C1-0000216', 1, 8, 1, 'Tarde', '2021-10-05', '16:23:59', 'Sin Atender', 'Entrega'),
-(206, 'C1-0000217', 1, 8, 1, 'Tarde', '2021-10-05', '16:24:04', 'Sin Atender', 'Entrega'),
-(207, 'C1-0000218', 1, 8, 1, 'Tarde', '2021-10-05', '16:28:26', 'Sin Atender', 'Entrega'),
-(208, 'C1-0000219', 1, 8, 1, 'Tarde', '2021-10-05', '16:29:02', 'Sin Atender', 'Entrega'),
-(209, 'C1-0000220', 1, 8, 1, 'Tarde', '2021-10-05', '16:29:26', 'Sin Atender', 'Entrega'),
-(210, 'C1-0000221', 1, 8, 1, 'Tarde', '2021-10-05', '16:30:06', 'Sin Atender', 'Entrega'),
-(211, 'C1-0000222', 1, 8, 1, 'Tarde', '2021-10-05', '16:30:38', 'Sin Atender', 'Entrega'),
-(212, 'C1-0000223', 1, 8, 1, 'Tarde', '2021-10-05', '16:31:58', 'Sin Atender', 'Entrega'),
-(213, 'C1-0000224', 1, 8, 1, 'Tarde', '2021-10-05', '16:32:29', 'Sin Atender', 'Entrega'),
-(214, 'C1-0000225', 1, 8, 1, 'Tarde', '2021-10-05', '16:32:47', 'Sin Atender', 'Entrega'),
-(215, 'C1-0000226', 1, 8, 1, 'Tarde', '2021-10-05', '16:33:16', 'Sin Atender', 'Entrega'),
-(216, 'C1-0000227', 1, 8, 1, 'Tarde', '2021-10-05', '16:33:58', 'Sin Atender', 'Entrega'),
-(217, 'C1-0000228', 1, 8, 1, 'Tarde', '2021-10-05', '16:34:17', 'Sin Atender', 'Entrega'),
-(218, 'C1-0000229', 1, 8, 1, 'Tarde', '2021-10-05', '16:34:41', 'Sin Atender', 'Entrega'),
-(219, 'C1-0000230', 1, 8, 1, 'Tarde', '2021-10-05', '16:35:25', 'Sin Atender', 'Entrega'),
-(220, 'C1-0000231', 1, 8, 1, 'Tarde', '2021-10-05', '16:36:33', 'Sin Atender', 'Entrega'),
-(221, 'C1-0000232', 1, 8, 1, 'Tarde', '2021-10-05', '16:39:36', 'Sin Atender', 'Entrega'),
-(222, 'C1-0000233', 1, 8, 1, 'Tarde', '2021-10-05', '16:41:38', 'Sin Atender', 'Entrega'),
-(223, 'C1-0000234', 1, 8, 1, 'Tarde', '2021-10-05', '16:42:14', 'Sin Atender', 'Entrega'),
-(224, 'C1-0000235', 1, 8, 1, 'Tarde', '2021-10-05', '16:43:20', 'Sin Atender', 'Entrega'),
-(225, 'C1-0000236', 1, 8, 1, 'Tarde', '2021-10-05', '16:45:10', 'Sin Atender', 'Entrega'),
-(226, 'C1-0000237', 1, 8, 1, 'Tarde', '2021-10-05', '16:45:33', 'Sin Atender', 'Entrega'),
-(227, 'C1-0000238', 1, 8, 1, 'Tarde', '2021-10-05', '16:45:55', 'Sin Atender', 'Entrega'),
-(228, 'C1-0000239', 1, 8, 1, 'Tarde', '2021-10-05', '16:46:14', 'Sin Atender', 'Entrega'),
-(229, 'C1-0000240', 1, 8, 1, 'Tarde', '2021-10-05', '16:46:54', 'Sin Atender', 'Entrega'),
-(230, 'C1-0000241', 1, 8, 1, 'Tarde', '2021-10-05', '16:47:27', 'Sin Atender', 'Entrega'),
-(231, 'C1-0000242', 1, 8, 1, 'Tarde', '2021-10-05', '16:49:28', 'Sin Atender', 'Entrega'),
-(232, 'C1-0000243', 1, 8, 1, 'Tarde', '2021-10-05', '16:54:05', 'Sin Atender', 'Entrega'),
-(233, 'C1-0000244', 1, 8, 1, 'Tarde', '2021-10-05', '16:54:46', 'Sin Atender', 'Entrega'),
-(234, 'C1-0000245', 1, 8, 1, 'Tarde', '2021-10-05', '16:56:55', 'Sin Atender', 'Entrega'),
-(235, 'C1-0000246', 1, 8, 1, 'Tarde', '2021-10-05', '16:57:35', 'Sin Atender', 'Entrega'),
-(236, 'C1-0000247', 1, 8, 1, 'Tarde', '2021-10-05', '16:58:18', 'Sin Atender', 'Entrega'),
-(237, 'C1-0000248', 1, 8, 1, 'Tarde', '2021-10-05', '16:58:49', 'Sin Atender', 'Entrega'),
-(238, 'C1-0000249', 1, 8, 1, 'Tarde', '2021-10-05', '16:59:26', 'Sin Atender', 'Entrega'),
-(239, 'C1-0000250', 1, 8, 1, 'Tarde', '2021-10-05', '17:01:01', 'Sin Atender', 'Entrega'),
-(240, 'C1-0000251', 1, 8, 1, 'Tarde', '2021-10-05', '17:02:09', 'Sin Atender', 'Entrega'),
-(241, 'C1-0000252', 1, 8, 1, 'Tarde', '2021-10-05', '17:02:32', 'Sin Atender', 'Entrega'),
-(242, 'C1-0000253', 1, 8, 1, 'Tarde', '2021-10-05', '17:02:54', 'Sin Atender', 'Entrega'),
-(243, 'C1-0000254', 1, 8, 1, 'Tarde', '2021-10-05', '17:03:18', 'Sin Atender', 'Entrega'),
-(244, 'C1-0000255', 1, 8, 1, 'Tarde', '2021-10-05', '17:03:38', 'Sin Atender', 'Entrega'),
-(245, 'C1-0000256', 1, 8, 1, 'Tarde', '2021-10-05', '17:04:13', 'Sin Atender', 'Entrega'),
-(246, 'C1-0000257', 1, 8, 1, 'Tarde', '2021-10-05', '17:05:54', 'Sin Atender', 'Entrega'),
-(247, 'C1-0000258', 1, 8, 1, 'Tarde', '2021-10-05', '17:06:36', 'Sin Atender', 'Entrega'),
-(248, 'C1-0000259', 1, 8, 1, 'Tarde', '2021-10-05', '17:07:10', 'Sin Atender', 'Entrega'),
-(249, 'C1-0000260', 1, 8, 1, 'Tarde', '2021-10-05', '17:08:41', 'Sin Atender', 'Entrega'),
-(250, 'C1-0000261', 1, 8, 1, 'Tarde', '2021-10-05', '17:09:59', 'Sin Atender', 'Entrega'),
-(251, 'C1-0000262', 1, 8, 1, 'Tarde', '2021-10-05', '17:10:18', 'Sin Atender', 'Entrega'),
-(252, 'C1-0000263', 1, 8, 1, 'Tarde', '2021-10-05', '17:12:38', 'Sin Atender', 'Entrega'),
-(253, 'C1-0000264', 1, 8, 1, 'Tarde', '2021-10-05', '17:14:47', 'Sin Atender', 'Entrega'),
-(254, 'C1-0000265', 1, 8, 1, 'Tarde', '2021-10-05', '17:16:46', 'Sin Atender', 'Entrega'),
-(255, 'C1-0000266', 1, 8, 1, 'Tarde', '2021-10-05', '17:19:06', 'Sin Atender', 'Entrega'),
-(256, 'C1-0000267', 1, 8, 1, 'Tarde', '2021-10-05', '17:19:41', 'Sin Atender', 'Entrega'),
-(257, 'C1-0000268', 1, 8, 1, 'Tarde', '2021-10-05', '17:20:36', 'Sin Atender', 'Entrega'),
-(258, 'C1-0000269', 1, 8, 1, 'Tarde', '2021-10-05', '17:21:19', 'Sin Atender', 'Entrega'),
-(259, 'C1-0000270', 1, 8, 1, 'Tarde', '2021-10-05', '17:27:50', 'Sin Atender', 'Entrega'),
-(260, 'C1-0000271', 1, 8, 1, 'Tarde', '2021-10-05', '17:29:52', 'Sin Atender', 'Entrega'),
-(261, 'C1-0000272', 1, 8, 1, 'Tarde', '2021-10-05', '17:31:17', 'Sin Atender', 'Entrega'),
-(262, 'C1-0000273', 1, 8, 1, 'Tarde', '2021-10-05', '17:32:49', 'Sin Atender', 'Entrega'),
-(263, 'C1-0000274', 1, 8, 1, 'Tarde', '2021-10-05', '17:33:31', 'Sin Atender', 'Entrega'),
-(264, 'C1-0000275', 1, 8, 1, 'Tarde', '2021-10-05', '17:34:10', 'Sin Atender', 'Entrega'),
-(265, 'C1-0000276', 1, 8, 1, 'Tarde', '2021-10-05', '17:35:06', 'Sin Atender', 'Entrega'),
-(266, 'C1-0000277', 1, 8, 1, 'Tarde', '2021-10-05', '17:36:51', 'Sin Atender', 'Entrega'),
-(267, 'C1-0000278', 1, 8, 1, 'Tarde', '2021-10-05', '17:37:45', 'Sin Atender', 'Entrega'),
-(268, 'C1-0000279', 1, 8, 1, 'Tarde', '2021-10-05', '17:38:11', 'Sin Atender', 'Entrega'),
-(269, 'C1-0000280', 1, 8, 1, 'Tarde', '2021-10-05', '17:38:46', 'Sin Atender', 'Entrega'),
-(270, 'C1-0000281', 1, 8, 1, 'Tarde', '2021-10-05', '17:39:07', 'Sin Atender', 'Entrega'),
-(271, 'C1-0000282', 1, 8, 1, 'Tarde', '2021-10-05', '17:39:31', 'Sin Atender', 'Entrega'),
-(272, 'C1-0000283', 1, 8, 1, 'Tarde', '2021-10-05', '17:40:01', 'Sin Atender', 'Entrega'),
-(273, 'C1-0000284', 1, 8, 1, 'Tarde', '2021-10-05', '17:40:19', 'Sin Atender', 'Entrega'),
-(274, 'C1-0000285', 1, 8, 1, 'Tarde', '2021-10-05', '17:41:22', 'Sin Atender', 'Entrega'),
-(275, 'C1-0000286', 1, 8, 1, 'Tarde', '2021-10-05', '17:42:02', 'Sin Atender', 'Entrega'),
-(276, 'C1-0000287', 1, 8, 1, 'Tarde', '2021-10-05', '17:42:27', 'Sin Atender', 'Entrega'),
-(277, 'C1-0000288', 1, 8, 1, 'Tarde', '2021-10-05', '17:43:24', 'Sin Atender', 'Entrega'),
-(278, 'C1-0000289', 1, 8, 1, 'Tarde', '2021-10-05', '17:44:00', 'Sin Atender', 'Entrega'),
-(279, 'C1-0000290', 1, 8, 1, 'Tarde', '2021-10-05', '17:45:13', 'Sin Atender', 'Entrega'),
-(280, 'C1-0000291', 1, 8, 1, 'Tarde', '2021-10-05', '17:45:39', 'Sin Atender', 'Entrega'),
-(281, 'C1-0000292', 1, 8, 1, 'Tarde', '2021-10-05', '17:46:16', 'Sin Atender', 'Entrega'),
-(282, 'C1-0000293', 1, 8, 1, 'Tarde', '2021-10-05', '17:47:19', 'Sin Atender', 'Entrega'),
-(283, 'C1-0000294', 1, 8, 1, 'Tarde', '2021-10-05', '17:48:28', 'Sin Atender', 'Entrega'),
-(284, 'C1-0000295', 1, 8, 1, 'Tarde', '2021-10-05', '17:48:58', 'Sin Atender', 'Entrega'),
-(285, 'C1-0000296', 1, 8, 1, 'Tarde', '2021-10-05', '17:49:26', 'Sin Atender', 'Entrega'),
-(286, 'C1-0000297', 1, 8, 1, 'Tarde', '2021-10-05', '17:59:17', 'Sin Atender', 'Entrega'),
-(287, 'C1-0000298', 1, 8, 1, 'Tarde', '2021-10-05', '18:10:57', 'Sin Atender', 'Entrega'),
-(288, 'C1-0000299', 1, 8, 1, 'Tarde', '2021-10-05', '18:11:49', 'Sin Atender', 'Entrega'),
-(289, 'C1-0000300', 1, 8, 1, 'Tarde', '2021-10-05', '18:12:08', 'Sin Atender', 'Entrega'),
-(290, 'C1-0000301', 1, 8, 1, 'Tarde', '2021-10-05', '18:13:35', 'Sin Atender', 'Entrega'),
-(291, 'C1-0000302', 1, 8, 1, 'Tarde', '2021-10-05', '18:13:56', 'Sin Atender', 'Entrega'),
-(292, 'C1-0000303', 1, 8, 1, 'Tarde', '2021-10-05', '18:14:34', 'Sin Atender', 'Entrega'),
-(293, 'C1-0000304', 1, 8, 1, 'Tarde', '2021-10-05', '18:15:34', 'Sin Atender', 'Entrega'),
-(294, 'C1-0000305', 1, 8, 1, 'Tarde', '2021-10-05', '18:16:59', 'Sin Atender', 'Entrega'),
-(295, 'C1-0000306', 1, 8, 1, 'Tarde', '2021-10-05', '18:20:13', 'Sin Atender', 'Entrega'),
-(296, 'C1-0000307', 1, 8, 1, 'Tarde', '2021-10-05', '18:21:30', 'Sin Atender', 'Entrega'),
-(297, 'C1-0000308', 1, 8, 1, 'Tarde', '2021-10-05', '18:26:58', 'Sin Atender', 'Entrega'),
-(298, 'C1-0000309', 1, 8, 1, 'Tarde', '2021-10-05', '18:28:03', 'Sin Atender', 'Entrega'),
-(299, 'C1-0000310', 1, 8, 1, 'Temprano', '2021-10-05', '00:59:13', 'Sin Atender', 'Entrega');
+INSERT INTO `turnoxcliente` (`id`, `numero_orden`, `id_repartidor`, `id_cliente`, `id_zona`, `puesto_turno`, `fecha_turno`, `hora_turno`, `atencion`, `estado_turno`, `idprenda`) VALUES
+(307, 'C1-0000311', 1, 8, 1, 'Tarde', '2021-10-12', '14:35:26', 'Sin Atender', 'Reclamo', NULL),
+(308, 'C1-0000312', 1, 8, 1, 'Tarde', '2021-10-12', '19:13:54', 'Sin Atender', 'Entrega', NULL),
+(310, '', 1, 8, 1, 'Temprano', '2021-10-12', '10:00:00', 'Sin Atender', 'Recojo', '');
 
 -- --------------------------------------------------------
 
@@ -2004,7 +1803,10 @@ CREATE TABLE `zonaxrepartidor` (
 
 INSERT INTO `zonaxrepartidor` (`id`, `id_zona`, `id_repartidor`) VALUES
 (1, 1, 1),
-(2, 2, 1);
+(3, 3, 4),
+(4, 3, 0),
+(5, 3, 6),
+(6, 4, 7);
 
 --
 -- Índices para tablas volcadas
@@ -2015,7 +1817,6 @@ INSERT INTO `zonaxrepartidor` (`id`, `id_zona`, `id_repartidor`) VALUES
 --
 ALTER TABLE `articulo`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `codigo_articulo` (`codigo_articulo`),
   ADD KEY `FK2_idservicio` (`Id_Servicio`);
 
 --
@@ -2098,7 +1899,6 @@ ALTER TABLE `orden`
 --
 ALTER TABLE `promocion`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `codigo_promocion` (`codigo_promocion`),
   ADD KEY `FK1_idarticulo_promocion` (`idarticulo_promocion`);
 
 --
@@ -2153,8 +1953,7 @@ ALTER TABLE `turnoxcliente`
 -- Indices de la tabla `zona`
 --
 ALTER TABLE `zona`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `codigo_zona` (`codigo_zona`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `zonaxrepartidor`
@@ -2172,31 +1971,31 @@ ALTER TABLE `zonaxrepartidor`
 -- AUTO_INCREMENT de la tabla `articulo`
 --
 ALTER TABLE `articulo`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=476;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000013;
 
 --
 -- AUTO_INCREMENT de la tabla `boleta`
 --
 ALTER TABLE `boleta`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10469;
 
 --
 -- AUTO_INCREMENT de la tabla `color`
 --
 ALTER TABLE `color`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4752;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4771;
 
 --
 -- AUTO_INCREMENT de la tabla `detalleorden`
 --
 ALTER TABLE `detalleorden`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=563;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=566;
 
 --
 -- AUTO_INCREMENT de la tabla `distrito`
@@ -2232,43 +2031,43 @@ ALTER TABLE `impresora`
 -- AUTO_INCREMENT de la tabla `marca`
 --
 ALTER TABLE `marca`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1838;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1857;
 
 --
 -- AUTO_INCREMENT de la tabla `orden`
 --
 ALTER TABLE `orden`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=311;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=313;
 
 --
 -- AUTO_INCREMENT de la tabla `promocion`
 --
 ALTER TABLE `promocion`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `promocionxarticulo`
 --
 ALTER TABLE `promocionxarticulo`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de la tabla `receta`
 --
 ALTER TABLE `receta`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT de la tabla `reclamoxprenda`
 --
 ALTER TABLE `reclamoxprenda`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `repartidor`
 --
 ALTER TABLE `repartidor`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `servicio`
@@ -2280,19 +2079,19 @@ ALTER TABLE `servicio`
 -- AUTO_INCREMENT de la tabla `turnoxcliente`
 --
 ALTER TABLE `turnoxcliente`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=300;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=312;
 
 --
 -- AUTO_INCREMENT de la tabla `zona`
 --
 ALTER TABLE `zona`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `zonaxrepartidor`
 --
 ALTER TABLE `zonaxrepartidor`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas

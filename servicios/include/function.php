@@ -282,3 +282,53 @@ function Emitir_Factura_Boleta($array) {
     $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     return $httpcode; // 200 = Ok
 }
+
+// ACA DEFINO LAS SERIES DE LAS BOLETAS Y FACTURAS
+// $zona = C1, C2, C3, ETC
+function SerieBoletaxZona($zona) {
+    switch ($zona) {
+        case "C1":
+            return "B003";
+            break;
+        case "C2":
+            return "B004";
+            break;
+        case "C3":
+            return "B005";
+            break;
+        case "C4":
+            return "B006";
+            break;
+
+        // MODIFICAR
+        case "C5":
+            return "B005";
+            break;
+        default:
+            return "";
+    }
+}
+
+function SerieFacturaxZona($zona) {
+    switch ($zona) {
+        case "C1":
+            return "F003";
+            break;
+        case "C2":
+            return "F004";
+            break;
+        case "C3":
+            return "F005";
+            break;
+        case "C4":
+            return "F006";
+            break;
+
+        // MODIFICAR
+        case "C5":
+            return "F005";
+            break;
+        default:
+            return "";
+    }
+}

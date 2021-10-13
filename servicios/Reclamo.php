@@ -104,12 +104,16 @@ if ($ajax) {
                     );
                     $reclamoxprenda_id = $pdo->id();
 
-                    $numerodeordendereclamo = @$datosdelorden[0]['idzona'] . '-' . zero_fill($reclamoxprenda_id, 7);
+                    $explode = explode('-', $numerodeorden);
+                    $numerodeordendereclamo = @$datosdelorden[0]['idzona'] . '-' . zero_fill($explode[1], 7);
 
                     if ($reclamoxprenda_id) {
 
+                        $countfiles = count(array_filter($_FILES['archivo']['name']));
+                        $countmusic = count(array_filter($_FILES['audio']['name']));
+
                         // RECORRO SI LOS AUDIOS Y ARCHIVOS SI ES QUE HAY Y LE PASO PARA ACTUALIZAR ABAJO                        
-                        if (count($archivos['archivo']['name'])) {
+                        if ($countfiles >= 1) {
                             $carpeta_archivo = RUTA_ARCHIVOS . $numerodeordendereclamo . "/";
 
                             // CREO LA CARPETA CON EL NOMBRE DEL SERVICIO
@@ -129,7 +133,7 @@ if ($ajax) {
                                 $fi = $fi + 1;
                             }
                         }
-                        if (count($audios['audio']['name'])) {
+                        if ($countmusic >= 1) {
                             $carpeta_archivo = RUTA_AUDIOS . $numerodeordendereclamo . "/";
 
                             // CREO LA CARPETA CON EL NOMBRE DEL SERVICIO
