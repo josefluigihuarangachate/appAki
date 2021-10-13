@@ -67,52 +67,6 @@ if ($ajax) {
                         ]
                 );
 
-                // RECORRO SI LOS AUDIOS Y ARCHIVOS SI ES QUE HAY Y LE PASO PARA ACTUALIZAR ABAJO    
-                // Looping all files
-                $countfiles = count(array_filter($_FILES['archivo']['name']));
-                $countmusic = count(array_filter($_FILES['audio']['name']));
-                if ($countfiles >= 1) {
-                    $carpeta_archivo = RUTA_ARCHIVOS . $numerodeordendereclamo . "/";
-
-                    // CREO LA CARPETA CON EL NOMBRE DEL SERVICIO
-                    if (!file_exists($carpeta_archivo)) {
-                        mkdir($carpeta_archivo, 0777, true);
-                    }
-
-                    $fi = 0;
-                    while ($fi < count($archivos['archivo']['name'])) {
-                        $temp = explode(".", $archivos['archivo']["name"][$fi]);
-                        $newfilename = 'I' . generateRandomString() . '.' . end($temp);
-                        if ($fi > 0) {
-                            $in_archivos .= ' @ ';
-                        }
-                        $in_archivos .= $newfilename;
-                        move_uploaded_file($archivos['archivo']["tmp_name"][$fi], $carpeta_archivo . $newfilename);
-                        $fi = $fi + 1;
-                    }
-                }
-                if ($countmusic >= 1) {
-                    $carpeta_archivo = RUTA_AUDIOS . $numerodeordendereclamo . "/";
-
-                    // CREO LA CARPETA CON EL NOMBRE DEL SERVICIO
-                    if (!file_exists($carpeta_archivo)) {
-                        mkdir($carpeta_archivo, 0777, true);
-                    }
-
-                    $fi = 0;
-                    while ($fi < count($audios['audio']['name'])) {
-                        $temp = explode(".", $audios['audio']["name"][$fi]);
-                        $newfilename = 'I' . generateRandomString() . '.' . end($temp);
-                        if ($fi > 0) {
-                            $in_audios .= ' @ ';
-                        }
-                        $in_audios .= $newfilename;
-                        move_uploaded_file($audios['audio']["tmp_name"][$fi], $carpeta_archivo . $newfilename);
-
-                        $fi = $fi + 1;
-                    }
-                }
-
                 try {
 
                     $pdo->insert(
@@ -145,6 +99,54 @@ if ($ajax) {
                     $numerodeordendereclamo = @$getzona[0]['puesto_zona'] . '-' . zero_fill(@$explode[1], 7);
 
                     if ($account_id) {
+
+
+                        // RECORRO SI LOS AUDIOS Y ARCHIVOS SI ES QUE HAY Y LE PASO PARA ACTUALIZAR ABAJO    
+                        // Looping all files
+                        $countfiles = count(array_filter($_FILES['archivo']['name']));
+                        $countmusic = count(array_filter($_FILES['audio']['name']));
+                        if ($countfiles >= 1) {
+                            $carpeta_archivo = RUTA_ARCHIVOS . $numerodeordendereclamo . "/";
+
+                            // CREO LA CARPETA CON EL NOMBRE DEL SERVICIO
+                            if (!file_exists($carpeta_archivo)) {
+                                mkdir($carpeta_archivo, 0777, true);
+                            }
+
+                            $fi = 0;
+                            while ($fi < count($archivos['archivo']['name'])) {
+                                $temp = explode(".", $archivos['archivo']["name"][$fi]);
+                                $newfilename = 'I' . generateRandomString() . '.' . end($temp);
+                                if ($fi > 0) {
+                                    $in_archivos .= ' @ ';
+                                }
+                                $in_archivos .= $newfilename;
+                                move_uploaded_file($archivos['archivo']["tmp_name"][$fi], $carpeta_archivo . $newfilename);
+                                $fi = $fi + 1;
+                            }
+                        }
+                        if ($countmusic >= 1) {
+                            $carpeta_archivo = RUTA_AUDIOS . $numerodeordendereclamo . "/";
+
+                            // CREO LA CARPETA CON EL NOMBRE DEL SERVICIO
+                            if (!file_exists($carpeta_archivo)) {
+                                mkdir($carpeta_archivo, 0777, true);
+                            }
+
+                            $fi = 0;
+                            while ($fi < count($audios['audio']['name'])) {
+                                $temp = explode(".", $audios['audio']["name"][$fi]);
+                                $newfilename = 'I' . generateRandomString() . '.' . end($temp);
+                                if ($fi > 0) {
+                                    $in_audios .= ' @ ';
+                                }
+                                $in_audios .= $newfilename;
+                                move_uploaded_file($audios['audio']["tmp_name"][$fi], $carpeta_archivo . $newfilename);
+
+                                $fi = $fi + 1;
+                            }
+                        }
+
 
                         //UPDATE
                         $data = $pdo->update(
@@ -206,4 +208,4 @@ if ($ajax) {
 
 //'X-Requested-With', 'XMLHttpRequest'
 header('Content-Type: application/json');
-echo json_encode($json, JSON_UNESCAPED_UNICODE);
+echo json_encode($json['status'], JSON_UNESCAPED_UNICODE);

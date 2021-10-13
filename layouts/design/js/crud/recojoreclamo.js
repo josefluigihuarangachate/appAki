@@ -1018,22 +1018,36 @@ $(document).ready(function () {
         //form.append('longitud', longitud);
         $.ajax({
             type: "POST",
-            dataType: "json",
+            dataType: "html",
             url: ruta + 'RecojoReclamo',
             data: form,
             cache: false,
             contentType: false, //must, tell jQuery not to process the data
             processData: false,
             beforeSend: function () {
-                document.getElementById("htmlprint").innerHTML = '';
-                document.getElementById("htmlprint").innerHTML = '<div class="div-contenedor"><div class="centrar"><img src="design/aki/lavadora.gif" alt="" style="width: 110px;"/><br><strong>Procesando...</strong></div></div>';
+
             },
             success: function (data)
             {
-                DialogAlertOkError(data['status'], data['msg']);
-                setTimeout(function () {
-                    window.history.back();
-                }, 3000);
+                msg = '';
+                var okey = data.split('');
+                var ok = okey[1] + "" + okey[2];
+                if (ok === 'Ok') {
+                    msg = 'Los datos fueron registrados';
+                } else {
+                    msg = 'Hubo un error al registrar los datos';
+                }
+
+                $('#DialogFormReclamo').modal('show');
+
+                document.getElementById("msgreclamo").innerHTML = '';
+                document.getElementById("msgreclamo").innerHTML = msg;
+
+                if (ok === 'Ok') {
+                    setTimeout(function () {
+                        window.history.back();
+                    }, 2000);
+                }
             },
             error: function (xhr) { // if error occured
                 console.log(xhr);

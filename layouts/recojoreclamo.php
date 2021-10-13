@@ -5,7 +5,6 @@
 //imprimir($reclamodeprenda);
 ?>
 <link href="design/assets/css/recojo.css" rel="stylesheet" type="text/css"/>
-
 <form action="javascript:void(0)" method="POST" enctype="multipart/form-data" class="formData" id="formData" name="formData">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
@@ -208,19 +207,29 @@
 </div>
 <!-- * Dialog Form -->
 
-<!-- Modal Imprimir Ticket -->
-<div class="modal fade modalbox" id="ModalPrintTicket" tabindex="-1" role="dialog" style="z-index: 9999;">
+
+
+<!-- Dialog Form -->
+<div class="modal fade dialogbox hide" id="DialogFormReclamo" name="DialogFormReclamo" data-bs-backdrop="static" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="padding-top: 0px !important;">
-            <div class="modal-body">
-                <a href="javascript:;" class="btn btn-close" data-bs-dismiss="modal" style="float: right;border-radius: 50px;" id="closeTicket" name="closeTicket">x</a>
-                <div id="htmlprint" name="htmlprint">                    
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">MENSAJE IMPORTANTE</h5>
+            </div>
+            <div class="modal-body text-start mb-2">
+                <center>
+                    <label id="msgreclamo" name="msgreclamo"></label>                    
+                </center>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-inline">
+                    <button type="button" class="btn btn-text-danger" data-bs-dismiss="modal" id="cancelarfechaentrega" name="cancelarfechaentrega">CANCELAR</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Fin Modal Imprimir Ticket -->
+<!-- * Dialog Form -->
 
 <span class="ir-arriba icon-arrow-up2">
     <ion-icon name="chevron-up-outline"></ion-icon>

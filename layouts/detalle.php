@@ -12,6 +12,7 @@ include "../servicios/include/tables.php";
         <?php
         include "./include/header/header_login.php";
         ?>
+        <script src="design/js/crud/dialogalert.js" type="text/javascript"></script>
         <style>
             .ir-arriba {
                 text-align: center;
@@ -223,7 +224,7 @@ include "../servicios/include/tables.php";
                 });
             });
         </script>
-        <!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                                                                                  ?>" type="text/javascript"></script>
-                <script src="design/js/crud/cliente.js<?php //echo @$v;                                                                                   ?>" type="text/javascript"></script>-->
+        <!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                                                                                   ?>" type="text/javascript"></script>
+                <script src="design/js/crud/cliente.js<?php //echo @$v;                                                                                    ?>" type="text/javascript"></script>-->
     </body>
 </html>
