@@ -19,6 +19,19 @@ date_default_timezone_set('America/Lima');
   define('DB_NAME', 'u460301108_dbaki');
   define('DB_USER', 'u460301108_aki');
   define('DB_PASS', 'u460301108_Aki');
+
+ * 
+ * SITEGROUND * 
+ Usuario uirnl5ltehrqu ha sido creado con contraseña 1boehuop9a3y
+ BASE DE DATOS = dbc0tpk2t8gggz
+ 
+ 
+define('DB_TYPE', 'mysql');
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'dbc0tpk2t8gggz');
+define('DB_USER', 'uirnl5ltehrqu');
+define('DB_PASS', '1boehuop9a3y');
+ 
  */
 
 define('DB_TYPE', 'mysql');

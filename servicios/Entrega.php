@@ -554,6 +554,14 @@ if ($ajax) {
                     $itemValorVenta = number_format($itemValorVentaSum, 2, '.', '');
                     $itemIGVMonto = number_format($itemIGVMontoSum, 2, '.', '');
 
+                    if (intval($itemValorVenta) >= 700) {
+                        $dniruc = "99999999";
+                        $razonsocial = "CLIENTES VARIOS";
+                        $idtipodefacturasig = '2';
+                    }
+
+                    $itemVV = explode(".", $itemValorVenta);
+
                     $factura_boleta = array(
                         "emiRucTipo" => "6",
                         "emiRucNumero" => "20123257899", // QUEDA IGUAL
@@ -569,7 +577,7 @@ if ($ajax) {
                         "adqDistrito" => "", // QUEDA IGUAL
                         "docFechaEmision" => date('d/m/Y'),
                         "docTipo" => strval($codigodesunat),
-                        "docNumero" => str_replace("-", '', $numerodefactura),
+                        "docNumero" => str_replace("-", '', $numerodefactura) . '0',
                         "docMoneda" => "PEN", // QUEDA IGUAL
                         "docTipoReferencia" => "", // QUEDA IGUAL
                         "docReferencia" => "", // QUEDA IGUAL
@@ -583,7 +591,7 @@ if ($ajax) {
                         "docTotDsctoGlobMonto" => "0", // QUEDA IGUAL
                         "docTotDsctoMonto" => "0", // QUEDA IGUAL
                         "docImporteTotalVenta" => strval($itemValorVenta),
-                        "docImporteVtaLetras" => number_words(@$soles_centimos[0], "", "", "") . ' Y ' . @$soles_centimos[1] . '/100 Soles',
+                        "docImporteVtaLetras" => number_words(@$itemVV[0], "", "", "") . ' Y ' . @$itemVV[1] . '/100 Soles',
                         "docTipoCambio" => "0", // QUEDA IGUAL
                         "docCondPago" => "", // QUEDA IGUAL
                         "docVendCodigo" => "", // QUEDA IGUAL

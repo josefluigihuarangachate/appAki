@@ -250,10 +250,11 @@ function array_value_recursive($key, array $arr) {
 function Emitir_Factura_Boleta($array) {
     $data_string = json_encode($array);
     $data_string = str_replace("\\", "", $data_string);
-    ;
-    $nombredelarchivo = "myfile.json";
-    $bytes = file_put_contents($nombredelarchivo, $data_string);
-    $ws = 'https://www.sigerp.com/SIG/aSOAPImportarVentas.aspx?wsdl';
+        
+    // NUMERO DE BOLETA/FACTURA + '0' + AÑO_MES_DIA
+    $nombredelarchivo = $array['docNumero'] . '_' . date("Y_m_d") . ".json";
+    $bytes = file_put_contents("XML/" . $nombredelarchivo, $data_string);
+    $ws = 'http://www.sigerp.com/AKI/aSOAPImportarVentas.aspx?wsdl';
     $xml_envio = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="SIGEVO">
                     <soapenv:Header/>
                     <soapenv:Body>
@@ -281,12 +282,7 @@ function Emitir_Factura_Boleta($array) {
     curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
     $response = curl_exec($ch); //Ejecutar y obtiene respuesta
     $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Obtiene el estatus del servicio ya sea 200 , 403, etc
-    // ELIMINO EL .json CREADO
-    try {
-        unlink($nombredelarchivo);
-    } catch (Throwable $t) {
-        
-    }
+    
     return $response; // hash
 }
 
