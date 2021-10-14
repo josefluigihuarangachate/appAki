@@ -224,7 +224,7 @@ include "../servicios/include/tables.php";
                 });
             });
         </script>
-        <!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                                                                                   ?>" type="text/javascript"></script>
-                <script src="design/js/crud/cliente.js<?php //echo @$v;                                                                                    ?>" type="text/javascript"></script>-->
+        <!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                                                                                    ?>" type="text/javascript"></script>
+                <script src="design/js/crud/cliente.js<?php //echo @$v;                                                                                     ?>" type="text/javascript"></script>-->
     </body>
 </html>

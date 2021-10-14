@@ -789,7 +789,8 @@ if (METODO($method) == 'GET') {
                                 "precio_articulo" => $preciodearticulo,
                                 "flkpak_prenda" => 1,
                                 "Id_Servicio" => intval($idservicio[0]),
-                                "estado_articulo" => 'Activo'
+                                "estado_articulo" => 'Activo',
+                                'unidadmedida_articulo' => strtoupper($unidaddemedida)
                             ],
                             [
                                 "codigo_articulo" => $codigodearticulo,
@@ -820,7 +821,8 @@ if (METODO($method) == 'GET') {
                                 "precio_articulo" => $preciodearticulo,
                                 "flkpak_prenda" => 1,
                                 "Id_Servicio" => intval($idservicio[0]),
-                                "estado_articulo" => 'Activo'
+                                "estado_articulo" => 'Activo',
+                                'unidadmedida_articulo' => strtoupper($unidaddemedida)
                             ]
                     );
 
@@ -895,7 +897,8 @@ if (METODO($method) == 'GET') {
                                 "precio_articulo" => $preciodearticulo,
                                 "flkpak_prenda" => 1,
                                 "Id_Servicio" => intval($idservicio[0]),
-                                "estado_articulo" => 'Activo'
+                                "estado_articulo" => 'Activo',
+                                'unidadmedida_articulo' => strtoupper($unidaddemedida)
                             ]
                     );
                     $account_id = $pdo->id();

@@ -279,7 +279,7 @@ if ($ajax) {
                             "id" => input('idcliente')
                         ]
                 );
-                if (@$clientess[0]['nombreempresa']) {
+                if (@$clientess[0]['nombreempresa'] && @$clientess[0]['nombreempresa'] != '-') {
                     $razonsocial = @$clientess[0]['nombreempresa'];
                 }
                 $_SESSION['dniclientetemp'] = @$clientess[0]['NumeroDocumento_Cliente'];

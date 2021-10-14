@@ -249,16 +249,19 @@ function array_value_recursive($key, array $arr) {
 // sigerp - ENVIAR FACTURA Y OBTENER RESPUESTA
 function Emitir_Factura_Boleta($array) {
     $data_string = json_encode($array);
+    $data_string = str_replace("\\", "", $data_string);
+    ;
+    $nombredelarchivo = "myfile.json";
+    $bytes = file_put_contents($nombredelarchivo, $data_string);
     $ws = 'https://www.sigerp.com/SIG/aSOAPImportarVentas.aspx?wsdl';
-    $xml_envio = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:vbf="VBFENETEVO3">
+    $xml_envio = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="SIGEVO">
                     <soapenv:Header/>
                     <soapenv:Body>
-                       <vbf:RSoap.Execute>
-                          <vbf:Jsonfe>' . $data_string . '</vbf:Jsonfe>
-                       </vbf:RSoap.Execute>
+                       <sig:SOAPImportarVentas.Execute>
+                          <sig:Jsonstring>' . $data_string . '</sig:Jsonstring>
+                       </sig:SOAPImportarVentas.Execute>
                     </soapenv:Body>
                  </soapenv:Envelope>';
-
     $header = array(
         "Content-type: text/xml; charset=\"utf-8\"",
         "Accept: text/xml",
@@ -267,7 +270,6 @@ function Emitir_Factura_Boleta($array) {
         "SOAPAction: ",
         "Content-lenght: " . strlen($xml_envio)
     );
-
     $ch = curl_init(); //inicia la llamada
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1); //
     curl_setopt($ch, CURLOPT_URL, $ws); //url a consultar
@@ -277,10 +279,15 @@ function Emitir_Factura_Boleta($array) {
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_envio);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-
     $response = curl_exec($ch); //Ejecutar y obtiene respuesta
-    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    return $httpcode; // 200 = Ok
+    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Obtiene el estatus del servicio ya sea 200 , 403, etc
+    // ELIMINO EL .json CREADO
+    try {
+        unlink($nombredelarchivo);
+    } catch (Throwable $t) {
+        
+    }
+    return $response; // hash
 }
 
 // ACA DEFINO LAS SERIES DE LAS BOLETAS Y FACTURAS
@@ -331,4 +338,18 @@ function SerieFacturaxZona($zona) {
         default:
             return "";
     }
+}
+
+function countwordrepeat($array, $buscar) {
+    $cont = 0;
+    if ($array) {
+        for ($r = 0; $r < count($array); $r++) {
+            if (strtoupper($array[$r]) == strtoupper($buscar)) {
+                $cont = $cont + 1;
+            }
+            continue;
+        }
+    }
+
+    return $cont;
 }

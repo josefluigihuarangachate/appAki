@@ -36,62 +36,6 @@ if ($ajax) {
             $correoelectronico = input("correoelectronico");
             $enviarporcorreo = input("enviarporcorreo") === 'true' ? true : false;
 
-//            $factura_boleta = array(
-//                "emiRucTipo" => "6",
-//                "emiRucNumero" => "20123257899", // QUEDA IGUAL
-//                "emiNombre" => "LAVANDERIA AKI DRY CLEANERS S.R.L.", // QUEDA IGUAL
-//                "emiUbigeo" => "150130",
-//                "adqRucTipo" => "2",
-//                "adqRucNumero" => "99999999",
-//                "adqNombre" => "CLIENTES VARIOS",
-//                "adqUbigeo" => "",
-//                "adqDireccion" => "Lima", // QUEDA IGUAL
-//                "adqProvincia" => "", // QUEDA IGUAL
-//                "adqDepartamento" => "", // QUEDA IGUAL
-//                "adqDistrito" => "", // QUEDA IGUAL
-//                "docFechaEmision" => "25/09/2021",
-//                "docTipo" => "03",
-//                "docNumero" => "B09000121108",
-//                "docMoneda" => "PEN", // QUEDA IGUAL
-//                "docTipoReferencia" => "", // QUEDA IGUAL
-//                "docReferencia" => "", // QUEDA IGUAL
-//                "docMovimiento" => "", // QUEDA IGUAL
-//                "docTotOperGravada" => "28.00",
-//                "docTotOperInafecta" => "0", // QUEDA IGUAL
-//                "docTotOperExonerada" => "0", // QUEDA IGUAL
-//                "docTotIGVMonto" => "4.27",
-//                "docTotIGVPctaje" => "18.00",
-//                "docTotISCMonto" => "0", // QUEDA IGUAL
-//                "docTotDsctoGlobMonto" => "0", // QUEDA IGUAL
-//                "docTotDsctoMonto" => "0", // QUEDA IGUAL
-//                "docImporteTotalVenta" => "28.00",
-//                "docImporteVtaLetras" => "VEINTIOCHO Y 00/100 Soles",
-//                "docTipoCambio" => "0", // QUEDA IGUAL
-//                "docCondPago" => "", // QUEDA IGUAL
-//                "docVendCodigo" => "", // QUEDA IGUAL
-//                "docTdaCodigo" => "", // QUEDA IGUAL
-//                "docEstado" => "", // QUEDA IGUAL
-//                "docSUNATCodigo" => "", // QUEDA IGUAL
-//                "docSUNATObservacion" => "", // QUEDA IGUAL
-//                "docValorResumen" => "", // QUEDA IGUAL
-//                "docFechaVcto" => "25/09/2021",
-//                "docICBPER" => "0.00",
-//                "detalle" => array(
-////                    "item" => "1",
-////                    "prodCodigoInterno" => "455",
-////                    "prodUniMedida" => "NIU",
-////                    "prodCantidad" => "1.000",
-////                    "prodDescripcion" => "3x2 Prendas De Vestir",
-////                    "prodPrecioUnitario" => "28.0000",
-////                    "prodPrecioVenta" => "28.0000",
-////                    "itemIGVMonto" => "4.2712",
-////                    "itemDscto" => "0",
-////                    "itemValorVenta" => "28.0000",
-////                    "ItemAfectacion" => "0",
-////                    "itemObservacion" => "",
-////                    "itemICBPER" => "0.00"
-//                )
-//            );
             // ACTUALIZO EL CORREO DEL CLIENTE
             try {
                 if ($correoelectronico) {
@@ -184,6 +128,8 @@ if ($ajax) {
                 $idservicio = @$data[0]['idservicio'];
                 $nombredeservicio = @$data[0]['nombredeservicio'];
                 $numerodedocumento = @$data[0]['numerodedocumento'];
+                $idtipodefacturasig = 0;
+                $codigodesunat = 0;
 
                 if ($facturaelectronica == 'boleta') {
                     $titulo = "BOLETA DE VENTA ELECTRONICA";
@@ -194,6 +140,8 @@ if ($ajax) {
                     $detalleorden = @$data[0]['detalledeorden'];
                     $inicial = "B";
                     $nametable = "boleta";
+                    $idtipodefacturasig = 2;
+                    $codigodesunat = '03';
                 } else if ($facturaelectronica == 'factura') {
                     $titulo = "FACTURA ELECTRONICA";
                     $serie = $_SESSION['numseriefactura'] . '-';
@@ -203,6 +151,8 @@ if ($ajax) {
                     $detalleorden = @$data[0]['detalledeorden'];
                     $inicial = "F";
                     $nametable = "factura";
+                    $idtipodefacturasig = 1;
+                    $codigodesunat = '01';
                 }
 
                 try {
@@ -250,6 +200,7 @@ if ($ajax) {
                     }
 
                     $height = 0;
+                    $arrayItems = array();
                     $html = '
                     <style>
                         @page {
@@ -306,12 +257,16 @@ if ($ajax) {
                     $piezas = objectToArray(json_decode($detalleorden));
 
                     $pagototal = 0;
+                    $indexItem = 0;
+                    $contItem = 1;
+                    $contpromociones = 1;
                     if (
                             $nombredeservicio == 'PROMOCIONES' ||
                             $nombredeservicio == 'PROMOCION' ||
                             $nombredeservicio == 'PROMOCIÓN'
                     ) {
                         $pagototal = 0;
+                        $prendasarray = [];
                         //$html .= '<div style="text-align: left;font-family: sans-serif;">';
                         foreach ($promociones as $promo => $prendas) {
                             $html .= "<tr>";
@@ -333,6 +288,43 @@ if ($ajax) {
                             $html .= "<td><label style='float: right;'>" . number_format($precio_unitario, 2, '.', '') . "</label></td>";
                             $html .= "<td><label style='float: right;'>" . number_format($sumpreciostotal, 2, '.', '') . "</label></td>";
                             $html .= "</tr>";
+                            $indexItem = $indexItem + 1;
+
+                            // --------- ITEM PARA LA FACTURA O BOLETA ---------
+                            $idpromoselect = $pdo->select(
+                                    tabla("articulo"),
+                                    [
+                                        "codigo_articulo",
+                                        "unidadmedida_articulo",
+                                        "precio_articulo"
+                                    ],
+                                    [
+                                        "nombre_articulo" => $promo
+                                    ],
+                                    [
+                                        "LIMIT" => 1
+                                    ]
+                            );
+
+                            $precioigv = $sumpreciostotal / 1.18;
+                            $itemIGVMonto = $sumpreciostotal - $precioigv;
+                            $arrayItems[] = array(
+                                'item' => $contpromociones,
+                                'prodCodigoInterno' => $idpromoselect[0]['codigo_articulo'],
+                                'prodUniMedida' => $idpromoselect[0]['unidadmedida_articulo'],
+                                'prodCantidad' => '1.000',
+                                'prodDescripcion' => trim(strval($promo)),
+                                'prodPrecioUnitario' => number_format($sumpreciostotal, 4, '.', ''),
+                                'prodPrecioVenta' => number_format($sumpreciostotal, 4, '.', ''),
+                                'itemDscto' => '0',
+                                'itemValorVenta' => number_format($sumpreciostotal, 4, '.', ''),
+                                'ItemAfectacion' => '0',
+                                'itemObservacion' => '',
+                                'itemICBPER' => 0.00,
+                                'itemIGVMonto' => number_format($itemIGVMonto, 4, '.', ''),
+                            );
+                            $contpromociones = $contpromociones + 1;
+                            // ----------- ------------------------ ------------
                         }
                         $op_gravada = $pagototal / 1.18;
                         $igv = $op_gravada * 0.18;
@@ -380,7 +372,43 @@ if ($ajax) {
                     } else {
                         $arrpagototal = [];
                         //$html .= '<div style="text-align: left;font-family: sans-serif;">';
+                        $prendasarray = [];
                         for ($p = 0; $p < count($piezas); $p++) {
+
+                            // --------- ITEM PARA LA FACTURA O BOLETA ---------
+                            $idpromoselect = $pdo->select(
+                                    tabla("articulo"),
+                                    [
+                                        "codigo_articulo",
+                                        "unidadmedida_articulo",
+                                        "precio_articulo"
+                                    ],
+                                    [
+                                        "nombre_articulo" => $piezas[$p]['nombreprenda']
+                                    ],
+                                    [
+                                        "LIMIT" => 1
+                                    ]
+                            );
+                            $prendasarray[] = trim($piezas[$p]['nombreprenda']);
+                            $arrayItems[$piezas[$p]['nombreprenda']] = array();
+                            $arrayItems[$piezas[$p]['nombreprenda']]['item'] = strval(1); // strval($contItem);
+                            $arrayItems[$piezas[$p]['nombreprenda']]['prodCodigoInterno'] = $idpromoselect[0]['codigo_articulo'];
+                            $arrayItems[$piezas[$p]['nombreprenda']]['prodUniMedida'] = $idpromoselect[0]['unidadmedida_articulo'];
+                            $arrayItems[$piezas[$p]['nombreprenda']]['prodCantidad'] = number_format(countwordrepeat($prendasarray, trim($piezas[$p]['nombreprenda'])), 3, '.', '');
+                            $arrayItems[$piezas[$p]['nombreprenda']]['prodDescripcion'] = $piezas[$p]['nombreprenda'];
+                            $arrayItems[$piezas[$p]['nombreprenda']]['prodPrecioUnitario'] = number_format($idpromoselect[0]['precio_articulo'], 4, '.', ''); // $idpromoselect[0]['precio_articulo'];
+                            $arrayItems[$piezas[$p]['nombreprenda']]['prodPrecioVenta'] = number_format($idpromoselect[0]['precio_articulo'], 4, '.', '');
+                            $arrayItems[$piezas[$p]['nombreprenda']]['itemDscto'] = '0';
+                            $arrayItems[$piezas[$p]['nombreprenda']]['itemValorVenta'] = number_format($idpromoselect[0]['precio_articulo'], 4, '.', '');
+                            $arrayItems[$piezas[$p]['nombreprenda']]['ItemAfectacion'] = '0';
+                            $arrayItems[$piezas[$p]['nombreprenda']]['itemObservacion'] = '';
+                            $arrayItems[$piezas[$p]['nombreprenda']]['itemICBPER'] = 0.00;
+                            $precioigv = $idpromoselect[0]['precio_articulo'] / 1.18;
+                            $itemIGVMonto = $idpromoselect[0]['precio_articulo'] - $precioigv;
+                            $arrayItems[$piezas[$p]['nombreprenda']]['itemIGVMonto'] = number_format($itemIGVMonto, 4, '.', '');
+                            // ----------- ------------------------ ------------
+
                             $arrpagototal[] = $piezas[$p]['precio'];
                             $html .= "<tr>";
                             $html .= "<td colspan='2'>1 UNAD &nbsp;" . $piezas[$p]['nombreprenda'];
@@ -424,7 +452,20 @@ if ($ajax) {
                                 $height += (14 * 3);
                             }
                             $html .= "</tr>";
+                            $contItem = $contItem + 1;
                         }
+
+                        // ITEMS PARA LA FACTURA O BOLETA
+                        $foreachpiezas = $arrayItems;
+                        $arrayItems = [];
+                        $index = 0;
+                        foreach ($foreachpiezas as $prendas => $values) {
+                            $index = $index + 1;
+                            $values['item'] = $index;
+                            $arrayItems[] = $values;
+                        }
+                        // --------------------------------------------------
+
                         $pagototal = array_sum($arrpagototal);
                         $op_gravada = $pagototal / 1.18;
                         $igv = $op_gravada * 0.18;
@@ -504,35 +545,44 @@ if ($ajax) {
                             ]
                     );
 
+                    $itemValorVentaSum = 0;
+                    $itemIGVMontoSum = 0;
+                    for ($imp = 0; $imp < count($arrayItems); $imp++) {
+                        $itemValorVentaSum = $itemValorVentaSum + $arrayItems[$imp]['itemValorVenta']; //itemIGVMonto 
+                        $itemIGVMontoSum = $itemIGVMontoSum + $arrayItems[$imp]['itemIGVMonto'];
+                    }
+                    $itemValorVenta = number_format($itemValorVentaSum, 2, '.', '');
+                    $itemIGVMonto = number_format($itemIGVMontoSum, 2, '.', '');
+
                     $factura_boleta = array(
                         "emiRucTipo" => "6",
                         "emiRucNumero" => "20123257899", // QUEDA IGUAL
                         "emiNombre" => "LAVANDERIA AKI DRY CLEANERS S.R.L.", // QUEDA IGUAL
-                        "emiUbigeo" => $client[0]['adqUbigeo'],
-                        "adqRucTipo" => "2",
+                        "emiUbigeo" => "150130",
+                        "adqRucTipo" => strval($idtipodefacturasig),
                         "adqRucNumero" => $dniruc,
                         "adqNombre" => $razonsocial,
-                        "adqUbigeo" => "",
+                        "adqUbigeo" => strval(@$client[0]['adqUbigeo']),
                         "adqDireccion" => "Lima", // QUEDA IGUAL
                         "adqProvincia" => "", // QUEDA IGUAL
                         "adqDepartamento" => "", // QUEDA IGUAL
                         "adqDistrito" => "", // QUEDA IGUAL
                         "docFechaEmision" => date('d/m/Y'),
-                        "docTipo" => "03",
-                        "docNumero" => str_replace("-", '', $numerodefactura), //"B09000121108",
+                        "docTipo" => strval($codigodesunat),
+                        "docNumero" => str_replace("-", '', $numerodefactura),
                         "docMoneda" => "PEN", // QUEDA IGUAL
                         "docTipoReferencia" => "", // QUEDA IGUAL
                         "docReferencia" => "", // QUEDA IGUAL
                         "docMovimiento" => "", // QUEDA IGUAL
-                        "docTotOperGravada" => "28.00",
+                        "docTotOperGravada" => strval($itemValorVenta),
                         "docTotOperInafecta" => "0", // QUEDA IGUAL
                         "docTotOperExonerada" => "0", // QUEDA IGUAL
-                        "docTotIGVMonto" => "4.27",
-                        "docTotIGVPctaje" => "18.00",
+                        "docTotIGVMonto" => $itemIGVMonto,
+                        "docTotIGVPctaje" => "18.00", // QUEDA IGUAL, ESTE ES EL IGV
                         "docTotISCMonto" => "0", // QUEDA IGUAL
                         "docTotDsctoGlobMonto" => "0", // QUEDA IGUAL
                         "docTotDsctoMonto" => "0", // QUEDA IGUAL
-                        "docImporteTotalVenta" => "28.00",
+                        "docImporteTotalVenta" => strval($itemValorVenta),
                         "docImporteVtaLetras" => number_words(@$soles_centimos[0], "", "", "") . ' Y ' . @$soles_centimos[1] . '/100 Soles',
                         "docTipoCambio" => "0", // QUEDA IGUAL
                         "docCondPago" => "", // QUEDA IGUAL
@@ -544,12 +594,31 @@ if ($ajax) {
                         "docValorResumen" => "", // QUEDA IGUAL
                         "docFechaVcto" => date('d/m/Y'),
                         "docICBPER" => "0.00",
-                        "detalle" => array()
+                        "detalle" => $arrayItems
                     );
 
                     $respuesta = Emitir_Factura_Boleta($factura_boleta);
 
-                    $codigoqr = "20123257899|" . "CodigodeSunatJson" . '|' . str_replace("-", '|', $numerodefactura) . '|' . number_format($op_gravada, 2, '.', '') . '|' . number_format($pagototal, 2, '.', '') . '|' . $fecha . '|' . $tipo_doc . '|' . $numerodedocumento;
+                    // SI CONTIENE '::::', ES QUE TODO SALIO BIEN
+                    if (str_contains($respuesta, '::::')) {
+                        // UPDATE
+                        try {
+                            $data = $pdo->update(
+                                    tabla($nametable),
+                                    [
+                                        "respuesta_sunat" => 'ok',
+                                        "xml" => json_encode($factura_boleta)
+                                    ],
+                                    [
+                                        "numeroserie" => $numerodefactura
+                                    ]
+                            );
+                        } catch (Throwable $t) {
+                            
+                        }
+                    }
+
+                    $codigoqr = "20123257899|" . $codigodesunat . '|' . str_replace("-", '|', $numerodefactura) . '|' . number_format($op_gravada, 2, '.', '') . '|' . number_format($pagototal, 2, '.', '') . '|' . $fecha . '|' . $tipo_doc . '|' . $numerodedocumento;
                     QRcode::png($codigoqr, RUTA_PDF . "QR" . $numerodefactura . '.png');
                     $png = convertirblobimageporruta(RUTA_PDF . "QR" . $numerodefactura . '.png');
                     unlink(RUTA_PDF . "QR" . $numerodefactura . '.png');
