@@ -237,9 +237,9 @@ if (METODO($method) == 'GET') {
             $json['msg'] = strings('error_empty');
         }
     } else if ($cmd == 'registrarreclamo') {
-        
+
         $numerodeorden = input('numerodeorden'); // NUMERO DE ORDEN
-        $idprenda = input('idprenda'); // ID DE LA PRENDA
+        $item = input('item'); // ITEM
         $idrepartidor = input('idrepartidor'); // AUTO INCREMENT ID, ACA SE CREARA UN WEBSERVICE PARA QUE PUEDA CONSUMIR
         $idcliente = input('idcliente'); // AUTO INCREMENT ID
         $idzona = input('idzona');  // (C1, C2, C3, ETC)
@@ -251,7 +251,7 @@ if (METODO($method) == 'GET') {
 
         if (
                 $numerodeorden &&
-                $idprenda &&
+                $item &&
                 $idrepartidor &&
                 $idcliente &&
                 $idzona &&
@@ -277,12 +277,31 @@ if (METODO($method) == 'GET') {
                 );
                 $iddezona = @$obteneridzona[0]['id'];
 
+                $sepnumorden = explode("-", trim($numerodeorden));
+
+                $getprenda = $pdo->select(
+                        tabla("detalleorden"),
+                        [
+                            "idprenda",
+                            "nombreprenda",
+                            "color",
+                            "marca",
+                        ],
+                        [
+                            "idorden" => intval($sepnumorden[1]),
+                            "item" => $item
+                        ],
+                        [
+                            "LIMIT" => 1
+                        ]
+                );
+
                 // REGISTRAMOS EL TURNO X CLIENTE
                 $pdo->insert(
                         tabla("turnoxcliente"),
                         [
                             "numero_orden" => $numerodeorden,
-                            "idprenda" => $idprenda,
+                            "idprenda" => $item,
                             "id_repartidor" => intval($idrepartidor),
                             "id_cliente" => intval($idcliente),
                             "id_zona" => intval($iddezona),
@@ -291,6 +310,8 @@ if (METODO($method) == 'GET') {
                             "hora_turno" => $hora,
                             "atencion" => $atencion,
                             "estado_turno" => $estadodeturno,
+                            "color" => $getprenda[0]['color'],
+                            "marca" => $getprenda[0]['marca'],
                         ]
                 );
 

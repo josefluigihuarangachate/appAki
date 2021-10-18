@@ -36,8 +36,7 @@ if ($ajax) {
                     !empty($idservicio) &&
                     !empty($nombreservicio) &&
                     intval($diaxservicio) >= 1 &&
-                    $fechadeentrega != date('Y-m-d') &&
-                    intval($pagototal) > 0
+                    $fechadeentrega != date('Y-m-d')
             ) {
                 // ESTE ES LA FECHA MINIMA, SEGUN LOS DIAS DEL SERVICIO
                 $fechamindeentrega = input('fechaminimodeentrega');
@@ -337,6 +336,20 @@ if ($ajax) {
                             }
                         }
 
+                        $item = 100;
+                        for ($rh = 0; $rh < count($piezas); $rh++) {
+                            $cantpiezas = $piezas[$rh]['cantpiezas'];
+
+                            if ($cantpiezas == 1) {
+                                $piezas[$rh]['piezas'][0]['item'] = $item + 1;
+                            } else {
+                                for ($rtf = 0; $rtf < $cantpiezas; $rtf++) {
+                                    $piezas[$rh]['piezas'][$rtf]['item'] = $item + ($rtf + 1);
+                                }
+                            }
+                            $item = $item + 100;
+                        }
+
                         // ARMANDO EL INSERT
                         $vi = 0;
                         while ($vi < count($piezas)) {
@@ -366,6 +379,7 @@ if ($ajax) {
                                 }
 
                                 $arr = array(
+                                    'item' => $cPiezas[$bi]['item'],
                                     'idorden' => $lastinsert_id,
                                     'ordenpromocion' => strval($piezas[$vi]['ordenpromocion']),
                                     'idpromocion' => $idpromo,
@@ -534,6 +548,7 @@ if ($ajax) {
                             );
 
                             $arr = array(
+                                'ordenpromocion' => strval($keyname[$k]),
                                 'idorden' => $lastinsert_id,
                                 'ordenpromocion' => strval($keyname[$k]),
                                 'idpromocion' => @$_REQUEST['subidprenda' . $keyname[$k]],
@@ -568,6 +583,51 @@ if ($ajax) {
                             unset($nombreprenda);
                             unset($precioprenda);
                         }
+
+                        // AQUI PONGO EL ITEM
+                        $item = 100;
+                        foreach ($promociones as $promo => $value) {
+                            for ($uds = 0; $uds < count($value); $uds++) {
+                                $promociones[$promo][$uds]['item'] = $item + ($uds + 1);
+                            }
+                            $item = $item + 100;
+                        }
+
+                        foreach ($promociones as $promocion => $value) {
+                            for ($usd = 0; $usd < count($value); $usd++) {
+
+                                $idprenda = $value[$usd]['idprenda'];
+                                $nombreprenda = $value[$usd]['nombreprenda'];
+                                $color = $value[$usd]['color'];
+                                $marca = $value[$usd]['marca'];
+                                $precioprenda = $value[$usd]['precioprenda'];
+                                $nombreestados = $value[$usd]['nombreestados'];
+                                $observaciones = $value[$usd]['observaciones'];
+                                $audios = $value[$usd]['audios'];
+                                $imagenes = $value[$usd]['imagenes'];
+
+                                $itemnum = $value[$usd]['item'];
+
+                                // COMPARO EL ARRAY
+                                for ($ins = 0; $ins < count($insert); $ins++) {
+                                    if (
+                                            $insert[$ins]['idprenda'] == $idprenda &&
+                                            $insert[$ins]['nombreprenda'] == $nombreprenda &&
+                                            $insert[$ins]['color'] == $color &&
+                                            $insert[$ins]['marca'] == $marca &&
+                                            $insert[$ins]['precioprenda'] == $precioprenda &&
+                                            $insert[$ins]['nombreestados'] == $nombreestados &&
+                                            $insert[$ins]['observaciones'] == $observaciones &&
+                                            $insert[$ins]['audios'] == $audios &&
+                                            $insert[$ins]['imagenes'] == $imagenes
+                                    ) {
+                                        $insert[$ins]['item'] = $itemnum;
+                                    }
+                                    continue;
+                                }
+                            }
+                        }
+                        // FIN AQUI PONGO EL ITEM
 
                         try {
                             $pdo->insert(

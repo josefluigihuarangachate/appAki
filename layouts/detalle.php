@@ -139,7 +139,7 @@ include "../servicios/include/tables.php";
                         tabla('servicio') . ".id(idservicio)",
                         tabla('servicio') . ".Dias_Servicio(diasdeservicio)",
                         tabla('turnoxcliente') . ".numero_orden",
-                        tabla('turnoxcliente') . ".idprenda",
+                        tabla('turnoxcliente') . ".idprenda", // NO ES EL ID DE PRENDA, ES EL ITEM
                     ],
                     [
                         tabla('turnoxcliente') . ".id" => intval(@$_SESSION['idturnoxrepartidortemp'])
@@ -156,11 +156,10 @@ include "../servicios/include/tables.php";
                         tabla('detalleorden') . ".nombreprenda(nombreprenda)",
                         tabla('detalleorden') . ".color",
                         tabla('detalleorden') . ".marca",
-                        tabla('detalleorden') . ".ordenpromocion(keyprenda)",
                     ],
                     [
                         tabla('detalleorden') . ".idorden" => @$recojoreclamo[0]['idorden'],
-                        tabla('detalleorden') . ".idprenda" => @$recojoreclamo[0]['idprenda'],
+                        tabla('detalleorden') . ".item" => @$recojoreclamo[0]['idprenda'],
                     ],
                     [
                         'LIMIT' => 1
@@ -224,7 +223,7 @@ include "../servicios/include/tables.php";
                 });
             });
         </script>
-        <!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                                                                                    ?>" type="text/javascript"></script>
-                <script src="design/js/crud/cliente.js<?php //echo @$v;                                                                                     ?>" type="text/javascript"></script>-->
+        <!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                                                                                       ?>" type="text/javascript"></script>
+                <script src="design/js/crud/cliente.js<?php //echo @$v;                                                                                        ?>" type="text/javascript"></script>-->
     </body>
 </html>

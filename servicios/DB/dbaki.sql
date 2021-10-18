@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2021 a las 23:52:01
+-- Tiempo de generación: 18-10-2021 a las 21:27:46
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -384,7 +384,7 @@ INSERT INTO `articulo` (`id`, `nombre_articulo`, `unidadmedida_articulo`, `codig
 (339, 'LEGGINS', 'UNAD', '76 ', '6.30', 1, 5, 'Activo'),
 (340, 'MANDIL', 'UNAD', '85 ', '8.40', 1, 5, 'Activo'),
 (341, 'OVEROL', 'UNAD', '91 ', '10.50', 1, 5, 'Activo'),
-(342, 'PANTALON', 'UNAD', '363 ', '8.40', 1, 5, 'Activo'),
+(342, 'PANTALON', 'UNAD', '363', '8.40', 1, 5, 'Activo'),
 (343, 'PANTALÓN JEAN', 'UNAD', '298 ', '8.40', 1, 5, 'Activo'),
 (344, 'PANTALÓN VESTIR', 'UNAD', '93 ', '8.40', 1, 5, 'Activo'),
 (345, 'PAÑUELO', 'UNAD', '94 ', '2.10', 1, 5, 'Activo'),
@@ -400,7 +400,7 @@ INSERT INTO `articulo` (`id`, `nombre_articulo`, `unidadmedida_articulo`, `codig
 (355, 'PONCHO ALPACA', 'UNAD', '198 ', '17.50', 1, 5, 'Activo'),
 (356, 'PONCHO IMPERMEABLE', 'UNAD', '327 ', '14.00', 1, 5, 'Activo'),
 (357, 'PULLOVER', 'UNAD', '104 ', '5.60', 1, 5, 'Activo'),
-(358, 'SACO', 'UNAD', '109 ', '9.80', 1, 5, 'Activo'),
+(358, 'SACO', 'UNAD', '109', '9.80', 1, 5, 'Activo'),
 (359, 'SACO CORDUROY', 'UNAD', '317 ', '9.80', 1, 5, 'Activo'),
 (360, 'SACO UNIFORME', 'UNAD', '319 ', '9.80', 1, 5, 'Activo'),
 (361, 'SACON', 'UNAD', '111 ', '12.60', 1, 5, 'Activo'),
@@ -510,7 +510,7 @@ INSERT INTO `articulo` (`id`, `nombre_articulo`, `unidadmedida_articulo`, `codig
 (465, 'MANTA ALPACA', 'UNAD', '314 ', '25.00', 1, 2, 'Activo'),
 (466, 'OVEROL', 'UNAD', '91 ', '15.00', 1, 2, 'Activo'),
 (467, 'OVEROL NIÑO', 'UNAD', '92 ', '10.00', 1, 2, 'Activo'),
-(468, 'PANTALON', 'UNAD', '363 ', '12.00', 1, 2, 'Activo'),
+(468, 'PANTALON', 'UNAD', '363', '12.00', 1, 2, 'Activo'),
 (469, 'PANTALÓN CORDUROY', 'UNAD', '297 ', '12.00', 1, 2, 'Activo'),
 (470, 'PANTALON DRILL', 'UNAD', '296 ', '12.00', 1, 2, 'Activo'),
 (471, 'PANTALÓN JEAN', 'UNAD', '298 ', '12.00', 1, 2, 'Activo'),
@@ -539,7 +539,7 @@ INSERT INTO `articulo` (`id`, `nombre_articulo`, `unidadmedida_articulo`, `codig
 (494, 'PROTECTOR CUNA', 'UNAD', '351 ', '15.00', 1, 2, 'Activo'),
 (495, 'PULLOVER', 'UNAD', '104 ', '8.00', 1, 2, 'Activo'),
 (496, 'PULLOVER NIÑO', 'UNAD', '449 ', '4.00', 1, 2, 'Activo'),
-(497, 'SACO', 'UNAD', '109 ', '14.00', 1, 2, 'Activo'),
+(497, 'SACO', 'UNAD', '109', '14.00', 1, 2, 'Activo'),
 (498, 'SACO ALPACA', 'UNAD', '471 ', '25.00', 1, 2, 'Activo'),
 (499, 'SACO CORDUROY', 'UNAD', '317 ', '14.00', 1, 2, 'Activo'),
 (500, 'SACO NIÑO', 'UNAD', '321 ', '10.00', 1, 2, 'Activo'),
@@ -566,7 +566,12 @@ INSERT INTO `articulo` (`id`, `nombre_articulo`, `unidadmedida_articulo`, `codig
 (521, 'VESTIDO NOVIA 3', 'UNAD', '287 ', '750.00', 1, 2, 'Activo'),
 (522, 'VESTIDO PLIZADO', 'UNAD', '326 ', '70.00', 1, 2, 'Activo'),
 (523, 'VESTIDO SIMPLE CORTO', 'UNAD', '124 ', '20.00', 1, 2, 'Activo'),
-(524, 'VESTIDO SIMPLE LARGO', 'UNAD', '125 ', '25.00', 1, 2, 'Activo');
+(524, 'VESTIDO SIMPLE LARGO', 'UNAD', '125 ', '25.00', 1, 2, 'Activo'),
+(526, '3X2 PRENDAS DE VESTIR', 'UNAD', '455', '0.00', 1, 1, 'Activo'),
+(527, '4X3 PRENDAS DE  VESTIR', 'UNAD', '456', '0.00', 1, 1, 'Activo'),
+(528, '3X2 PRENDAS DE CAMA', 'UNAD', '454', '0.00', 1, 1, 'Activo'),
+(529, 'TERNO (2 PZS.)', 'UNAD', '118', '21.00', 1, 2, 'Activo'),
+(530, 'TERNO (2 PZS.)', 'UNAD', '118', '16.00', 1, 5, 'Activo');
 
 -- --------------------------------------------------------
 
@@ -594,6 +599,13 @@ CREATE TABLE `boleta` (
   `respuesta_sunat` enum('ok','error','pendiente') DEFAULT 'error',
   `xml` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `boleta`
+--
+
+INSERT INTO `boleta` (`id`, `idrepartidor`, `nombrerepartidor`, `idservicio`, `nombreservicio`, `tipofactura`, `numeroserie`, `numeroorden`, `tipodocumento`, `dniruc`, `nombrecliente`, `idcliente`, `fecha`, `hora`, `detalleorden`, `nombredocumento`, `respuesta_sunat`, `xml`) VALUES
+(51, 6, 'Juan Luis', 1, 'PROMOCIONES', 'Boleta', 'B006-0000051', 'C4-0000002', 'DNI', '99999999', 'Maria Leon', 3647, '2021-10-14', '15:18:00', '{\"3X2 PRENDAS DE CAMA\":[{\"key\":\"U4h21\",\"idprenda\":\"37\",\"nombreprenda\":\"CORSET\",\"color\":\"VIOLACEO\",\"marca\":\"WALON\",\"precioprenda\":\"18.00\",\"nombreestados\":null,\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"U0dlo\",\"idprenda\":\"38\",\"nombreprenda\":\"CORTINA CENEFA (METRO)\",\"color\":\"ROSADO\",\"marca\":\"TRIAL\",\"precioprenda\":\"8.00\",\"nombreestados\":null,\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uy9q5\",\"idprenda\":\"39\",\"nombreprenda\":\"CORTINA TAPASOL (METRO)\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"precioprenda\":\"10.00\",\"nombreestados\":\"Con Mancha @ Con Desgaste\",\"observaciones\":null,\"audios\":null,\"imagenes\":null}],\"3X2 PRENDAS DE VESTIR\":[{\"key\":\"U0z5s\",\"idprenda\":\"2\",\"nombreprenda\":\"ALMOHADA\",\"color\":\"VERDE\",\"marca\":\"WALON\",\"precioprenda\":\"10.00\",\"nombreestados\":\"Con Rotura @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"U65et\",\"idprenda\":\"20\",\"nombreprenda\":\"CASACA  PLUMAS\",\"color\":\"VERDE\",\"marca\":\"TRIAL\",\"precioprenda\":\"25.00\",\"nombreestados\":\"Con Mancha @ Con Rotura\",\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Usucn\",\"idprenda\":\"171\",\"nombreprenda\":\"COSTURA PEQUE\\u00d1A\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"precioprenda\":\"10.00\",\"nombreestados\":\"Con Decoloraci\\u00f3n @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null}],\"4X3 PRENDAS DE  VESTIR\":[{\"key\":\"Uv2qw\",\"idprenda\":\"363\",\"nombreprenda\":\"TOP\",\"color\":\"VERDE\",\"marca\":\"RIPLEY\",\"precioprenda\":\"4.90\",\"nombreestados\":null,\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Ui479\",\"idprenda\":\"11\",\"nombreprenda\":\"BOLSA  DORMIR\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"precioprenda\":\"35.00\",\"nombreestados\":null,\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Ukjvb\",\"idprenda\":\"11\",\"nombreprenda\":\"BOLSA  DORMIR\",\"color\":\"VERDE \\/ VERDE A RAYAS\",\"marca\":\"TRIAL\",\"precioprenda\":\"35.00\",\"nombreestados\":null,\"observaciones\":null,\"audios\":null,\"imagenes\":null},{\"key\":\"Uw92p\",\"idprenda\":\"10\",\"nombreprenda\":\"BERMUDA NI\\u00d1O\",\"color\":\"VERDE \\/ VERDE A RAYAS\",\"marca\":\"WALON\",\"precioprenda\":\"5.00\",\"nombreestados\":null,\"observaciones\":null,\"audios\":null,\"imagenes\":null}]}', 'B006-000005120211014151800.pdf', 'ok', '{\"emiRucTipo\":\"6\",\"emiRucNumero\":\"20123257899\",\"emiNombre\":\"LAVANDERIA AKI DRY CLEANERS S.R.L.\",\"emiUbigeo\":\"150130\",\"adqRucTipo\":\"2\",\"adqRucNumero\":\"99999999\",\"adqNombre\":\"MARIA LEON\",\"adqUbigeo\":\"150130\",\"adqDireccion\":\"Lima\",\"adqProvincia\":\"\",\"adqDepartamento\":\"\",\"adqDistrito\":\"\",\"docFechaEmision\":\"14\\/10\\/2021\",\"docTipo\":\"03\",\"docNumero\":\"B00600000510\",\"docMoneda\":\"PEN\",\"docTipoReferencia\":\"\",\"docReferencia\":\"\",\"docMovimiento\":\"\",\"docTotOperGravada\":\"138.00\",\"docTotOperInafecta\":\"0\",\"docTotOperExonerada\":\"0\",\"docTotIGVMonto\":\"21.05\",\"docTotIGVPctaje\":\"18.00\",\"docTotISCMonto\":\"0\",\"docTotDsctoGlobMonto\":\"0\",\"docTotDsctoMonto\":\"0\",\"docImporteTotalVenta\":\"138.00\",\"docImporteVtaLetras\":\"CIENTO TREINTA Y OCHO  Y 00\\/100 Soles\",\"docTipoCambio\":\"0\",\"docCondPago\":\"\",\"docVendCodigo\":\"\",\"docTdaCodigo\":\"\",\"docEstado\":\"\",\"docSUNATCodigo\":\"\",\"docSUNATObservacion\":\"\",\"docValorResumen\":\"\",\"docFechaVcto\":\"14\\/10\\/2021\",\"docICBPER\":\"0.00\",\"detalle\":[{\"item\":1,\"prodCodigoInterno\":\"454\",\"prodUniMedida\":\"UNAD\",\"prodCantidad\":\"1.000\",\"prodDescripcion\":\"3X2 PRENDAS DE CAMA\",\"prodPrecioUnitario\":\"28.0000\",\"prodPrecioVenta\":\"28.0000\",\"itemDscto\":\"0\",\"itemValorVenta\":\"28.0000\",\"ItemAfectacion\":\"0\",\"itemObservacion\":\"\",\"itemICBPER\":0,\"itemIGVMonto\":\"4.2712\"},{\"item\":2,\"prodCodigoInterno\":\"455\",\"prodUniMedida\":\"UNAD\",\"prodCantidad\":\"1.000\",\"prodDescripcion\":\"3X2 PRENDAS DE VESTIR\",\"prodPrecioUnitario\":\"35.0000\",\"prodPrecioVenta\":\"35.0000\",\"itemDscto\":\"0\",\"itemValorVenta\":\"35.0000\",\"ItemAfectacion\":\"0\",\"itemObservacion\":\"\",\"itemICBPER\":0,\"itemIGVMonto\":\"5.3390\"},{\"item\":3,\"prodCodigoInterno\":\"456\",\"prodUniMedida\":\"UNAD\",\"prodCantidad\":\"1.000\",\"prodDescripcion\":\"4X3 PRENDAS DE  VESTIR\",\"prodPrecioUnitario\":\"75.0000\",\"prodPrecioVenta\":\"75.0000\",\"itemDscto\":\"0\",\"itemValorVenta\":\"75.0000\",\"ItemAfectacion\":\"0\",\"itemObservacion\":\"\",\"itemICBPER\":0,\"itemIGVMonto\":\"11.4407\"}]}');
 
 -- --------------------------------------------------------
 
@@ -690,6 +702,7 @@ INSERT INTO `color` (`id`, `Nombre_Color`, `Estado_Color`) VALUES
 
 CREATE TABLE `detalleorden` (
   `id` int(25) NOT NULL,
+  `item` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `idorden` int(25) NOT NULL,
   `ordenpromocion` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Sirve para ordenar por un key las promociones',
   `idpromocion` int(25) DEFAULT NULL,
@@ -704,6 +717,28 @@ CREATE TABLE `detalleorden` (
   `audios` text COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Sera asi:\r\n\r\n{\r\n  ''nombreaudio1.mp3'',\r\n  ''nombreaudio2.mp3'',\r\n}',
   `imagenes` text COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Sera asi:\r\n\r\n{\r\n  ''imagen1.png'',\r\n  ''imagen2.png'',\r\n}'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `detalleorden`
+--
+
+INSERT INTO `detalleorden` (`id`, `item`, `idorden`, `ordenpromocion`, `idpromocion`, `nombrepromocion`, `idprenda`, `nombreprenda`, `color`, `marca`, `precioprenda`, `nombreestados`, `observaciones`, `audios`, `imagenes`) VALUES
+(25, '101', 17, 'Uu0qa', NULL, NULL, 388, 'BODY', 'VERDE / VERDE A RAYAS', 'TIGRE', '8.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
+(26, '201', 17, 'U8ayp', 529, 'TERNO (2 PZS.)', 93, 'MANTEL LLANO PEQUEÑO', 'VERDE / VERDE A RAYAS', 'TIGRE', '21.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
+(27, '202', 17, 'U8ayp', 529, 'TERNO (2 PZS.)', 109, 'PONCHO NIÑO', 'VERDE / VERDE A RAYAS', 'TIGRE', '0.00', 'Con Mancha @ Con Desgaste', NULL, NULL, NULL),
+(28, '301', 17, 'Udp8n', NULL, NULL, 374, 'ABRIGO  NIÑO', 'VERDE / VERDE A RAYAS', 'TIGRE', '15.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
+(29, '401', 17, 'U0clu', 529, 'TERNO (2 PZS.)', 93, 'MANTEL LLANO PEQUEÑO', 'VERDE', 'TRIAL', '21.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
+(30, '402', 17, 'U0clu', 529, 'TERNO (2 PZS.)', 109, 'PONCHO NIÑO', 'VERDE', 'TRIAL', '0.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
+(31, '101', 24, 'Uhzrx', 527, '4X3 PRENDAS DE  VESTIR', 10, 'BERMUDA NIÑO', 'VERDE', 'TIGRE', '5.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
+(32, '102', 24, 'Umeqq', 527, '4X3 PRENDAS DE  VESTIR', 12, 'BUZO  NIÑO (CASA-PANT)', 'VERDE', 'TIGRE', '12.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
+(33, '103', 24, 'Urzs6', 527, '4X3 PRENDAS DE  VESTIR', 11, 'BOLSA  DORMIR', 'VERDE / VERDE A RAYAS', 'WALON', '35.00', 'Con Decoloración @ Con Huequito', NULL, NULL, NULL),
+(34, '104', 24, 'Uu7ll', 527, '4X3 PRENDAS DE  VESTIR', 363, 'TOP', 'VIOLETA', 'ÉL', '4.90', 'Con Mancha @ Con Rotura', NULL, NULL, NULL),
+(35, '201', 24, 'U9omi', 526, '3X2 PRENDAS DE VESTIR', 2, 'ALMOHADA', 'VERDE', 'TIGRE', '10.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
+(36, '202', 24, 'Uwvji', 526, '3X2 PRENDAS DE VESTIR', 1, 'ABRIGO  NIÑO', 'ROSADO', 'RIPLEY', '15.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
+(37, '203', 24, 'Uvzr8', 526, '3X2 PRENDAS DE VESTIR', 228, 'CARTERA  CUERO CHICA', 'VIOLETA', 'ÉL', '30.00', 'Con Mancha @ Con Huequito', NULL, NULL, NULL),
+(38, '301', 24, 'Uxnbf', 528, '3X2 PRENDAS DE CAMA', 38, 'CORTINA CENEFA (METRO)', 'VERDE', 'RIPLEY', '8.00', 'Con Desgaste @ Con Huequito', NULL, NULL, NULL),
+(39, '302', 24, 'Ukppp', 528, '3X2 PRENDAS DE CAMA', 312, 'CHALECO VESTIR', 'VIOLETA', 'ÉL', '5.60', 'Con Mancha @ Con Decoloración', NULL, NULL, NULL),
+(40, '303', 24, 'Unnw0', 528, '3X2 PRENDAS DE CAMA', 38, 'CORTINA CENEFA (METRO)', 'VERDE', 'TRIAL', '8.00', 'Con Decoloración @ Con Huequito', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -896,6 +931,20 @@ CREATE TABLE `orden` (
   `flag` int(12) NOT NULL DEFAULT 0 COMMENT '1 por defecto , cuando es un registro nuevo\r\n2 cuando hayas editado el registro, sea el motivo q sea\r\n\r\nyo siempre lo actualizaré a 0\r\nsi es 1, hago a la mala un insert a mi tabla\r\nSi es 2, le hago un update a mi tabla\r\n'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `orden`
+--
+
+INSERT INTO `orden` (`id`, `idservicio`, `numeroorden`, `nombre_servicio`, `nombre_repartidor`, `fecha`, `hora`, `idcliente`, `nombre_cliente`, `celular_cliente`, `direccion_cliente`, `fecha_entrega`, `hora_entrega`, `tipo_cobro`, `idzona`, `total_s_dscto`, `descuento`, `total_pagar`, `a_cuenta`, `saldo`, `estado`, `tipo_pago`, `tipo_atencion`, `array_detalleorden`, `flag`) VALUES
+(17, 2, 'C1-0000017', 'SECO', 'Juan Huaman', '2021-10-16', '14:18:56', 10691, 'Alberto Carnero', '969000599', 'AV. LAS ARTES SUR 391  DPT: 101', '2021-10-20', '14:18:56', 'Por Cobrar', 'C1', '0.00', '0.00', '65.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '[{\"idprenda\":\"388\",\"ordenpromocion\":\"Uu0qa\",\"precio\":\"8.00\",\"nombreprenda\":\"BODY\",\"color\":\"VERDE \\/ VERDE A RAYAS\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Uu0qa\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null,\"item\":101}]},{\"idprenda\":\"529\",\"ordenpromocion\":\"U8ayp\",\"precio\":\"21.00\",\"nombreprenda\":\"TERNO (2 PZS.)\",\"color\":\"VERDE \\/ VERDE A RAYAS\",\"marca\":\"TIGRE\",\"cantpiezas\":2,\"piezas\":[{\"key\":\"U5ovk\",\"idpieza\":\"93\",\"nombrepieza\":\"MANTEL LLANO PEQUE\\u00d1O\",\"nombresestados\":\"Con Mancha @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null,\"item\":201},{\"key\":\"U794r\",\"idpieza\":\"109\",\"nombrepieza\":\"PONCHO NI\\u00d1O\",\"nombresestados\":\"Con Mancha @ Con Desgaste\",\"observacion\":null,\"audios\":null,\"imagenes\":null,\"item\":202}]},{\"idprenda\":\"374\",\"ordenpromocion\":\"Udp8n\",\"precio\":\"15.00\",\"nombreprenda\":\"ABRIGO  NI\\u00d1O\",\"color\":\"VERDE \\/ VERDE A RAYAS\",\"marca\":\"TIGRE\",\"cantpiezas\":1,\"piezas\":[{\"key\":\"Udp8n\",\"idpieza\":null,\"nombrepieza\":null,\"nombresestados\":\"Con Mancha @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null,\"item\":301}]},{\"idprenda\":\"529\",\"ordenpromocion\":\"U0clu\",\"precio\":\"21.00\",\"nombreprenda\":\"TERNO (2 PZS.)\",\"color\":\"VERDE\",\"marca\":\"TRIAL\",\"cantpiezas\":2,\"piezas\":[{\"key\":\"U0k90\",\"idpieza\":\"93\",\"nombrepieza\":\"MANTEL LLANO PEQUE\\u00d1O\",\"nombresestados\":\"Con Mancha @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null,\"item\":401},{\"key\":\"Uhr7q\",\"idpieza\":\"109\",\"nombrepieza\":\"PONCHO NI\\u00d1O\",\"nombresestados\":\"Con Mancha @ Con Huequito\",\"observacion\":null,\"audios\":null,\"imagenes\":null,\"item\":402}]}]', 2),
+(18, 1, 'C1-0000018', 'PROMOCIONES', 'Juan Huaman', '2021-10-16', '14:21:42', 10691, 'Alberto Carnero', '969000599', 'AV. LAS ARTES SUR 391  DPT: 101', '2021-10-20', '14:21:42', 'Por Cobrar', 'C1', '0.00', '0.00', '108.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', NULL, 2),
+(19, 1, 'C1-0000019', 'PROMOCIONES', 'Juan Huaman', '2021-10-16', '14:26:48', 10691, 'Alberto Carnero', '969000599', 'AV. LAS ARTES SUR 391  DPT: 101', '2021-10-20', '14:26:48', 'Por Cobrar', 'C1', '0.00', '0.00', '108.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', NULL, 2),
+(20, 1, 'C1-0000020', 'PROMOCIONES', 'Juan Huaman', '2021-10-16', '14:33:48', 10691, 'Alberto Carnero', '969000599', 'AV. LAS ARTES SUR 391  DPT: 101', '2021-10-20', '14:33:48', 'Por Cobrar', 'C1', '0.00', '0.00', '108.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', NULL, 2),
+(21, 1, 'C1-0000021', 'PROMOCIONES', 'Juan Huaman', '2021-10-16', '15:07:31', 10691, 'Alberto Carnero', '969000599', 'AV. LAS ARTES SUR 391  DPT: 101', '2021-10-20', '15:07:31', 'Por Cobrar', 'C1', '0.00', '0.00', '108.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', NULL, 2),
+(22, 1, 'C1-0000022', 'PROMOCIONES', 'Juan Huaman', '2021-10-16', '15:18:46', 10691, 'Alberto Carnero', '969000599', 'AV. LAS ARTES SUR 391  DPT: 101', '2021-10-20', '15:18:46', 'Por Cobrar', 'C1', '0.00', '0.00', '108.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', NULL, 2),
+(23, 1, 'C1-0000023', 'PROMOCIONES', 'Juan Huaman', '2021-10-16', '15:23:28', 10691, 'Alberto Carnero', '969000599', 'AV. LAS ARTES SUR 391  DPT: 101', '2021-10-20', '15:23:28', 'Por Cobrar', 'C1', '0.00', '0.00', '108.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', NULL, 2),
+(24, 1, 'C1-0000024', 'PROMOCIONES', 'Juan Huaman', '2021-10-16', '15:24:07', 10691, 'Alberto Carnero', '969000599', 'AV. LAS ARTES SUR 391  DPT: 101', '2021-10-20', '15:24:07', 'Por Cobrar', 'C1', '0.00', '0.00', '108.00', '0.00', '0.00', 'Activo', 'Por Cobrar', 'Entrega', '{\"4X3 PRENDAS DE  VESTIR\":[{\"key\":\"Uhzrx\",\"idprenda\":\"10\",\"nombreprenda\":\"BERMUDA NI\\u00d1O\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"precioprenda\":\"5.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null,\"item\":101},{\"key\":\"Umeqq\",\"idprenda\":\"12\",\"nombreprenda\":\"BUZO  NI\\u00d1O (CASA-PANT)\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"precioprenda\":\"12.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null,\"item\":102},{\"key\":\"Urzs6\",\"idprenda\":\"11\",\"nombreprenda\":\"BOLSA  DORMIR\",\"color\":\"VERDE \\/ VERDE A RAYAS\",\"marca\":\"WALON\",\"precioprenda\":\"35.00\",\"nombreestados\":\"Con Decoloraci\\u00f3n @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null,\"item\":103},{\"key\":\"Uu7ll\",\"idprenda\":\"363\",\"nombreprenda\":\"TOP\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"precioprenda\":\"4.90\",\"nombreestados\":\"Con Mancha @ Con Rotura\",\"observaciones\":null,\"audios\":null,\"imagenes\":null,\"item\":104}],\"3X2 PRENDAS DE VESTIR\":[{\"key\":\"U9omi\",\"idprenda\":\"2\",\"nombreprenda\":\"ALMOHADA\",\"color\":\"VERDE\",\"marca\":\"TIGRE\",\"precioprenda\":\"10.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null,\"item\":201},{\"key\":\"Uwvji\",\"idprenda\":\"1\",\"nombreprenda\":\"ABRIGO  NI\\u00d1O\",\"color\":\"ROSADO\",\"marca\":\"RIPLEY\",\"precioprenda\":\"15.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null,\"item\":202},{\"key\":\"Uvzr8\",\"idprenda\":\"228\",\"nombreprenda\":\"CARTERA  CUERO CHICA\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"precioprenda\":\"30.00\",\"nombreestados\":\"Con Mancha @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null,\"item\":203}],\"3X2 PRENDAS DE CAMA\":[{\"key\":\"Uxnbf\",\"idprenda\":\"38\",\"nombreprenda\":\"CORTINA CENEFA (METRO)\",\"color\":\"VERDE\",\"marca\":\"RIPLEY\",\"precioprenda\":\"8.00\",\"nombreestados\":\"Con Desgaste @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null,\"item\":301},{\"key\":\"Ukppp\",\"idprenda\":\"312\",\"nombreprenda\":\"CHALECO VESTIR\",\"color\":\"VIOLETA\",\"marca\":\"\\u00c9L\",\"precioprenda\":\"5.60\",\"nombreestados\":\"Con Mancha @ Con Decoloraci\\u00f3n\",\"observaciones\":null,\"audios\":null,\"imagenes\":null,\"item\":302},{\"key\":\"Unnw0\",\"idprenda\":\"38\",\"nombreprenda\":\"CORTINA CENEFA (METRO)\",\"color\":\"VERDE\",\"marca\":\"TRIAL\",\"precioprenda\":\"8.00\",\"nombreestados\":\"Con Decoloraci\\u00f3n @ Con Huequito\",\"observaciones\":null,\"audios\":null,\"imagenes\":null,\"item\":303}]}', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -911,6 +960,22 @@ CREATE TABLE `promocion` (
   `estado_promocion` enum('Activo','Inactivo') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'Activo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `promocion`
+--
+
+INSERT INTO `promocion` (`id`, `idarticulo_promocion`, `codigo_promocion`, `nombre_promocion`, `precio_promocion`, `estado_promocion`) VALUES
+(2, 526, 'PROMO526', 'PROMO1', '0.00', 'Activo'),
+(3, 526, 'PROMO526', 'PROMO2', '0.00', 'Activo'),
+(4, 526, 'PROMO526', 'PROMO3', '0.00', 'Activo'),
+(5, 527, 'PROMO527', 'PROMO1', '0.00', 'Activo'),
+(6, 527, 'PROMO527', 'PROMO2', '0.00', 'Activo'),
+(7, 527, 'PROMO527', 'PROMO3', '0.00', 'Activo'),
+(8, 527, 'PROMO527', 'PROMO4', '0.00', 'Activo'),
+(9, 528, 'PROMO528', 'PROMO1', '0.00', 'Activo'),
+(10, 528, 'PROMO528', 'PROMO2', '0.00', 'Activo'),
+(11, 528, 'PROMO528', 'PROMO3', '0.00', 'Activo');
+
 -- --------------------------------------------------------
 
 --
@@ -922,6 +987,355 @@ CREATE TABLE `promocionxarticulo` (
   `idpromocion` int(25) NOT NULL,
   `idarticulo` int(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `promocionxarticulo`
+--
+
+INSERT INTO `promocionxarticulo` (`id`, `idpromocion`, `idarticulo`) VALUES
+(2, 2, 1),
+(3, 2, 2),
+(4, 2, 19),
+(5, 2, 20),
+(6, 2, 21),
+(7, 2, 22),
+(8, 2, 109),
+(9, 2, 110),
+(10, 2, 111),
+(11, 2, 112),
+(12, 2, 118),
+(13, 2, 119),
+(14, 2, 138),
+(15, 2, 139),
+(16, 2, 142),
+(17, 2, 143),
+(18, 2, 149),
+(19, 2, 150),
+(20, 2, 151),
+(21, 2, 152),
+(22, 2, 170),
+(23, 2, 171),
+(24, 2, 177),
+(25, 2, 178),
+(26, 2, 203),
+(27, 2, 204),
+(28, 2, 205),
+(29, 2, 206),
+(30, 2, 227),
+(31, 2, 228),
+(32, 2, 233),
+(33, 2, 385),
+(34, 2, 317),
+(35, 2, 319),
+(36, 2, 321),
+(37, 2, 347),
+(38, 2, 359),
+(39, 2, 376),
+(40, 2, 377),
+(41, 2, 471),
+(42, 2, 472),
+(43, 3, 1),
+(44, 3, 2),
+(45, 3, 19),
+(46, 3, 20),
+(47, 3, 21),
+(48, 3, 22),
+(49, 3, 109),
+(50, 3, 110),
+(51, 3, 111),
+(52, 3, 112),
+(53, 3, 118),
+(54, 3, 119),
+(55, 3, 138),
+(56, 3, 139),
+(57, 3, 142),
+(58, 3, 143),
+(59, 3, 149),
+(60, 3, 150),
+(61, 3, 151),
+(62, 3, 152),
+(63, 3, 170),
+(64, 3, 171),
+(65, 3, 177),
+(66, 3, 178),
+(67, 3, 203),
+(68, 3, 204),
+(69, 3, 205),
+(70, 3, 206),
+(71, 3, 227),
+(72, 3, 228),
+(73, 3, 233),
+(74, 3, 385),
+(75, 3, 317),
+(76, 3, 319),
+(77, 3, 321),
+(78, 3, 347),
+(79, 3, 359),
+(80, 3, 376),
+(81, 3, 377),
+(82, 3, 471),
+(83, 3, 472),
+(84, 4, 1),
+(85, 4, 2),
+(86, 4, 19),
+(87, 4, 20),
+(88, 4, 21),
+(89, 4, 22),
+(90, 4, 109),
+(91, 4, 110),
+(92, 4, 111),
+(93, 4, 112),
+(94, 4, 118),
+(95, 4, 119),
+(96, 4, 138),
+(97, 4, 139),
+(98, 4, 142),
+(99, 4, 143),
+(100, 4, 149),
+(101, 4, 150),
+(102, 4, 151),
+(103, 4, 152),
+(104, 4, 170),
+(105, 4, 171),
+(106, 4, 177),
+(107, 4, 178),
+(108, 4, 203),
+(109, 4, 204),
+(110, 4, 205),
+(111, 4, 206),
+(112, 4, 227),
+(113, 4, 228),
+(114, 4, 233),
+(115, 4, 385),
+(116, 4, 317),
+(117, 4, 319),
+(118, 4, 321),
+(119, 4, 347),
+(120, 4, 359),
+(121, 4, 376),
+(122, 4, 377),
+(123, 4, 471),
+(124, 4, 472),
+(125, 5, 10),
+(126, 5, 11),
+(127, 5, 12),
+(128, 5, 16),
+(129, 5, 17),
+(130, 5, 42),
+(131, 5, 43),
+(132, 5, 45),
+(133, 5, 93),
+(134, 5, 99),
+(135, 5, 100),
+(136, 5, 101),
+(137, 5, 140),
+(138, 5, 148),
+(139, 5, 172),
+(140, 5, 197),
+(141, 5, 222),
+(142, 5, 225),
+(143, 5, 237),
+(144, 5, 296),
+(145, 5, 297),
+(146, 5, 298),
+(147, 5, 299),
+(148, 5, 306),
+(149, 5, 308),
+(150, 5, 310),
+(151, 5, 311),
+(152, 5, 346),
+(153, 5, 363),
+(154, 5, 414),
+(155, 5, 448),
+(156, 6, 10),
+(157, 6, 11),
+(158, 6, 12),
+(159, 6, 16),
+(160, 6, 17),
+(161, 6, 42),
+(162, 6, 43),
+(163, 6, 45),
+(164, 6, 93),
+(165, 6, 99),
+(166, 6, 100),
+(167, 6, 101),
+(168, 6, 140),
+(169, 6, 148),
+(170, 6, 172),
+(171, 6, 197),
+(172, 6, 222),
+(173, 6, 225),
+(174, 6, 237),
+(175, 6, 296),
+(176, 6, 297),
+(177, 6, 298),
+(178, 6, 299),
+(179, 6, 306),
+(180, 6, 308),
+(181, 6, 310),
+(182, 6, 311),
+(183, 6, 346),
+(184, 6, 363),
+(185, 6, 414),
+(186, 6, 448),
+(187, 7, 10),
+(188, 7, 11),
+(189, 7, 12),
+(190, 7, 16),
+(191, 7, 17),
+(192, 7, 42),
+(193, 7, 43),
+(194, 7, 45),
+(195, 7, 93),
+(196, 7, 99),
+(197, 7, 100),
+(198, 7, 101),
+(199, 7, 140),
+(200, 7, 148),
+(201, 7, 172),
+(202, 7, 197),
+(203, 7, 222),
+(204, 7, 225),
+(205, 7, 237),
+(206, 7, 296),
+(207, 7, 297),
+(208, 7, 298),
+(209, 7, 299),
+(210, 7, 306),
+(211, 7, 308),
+(212, 7, 310),
+(213, 7, 311),
+(214, 7, 346),
+(215, 7, 363),
+(216, 7, 414),
+(217, 7, 448),
+(218, 8, 10),
+(219, 8, 11),
+(220, 8, 12),
+(221, 8, 16),
+(222, 8, 17),
+(223, 8, 42),
+(224, 8, 43),
+(225, 8, 45),
+(226, 8, 93),
+(227, 8, 99),
+(228, 8, 100),
+(229, 8, 101),
+(230, 8, 140),
+(231, 8, 148),
+(232, 8, 172),
+(233, 8, 197),
+(234, 8, 222),
+(235, 8, 225),
+(236, 8, 237),
+(237, 8, 296),
+(238, 8, 297),
+(239, 8, 298),
+(240, 8, 299),
+(241, 8, 306),
+(242, 8, 308),
+(243, 8, 310),
+(244, 8, 311),
+(245, 8, 346),
+(246, 8, 363),
+(247, 8, 414),
+(248, 8, 448),
+(249, 9, 36),
+(250, 9, 37),
+(251, 9, 38),
+(252, 9, 39),
+(253, 9, 47),
+(254, 9, 48),
+(255, 9, 49),
+(256, 9, 50),
+(257, 9, 51),
+(258, 9, 52),
+(259, 9, 53),
+(260, 9, 54),
+(261, 9, 62),
+(262, 9, 63),
+(263, 9, 64),
+(264, 9, 65),
+(265, 9, 66),
+(266, 9, 67),
+(267, 9, 68),
+(268, 9, 69),
+(269, 9, 70),
+(270, 9, 71),
+(271, 9, 72),
+(272, 9, 87),
+(273, 9, 88),
+(274, 9, 199),
+(275, 9, 200),
+(276, 9, 201),
+(277, 9, 202),
+(278, 9, 312),
+(279, 9, 313),
+(280, 9, 314),
+(281, 10, 36),
+(282, 10, 37),
+(283, 10, 38),
+(284, 10, 39),
+(285, 10, 47),
+(286, 10, 48),
+(287, 10, 49),
+(288, 10, 50),
+(289, 10, 51),
+(290, 10, 52),
+(291, 10, 53),
+(292, 10, 54),
+(293, 10, 62),
+(294, 10, 63),
+(295, 10, 64),
+(296, 10, 65),
+(297, 10, 66),
+(298, 10, 67),
+(299, 10, 68),
+(300, 10, 69),
+(301, 10, 70),
+(302, 10, 71),
+(303, 10, 72),
+(304, 10, 87),
+(305, 10, 88),
+(306, 10, 199),
+(307, 10, 200),
+(308, 10, 201),
+(309, 10, 202),
+(310, 10, 312),
+(311, 10, 313),
+(312, 10, 314),
+(313, 11, 36),
+(314, 11, 37),
+(315, 11, 38),
+(316, 11, 39),
+(317, 11, 47),
+(318, 11, 48),
+(319, 11, 49),
+(320, 11, 50),
+(321, 11, 51),
+(322, 11, 52),
+(323, 11, 53),
+(324, 11, 54),
+(325, 11, 62),
+(326, 11, 63),
+(327, 11, 64),
+(328, 11, 65),
+(329, 11, 66),
+(330, 11, 67),
+(331, 11, 68),
+(332, 11, 69),
+(333, 11, 70),
+(334, 11, 71),
+(335, 11, 72),
+(336, 11, 87),
+(337, 11, 88),
+(338, 11, 199),
+(339, 11, 200),
+(340, 11, 201),
+(341, 11, 202),
+(342, 11, 312),
+(343, 11, 313),
+(344, 11, 314);
 
 -- --------------------------------------------------------
 
@@ -935,6 +1349,16 @@ CREATE TABLE `receta` (
   `Cantidad_Receta` varchar(50) COLLATE utf8_spanish_ci NOT NULL DEFAULT '1',
   `IdArticuloPieza_Receta` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `receta`
+--
+
+INSERT INTO `receta` (`id`, `IdArticulo_Receta`, `Cantidad_Receta`, `IdArticuloPieza_Receta`) VALUES
+(1, 529, '1', 93),
+(2, 529, '1', 109),
+(3, 530, '1', 93),
+(4, 530, '1', 109);
 
 -- --------------------------------------------------------
 
@@ -993,7 +1417,8 @@ INSERT INTO `repartidor` (`id`, `codigo_repartidor`, `nombre_repartidor`, `apell
 (1, 'REP0001', 'Roberto Manuel', 'Manrique Rodriguez', '', 1, '-12.0387869', '-76.9623343', '74:F0:7D:E9:B8:4C', 'B003', 'F003', 'Activo'),
 (2, 'REP0002', 'Juan Carlos', 'Mamani Quispe', '', 2, NULL, NULL, '', 'B003', 'F003', 'Activo'),
 (3, 'REP0003', 'Luis Miguel', 'Chavez de la Cruz', '', 3, NULL, NULL, '', 'B003', 'F003', 'Activo'),
-(6, 'REP0006', 'Juan Luis', 'Huaman Keiko', '', 4, NULL, NULL, '', 'B006', 'F006', 'Activo');
+(6, 'REP0006', 'Juan Luis', 'Huaman Keiko', '', 1, NULL, NULL, '', 'B006', 'F006', 'Activo'),
+(8, 'DAVID', 'David Huanaco', '-', '', 2, NULL, NULL, '', 'B004', 'F004', 'Activo');
 
 -- --------------------------------------------------------
 
@@ -1039,7 +1464,7 @@ CREATE TABLE `turnoxcliente` (
   `hora_turno` time NOT NULL,
   `atencion` enum('Atendido','Sin Atender') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'Sin Atender',
   `estado_turno` enum('Entrega','Recojo','Reclamo') COLLATE utf8_spanish_ci DEFAULT 'Recojo',
-  `idprenda` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `idprenda` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'AQUI GUARDO EL ITEM, NO GUARDO EL ID DE PRENDA',
   `color` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `marca` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -1049,7 +1474,8 @@ CREATE TABLE `turnoxcliente` (
 --
 
 INSERT INTO `turnoxcliente` (`id`, `numero_orden`, `id_repartidor`, `id_cliente`, `id_zona`, `puesto_turno`, `fecha_turno`, `hora_turno`, `atencion`, `estado_turno`, `idprenda`, `color`, `marca`) VALUES
-(1, NULL, 6, 3647, 1, 'Temprano', '2021-10-13', '12:45:02', 'Sin Atender', 'Recojo', NULL, NULL, NULL);
+(1, NULL, 6, 10691, 1, 'Tarde', '2021-10-13', '15:00:00', 'Sin Atender', 'Recojo', NULL, NULL, NULL),
+(28, 'C1-0000017', 6, 10691, 1, 'Temprano', '2021-10-16', '10:00:00', 'Sin Atender', 'Recojo', '201', 'VERDE / VERDE A RAYAS', 'TIGRE');
 
 -- --------------------------------------------------------
 
@@ -1098,7 +1524,8 @@ INSERT INTO `zonaxrepartidor` (`id`, `id_zona`, `id_repartidor`) VALUES
 (3, 3, 4),
 (4, 3, 0),
 (5, 1, 6),
-(6, 4, 7);
+(6, 4, 7),
+(7, 2, 8);
 
 --
 -- Índices para tablas volcadas
@@ -1263,31 +1690,31 @@ ALTER TABLE `zonaxrepartidor`
 -- AUTO_INCREMENT de la tabla `articulo`
 --
 ALTER TABLE `articulo`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=525;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=531;
 
 --
 -- AUTO_INCREMENT de la tabla `boleta`
 --
 ALTER TABLE `boleta`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10692;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10694;
 
 --
 -- AUTO_INCREMENT de la tabla `color`
 --
 ALTER TABLE `color`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4771;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4871;
 
 --
 -- AUTO_INCREMENT de la tabla `detalleorden`
 --
 ALTER TABLE `detalleorden`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `distrito`
@@ -1323,31 +1750,31 @@ ALTER TABLE `impresora`
 -- AUTO_INCREMENT de la tabla `marca`
 --
 ALTER TABLE `marca`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1857;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1956;
 
 --
 -- AUTO_INCREMENT de la tabla `orden`
 --
 ALTER TABLE `orden`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `promocion`
 --
 ALTER TABLE `promocion`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `promocionxarticulo`
 --
 ALTER TABLE `promocionxarticulo`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=345;
 
 --
 -- AUTO_INCREMENT de la tabla `receta`
 --
 ALTER TABLE `receta`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `reclamoxprenda`
@@ -1359,7 +1786,7 @@ ALTER TABLE `reclamoxprenda`
 -- AUTO_INCREMENT de la tabla `repartidor`
 --
 ALTER TABLE `repartidor`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `servicio`
@@ -1371,7 +1798,7 @@ ALTER TABLE `servicio`
 -- AUTO_INCREMENT de la tabla `turnoxcliente`
 --
 ALTER TABLE `turnoxcliente`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `zona`
@@ -1383,7 +1810,7 @@ ALTER TABLE `zona`
 -- AUTO_INCREMENT de la tabla `zonaxrepartidor`
 --
 ALTER TABLE `zonaxrepartidor`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
