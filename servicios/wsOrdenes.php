@@ -236,6 +236,33 @@ if (METODO($method) == 'GET') {
         } else {
             $json['msg'] = strings('error_empty');
         }
+    } else if ($cmd == 'eliminarreclamo') {
+        $uuid = input('uuid'); // ID 
+
+        if ($uuid) {
+            try {
+                $data = $pdo->delete(
+                        tabla('turnoxcliente'),
+                        [
+                            "AND" => [
+                                "uuid" => strval($uuid),
+                            ]
+                        ]
+                );
+
+                if ($data->rowCount()) {
+                    $json['code'] = '200';
+                    $json['status'] = 'Ok';
+                    $json['msg'] = strings('success_delete');
+                } else {
+                    $json['msg'] = strings('error_delete');
+                }
+            } catch (Throwable $e) {
+                $json['msg'] = strings('error_delete');
+            }
+        } else {
+            $json['msg'] = strings('error_empty');
+        }
     } else if ($cmd == 'registrarreclamo') {
 
         $numerodeorden = input('numerodeorden'); // NUMERO DE ORDEN
