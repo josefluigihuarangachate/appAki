@@ -143,15 +143,13 @@ $o = 0;
                         tabla('turnoxcliente') . ".id_cliente(idcliente)",
                     ],
                     [
-                        tabla('orden') . '.numeroorden' => $ordenes[$o], // C1, C2, C3
-                    //tabla('orden') . '.fecha_entrega' => date('Y-m-d'),
-                    ],
-                    [
+                        tabla('orden') . '.numeroorden' => $ordenes[$o],
                         // Multiple condition.
                         "ORDER" => [
                             //tabla('detalleorden') . ".id" => "DESC",
                             tabla('orden') . ".numeroorden" => "DESC"
-                        ]
+                        ],
+                        "LIMIT" => 1
                     ]
             );
 
@@ -212,10 +210,7 @@ $o = 0;
                                 $idprendas[] = $prendas[$pr]['idprenda'];
                             }
                             ?>
-
-
-
-
+                                
                             <?php
                             $reclamos = $pdo->select(
                                     tabla('reclamoxprenda'),

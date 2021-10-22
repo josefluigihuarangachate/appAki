@@ -239,6 +239,7 @@ if (METODO($method) == 'GET') {
     } else if ($cmd == 'registrarreclamo') {
 
         $numerodeorden = input('numerodeorden'); // NUMERO DE ORDEN
+        $uuid = input('uuid'); // NUMERO DE ORDEN
         $codigodeprenda = input('codigodeprenda'); // $item = ITEM
         $colordeprenda = input('colordeprenda');
         $marcadeprenda = input('marcadeprenda');
@@ -253,6 +254,7 @@ if (METODO($method) == 'GET') {
 
         if (
                 $numerodeorden &&
+                $uuid &&
                 $codigodeprenda &&
                 $colordeprenda &&
                 $marcadeprenda &&
@@ -298,12 +300,12 @@ if (METODO($method) == 'GET') {
                             "LIMIT" => 1
                         ],
                 );
-                
+
                 // REGISTRAMOS EL TURNO X CLIENTE
                 $pdo->insert(
                         tabla("turnoxcliente"),
                         [
-                            "numero_orden" => $numerodeorden,                            
+                            "numero_orden" => $numerodeorden,
                             "id_repartidor" => intval($idrepartidor),
                             "id_cliente" => intval($idcliente),
                             "id_zona" => intval($iddezona),
@@ -315,6 +317,7 @@ if (METODO($method) == 'GET') {
                             "idprenda" => $getIdArt[0],
                             "color" => $colordeprenda,
                             "marca" => $marcadeprenda,
+                            "uuid" => intval($uuid)
                         ]
                 );
 

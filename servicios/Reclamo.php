@@ -106,6 +106,7 @@ if ($ajax) {
 
                     $explode = explode('-', $numerodeorden);
                     $numerodeordendereclamo = @$datosdelorden[0]['idzona'] . '-' . zero_fill($explode[1], 7);
+                    $reclamoxprendanumorden = @$datosdelorden[0]['idzona'] . '-' . zero_fill($reclamoxprenda_id, 7);
 
                     if ($reclamoxprenda_id) {
 
@@ -160,7 +161,7 @@ if ($ajax) {
                         $pdo->update(
                                 tabla('reclamoxprenda'),
                                 [
-                                    "numeroorden" => $numerodeordendereclamo,
+                                    "numeroorden" => $reclamoxprendanumorden,
                                     "audio" => isEmpty($in_audios),
                                     "imagen" => isEmpty($in_archivos)
                                 ],
