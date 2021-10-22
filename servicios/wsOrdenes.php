@@ -239,7 +239,9 @@ if (METODO($method) == 'GET') {
     } else if ($cmd == 'registrarreclamo') {
 
         $numerodeorden = input('numerodeorden'); // NUMERO DE ORDEN
-        $item = input('item'); // ITEM
+        $codigodeprenda = input('codigodeprenda'); // $item = ITEM
+        $colordeprenda = input('colordeprenda');
+        $marcadeprenda = input('marcadeprenda');
         $idrepartidor = input('idrepartidor'); // AUTO INCREMENT ID, ACA SE CREARA UN WEBSERVICE PARA QUE PUEDA CONSUMIR
         $idcliente = input('idcliente'); // AUTO INCREMENT ID
         $idzona = input('idzona');  // (C1, C2, C3, ETC)
@@ -251,7 +253,9 @@ if (METODO($method) == 'GET') {
 
         if (
                 $numerodeorden &&
-                $item &&
+                $codigodeprenda &&
+                $colordeprenda &&
+                $marcadeprenda &&
                 $idrepartidor &&
                 $idcliente &&
                 $idzona &&
@@ -277,31 +281,29 @@ if (METODO($method) == 'GET') {
                 );
                 $iddezona = @$obteneridzona[0]['id'];
 
+                // SEPARO EL NUMERO DE ORDEN: C1    000000323, POR EL GUION
                 $sepnumorden = explode("-", trim($numerodeorden));
 
-                $getprenda = $pdo->select(
-                        tabla("detalleorden"),
+                // OBETNEGO idprenda POR EL CODIGO DE PRENDA, EL QUE TENGA LA 
+                $getIdArt = $pdo->select(
+                        tabla('articulo'),
+                        "id",
                         [
-                            "idprenda",
-                            "nombreprenda",
-                            "color",
-                            "marca",
-                        ],
-                        [
-                            "idorden" => intval($sepnumorden[1]),
-                            "item" => $item
-                        ],
-                        [
+                            "codigo_articulo" => $codigodeprenda, // WHERE
+                            // ORDER
+                            "ORDER" => [
+                                // Order by column with ascending sorting.
+                                "precio_articulo" => "DESC"
+                            ],
                             "LIMIT" => 1
-                        ]
+                        ],
                 );
-
+                
                 // REGISTRAMOS EL TURNO X CLIENTE
                 $pdo->insert(
                         tabla("turnoxcliente"),
                         [
-                            "numero_orden" => $numerodeorden,
-                            "idprenda" => $item,
+                            "numero_orden" => $numerodeorden,                            
                             "id_repartidor" => intval($idrepartidor),
                             "id_cliente" => intval($idcliente),
                             "id_zona" => intval($iddezona),
@@ -310,8 +312,9 @@ if (METODO($method) == 'GET') {
                             "hora_turno" => $hora,
                             "atencion" => $atencion,
                             "estado_turno" => $estadodeturno,
-                            "color" => $getprenda[0]['color'],
-                            "marca" => $getprenda[0]['marca'],
+                            "idprenda" => $getIdArt[0],
+                            "color" => $colordeprenda,
+                            "marca" => $marcadeprenda,
                         ]
                 );
 
@@ -873,6 +876,29 @@ if (METODO($method) == 'GET') {
         $nombredelservicio = input('nombredelservicio'); // Manejo estas categorias y sin tildes: Agua, Promociones, Pieles, Etc..
         // RECETA
         $inidarticulos = explode(",", input('inidarticulos')); // PASAR DE ESTA FORMA: inidarticulos = "1,3,4,5", LOS IDS DE LOS ARTICULOS
+        // OBTENGO EL ID DEL SERVICIO
+        $obtidservicio = $pdo->select(
+                tabla('servicio'),
+                "id",
+                [
+                    "Nombre_Servicio[~]" => trim($nombredelservicio)
+                ],
+                [
+                    "LIMIT" => 1
+                ]
+        );
+
+        // OBTENGO EL ID DEL SERVICIO
+        $incodarticulos = $pdo->select(
+                tabla('articulo'),
+                "id",
+                [
+                    "codigo_articulo" => $inidarticulos,
+                    "Id_Servicio" => $obtidservicio[0]
+                ]
+        );
+
+        $inidarticulos = $incodarticulos; // CON ESTO YA OBTENGO EL ID Y NO EL CODIGO
 
         if (
                 !empty($codigodearticulo) &&
@@ -1122,12 +1148,28 @@ if (METODO($method) == 'GET') {
                                 $armarpromo[strtoupper($nombredearticulo)]['promociones'][trim($nombredepromociones[$pr])]['prendas'] = explode(',', $prendajoinflecha[1]);
                                 $articulosids = explode(',', $prendajoinflecha[1]);
                                 for ($axp = 0; $axp < count($articulosids); $axp++) {
+
+                                    // BUSCO EL ID DE LA PRENDA POR CODIGO Y PRECIO MAYOR
+                                    $getIdArt = $pdo->select(
+                                            tabla('articulo'),
+                                            "id",
+                                            [
+                                                "codigo_articulo" => trim($articulosids[$axp]), // WHERE
+                                                // ORDER
+                                                "ORDER" => [
+                                                    // Order by column with ascending sorting.
+                                                    "precio_articulo" => "DESC"
+                                                ],
+                                                "LIMIT" => 1
+                                            ],
+                                    );
+
                                     // INSERTO EL ARTICULO
                                     $pdo->insert(
                                             tabla('promocionxarticulo'),
                                             [
                                                 "idpromocion" => intval($idpromo),
-                                                "idarticulo" => intval($articulosids[$axp]),
+                                                "idarticulo" => intval($getIdArt[0]),
                                             ]
                                     );
                                 }
@@ -1233,12 +1275,28 @@ if (METODO($method) == 'GET') {
                                 $armarpromo[strtoupper($nombredearticulo)]['promociones'][trim($nombredepromociones[$pr])]['prendas'] = explode(',', $prendajoinflecha[1]);
                                 $articulosids = explode(',', $prendajoinflecha[1]);
                                 for ($axp = 0; $axp < count($articulosids); $axp++) {
+
+                                    // BUSCO EL ID DE LA PRENDA POR CODIGO Y PRECIO MAYOR
+                                    $getIdArt = $pdo->select(
+                                            tabla('articulo'),
+                                            "id",
+                                            [
+                                                "codigo_articulo" => trim($articulosids[$axp]), // WHERE
+                                                // ORDER
+                                                "ORDER" => [
+                                                    // Order by column with ascending sorting.
+                                                    "precio_articulo" => "DESC"
+                                                ],
+                                                "LIMIT" => 1
+                                            ],
+                                    );
+
                                     // INSERTO EL ARTICULO
                                     $pdo->insert(
                                             tabla('promocionxarticulo'),
                                             [
                                                 "idpromocion" => intval($idpromo),
-                                                "idarticulo" => intval($articulosids[$axp]),
+                                                "idarticulo" => intval($getIdArt[0]),
                                             ]
                                     );
                                 }

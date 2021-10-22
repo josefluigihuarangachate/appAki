@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/xampp/htdocs/appAki/servicios/wsOrdenes.php</file>
             <file>file:/C:/xampp/htdocs/appAki/servicios/Recojo.php</file>
+            <file>file:/C:/xampp/htdocs/appAki/servicios/Repartidor.php</file>
             <file>file:/C:/xampp/htdocs/appAki/layouts/detalle.php</file>
         </group>
     </open-files>

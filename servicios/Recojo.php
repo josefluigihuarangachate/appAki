@@ -378,7 +378,16 @@ if ($ajax) {
                                     $nombrepieza = isEmpty($cPiezas[$bi]['nombrepieza']);
                                 }
 
+                                $getCodArt = $pdo->select(
+                                        tabla('articulo'),
+                                        "codigo_articulo",
+                                        [
+                                            "id" => intval($idpieza)
+                                        ]
+                                );
+
                                 $arr = array(
+                                    'codigoarticulo' => $getCodArt[0],
                                     'item' => $cPiezas[$bi]['item'],
                                     'idorden' => $lastinsert_id,
                                     'ordenpromocion' => strval($piezas[$vi]['ordenpromocion']),
@@ -547,7 +556,16 @@ if ($ajax) {
                                     ]
                             );
 
+                            $getCodArt = $pdo->select(
+                                    tabla('articulo'),
+                                    "codigo_articulo",
+                                    [
+                                        "id" => intval(@$_REQUEST['pieza' . $keyname[$k]])
+                                    ]
+                            );
+
                             $arr = array(
+                                'codigoarticulo' => $getCodArt[0],
                                 'ordenpromocion' => strval($keyname[$k]),
                                 'idorden' => $lastinsert_id,
                                 'ordenpromocion' => strval($keyname[$k]),
@@ -760,6 +778,9 @@ if ($ajax) {
                                     "id" => $lastinsert_id
                                 ]
                         );
+
+                        echo $html;
+                        die();
                         // FIN GUARDO EL JSON DE LAS PROMOCIONES
                     } else if ($piezas) {
                         $html .= '<div style="text-align: left;font-family: sans-serif;">';
@@ -891,3 +912,4 @@ if ($ajax) {
 //'X-Requested-With', 'XMLHttpRequest'
 //header('Content-Type: application/json');
 //echo json_encode($json, JSON_UNESCAPED_UNICODE);
+

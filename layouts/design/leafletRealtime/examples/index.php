@@ -39,7 +39,7 @@ require '../../../../servicios/include/function.php';
     </head>
     <body>
         <div id="mapid"></div>
-        
+
         <script src="../../js/config.js"></script>
         <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js"></script>
         <script src="../dist/leaflet-realtime.js"></script>
@@ -47,6 +47,6 @@ require '../../../../servicios/include/function.php';
         <script>
             var idrepartidor = "<?php echo @$_SESSION[atributo('id')]; ?>";
         </script>
-        <script src="index.js?v=<?php echo @date("Ymdhis");?>"></script>
+        <script src="index.js?v=<?php echo @date("Ymdhis"); ?>"></script>
     </body>
 </html>

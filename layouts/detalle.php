@@ -149,6 +149,18 @@ include "../servicios/include/tables.php";
                     ]
             );
 
+            // hago un select al articulo por idprenda y saber su codigo
+            $getCodArt = $pdo->select(
+                    tabla('articulo'),
+                    "codigo_articulo",
+                    [
+                        tabla('articulo') . ".id" => @$recojoreclamo[0]['idprenda']
+                    ],
+                    [
+                        'LIMIT' => 1
+                    ]
+            );
+
             $reclamodeprenda = $pdo->select(
                     tabla('detalleorden'),
                     [
@@ -159,7 +171,8 @@ include "../servicios/include/tables.php";
                     ],
                     [
                         tabla('detalleorden') . ".idorden" => @$recojoreclamo[0]['idorden'],
-                        tabla('detalleorden') . ".item" => @$recojoreclamo[0]['idprenda'],
+                        tabla('detalleorden') . ".idprenda" => @$recojoreclamo[0]['idprenda'],
+                        tabla('detalleorden') . ".codigoarticulo" => @$getCodArt[0]['codigo_articulo'],
                     ],
                     [
                         'LIMIT' => 1
@@ -223,7 +236,7 @@ include "../servicios/include/tables.php";
                 });
             });
         </script>
-        <!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                                                                                       ?>" type="text/javascript"></script>
-                <script src="design/js/crud/cliente.js<?php //echo @$v;                                                                                        ?>" type="text/javascript"></script>-->
+        <!--        <script src="design/js/crud/searchFilter.js<?php //echo @$v;                                                                                            ?>" type="text/javascript"></script>
+                <script src="design/js/crud/cliente.js<?php //echo @$v;                                                                                             ?>" type="text/javascript"></script>-->
     </body>
 </html>
